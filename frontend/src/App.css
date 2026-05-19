@@ -1,0 +1,13 @@
+/* App styles - using Tailwind CSS */
+
+/* 隐藏滚动条但保留滚动效果 */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+
