@@ -71,4 +71,3 @@ VALUES ('550e8400-e29b-41d4-a716-446655440101', '海融惠企', '金融服务聚
         '550e8400-e29b-41d4-a716-446655440003', false, 6, NOW(), NOW()),
        ('550e8400-e29b-41d4-a716-446655440124', '医保电子凭证', '医保电子凭证', 'Pill', '/medical_insurance',
         'developing', '550e8400-e29b-41d4-a716-446655440005', false, 4, NOW(), NOW()) ON CONFLICT DO NOTHING;
-
