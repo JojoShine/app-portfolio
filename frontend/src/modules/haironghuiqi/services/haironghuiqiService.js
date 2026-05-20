@@ -25,6 +25,40 @@ export const getProductDetail = async (productId) => {
   }
 };
 
+// 获取所有机构
+export const getAllInstitutions = async () => {
+  try {
+    const response = await api.get('/haironghuiqi/institutions');
+    return response.data.data || [];
+  } catch (error) {
+    throw error;
+  }
+};
+
+// 按分类获取机构
+export const getInstitutionsByCategory = async (category) => {
+  try {
+    const response = await api.get(`/haironghuiqi/institutions/category/${category}`);
+    return response.data.data || [];
+  } catch (error) {
+    throw error;
+  }
+};
+
+// 搜索机构
+export const searchInstitutions = async (query, category = null) => {
+  try {
+    const params = { query };
+    if (category && category !== 'all') {
+      params.category = category;
+    }
+    const response = await api.get('/haironghuiqi/search', { params });
+    return response.data.data || [];
+  } catch (error) {
+    throw error;
+  }
+};
+
 // 获取机构列表
 export const getInstitutionList = async (params = {}) => {
   try {
@@ -140,6 +174,9 @@ export default {
   getProductDetail,
   getInstitutionList,
   getInstitutionDetail,
+  getAllInstitutions,
+  getInstitutionsByCategory,
+  searchInstitutions,
   createApplication,
   getApplicationList,
   getApplicationDetail,

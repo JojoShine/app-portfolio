@@ -38,3 +38,17 @@ INSERT INTO apps (id, name, description, icon, path, status, category_id, sort, 
 ('550e8400-e29b-41d4-a716-446655440123', '话费缴费', '话费充值缴费', 'CreditCard', '/phone_bill', 'developing', '550e8400-e29b-41d4-a716-446655440003', 6, NOW(), NOW()),
 ('550e8400-e29b-41d4-a716-446655440124', '医保电子凭证', '医保电子凭证', 'Pill', '/medical_insurance', 'developing', '550e8400-e29b-41d4-a716-446655440005', 4, NOW(), NOW())
 ON CONFLICT DO NOTHING;
+
+-- 插入机构数据
+INSERT INTO institutions (id, name, category, address, business_hours, logo, description, status, sort, created_at, updated_at) VALUES
+('550e8400-e29b-41d4-a716-446655440201', '中国人民银行', 'bank', '北京市西城区金融街19号', '09:00-17:00', 'https://app-portfolio.minio.example.com/logo.png', '中国人民银行是中华人民共和国的中央银行', 'active', 1, NOW(), NOW()),
+('550e8400-e29b-41d4-a716-446655440202', '中国工商银行', 'bank', '北京市东城区建国门内大街1号', '08:30-17:30', 'https://app-portfolio.minio.example.com/logo.png', '中国工商银行是中国最大的商业银行', 'active', 2, NOW(), NOW()),
+('550e8400-e29b-41d4-a716-446655440203', '中国农业银行', 'bank', '北京市朝阳区建国路93号', '09:00-17:00', 'https://app-portfolio.minio.example.com/logo.png', '中国农业银行是中国主要的农业金融服务提供商', 'active', 3, NOW(), NOW()),
+('550e8400-e29b-41d4-a716-446655440204', '中国银行', 'bank', '北京市西城区复兴门内大街1号', '09:00-17:00', 'https://app-portfolio.minio.example.com/logo.png', '中国银行是中国最古老的银行之一', 'active', 4, NOW(), NOW()),
+('550e8400-e29b-41d4-a716-446655440205', '中国建设银行', 'bank', '北京市西城区金融街25号', '08:30-17:30', 'https://app-portfolio.minio.example.com/logo.png', '中国建设银行是中国主要的基础设施投资银行', 'active', 5, NOW(), NOW()),
+('550e8400-e29b-41d4-a716-446655440206', '中国人寿保险', 'insurance', '北京市朝阳区建国路88号', '09:00-18:00', 'https://app-portfolio.minio.example.com/logo.png', '中国人寿保险是中国最大的保险公司', 'active', 1, NOW(), NOW()),
+('550e8400-e29b-41d4-a716-446655440207', '中国平安保险', 'insurance', '北京市福田区福华一路1号', '09:00-18:00', 'https://app-portfolio.minio.example.com/logo.png', '中国平安保险是中国领先的保险集团', 'active', 2, NOW(), NOW()),
+('550e8400-e29b-41d4-a716-446655440208', '中国太平保险', 'insurance', '北京市西城区宣武门西大街甲97号', '09:00-17:30', 'https://app-portfolio.minio.example.com/logo.png', '中国太平保险是中国历史最悠久的保险公司', 'active', 3, NOW(), NOW()),
+('550e8400-e29b-41d4-a716-446655440209', '中国证券', 'securities', '北京市西城区金融街35号', '09:30-15:00', 'https://app-portfolio.minio.example.com/logo.png', '中国证券是中国主要的证券公司', 'active', 1, NOW(), NOW()),
+('550e8400-e29b-41d4-a716-446655440210', '中信证券', 'securities', '北京市朝阳区建国路1号', '09:30-15:00', 'https://app-portfolio.minio.example.com/logo.png', '中信证券是中国领先的综合性证券公司', 'active', 2, NOW(), NOW())
+ON CONFLICT DO NOTHING;

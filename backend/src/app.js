@@ -10,6 +10,7 @@ const authRoutes = require('./modules/auth/routes');
 const userRoutes = require('./modules/user/routes');
 const fileRoutes = require('./modules/file/routes');
 const appRoutes = require('./modules/app/routes');
+const haironghuiqiRoutes = require('./modules/haironghuiqi/routes');
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/files', fileRoutes);
 app.use('/api/app', appRoutes);
+app.use('/api/haironghuiqi', haironghuiqiRoutes);
 
 // 404 处理
 app.use((req, res) => {
