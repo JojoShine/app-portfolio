@@ -1,4 +1,5 @@
 import api from './api';
+import { handleResponse } from './responseHandler';
 
 /**
  * 获取token
@@ -7,15 +8,11 @@ import api from './api';
  * @returns {Promise} token数据
  */
 export const getToken = async (appId, moduleName) => {
-  try {
-    const response = await api.post('/auth/token', {
-      appId,
-      moduleName,
-    });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await api.post('/auth/token', {
+    appId,
+    moduleName,
+  });
+  return handleResponse(response);
 };
 
 /**
@@ -24,14 +21,10 @@ export const getToken = async (appId, moduleName) => {
  * @returns {Promise} 新的token数据
  */
 export const refreshToken = async (refreshToken) => {
-  try {
-    const response = await api.post('/auth/refresh', {
-      refreshToken,
-    });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await api.post('/auth/refresh', {
+    refreshToken,
+  });
+  return handleResponse(response);
 };
 
 export default {

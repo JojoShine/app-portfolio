@@ -1,4 +1,5 @@
 import api from './api';
+import { handleResponse, handleListResponse } from './responseHandler';
 
 /**
  * 应用管理 API 服务
@@ -6,54 +7,65 @@ import api from './api';
 
 const appAPI = {
   // 获取所有分类
-  getAllCategories: () => {
-    return api.get('/app/categories');
+  getAllCategories: async () => {
+    const response = await api.get('/app/categories');
+    return handleListResponse(response);
   },
 
   // 获取所有应用
-  getAllApps: () => {
-    return api.get('/app/apps');
+  getAllApps: async () => {
+    const response = await api.get('/app/apps');
+    return handleListResponse(response);
   },
 
   // 按分类获取应用
-  getAppsByCategory: (categoryId) => {
-    return api.get(`/app/apps/category/${categoryId}`);
+  getAppsByCategory: async (categoryId) => {
+    const response = await api.get(`/app/apps/category/${categoryId}`);
+    return handleListResponse(response);
   },
 
   // 获取应用详情
-  getAppDetail: (appId) => {
-    return api.get(`/app/apps/${appId}`);
+  getAppDetail: async (appId) => {
+    const response = await api.get(`/app/apps/${appId}`);
+    return handleResponse(response);
   },
 
   // 创建应用
-  createApp: (appData) => {
-    return api.post('/app/apps', appData);
+  createApp: async (appData) => {
+    const response = await api.post('/app/apps', appData);
+    return handleResponse(response);
   },
 
   // 更新应用
-  updateApp: (appId, appData) => {
-    return api.put(`/app/apps/${appId}`, appData);
+  updateApp: async (appId, appData) => {
+    const response = await api.put(`/app/apps/${appId}`, appData);
+    return handleResponse(response);
   },
 
   // 删除应用
-  deleteApp: (appId) => {
-    return api.delete(`/app/apps/${appId}`);
+  deleteApp: async (appId) => {
+    const response = await api.delete(`/app/apps/${appId}`);
+    return handleResponse(response);
   },
 
   // 创建分类
-  createCategory: (categoryData) => {
-    return api.post('/app/categories', categoryData);
+  createCategory: async (categoryData) => {
+    const response = await api.post('/app/categories', categoryData);
+    return handleResponse(response);
   },
 
   // 更新分类
-  updateCategory: (categoryId, categoryData) => {
-    return api.put(`/app/categories/${categoryId}`, categoryData);
+  updateCategory: async (categoryId, categoryData) => {
+    const response = await api.put(`/app/categories/${categoryId}`, categoryData);
+    return handleResponse(response);
   },
 
   // 删除分类
-  deleteCategory: (categoryId) => {
-    return api.delete(`/app/categories/${categoryId}`);
+  deleteCategory: async (categoryId) => {
+    const response = await api.delete(`/app/categories/${categoryId}`);
+    return handleResponse(response);
   },
 };
 
 export default appAPI;
+

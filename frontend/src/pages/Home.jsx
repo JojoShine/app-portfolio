@@ -24,18 +24,17 @@ const Home = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [appsRes, categoriesRes] = await Promise.all([
+        const [appsData, categoriesData] = await Promise.all([
           appAPI.getAllApps(),
           appAPI.getAllCategories(),
         ]);
 
-        const appsData = appsRes.data || [];
-        setApps(appsData);
-        setCategories(categoriesRes.data || []);
+        setApps(appsData || []);
+        setCategories(categoriesData || []);
         setError(null);
 
         // 如果只有一个应用，自动跳转到该应用
-        if (appsData.length === 1 && appsData[0].status === 'active') {
+        if (appsData && appsData.length === 1 && appsData[0].status === 'active') {
           navigate(appsData[0].path);
         }
       } catch (err) {

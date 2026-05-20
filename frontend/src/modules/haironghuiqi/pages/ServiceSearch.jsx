@@ -35,18 +35,18 @@ const ServiceSearch = () => {
       try {
         setLoading(true);
         setError(null);
-        let data;
+        let institutions;
         if (searchQuery) {
-          data = await haironghuiqiService.searchInstitutions(searchQuery, selectedCategory);
+          institutions = await haironghuiqiService.searchInstitutions(searchQuery, selectedCategory);
         } else if (selectedCategory && selectedCategory !== 'all') {
-          data = await haironghuiqiService.getInstitutionsByCategory(selectedCategory);
+          institutions = await haironghuiqiService.getInstitutionsByCategory(selectedCategory);
         } else {
-          data = await haironghuiqiService.getAllInstitutions();
+          institutions = await haironghuiqiService.getAllInstitutions();
         }
-        setInstitutions(data);
+        setInstitutions(institutions);
       } catch (err) {
         console.error('获取机构列表失败:', err);
-        setError('获取机构列表失败');
+        setError(err.message || '获取机构列表失败');
       } finally {
         setLoading(false);
       }
