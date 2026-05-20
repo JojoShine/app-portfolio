@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Heart } from 'lucide-react';
-import bgImage from '../assets/bg.png';
-import logoImage from '../assets/logo.png';
-import product1 from '../assets/1.png';
-import product2 from '../assets/2.png';
-import product3 from '../assets/3.png';
-import product4 from '../assets/4.png';
-import product5 from '../assets/5.png';
+import bgImage from '../assets/home/bg.png';
+import logoImage from '../assets/home/logo.png';
+import product1 from '../assets/home/1.png';
+import product2 from '../assets/home/2.png';
+import product3 from '../assets/home/3.png';
+import product4 from '../assets/home/4.png';
+import product5 from '../assets/home/5.png';
 
 /**
  * 海融惠企首页

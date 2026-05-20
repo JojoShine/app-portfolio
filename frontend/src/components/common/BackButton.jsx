@@ -20,8 +20,8 @@ const BackButton = () => {
       style={{
         top: '2vh',
         left: '2vh',
-        width: '5vh',
-        height: '5vh',
+        width: '4vh',
+        height: '4vh',
         borderRadius: '50%',
         boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
         zIndex: 100,
@@ -29,7 +29,7 @@ const BackButton = () => {
         cursor: 'pointer',
       }}
     >
-      <ArrowLeft size={24} style={{ color: '#5F6469' }} />
+      <ArrowLeft size={20} style={{ color: '#5F6469' }} />
     </button>
   );
 };

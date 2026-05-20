@@ -1,5 +1,5 @@
-const Institution = require('./model');
-const logger = require('../../common/utils/logger');
+const Institution = require('../models/institution-model');
+const logger = require('../../../common/utils/logger');
 
 /**
  * 海融惠企 Service 层 - 前端查询接口

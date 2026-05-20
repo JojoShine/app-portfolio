@@ -22,7 +22,6 @@ const getFileStream = async (req, res, next) => {
 
     // 设置响应头
     res.setHeader('Content-Type', fileData.mimeType);
-    res.setHeader('Content-Length', fileData.size);
     res.setHeader(
       'Content-Disposition',
       `inline; filename="${encodeURIComponent(fileData.filename)}"`

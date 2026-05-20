@@ -1,6 +1,6 @@
-const service = require('./service');
-const logger = require('../../common/utils/logger');
-const response = require('../../common/response');
+const service = require('../services/institution-service');
+const logger = require('../../../common/utils/logger');
+const response = require('../../../common/response');
 
 /**
  * 海融惠企 Controller 层 - 前端查询接口

@@ -7,7 +7,6 @@ const { v4: uuidv4 } = require('uuid');
 // 上传文件到 MinIO
 const uploadFile = async (file, uploadedBy = null) => {
   try {
-    const env = require('../../config/env');
     const fileId = uuidv4();
     const timestamp = Date.now();
     const fileType = file.fileType || 'other';
@@ -19,7 +18,7 @@ const uploadFile = async (file, uploadedBy = null) => {
 
     // 上传到 MinIO
     await minioClient.putObject(
-      env.MINIO_BUCKET,
+      minioClient.bucket,
       filePath,
       file.buffer,
       file.size,
@@ -56,39 +55,56 @@ const uploadFile = async (file, uploadedBy = null) => {
   }
 };
 
-// 获取文件流
-const getFileStream = async (fileId) => {
+// 获取文件流（支持fileId和path两种方式）
+const getFileStream = async (fileIdOrPath) => {
   try {
-    const fileRecord = await File.findByPk(fileId);
-    if (!fileRecord) {
-      throw new NotFoundError('File not found');
-    }
+    let filePath;
+    let mimeType = 'application/octet-stream';
+    let filename = 'file';
+    let size = 0;
 
-    const env = require('../../config/env');
+    // 判断是fileId还是path
+    // 如果是UUID格式，则认为是fileId；否则认为是path
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+    if (uuidRegex.test(fileIdOrPath)) {
+      // 根据fileId查找
+      const fileRecord = await File.findByPk(fileIdOrPath);
+      if (!fileRecord) {
+        throw new NotFoundError('File not found');
+      }
+      filePath = fileRecord.path;
+      mimeType = fileRecord.mimeType;
+      filename = fileRecord.originalName;
+      size = fileRecord.size;
+    } else {
+      // 直接使用path
+      filePath = fileIdOrPath;
+      filename = fileIdOrPath.split('/').pop();
+    }
 
     // 从 MinIO 获取文件流
     const stream = await minioClient.getObject(
-      env.MINIO_BUCKET,
-      fileRecord.path
+      minioClient.bucket,
+      filePath
     );
 
     logger.info('File stream retrieved', {
-      fileId,
-      filename: fileRecord.filename,
+      filePath,
     });
 
     return {
       stream,
-      mimeType: fileRecord.mimeType,
-      filename: fileRecord.originalName,
-      size: fileRecord.size,
+      mimeType,
+      filename,
+      size,
     };
   } catch (error) {
     if (error instanceof NotFoundError) {
       throw error;
     }
     logger.error('Failed to get file stream', {
-      fileId,
+      fileIdOrPath,
       error: error.message,
     });
     throw new InternalServerError('Failed to retrieve file');
@@ -103,10 +119,8 @@ const deleteFile = async (fileId) => {
       throw new NotFoundError('File not found');
     }
 
-    const env = require('../../config/env');
-
     // 从 MinIO 删除文件
-    await minioClient.removeObject(env.MINIO_BUCKET, fileRecord.path);
+    await minioClient.removeObject(minioClient.bucket, fileRecord.path);
 
     // 从数据库删除记录
     await fileRecord.destroy();

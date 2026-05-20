@@ -9,4 +9,8 @@ const minioClient = new Client({
   secretKey: env.MINIO_SECRET_KEY,
 });
 
+// 添加bucket属性
+minioClient.bucket = env.MINIO_BUCKET;
+
 module.exports = minioClient;
+
