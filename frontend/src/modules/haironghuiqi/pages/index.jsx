@@ -1,6 +1,7 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import useHaironghuiqiInit from '../hooks/useHaironghuiqiInit';
+import HaironghuiqiHome from './Home';
 
 /**
  * 海融惠企模块主页面
@@ -42,7 +43,11 @@ const HaironghuiqiModule = () => {
   // 初始化成功
   return (
     <div className="haironghuiqi-module">
-      <Outlet />
+      <Routes>
+        <Route path="/" element={<HaironghuiqiHome />} />
+        <Route path="/home" element={<HaironghuiqiHome />} />
+        {/* 其他路由将在这里添加 */}
+      </Routes>
     </div>
   );
 };
