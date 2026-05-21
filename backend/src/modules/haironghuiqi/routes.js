@@ -1,6 +1,7 @@
 const express = require('express');
 const institutionController = require('./controllers/institution-controller');
 const policyController = require('./controllers/policy-controller');
+const productController = require('./controllers/product-controller');
 
 const router = express.Router();
 
@@ -27,5 +28,12 @@ router.get('/policies', policyController.getPolicyList);
 
 // 获取政策详情
 router.get('/policies/:id', policyController.getPolicyDetail);
+
+// 产品相关路由
+// 获取机构的产品列表
+router.get('/institutions/:institutionId/products', productController.getProductsByInstitution);
+
+// 获取产品详情
+router.get('/products/:id', productController.getProductDetail);
 
 module.exports = router;

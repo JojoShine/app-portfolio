@@ -101,7 +101,7 @@ const HaironghuiqiHome = () => {
                       className="font-medium"
                       style={{
                         fontSize: '4vw',
-                        color: '#000000',
+                        color: '#333333',
                         fontWeight: 500,
                         lineHeight: 1.2,
                       }}

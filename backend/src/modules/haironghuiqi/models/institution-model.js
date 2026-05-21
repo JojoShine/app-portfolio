@@ -29,6 +29,11 @@ const Institution = sequelize.define(
       allowNull: false,
       comment: '营业时间',
     },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      comment: '联系电话',
+    },
     logo: {
       type: DataTypes.STRING,
       allowNull: true,

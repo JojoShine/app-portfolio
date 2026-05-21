@@ -86,7 +86,7 @@ const Policy = () => {
             className="flex-1 bg-transparent outline-none"
             style={{
               fontSize: '3.5vw',
-              color: '#000000',
+              color: '#333333',
             }}
           />
         </div>

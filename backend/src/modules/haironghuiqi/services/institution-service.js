@@ -1,4 +1,5 @@
 const Institution = require('../models/institution-model');
+const Product = require('../models/product-model');
 const logger = require('../../../common/utils/logger');
 
 /**
@@ -63,6 +64,19 @@ exports.searchInstitutions = async (query, category = null) => {
 exports.getInstitutionDetail = async (id) => {
   try {
     const institution = await Institution.findByPk(id);
+    if (!institution) {
+      return null;
+    }
+
+    // 获取该机构的产品列表
+    const products = await Product.findAll({
+      where: { institutionId: id, status: 'active' },
+      order: [['sort', 'ASC'], ['createdAt', 'DESC']],
+    });
+
+    // 将产品列表添加到机构对象中
+    institution.dataValues.products = products;
+
     return institution;
   } catch (error) {
     logger.error('获取机构详情失败:', error);

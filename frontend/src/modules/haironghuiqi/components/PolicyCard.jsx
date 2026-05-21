@@ -95,7 +95,7 @@ const PolicyCard = ({ policy }) => {
       {/* 信息 */}
       <div className="flex-1 flex flex-col justify-between">
         <div>
-          <h3 style={{ fontSize: '3.5vw', color: '#000000', margin: 0, marginBottom: '1vh' }}>
+          <h3 style={{ fontSize: '3.5vw', color: '#333333', margin: 0, marginBottom: '1vh' }}>
             {policy.title}
           </h3>
           <p

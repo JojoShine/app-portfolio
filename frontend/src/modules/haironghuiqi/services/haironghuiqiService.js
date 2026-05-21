@@ -46,6 +46,12 @@ export const getProductDetail = async (productId) => {
   return handleResponse(response);
 };
 
+// 获取机构关联的产品列表
+export const getInstitutionProducts = async (institutionId, params = {}) => {
+  const response = await api.get(`/haironghuiqi/institutions/${institutionId}/products`, { params });
+  return handleListResponse(response);
+};
+
 // 获取机构列表
 export const getInstitutionList = async (params = {}) => {
   const response = await api.get('/haironghuiqi/institutions', { params });
@@ -111,6 +117,7 @@ export default {
   getProductDetail,
   getInstitutionList,
   getInstitutionDetail,
+  getInstitutionProducts,
   getAllInstitutions,
   getInstitutionsByCategory,
   searchInstitutions,

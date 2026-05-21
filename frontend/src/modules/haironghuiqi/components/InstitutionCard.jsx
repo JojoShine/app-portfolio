@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getFileUrl } from '../../../services/fileService';
 import favoriteImage from '../assets/service_search/favorite.png';
 import unfavoriteImage from '../assets/service_search/unfavorite.png';
@@ -8,6 +9,7 @@ import unfavoriteImage from '../assets/service_search/unfavorite.png';
  * 负责单个机构的展示和logo加载
  */
 const InstitutionCard = ({ institution }) => {
+  const navigate = useNavigate();
   const [logoUrl, setLogoUrl] = useState(null);
   const [logoLoading, setLogoLoading] = useState(true);
   const [isFavorited, setIsFavorited] = useState(false);
@@ -57,10 +59,8 @@ const InstitutionCard = ({ institution }) => {
 
   return (
     <div
-      className="flex gap-[3vw] p-[3vw] bg-white border border-gray-200 rounded-lg"
-      style={{
-        boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.05)',
-      }}
+      className="flex gap-[3vw] p-[3vw] bg-white border border-gray-200 rounded-lg cursor-pointer"
+      onClick={() => navigate(`/haironghuiqi/institution/${institution.id}`)}
     >
       {/* Logo */}
       <div
@@ -91,14 +91,14 @@ const InstitutionCard = ({ institution }) => {
       {/* 信息 */}
       <div className="flex-1 flex flex-col justify-between">
         <div>
-          <h3 className="font-medium mb-[1vh]" style={{ fontSize: '4vw', color: '#000000' }}>
+          <h3 className="font-medium mb-[1vh]" style={{ fontSize: '4vw', color: '#333333' }}>
             {institution.name}
           </h3>
           <div className="mb-[1vh]">
-            <p style={{ fontSize: '3vw', color: '#000000' }}>地址：{institution.address}</p>
+            <p style={{ fontSize: '3vw', color: '#333333' }}>地址：{institution.address}</p>
           </div>
           <div>
-            <p style={{ fontSize: '3vw', color: '#000000' }}>营业时间：{institution.businessHours}</p>
+            <p style={{ fontSize: '3vw', color: '#333333' }}>营业时间：{institution.businessHours}</p>
           </div>
         </div>
       </div>

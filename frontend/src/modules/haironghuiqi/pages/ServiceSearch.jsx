@@ -23,6 +23,7 @@ const ServiceSearch = () => {
   const [institutions, setInstitutions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [latestPolicy, setLatestPolicy] = useState(null);
 
   const categories = [
     { id: 'all', name: '全部分类' },
@@ -30,6 +31,22 @@ const ServiceSearch = () => {
     { id: 'insurance', name: '保险' },
     { id: 'securities', name: '证券' },
   ];
+
+  // 获取最新政策
+  useEffect(() => {
+    const fetchLatestPolicy = async () => {
+      try {
+        const policies = await haironghuiqiService.getPolicyList({ page: 1, pageSize: 1 });
+        if (policies && policies.length > 0) {
+          setLatestPolicy(policies[0]);
+        }
+      } catch (err) {
+        console.error('获取最新政策失败:', err);
+      }
+    };
+
+    fetchLatestPolicy();
+  }, []);
 
   // 获取机构列表
   useEffect(() => {
@@ -110,21 +127,26 @@ const ServiceSearch = () => {
               style={{
                 fontSize: '3.5vw',
                 fontWeight: 600,
-                color: '#000000',
+                color: '#333333',
                 marginBottom: '1vh',
                 lineHeight: 1.4,
               }}
             >
-              关于进一步推进金融服务
+              {latestPolicy?.title || '关于进一步推进金融服务'}
             </h4>
             <p
               style={{
                 fontSize: '3vw',
                 color: '#999999',
                 lineHeight: 1.4,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitLineClamp: 1,
+                WebkitBoxOrient: 'vertical',
               }}
             >
-              深入贯彻落实金融服务实体经济的重要决策部署
+              {latestPolicy?.content || '深入贯彻落实金融服务实体经济的重要决策部署'}
             </p>
           </div>
         </div>
@@ -201,7 +223,7 @@ const ServiceSearch = () => {
                 value={searchQuery}
                 onChange={handleSearch}
                 className="flex-1 bg-transparent outline-none"
-                style={{ fontSize: '3.5vw', color: '#000000' }}
+                style={{ fontSize: '3.5vw', color: '#333333' }}
               />
             </div>
           </div>
