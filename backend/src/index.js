@@ -26,6 +26,16 @@ const startServer = async () => {
     await sequelize.authenticate();
     logger.info('✅ Database connection established');
 
+    // 初始化模型关联
+    logger.info('🔗 Initializing model associations...');
+    const models = sequelize.models;
+    Object.keys(models).forEach(modelName => {
+      if (models[modelName].associate) {
+        models[modelName].associate(models);
+      }
+    });
+    logger.info('✅ Model associations initialized');
+
     // 同步数据库模型（开发环境）
     if (env.NODE_ENV === 'development') {
       logger.info('🔄 Synchronizing database models...');

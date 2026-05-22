@@ -5,6 +5,7 @@ import policyImage from '../assets/service_search/policy.png';
 import selectedImage from '../assets/service_search/selected.png';
 import haironghuiqiService from '../services/haironghuiqiService';
 import InstitutionCard from '../components/InstitutionCard';
+import ProductCard from '../components/ProductCard';
 
 /**
  * 业务查询页面
@@ -24,6 +25,9 @@ const ServiceSearch = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [latestPolicy, setLatestPolicy] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [selectedTag, setSelectedTag] = useState('all');
+  const [allTags, setAllTags] = useState([]);
 
   const categories = [
     { id: 'all', name: '全部分类' },
@@ -47,6 +51,35 @@ const ServiceSearch = () => {
 
     fetchLatestPolicy();
   }, []);
+
+  // 获取产品列表和标签
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        let productList;
+        // 根据selectedCategory获取产品
+        if (selectedCategory && selectedCategory !== 'all') {
+          productList = await haironghuiqiService.getProductsByCategory(selectedCategory, { page: 1, pageSize: 100 });
+        } else {
+          productList = await haironghuiqiService.getProductList({ page: 1, pageSize: 100 });
+        }
+        setProducts(productList);
+
+        // 提取所有唯一的标签
+        const tagsSet = new Set();
+        productList.forEach((product) => {
+          if (product.tags && Array.isArray(product.tags)) {
+            product.tags.forEach((tag) => tagsSet.add(tag));
+          }
+        });
+        setAllTags(Array.from(tagsSet));
+      } catch (err) {
+        console.error('获取产品列表失败:', err);
+      }
+    };
+
+    fetchProducts();
+  }, [selectedCategory]);
 
   // 获取机构列表
   useEffect(() => {
@@ -264,10 +297,78 @@ const ServiceSearch = () => {
 
       {/* 金融超市内容 */}
       {activeTab === 'supermarket' && (
-        <div className="px-[4vw] py-[2vh]">
-          <p style={{ fontSize: '4vw', color: '#999999', textAlign: 'center', marginTop: '10vh' }}>
-            金融超市功能开发中...
-          </p>
+        <div className="px-[4vw]">
+          {/* 产品标签 */}
+          {allTags.length > 0 && (
+          <div
+            className="flex gap-[2vw] mb-[2vh]"
+            style={{
+              overflowX: 'auto',
+              overflowY: 'hidden',
+              whiteSpace: 'nowrap',
+              scrollBehavior: 'smooth',
+              msOverflowStyle: 'none',
+              scrollbarWidth: 'none',
+            }}
+          >
+            <style>{`
+              div::-webkit-scrollbar {
+                display: none;
+              }
+            `}</style>
+            <button
+              onClick={() => setSelectedTag('all')}
+              style={{
+                padding: '0.5vh 2vw',
+                fontSize: '3vw',
+                backgroundColor: '#ffffff',
+                color: selectedTag === 'all' ? '#0283EB' : '#333333',
+                border: '1px solid ' + (selectedTag === 'all' ? '#0283EB' : '#CCCCCC'),
+                borderRadius: '8px',
+                cursor: 'pointer',
+                flexShrink: 0,
+              }}
+            >
+              全部
+            </button>
+            {allTags.map((tag) => (
+              <button
+                key={tag}
+                onClick={() => setSelectedTag(tag)}
+                style={{
+                  padding: '0.5vh 2vw',
+                  fontSize: '3vw',
+                  backgroundColor: '#ffffff',
+                  color: selectedTag === tag ? '#0283EB' : '#333333',
+                  border: '1px solid ' + (selectedTag === tag ? '#0283EB' : '#CCCCCC'),
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  flexShrink: 0,
+                }}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+          )}
+
+          {/* 产品列表 */}
+          <div className="space-y-[2vh]">
+            {products.length > 0 ? (
+              products
+                .filter((product) => selectedTag === 'all' || (product.tags && product.tags.includes(selectedTag)))
+                .map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))
+            ) : (
+              <div style={{ textAlign: 'center', padding: '5vh 0' }}>
+                <p style={{ fontSize: '3.5vw', color: '#999999' }}>暂无产品数据</p>
+              </div>
+            )}
+          </div>
+
+          {/* 底部间距 */}
+          <div className="h-[5vh]"></div>
         </div>
       )}
     </div>

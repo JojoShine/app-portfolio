@@ -1,6 +1,85 @@
 const Product = require('../models/product-model');
+const Institution = require('../models/institution-model');
 const logger = require('../../../common/utils/logger');
 const { NotFoundError, InternalServerError } = require('../../../common/utils/error');
+
+/**
+ * 获取指定分类下所有机构的产品列表
+ */
+const getProductsByCategory = async (category, params = {}) => {
+  try {
+    const { page = 1, pageSize = 10 } = params;
+    const offset = (page - 1) * pageSize;
+
+    // 获取该分类下的所有机构ID
+    const institutions = await Institution.findAll({
+      where: { category, status: 'active' },
+      attributes: ['id'],
+    });
+
+    const institutionIds = institutions.map((inst) => inst.id);
+
+    if (institutionIds.length === 0) {
+      return [];
+    }
+
+    // 获取这些机构下的所有产品
+    const { count, rows } = await Product.findAndCountAll({
+      where: {
+        institutionId: institutionIds,
+        status: 'active',
+      },
+      offset,
+      limit: pageSize,
+      order: [['sort', 'ASC'], ['createdAt', 'DESC']],
+    });
+
+    logger.info('Products retrieved by category', {
+      category,
+      total: count,
+      page,
+      pageSize,
+    });
+
+    return rows;
+  } catch (error) {
+    logger.error('Failed to get products by category', {
+      category,
+      error: error.message,
+    });
+    throw new InternalServerError('Failed to retrieve products');
+  }
+};
+
+/**
+ * 获取所有产品列表
+ */
+const getAllProducts = async (params = {}) => {
+  try {
+    const { page = 1, pageSize = 10 } = params;
+    const offset = (page - 1) * pageSize;
+
+    const { count, rows } = await Product.findAndCountAll({
+      where: { status: 'active' },
+      offset,
+      limit: pageSize,
+      order: [['sort', 'ASC'], ['createdAt', 'DESC']],
+    });
+
+    logger.info('All products retrieved', {
+      total: count,
+      page,
+      pageSize,
+    });
+
+    return rows;
+  } catch (error) {
+    logger.error('Failed to get all products', {
+      error: error.message,
+    });
+    throw new InternalServerError('Failed to retrieve products');
+  }
+};
 
 /**
  * 获取机构的产品列表
@@ -130,6 +209,8 @@ const deleteProduct = async (productId) => {
 };
 
 module.exports = {
+  getProductsByCategory,
+  getAllProducts,
   getProductsByInstitution,
   getProductDetail,
   createProduct,

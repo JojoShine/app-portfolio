@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { NoticeBar } from 'antd-mobile';
 import { getFileUrl } from '../../../services/fileService';
 import haironghuiqiService from '../services/haironghuiqiService';
 import ProductCard from '../components/ProductCard';
+import ApplicationModal from '../components/ApplicationModal';
 
 /**
  * 机构详情页面
@@ -13,6 +15,16 @@ const InstitutionDetail = () => {
   const [institution, setInstitution] = useState(null);
   const [products, setProducts] = useState([]);
   const [logoUrl, setLogoUrl] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [applicationType, setApplicationType] = useState(null);
+  const [noticeBar, setNoticeBar] = useState({ show: false, message: '', type: 'success' });
+
+  const handleProductApply = (type, product) => {
+    setSelectedProduct(product);
+    setApplicationType(type);
+    setIsModalOpen(true);
+  };
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -80,6 +92,21 @@ const InstitutionDetail = () => {
 
   return (
     <div className="w-screen min-h-screen overflow-y-auto" style={{ backgroundColor: '#EFF4F8' }}>
+      {/* NoticeBar */}
+      {noticeBar.show && (
+        <NoticeBar
+          content={noticeBar.message}
+          color={noticeBar.type === 'success' ? 'success' : 'error'}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 10000,
+          }}
+        />
+      )}
+
       {/* 机构信息卡片 */}
       <div className="px-[4vw] py-[2vh]">
         <div
@@ -171,7 +198,12 @@ const InstitutionDetail = () => {
           </h4>
           <div className="space-y-[2vh]">
             {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard
+                key={product.id}
+                product={product}
+                showApplyButton={true}
+                onApply={(type) => handleProductApply(type, product)}
+              />
             ))}
           </div>
         </div>
@@ -179,6 +211,23 @@ const InstitutionDetail = () => {
 
       {/* 底部间距 */}
       <div className="h-[5vh]"></div>
+
+      {/* 申请弹窗 */}
+      <ApplicationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        product={selectedProduct}
+        institution={institution}
+        applicationType={applicationType}
+        onSuccess={() => {
+          setNoticeBar({ show: true, message: '加入资金方案成功', type: 'success' });
+          setTimeout(() => setNoticeBar({ show: false, message: '', type: 'success' }), 3000);
+        }}
+        onError={(errorMessage) => {
+          setNoticeBar({ show: true, message: errorMessage, type: 'fail' });
+          setTimeout(() => setNoticeBar({ show: false, message: '', type: 'fail' }), 3000);
+        }}
+      />
     </div>
   );
 };

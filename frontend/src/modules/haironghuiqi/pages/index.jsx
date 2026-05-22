@@ -6,6 +6,8 @@ import HaironghuiqiHome from './Home';
 import ServiceSearch from './ServiceSearch';
 import Policy from './Policy';
 import InstitutionDetail from './InstitutionDetail';
+import ProductDetail from './ProductDetail';
+import MyApplications from './MyApplications';
 
 /**
  * 海融惠企模块主页面
@@ -54,6 +56,8 @@ const HaironghuiqiModule = () => {
         <Route path="/service-search" element={<ServiceSearch />} />
         <Route path="/policy" element={<Policy />} />
         <Route path="/institution/:id" element={<InstitutionDetail />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/my-applications" element={<MyApplications />} />
         {/* 其他路由将在这里添加 */}
       </Routes>
     </div>

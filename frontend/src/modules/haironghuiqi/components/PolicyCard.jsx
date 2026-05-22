@@ -61,9 +61,9 @@ const PolicyCard = ({ policy }) => {
 
   return (
     <div
-      className="flex gap-[3vw] p-[3vw] bg-white border border-gray-200"
+      className="flex gap-[3vw] p-[3vw] bg-white"
       style={{
-        boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.05)',
+        borderRadius: '8px',
       }}
     >
       {/* Logo */}

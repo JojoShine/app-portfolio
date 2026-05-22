@@ -74,6 +74,12 @@ const Product = sequelize.define(
       allowNull: true,
       comment: '产品特点/优势',
     },
+    tags: {
+      type: DataTypes.JSON,
+      allowNull: true,
+      defaultValue: [],
+      comment: '产品标签（数组）',
+    },
     status: {
       type: DataTypes.ENUM('active', 'inactive'),
       defaultValue: 'active',
@@ -89,6 +95,7 @@ const Product = sequelize.define(
     tableName: 'products',
     timestamps: true,
     underscored: true,
+    paranoid: true,
     comment: '金融产品表',
   }
 );

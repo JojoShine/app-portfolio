@@ -13,5 +13,18 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vant': ['react-vant'],
+        },
+      },
+    },
+  },
+  // 优化依赖
+  optimizeDeps: {
+    include: ['react-vant'],
+  },
 })
 

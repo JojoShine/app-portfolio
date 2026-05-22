@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getFileUrl } from '../../../services/fileService';
-import favoriteImage from '../assets/service_search/favorite.png';
-import unfavoriteImage from '../assets/service_search/unfavorite.png';
 
 /**
  * 机构卡片组件
  * 负责单个机构的展示和logo加载
  */
-const InstitutionCard = ({ institution }) => {
+const InstitutionCard = ({ institution, showApplyButton = false, onApply = null }) => {
   const navigate = useNavigate();
   const [logoUrl, setLogoUrl] = useState(null);
   const [logoLoading, setLogoLoading] = useState(true);
-  const [isFavorited, setIsFavorited] = useState(false);
 
   // 加载logo
   useEffect(() => {
@@ -59,72 +56,93 @@ const InstitutionCard = ({ institution }) => {
 
   return (
     <div
-      className="flex gap-[3vw] p-[3vw] bg-white border border-gray-200 rounded-lg cursor-pointer"
-      onClick={() => navigate(`/haironghuiqi/institution/${institution.id}`)}
+      className="p-[3vw] bg-white border border-gray-200 rounded-lg"
+      style={{
+        cursor: showApplyButton ? 'default' : 'pointer',
+      }}
+      onClick={() => !showApplyButton && navigate(`/haironghuiqi/institution/${institution.id}`)}
     >
-      {/* Logo */}
-      <div
-        className="flex-shrink-0 bg-red-500 flex items-center justify-center"
-        style={{
-          width: '13vw',
-          height: '13vw',
-          borderRadius: '4px',
-        }}
-      >
-        {logoLoading ? (
-          <div style={{ color: '#ffffff', fontSize: '3vw' }}>加载中...</div>
-        ) : (
-          <img
-            src={logoUrl}
-            alt={institution.name}
-            className="w-full h-full object-cover"
-            style={{
-              borderRadius: '4px',
-            }}
-            onError={(e) => {
-              e.target.style.display = 'none';
-            }}
-          />
-        )}
-      </div>
+      {/* 卡片内容 */}
+      <div className="flex gap-[3vw]">
+        {/* Logo */}
+        <div
+          className="flex-shrink-0 bg-red-500 flex items-center justify-center"
+          style={{
+            width: '13vw',
+            height: '13vw',
+            borderRadius: '4px',
+          }}
+        >
+          {logoLoading ? (
+            <div style={{ color: '#ffffff', fontSize: '3vw' }}>加载中...</div>
+          ) : (
+            <img
+              src={logoUrl}
+              alt={institution.name}
+              className="w-full h-full object-cover"
+              style={{
+                borderRadius: '4px',
+              }}
+              onError={(e) => {
+                e.target.style.display = 'none';
+              }}
+            />
+          )}
+        </div>
 
-      {/* 信息 */}
-      <div className="flex-1 flex flex-col justify-between">
-        <div>
-          <h3 className="font-medium mb-[1vh]" style={{ fontSize: '4vw', color: '#333333' }}>
+        {/* 机构信息 */}
+        <div className="flex-1">
+          <h3 className="font-medium" style={{ fontSize: '4vw', color: '#333333', margin: 0, marginBottom: '1vh' }}>
             {institution.name}
           </h3>
           <div className="mb-[1vh]">
-            <p style={{ fontSize: '3vw', color: '#333333' }}>地址：{institution.address}</p>
+            <p style={{ fontSize: '3vw', color: '#333333', margin: 0 }}>地址：{institution.address}</p>
           </div>
           <div>
-            <p style={{ fontSize: '3vw', color: '#333333' }}>营业时间：{institution.businessHours}</p>
+            <p style={{ fontSize: '3vw', color: '#333333', margin: 0 }}>营业时间：{institution.businessHours}</p>
           </div>
         </div>
       </div>
 
-      {/* 收藏按钮 */}
-      <button
-        className="flex-shrink-0 flex items-center justify-center"
-        style={{
-          width: '6vw',
-          height: '6vw',
-          background: 'none',
-          border: 'none',
-          cursor: 'pointer',
-        }}
-        onClick={() => setIsFavorited(!isFavorited)}
-      >
-        <img
-          src={isFavorited ? favoriteImage : unfavoriteImage}
-          alt={isFavorited ? '已收藏' : '未收藏'}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'contain',
-          }}
-        />
-      </button>
+      {/* 申请按钮 - 单独一行，居右 */}
+      {showApplyButton && (
+        <div className="flex gap-[2vw] justify-end" style={{ marginTop: '1.5vh', paddingTop: '1.5vh', borderTop: '1px solid #E0E0E0' }}>
+          <button
+            style={{
+              padding: '0.4vh 2vw',
+              fontSize: '2.8vw',
+              backgroundColor: '#0283EB',
+              color: '#ffffff',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              onApply && onApply('apply');
+            }}
+          >
+            立即申请
+          </button>
+          <button
+            style={{
+              padding: '0.4vh 2vw',
+              fontSize: '2.8vw',
+              backgroundColor: '#ffffff',
+              color: '#0283EB',
+              border: '1px solid #0283EB',
+              borderRadius: '4px',
+              cursor: 'pointer',
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              onApply && onApply('consult');
+            }}
+          >
+            预约咨询
+          </button>
+        </div>
+      )}
     </div>
   );
 };

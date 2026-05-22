@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Badge, Tag } from 'antd-mobile';
 import { Heart } from 'lucide-react';
 import bgImage from '../assets/home/bg.png';
 import logoImage from '../assets/home/logo.png';
@@ -8,6 +9,7 @@ import product2 from '../assets/home/2.png';
 import product3 from '../assets/home/3.png';
 import product4 from '../assets/home/4.png';
 import product5 from '../assets/home/5.png';
+import applicationService from '../services/applicationService';
 
 /**
  * 海融惠企首页
@@ -16,7 +18,26 @@ import product5 from '../assets/home/5.png';
 const HaironghuiqiHome = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [collectionCount, setCollectionCount] = useState(5);
+  const [collectionCount, setCollectionCount] = useState(0);
+
+  // 获取用户的申请数量
+  useEffect(() => {
+    const fetchApplicationCount = async () => {
+      try {
+        // TODO: 从userService获取用户信息，暂时使用默认值
+        const userId = 'test-user-id';
+        const result = await applicationService.getUserApplications(userId, { page: 1, pageSize: 1 });
+        if (result && result.pagination) {
+          setCollectionCount(result.pagination.total);
+        }
+      } catch (error) {
+        console.error('获取申请数量失败:', error);
+        setCollectionCount(0);
+      }
+    };
+
+    fetchApplicationCount();
+  }, []);
 
   // 产品分类数据
   const products = [
@@ -127,47 +148,38 @@ const HaironghuiqiHome = () => {
         </div>
       </div>
 
-      {/* 我的收藏浮动按钮 - fixed */}
-      <button
-        onClick={() => {
-          // TODO: 导航到我的收藏页面
-          navigate('/haironghuiqi/collections');
-        }}
-        className="fixed bg-white flex items-center justify-center gap-[2vw]"
+      {/* 我的申请浮动按钮 - fixed */}
+      <div
         style={{
+          position: 'fixed',
           bottom: '3vh',
           left: '50%',
           marginLeft: '-15vw',
-          width: '30vw',
-          height: '4vh',
-          borderRadius: '50px',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
           zIndex: 50,
         }}
       >
-        <Heart size={20} style={{ width: '4vw', height: '4vw', color: '#5F6469' }} />
-        <span style={{ fontSize: '3vw', color: '#5F6469', fontWeight: 400 }}>
-          我的收藏
-        </span>
-
-        {/* 角标 */}
-        <div
-          className="absolute flex items-center justify-center"
-          style={{
-            top: '-0.5vh',
-            right: '0.5vh',
-            width: '2vh',
-            height: '2vh',
-            backgroundColor: '#FF4444',
-            borderRadius: '50%',
-            color: '#ffffff',
-            fontSize: '1.5vh',
-            fontWeight: 'bold',
-          }}
-        >
-          {collectionCount}
-        </div>
-      </button>
+        <Badge content={collectionCount}>
+          <button
+            onClick={() => {
+              navigate('/haironghuiqi/my-applications');
+            }}
+            className="bg-white flex items-center justify-center gap-[2vw]"
+            style={{
+              width: '30vw',
+              height: '4vh',
+              borderRadius: '50px',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+              border: 'none',
+              cursor: 'pointer',
+            }}
+          >
+            <Heart size={20} style={{ width: '4vw', height: '4vw', color: '#5F6469' }} />
+            <span style={{ fontSize: '3vw', color: '#5F6469', fontWeight: 400 }}>
+              我的申请
+            </span>
+          </button>
+        </Badge>
+      </div>
     </div>
   );
 };

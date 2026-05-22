@@ -33,7 +33,8 @@ CREATE TABLE IF NOT EXISTS institutions (
   status institution_status DEFAULT 'active',
   sort INTEGER DEFAULT 0,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMP WITH TIME ZONE
 );
 
 COMMENT ON TABLE institutions IS '金融机构表';
@@ -94,10 +95,12 @@ CREATE TABLE IF NOT EXISTS products (
   fee_description TEXT,
   risk_warning TEXT,
   product_features TEXT,
+  tags JSONB DEFAULT '[]'::jsonb,
   status product_status DEFAULT 'active',
   sort INTEGER DEFAULT 0,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMP WITH TIME ZONE
 );
 
 COMMENT ON TABLE products IS '金融产品表';
@@ -115,10 +118,75 @@ COMMENT ON COLUMN products.repayment_method IS '还款方式';
 COMMENT ON COLUMN products.fee_description IS '费用说明';
 COMMENT ON COLUMN products.risk_warning IS '风险提示';
 COMMENT ON COLUMN products.product_features IS '产品特点/优势';
+COMMENT ON COLUMN products.tags IS '产品标签（数组）';
 COMMENT ON COLUMN products.status IS '产品状态';
 COMMENT ON COLUMN products.sort IS '排序字段（升序）';
 COMMENT ON COLUMN products.created_at IS '创建时间';
 COMMENT ON COLUMN products.updated_at IS '更新时间';
+
+-- ============================================
+-- 申请表
+-- ============================================
+
+CREATE TABLE IF NOT EXISTS applications (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id VARCHAR(255) NOT NULL,
+  institution_id UUID NOT NULL REFERENCES institutions(id) ON DELETE CASCADE,
+  product_id UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+  user_name VARCHAR(255),
+  user_phone VARCHAR(20),
+  user_id_card VARCHAR(18),
+  user_work_unit VARCHAR(255),
+  application_type VARCHAR(50) DEFAULT 'apply',
+  status VARCHAR(50) DEFAULT 'pending',
+  remark TEXT DEFAULT '',
+  requirement_description TEXT DEFAULT '',
+  sort INTEGER DEFAULT 0,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMP WITH TIME ZONE
+);
+
+COMMENT ON TABLE applications IS '申请表';
+COMMENT ON COLUMN applications.id IS '申请ID（UUID）';
+COMMENT ON COLUMN applications.user_id IS '用户ID';
+COMMENT ON COLUMN applications.institution_id IS '机构ID';
+COMMENT ON COLUMN applications.product_id IS '产品ID';
+COMMENT ON COLUMN applications.user_name IS '用户姓名';
+COMMENT ON COLUMN applications.user_phone IS '用户手机号';
+COMMENT ON COLUMN applications.user_id_card IS '用户身份证号';
+COMMENT ON COLUMN applications.user_work_unit IS '用户工作单位';
+COMMENT ON COLUMN applications.application_type IS '申请类型（apply/consult）';
+COMMENT ON COLUMN applications.status IS '申请状态（pending/submitted/approved/rejected）';
+COMMENT ON COLUMN applications.remark IS '备注';
+COMMENT ON COLUMN applications.sort IS '排序字段（升序）';
+COMMENT ON COLUMN applications.created_at IS '创建时间';
+COMMENT ON COLUMN applications.updated_at IS '更新时间';
+COMMENT ON COLUMN applications.deleted_at IS '删除时间（逻辑删除）';
+COMMENT ON COLUMN applications.requirement_description IS '需求说明';
+
+-- ============================================
+-- 创建 user_work_units 表（用户工作单位关联表）
+-- ============================================
+
+CREATE TABLE IF NOT EXISTS user_work_units (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id VARCHAR(255) NOT NULL UNIQUE,
+  work_unit VARCHAR(255) NOT NULL,
+  sort INTEGER DEFAULT 0,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMP WITH TIME ZONE
+);
+
+COMMENT ON TABLE user_work_units IS '用户工作单位关联表';
+COMMENT ON COLUMN user_work_units.id IS '关联ID（UUID）';
+COMMENT ON COLUMN user_work_units.user_id IS '用户ID';
+COMMENT ON COLUMN user_work_units.work_unit IS '工作单位';
+COMMENT ON COLUMN user_work_units.sort IS '排序字段（升序）';
+COMMENT ON COLUMN user_work_units.created_at IS '创建时间';
+COMMENT ON COLUMN user_work_units.updated_at IS '更新时间';
+COMMENT ON COLUMN user_work_units.deleted_at IS '删除时间（逻辑删除）';
 
 -- ============================================
 -- 创建索引
@@ -138,3 +206,13 @@ CREATE INDEX IF NOT EXISTS idx_policies_sort ON policies(sort);
 CREATE INDEX IF NOT EXISTS idx_products_institution_id ON products(institution_id);
 CREATE INDEX IF NOT EXISTS idx_products_status ON products(status);
 CREATE INDEX IF NOT EXISTS idx_products_sort ON products(sort);
+
+-- applications 表索引
+CREATE INDEX IF NOT EXISTS idx_applications_user_id ON applications(user_id);
+CREATE INDEX IF NOT EXISTS idx_applications_institution_id ON applications(institution_id);
+CREATE INDEX IF NOT EXISTS idx_applications_product_id ON applications(product_id);
+CREATE INDEX IF NOT EXISTS idx_applications_status ON applications(status);
+CREATE INDEX IF NOT EXISTS idx_applications_created_at ON applications(created_at);
+
+-- user_work_units 表索引
+CREATE INDEX IF NOT EXISTS idx_user_work_units_user_id ON user_work_units(user_id);

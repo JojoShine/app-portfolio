@@ -59,6 +59,7 @@ const Institution = sequelize.define(
     tableName: 'institutions',
     timestamps: true,
     underscored: true,
+    paranoid: true,
     comment: '金融机构表',
   }
 );

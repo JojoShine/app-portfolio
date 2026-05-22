@@ -6,6 +6,33 @@ const response = require('../../../common/response');
  * 海融惠企 Product Controller 层
  */
 
+// 获取所有产品列表
+exports.getAllProducts = async (req, res, next) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 10;
+    const products = await productService.getAllProducts({ page, pageSize });
+    res.json(response.success(products, '获取产品列表成功'));
+  } catch (error) {
+    logger.error('获取产品列表失败:', error);
+    next(error);
+  }
+};
+
+// 获取指定分类下的产品列表
+exports.getProductsByCategory = async (req, res, next) => {
+  try {
+    const { category } = req.params;
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 10;
+    const products = await productService.getProductsByCategory(category, { page, pageSize });
+    res.json(response.success(products, '获取产品列表成功'));
+  } catch (error) {
+    logger.error('获取产品列表失败:', error);
+    next(error);
+  }
+};
+
 // 获取机构的产品列表
 exports.getProductsByInstitution = async (req, res, next) => {
   try {
