@@ -186,6 +186,7 @@ const InstitutionDetail = () => {
                 product={product}
                 showApplyButton={true}
                 onApply={(type) => handleProductApply(type, product)}
+                isFeatured={product.isFeatured}
               />
             ))}
           </div>

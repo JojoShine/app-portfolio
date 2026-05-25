@@ -266,7 +266,7 @@ const ServiceSearch = () => {
                 products
                   .filter((product) => selectedTag === 'all' || (product.tags && product.tags.includes(selectedTag)))
                   .map((product) => (
-                    <ProductCard key={product.id} product={product} />
+                    <ProductCard key={product.id} product={product} isFeatured={product.isFeatured} />
                   ))
               ) : (
                 <div className="text-center py-12">

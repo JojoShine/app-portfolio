@@ -90,6 +90,11 @@ const Product = sequelize.define(
       defaultValue: 0,
       comment: '排序',
     },
+    isFeatured: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      comment: '是否为明星产品',
+    },
   },
   {
     tableName: 'products',

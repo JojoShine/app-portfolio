@@ -98,6 +98,7 @@ CREATE TABLE IF NOT EXISTS products (
   tags JSONB DEFAULT '[]'::jsonb,
   status product_status DEFAULT 'active',
   sort INTEGER DEFAULT 0,
+  is_featured BOOLEAN DEFAULT false,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   deleted_at TIMESTAMP WITH TIME ZONE
@@ -121,6 +122,7 @@ COMMENT ON COLUMN products.product_features IS '产品特点/优势';
 COMMENT ON COLUMN products.tags IS '产品标签（数组）';
 COMMENT ON COLUMN products.status IS '产品状态';
 COMMENT ON COLUMN products.sort IS '排序字段（升序）';
+COMMENT ON COLUMN products.is_featured IS '是否为明星产品';
 COMMENT ON COLUMN products.created_at IS '创建时间';
 COMMENT ON COLUMN products.updated_at IS '更新时间';
 

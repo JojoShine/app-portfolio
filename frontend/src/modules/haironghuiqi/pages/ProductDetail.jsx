@@ -79,7 +79,7 @@ const ProductDetail = () => {
 
       {/* 产品卡片 */}
       <div className="px-[4vw] py-[2vh]">
-        <ProductCard product={product} />
+        <ProductCard product={product} isFeatured={product.isFeatured} />
       </div>
 
       {/* 可办理该产品的机构 */}
