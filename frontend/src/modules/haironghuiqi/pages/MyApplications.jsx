@@ -4,8 +4,8 @@ import Checkbox from '../../../components/ui/Checkbox';
 import applicationService from '../services/applicationService';
 
 /**
- * 我的申请页面
- * 显示用户的申请列表，支持勾选、提交、删除等操作
+ * 我的资金方案页面
+ * 显示用户的资金方案列表，支持勾选、提交、删除等操作
  */
 const MyApplications = () => {
   const [applications, setApplications] = useState([]);
@@ -198,7 +198,7 @@ const MyApplications = () => {
         </Checkbox>
         <button
           style={{
-            padding: '0.8vh 2vw',
+            padding: '0.6vh 2vw',
             fontSize: '3vw',
             backgroundColor: '#0283EB',
             color: '#ffffff',
@@ -210,7 +210,7 @@ const MyApplications = () => {
           onClick={handleSubmit}
           disabled={submitting || selectedIds.length === 0}
         >
-          {submitting ? '提交中...' : '提交申请'}
+          {submitting ? '提交中...' : '提交意愿'}
         </button>
       </div>
     </div>

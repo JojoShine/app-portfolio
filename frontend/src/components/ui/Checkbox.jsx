@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * 自定义Checkbox组件
+ * 自定义Checkbox组件 - 参照react-vant风格
  * 支持圆形、方形、自定义icon等功能
  */
 const Checkbox = ({
@@ -42,7 +42,7 @@ const Checkbox = ({
           width: size,
           height: size,
           borderRadius,
-          border: `2px solid ${checked ? checkedColor : '#CCCCCC'}`,
+          border: `2px solid ${checked ? checkedColor : '#EBEDF0'}`,
           backgroundColor: checked ? checkedColor : '#ffffff',
           display: 'flex',
           alignItems: 'center',
@@ -68,7 +68,7 @@ const Checkbox = ({
         )}
       </div>
       {children && (
-        <span style={{ fontSize: '3vw', color: '#333333', userSelect: 'none' }}>
+        <span style={{ fontSize: '3vw', color: '#323233', userSelect: 'none' }}>
           {children}
         </span>
       )}

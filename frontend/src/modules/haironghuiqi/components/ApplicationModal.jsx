@@ -3,6 +3,7 @@ import { maskUserInfo } from '../../../utils/maskUtils';
 import applicationService from '../services/applicationService';
 import userWorkUnitService from '../services/userWorkUnitService';
 import TextArea from '../../../components/ui/TextArea';
+import Input from '../../../components/ui/Input';
 
 /**
  * 申请弹窗组件
@@ -163,19 +164,12 @@ const ApplicationModal = ({ isOpen, onClose, product, institution, applicationTy
                 )}
               </div>
               {editingWorkUnit ? (
-                <div style={{ display: 'flex', gap: '1vw' }}>
-                  <input
-                    type="text"
+                <div style={{ display: 'flex', gap: '1vw', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <Input
                     value={tempWorkUnit}
-                    onChange={(e) => setTempWorkUnit(e.target.value)}
+                    onChange={(val) => setTempWorkUnit(val)}
                     placeholder="请输入工作单位"
-                    style={{
-                      flex: 1,
-                      padding: '0.5vh 1vw',
-                      fontSize: '3vw',
-                      border: '1px solid #CCCCCC',
-                      borderRadius: '4px',
-                    }}
+                    style={{ maxWidth: '50vw' }}
                   />
                   <button
                     onClick={async () => {
@@ -196,6 +190,7 @@ const ApplicationModal = ({ isOpen, onClose, product, institution, applicationTy
                       border: 'none',
                       borderRadius: '4px',
                       cursor: 'pointer',
+                      whiteSpace: 'nowrap',
                     }}
                   >
                     保存
@@ -256,7 +251,7 @@ const ApplicationModal = ({ isOpen, onClose, product, institution, applicationTy
         <div style={{ display: 'flex', gap: '2vw', justifyContent: 'flex-end' }}>
           <button
             style={{
-              padding: '0.4vh 2vw',
+              padding: '0.6vh 2vw',
               fontSize: '2.8vw',
               backgroundColor: '#ffffff',
               color: '#0283EB',
@@ -270,7 +265,7 @@ const ApplicationModal = ({ isOpen, onClose, product, institution, applicationTy
           </button>
           <button
             style={{
-              padding: '0.4vh 2vw',
+              padding: '0.6vh 2vw',
               fontSize: '2.8vw',
               backgroundColor: '#0283EB',
               color: '#ffffff',

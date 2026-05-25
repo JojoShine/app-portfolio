@@ -1,5 +1,5 @@
 const userWorkUnitService = require('../services/user-work-unit-service');
-const response = require('../../../common/utils/response');
+const response = require('../../../common/response');
 const logger = require('../../../common/utils/logger');
 
 /**

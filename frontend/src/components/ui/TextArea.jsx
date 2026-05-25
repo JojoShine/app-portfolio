@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * 自定义TextArea组件
+ * 自定义TextArea组件 - 参照react-vant风格
  * 支持字数统计、maxLength等功能
  */
 const TextArea = ({
@@ -43,12 +43,12 @@ const TextArea = ({
           width: '100%',
           padding: '1vh',
           fontSize: '2.8vw',
-          border: '1px solid #CCCCCC',
+          border: '1px solid #EBEDF0',
           borderRadius: '4px',
           fontFamily: 'inherit',
           resize: 'vertical',
           backgroundColor: '#ffffff',
-          color: '#333333',
+          color: '#323233',
           boxSizing: 'border-box',
           transition: 'border-color 0.3s, box-shadow 0.3s',
           paddingBottom: showCount ? '3vh' : '1vh',

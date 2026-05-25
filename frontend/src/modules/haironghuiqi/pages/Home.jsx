@@ -148,7 +148,7 @@ const HaironghuiqiHome = () => {
         </div>
       </div>
 
-      {/* 我的申请浮动按钮 - fixed */}
+      {/* 我的资金方案浮动按钮 - fixed */}
       <div
         style={{
           position: 'fixed',
@@ -175,7 +175,7 @@ const HaironghuiqiHome = () => {
           >
             <Heart size={20} style={{ width: '4vw', height: '4vw', color: '#5F6469' }} />
             <span style={{ fontSize: '3vw', color: '#5F6469', fontWeight: 400 }}>
-              我的申请
+              我的资金方案
             </span>
           </button>
         </Badge>

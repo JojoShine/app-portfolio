@@ -109,24 +109,7 @@ const InstitutionCard = ({ institution, showApplyButton = false, onApply = null 
         <div className="flex gap-[2vw] justify-end" style={{ marginTop: '1.5vh', paddingTop: '1.5vh', borderTop: '1px solid #E0E0E0' }}>
           <button
             style={{
-              padding: '0.4vh 2vw',
-              fontSize: '2.8vw',
-              backgroundColor: '#0283EB',
-              color: '#ffffff',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer',
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-              onApply && onApply('apply');
-            }}
-          >
-            立即申请
-          </button>
-          <button
-            style={{
-              padding: '0.4vh 2vw',
+              padding: '0.6vh 2vw',
               fontSize: '2.8vw',
               backgroundColor: '#ffffff',
               color: '#0283EB',

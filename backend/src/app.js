@@ -10,7 +10,7 @@ const authRoutes = require('./modules/auth/routes');
 const userRoutes = require('./modules/user/routes');
 const fileRoutes = require('./modules/file/routes');
 const appRoutes = require('./modules/app/routes');
-const haironghuiqiRoutes = require('./modules/haironghuiqi/routes');
+const haironghuiqiRoutes = require('./modules/haironghuiqi/routes/index');
 
 const app = express();
 
