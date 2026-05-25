@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#f7fafd",
+                    "on-tertiary-fixed-variant": "#004f4f",
+                    "on-tertiary-container": "#55a6a6",
+                    "tertiary-fixed-dim": "#83d4d3",
+                    "tertiary-container": "#003838",
+                    "surface-container-highest": "#e0e3e6",
+                    "on-primary-fixed": "#001946",
+                    "primary-fixed": "#dae2ff",
+                    "on-primary-fixed-variant": "#224489",
+                    "surface-container-low": "#f1f4f7",
+                    "surface-bright": "#f7fafd",
+                    "on-surface": "#181c1e",
+                    "outline-variant": "#c4c6d2",
+                    "surface-container-high": "#e5e8eb",
+                    "primary-fixed-dim": "#b1c5ff",
+                    "on-primary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "primary": "#001a48",
+                    "surface-tint": "#3d5ca2",
+                    "secondary-container": "#fed65b",
+                    "surface-variant": "#e0e3e6",
+                    "on-error-container": "#93000a",
+                    "outline": "#747782",
+                    "secondary-fixed": "#ffe088",
+                    "on-surface-variant": "#444651",
+                    "tertiary-fixed": "#9ff1f0",
+                    "on-secondary-container": "#745c00",
+                    "on-primary-container": "#7a97e2",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#e9c349",
+                    "on-background": "#181c1e",
+                    "inverse-primary": "#b1c5ff",
+                    "secondary": "#735c00",
+                    "surface-dim": "#d7dadd",
+                    "error": "#ba1a1a",
+                    "tertiary": "#002121",
+                    "error-container": "#ffdad6",
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary-fixed": "#002020",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-on-surface": "#eef1f4",
+                    "on-secondary-fixed-variant": "#574500",
+                    "on-tertiary": "#ffffff",
+                    "background": "#f7fafd",
+                    "primary-container": "#002d72",
+                    "on-secondary-fixed": "#241a00",
+                    "surface-container": "#ebeef1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "12px",
+                    "margin-mobile": "16px",
+                    "stack-lg": "24px",
+                    "gutter-mobile": "12px",
+                    "section-padding": "32px",
+                    "base": "8px",
+                    "stack-sm": "4px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-xl-mobile": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-header { backdrop-filter: blur(12px); background: rgba(247, 250, 253, 0.8); }
+        .policy-card-shadow { box-shadow: 0px 4px 12px rgba(0, 26, 72, 0.05); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- Top App Bar (Shared Component) -->
+<header class="w-full top-0 sticky z-50 bg-surface border-b border-outline-variant shadow-sm flex items-center justify-between px-margin-mobile h-16">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="security">security</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">FinSafe</h1>
+</div>
+<button class="p-2 hover:bg-surface-container-high transition-colors rounded-full active:scale-95 duration-100">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</header>
+<main class="px-margin-mobile pt-stack-lg max-w-2xl mx-auto">
+<!-- Search Section -->
+<section class="mb-stack-lg">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full h-14 pl-12 pr-4 bg-surface-container-lowest border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md text-on-surface placeholder:text-on-surface-variant/60" placeholder="Search policies..." type="text"/>
+</div>
+</section>
+<!-- Dynamic Header for Section -->
+<div class="flex items-center justify-between mb-stack-md">
+<h2 class="font-headline-md text-headline-md text-primary">Core Policies</h2>
+<span class="font-label-md text-label-md bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full">Updated Today</span>
+</div>
+<!-- Policy List -->
+<div class="flex flex-col gap-4">
+<!-- Card 1: Data Protection -->
+<div class="flex items-center gap-4 p-4 bg-surface-container-lowest border border-outline-variant rounded-xl policy-card-shadow active:scale-[0.98] transition-transform cursor-pointer">
+<div class="w-20 h-20 shrink-0 rounded-lg overflow-hidden bg-primary-container/10 flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A macro shot of a sleek metallic circuit board with glowing blue neon data paths under high-end studio lighting. The aesthetic is clean, professional, and secure, utilizing a palette of deep navy and crisp white. Soft diffused lighting highlights the intricate patterns of the hardware in a futuristic digital environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPjQ5r4Nh7EfAGJxTMqxea4vdcqq6K_LMCC_XAHZLIgWrVyxiuTruM19tJELDEiSZBaFW21uhn7glak9TT-NriL2OpsWDxnOidX74hzBJ4gLs8Bf0UP_GJIFKwovQ7toVukwnRHIbtaJODEnd6WGQABeIgNCB5ScifnACu3ZDowEZ4-J-HU1Zc8hLJOs00o-5xUNNXfFzo4JPPXgaoelunOLuu_u37hCDsYO48fnjF-7Lg0GAT8Ij5RyOYoLNoW1dGedtq9i-3s1ta"/>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight">Data Protection Policy</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Standard protocols for encryption, storage, and user privacy rights across all financial assets.</p>
+</div>
+</div>
+<!-- Card 2: Investment Safety -->
+<div class="flex items-center gap-4 p-4 bg-surface-container-lowest border border-outline-variant rounded-xl policy-card-shadow active:scale-[0.98] transition-transform cursor-pointer">
+<div class="w-20 h-20 shrink-0 rounded-lg overflow-hidden bg-primary-container/10 flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist 3D rendering of financial bar charts and golden shields against a soft white background. The lighting is bright and even, conveying a sense of transparency and legacy banking. Deep navy accents provide professional contrast, highlighting the structural integrity of the investment visualization." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiopxlvBgUOu0UnuN4sXOm7UNP4C78iO8V9hpS2f_3c1b4Oh6aMqA2s5FZbGnywfpxb7lZHaBiDgKpKrTOvaPBSB42iL_hXk46Sq4uFOIujyXCjckic3suKDoI0VrWt2tdowUM2t-X45uIlmbmPRNZ-Fs1O9ac0UT_eNjg6FTXSROr3LuOgKocCtZnPkYncwKodUM0r6AjVHRJj-0NkvnxnzIqioCv38VB-gqJrLrC1Z1qTH9TsWzucAiVNSerA3lud9ByCmiMXYjI"/>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight">Investment Risk Mandate</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Guidelines for risk diversification and asset allocation to ensure long-term stability and security.</p>
+</div>
+</div>
+<!-- Card 3: Digital Asset Custody -->
+<div class="flex items-center gap-4 p-4 bg-surface-container-lowest border border-outline-variant rounded-xl policy-card-shadow active:scale-[0.98] transition-transform cursor-pointer">
+<div class="w-20 h-20 shrink-0 rounded-lg overflow-hidden bg-primary-container/10 flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="An abstract visualization of a digital vault door with hexagonal locking mechanisms glowing in primary navy blue. The surface has a brushed steel texture with soft atmospheric lighting, creating a professional corporate modernist feel. The image emphasizes high-security protocols and precision digital engineering." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhcFFNKdhkomlJmWD61S6HFJW_Qi4HSFMPTk0k44PcZOa1FFc_x4QjKOohKt0W0aG3tUp_Z0yoBf5efP4KKP-wpivxmLSTVvlgMIJFZ0zKjeD9P4EmZKrEUp-QWStTK1bfYAtWb7jznnofuA1Ti4BxqZGQS46poDNZ9WUa-2YWR5puiwzdxLc6daxcZUOCS-nrZyeQnGuD2LMYvMGiS7SDsw62OcJg1Dp2hwOIY8JkPE9jpgniyaAnrjoeyBNEWUXGzndSRdqEM7or"/>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight">Asset Custody Framework</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">The legal framework governing the holding and protection of multi-currency digital balances.</p>
+</div>
+</div>
+<!-- Card 4: Transaction Transparency -->
+<div class="flex items-center gap-4 p-4 bg-surface-container-lowest border border-outline-variant rounded-xl policy-card-shadow active:scale-[0.98] transition-transform cursor-pointer">
+<div class="w-20 h-20 shrink-0 rounded-lg overflow-hidden bg-primary-container/10 flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="Close-up of a premium fountain pen resting on a crisp white document with subtle financial grid patterns. The scene is illuminated by soft, cool natural light coming from a large window. The corporate aesthetic uses navy blue and silver accents to communicate authority, trust, and absolute precision in documentation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXdAsramV_bU40Q6l2nCpZKmXor2OZpchXuMi_PhzTVwe_Tu2ITYwRNoXzIGlwu5YYIAqdDiA_rPVkyjSLSCMPiT2kN2weyVQUuwG8Zkv51q8UinOx3rYjY4lkM8nhVbLzzUNy_RZVCJaCRA4dxWyiwrD6-ZTD7Of3Uq-_XYdcUBHQ7eM8ZsHFRqoxUUCF0TDAV1cVU75mGtyUmTXu1D3HZhVHASVlMN-6NbkLc6O6QP9p0AldOVPfiAfCXi1jJxxruidQdSn1xfE4"/>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight">Transparency Reporting</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Commitment to clear disclosure of fees, transaction logs, and algorithmic processing steps.</p>
+</div>
+</div>
+</div>
+<!-- Secondary Section -->
+<h2 class="font-headline-md text-headline-md text-primary mt-stack-lg mb-stack-md">Regional Regulations</h2>
+<div class="grid grid-cols-1 gap-4 mb-12">
+<div class="p-4 bg-primary rounded-xl text-on-primary shadow-lg relative overflow-hidden">
+<!-- Abstract Pattern Overlay -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 24px 24px;"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-secondary-container">language</span>
+<span class="font-label-lg text-label-lg uppercase tracking-widest">Global Compliance</span>
+</div>
+<p class="font-body-md text-body-md mb-4 opacity-90">Review how FinSafe adheres to international banking standards across 45 countries.</p>
+<button class="bg-secondary-container text-on-secondary-container px-6 py-2 rounded-lg font-label-lg active:scale-95 transition-transform">
+                        Explore Map
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Shared Component) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 pb-safe bg-surface border-t border-outline-variant shadow-lg z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="font-label-md text-label-md">Market</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="font-label-md text-label-md">Query</span>
+</a>
+<!-- Active Tab: Plan (mapped to Policy management) -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="assignment" style="font-variation-settings: 'FILL' 1;">assignment</span>
+<span class="font-label-md text-label-md">Plan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple search filter interaction
+        const searchInput = document.querySelector('input');
+        const cards = document.querySelectorAll('.flex.items-center.gap-4.p-4');
+
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const summary = card.querySelector('p').textContent.toLowerCase();
+                if (title.includes(term) || summary.includes(term)) {
+                    card.style.display = 'flex';
+                    card.style.opacity = '1';
+                } else {
+                    card.style.display = 'none';
+                    card.style.opacity = '0';
+                }
+            });
+        });
+
+        // Add touch feedback
+        document.querySelectorAll('button, a, .cursor-pointer').forEach(el => {
+            el.addEventListener('touchstart', () => {
+                el.classList.add('opacity-70');
+            });
+            el.addEventListener('touchend', () => {
+                el.classList.remove('opacity-70');
+            });
+        });
+    </script>
+</body></html>

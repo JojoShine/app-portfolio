@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { MapPin, Clock, Star } from 'lucide-react';
 import { getFileUrl } from '../../../services/fileService';
 
 /**
@@ -56,67 +57,52 @@ const InstitutionCard = ({ institution, showApplyButton = false, onApply = null 
 
   return (
     <div
-      className="p-[3vw] bg-white border border-gray-200 rounded-lg"
-      style={{
-        cursor: showApplyButton ? 'default' : 'pointer',
-      }}
+      className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer active:scale-95"
       onClick={() => !showApplyButton && navigate(`/haironghuiqi/institution/${institution.id}`)}
     >
       {/* 卡片内容 */}
-      <div className="flex gap-[3vw]">
+      <div className="flex items-start p-4 gap-4">
         {/* Logo */}
-        <div
-          className="flex-shrink-0 bg-red-500 flex items-center justify-center"
-          style={{
-            width: '13vw',
-            height: '13vw',
-            borderRadius: '4px',
-          }}
-        >
+        <div className="w-16 h-16 shrink-0 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
           {logoLoading ? (
-            <div style={{ color: '#ffffff', fontSize: '3vw' }}>加载中...</div>
-          ) : (
+            <div className="text-gray-400 text-xs">加载中...</div>
+          ) : logoUrl ? (
             <img
               src={logoUrl}
               alt={institution.name}
               className="w-full h-full object-cover"
-              style={{
-                borderRadius: '4px',
-              }}
               onError={(e) => {
                 e.target.style.display = 'none';
               }}
             />
-          )}
+          ) : null}
         </div>
 
         {/* 机构信息 */}
-        <div className="flex-1">
-          <h3 className="font-medium" style={{ fontSize: '4vw', color: '#333333', margin: 0, marginBottom: '1vh' }}>
-            {institution.name}
-          </h3>
-          <div className="mb-[1vh]">
-            <p style={{ fontSize: '3vw', color: '#333333', margin: 0 }}>地址：{institution.address}</p>
+        <div className="flex-1 min-w-0">
+          <div className="flex justify-between items-start mb-2">
+            <h3 className="font-semibold text-gray-900 text-base leading-tight">
+              {institution.name}
+            </h3>
           </div>
-          <div>
-            <p style={{ fontSize: '3vw', color: '#333333', margin: 0 }}>营业时间：{institution.businessHours}</p>
+          <div className="space-y-1">
+            <div className="flex items-center gap-1.5 text-gray-600">
+              <MapPin size={16} className="shrink-0" />
+              <span className="text-sm">{institution.address}</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-gray-600">
+              <Clock size={16} className="shrink-0" />
+              <span className="text-sm">{institution.businessHours}</span>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* 申请按钮 - 单独一行，居右 */}
+      {/* 申请按钮 */}
       {showApplyButton && (
-        <div className="flex gap-[2vw] justify-end" style={{ marginTop: '1.5vh', paddingTop: '1.5vh', borderTop: '1px solid #E0E0E0' }}>
+        <div className="px-4 pb-4">
           <button
-            style={{
-              padding: '0.6vh 2vw',
-              fontSize: '2.8vw',
-              backgroundColor: '#ffffff',
-              color: '#0283EB',
-              border: '1px solid #0283EB',
-              borderRadius: '4px',
-              cursor: 'pointer',
-            }}
+            className="w-full py-3 bg-blue-900 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors active:scale-95"
             onClick={(e) => {
               e.stopPropagation();
               onApply && onApply('consult');

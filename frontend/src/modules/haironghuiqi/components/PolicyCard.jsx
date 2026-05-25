@@ -60,61 +60,40 @@ const PolicyCard = ({ policy }) => {
   };
 
   return (
-    <div
-      className="flex gap-[3vw] p-[3vw] bg-white"
-      style={{
-        borderRadius: '8px',
-      }}
-    >
+    <div className="flex items-start gap-4 p-4 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow cursor-pointer active:scale-95">
       {/* Logo */}
-      <div
-        className="flex-shrink-0 bg-blue-500 flex items-center justify-center"
-        style={{
-          width: '24vw',
-          height: '16vw',
-          borderRadius: '4px',
-        }}
-      >
+      <div className="w-28 h-20 shrink-0 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
         {logoLoading ? (
-          <div style={{ color: '#ffffff', fontSize: '3vw' }}>加载中...</div>
-        ) : (
+          <div className="text-gray-400 text-xs">加载中...</div>
+        ) : logoUrl ? (
           <img
             src={logoUrl}
             alt={policy.title}
             className="w-full h-full object-cover"
-            style={{
-              borderRadius: '4px',
-            }}
             onError={(e) => {
               e.target.style.display = 'none';
             }}
           />
-        )}
+        ) : null}
       </div>
 
       {/* 信息 */}
-      <div className="flex-1 flex flex-col justify-between">
+      <div className="flex-1 min-w-0 flex flex-col justify-between">
         <div>
-          <h3 style={{ fontSize: '3.5vw', color: '#333333', margin: 0, marginBottom: '1vh' }}>
+          <h3 className="font-semibold text-gray-900 text-base leading-tight">
             {policy.title}
           </h3>
-          <p
-            style={{
-              fontSize: '3vw',
-              color: '#999999',
-              lineHeight: 1.4,
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              display: '-webkit-box',
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: 'vertical',
-            }}
-          >
-            {policy.description}
+          <p className="text-gray-600 line-clamp-3 mt-2" style={{ fontSize: '13px' }}>
+            {policy.content || policy.description}
           </p>
+          {policy.description && policy.content && (
+            <p className="text-gray-500 line-clamp-2 mt-1" style={{ fontSize: '12px' }}>
+              {policy.description}
+            </p>
+          )}
         </div>
         <div>
-          <p style={{ fontSize: '2.8vw', color: '#999999', margin: 0 }}>
+          <p className="text-gray-500 mt-2" style={{ fontSize: '12px' }}>
             发布时间：{formatDate(policy.publishedAt || policy.createdAt)}
           </p>
         </div>

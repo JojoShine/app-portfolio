@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>FinSafe - Secure Financial Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f7fafd",
+                        "on-tertiary-fixed-variant": "#004f4f",
+                        "on-tertiary-container": "#55a6a6",
+                        "tertiary-fixed-dim": "#83d4d3",
+                        "tertiary-container": "#003838",
+                        "surface-container-highest": "#e0e3e6",
+                        "on-primary-fixed": "#001946",
+                        "primary-fixed": "#dae2ff",
+                        "on-primary-fixed-variant": "#224489",
+                        "surface-container-low": "#f1f4f7",
+                        "surface-bright": "#f7fafd",
+                        "on-surface": "#181c1e",
+                        "outline-variant": "#c4c6d2",
+                        "surface-container-high": "#e5e8eb",
+                        "primary-fixed-dim": "#b1c5ff",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary": "#001a48",
+                        "surface-tint": "#3d5ca2",
+                        "secondary-container": "#fed65b",
+                        "surface-variant": "#e0e3e6",
+                        "on-error-container": "#93000a",
+                        "outline": "#747782",
+                        "secondary-fixed": "#ffe088",
+                        "on-surface-variant": "#444651",
+                        "tertiary-fixed": "#9ff1f0",
+                        "on-secondary-container": "#745c00",
+                        "on-primary-container": "#7a97e2",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#e9c349",
+                        "on-background": "#181c1e",
+                        "inverse-primary": "#b1c5ff",
+                        "secondary": "#735c00",
+                        "surface-dim": "#d7dadd",
+                        "error": "#ba1a1a",
+                        "tertiary": "#002121",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary-fixed": "#002020",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#eef1f4",
+                        "on-secondary-fixed-variant": "#574500",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f7fafd",
+                        "primary-container": "#002d72",
+                        "on-secondary-fixed": "#241a00",
+                        "surface-container": "#ebeef1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "12px",
+                        "margin-mobile": "16px",
+                        "stack-lg": "24px",
+                        "gutter-mobile": "12px",
+                        "section-padding": "32px",
+                        "base": "8px",
+                        "stack-sm": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-xl-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "14px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                        "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-lg": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-xl-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:active {
+            transform: scale(0.96);
+            background: rgba(255, 255, 255, 0.25);
+        }
+        .bg-full-hero {
+            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD54fxWvAYVL8WyF-3knQUtyZNoatDVQlrNHOyxjeV1ovZ_3f5yuaUzmsoyJtItK9sZdK2Loh5eFw_iyjGU2Fa83H6EMfEqCm6TLLJuOFuNuBTs9VBdtxhhKz9FegeMR4AZcvVLD-FchjhlQrvFbCPxOjm0haTOjBdmiwo91_6U4-hsTatCdv0PLNNex9L5kkOpQwp4YYaAIClYbXFddyoWHHfGTG1FjJa7_tLcCINSQ-6wrUwEtFhOR20_uCoiBHxvrZrj7cJAT0Vz');
+            background-size: cover;
+            background-position: center;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col overflow-x-hidden">
+<!-- HERO BACKGROUND WRAPPER -->
+<div class="fixed inset-0 bg-full-hero z-0">
+<!-- Dark Overlay for Readability -->
+<div class="absolute inset-0 bg-primary/40 mix-blend-multiply"></div>
+<div class="absolute inset-0 bg-gradient-to-b from-primary/60 via-transparent to-primary/80"></div>
+</div>
+<!-- HEADER / TOP APP BAR -->
+<header class="w-full top-0 sticky z-50 transition-colors bg-transparent h-16 flex items-center justify-between px-margin-mobile">
+<div class="flex items-center gap-stack-sm">
+<img alt="FinSafe Logo" class="w-8 h-8 object-contain" src="data:image/png;base64,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"/>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-white tracking-tight">FinSafe</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-white/10 transition-colors active:scale-95 duration-100">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<!-- MAIN CONTENT CANVAS -->
+<main class="relative z-10 flex-grow px-margin-mobile pt-stack-lg pb-32">
+<!-- WELCOME SECTION -->
+<section class="mb-stack-lg animate-fade-in">
+<h2 class="font-headline-xl-mobile text-headline-xl-mobile text-white mb-stack-sm">Elite Security.</h2>
+<p class="font-body-md text-white/80 max-w-[80%]">Welcome back. Manage your premium assets with absolute precision and clarity.</p>
+</section>
+<!-- ENTRANCE BUTTONS GRID (ASYNCHRONOUS BENTO) -->
+<div class="grid grid-cols-2 gap-stack-md">
+<!-- Financial Policy - Large Span -->
+<button class="col-span-2 glass-card rounded-xl p-stack-lg flex flex-col justify-between items-start h-44 shadow-lg group">
+<div class="bg-secondary-container text-on-secondary-container p-2 rounded-lg mb-stack-md group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+</div>
+<div class="text-left">
+<p class="font-headline-md text-white">Financial Policy</p>
+<p class="font-label-md text-white/60">Updated regulations and governance</p>
+</div>
+</button>
+<!-- Banking -->
+<button class="col-span-1 glass-card rounded-xl p-stack-md flex flex-col items-center justify-center h-40 shadow-lg text-center gap-stack-sm">
+<div class="text-on-primary-container bg-white/20 p-3 rounded-full">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+</div>
+<span class="font-label-lg text-white">Banking</span>
+</button>
+<!-- Insurance -->
+<button class="col-span-1 glass-card rounded-xl p-stack-md flex flex-col items-center justify-center h-40 shadow-lg text-center gap-stack-sm">
+<div class="text-on-primary-container bg-white/20 p-3 rounded-full">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+</div>
+<span class="font-label-lg text-white">Insurance</span>
+</button>
+<!-- Securities -->
+<button class="col-span-1 glass-card rounded-xl p-stack-md flex flex-col items-center justify-center h-40 shadow-lg text-center gap-stack-sm">
+<div class="text-on-primary-container bg-white/20 p-3 rounded-full">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+</div>
+<span class="font-label-lg text-white">Securities</span>
+</button>
+<!-- Other Services -->
+<button class="col-span-1 glass-card rounded-xl p-stack-md flex flex-col items-center justify-center h-40 shadow-lg text-center gap-stack-sm">
+<div class="text-on-primary-container bg-white/20 p-3 rounded-full">
+<span class="material-symbols-outlined" data-icon="apps">apps</span>
+</div>
+<span class="font-label-lg text-white">Other Services</span>
+</button>
+</div>
+<!-- RECENT STATUS SNIPPET (Extra high-end UI touch) -->
+<div class="mt-stack-lg glass-card rounded-xl p-stack-md flex items-center justify-between">
+<div class="flex items-center gap-stack-sm">
+<div class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></div>
+<span class="font-label-md text-white/80">Market Live: Secure Connection</span>
+</div>
+<span class="font-label-md text-white/50">12:45 PM</span>
+</div>
+</main>
+<!-- FLOATING ACTION BUTTON (Shopping Cart) -->
+<button class="fixed bottom-24 right-6 w-16 h-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center z-50 active:scale-90 transition-transform duration-200 group">
+<span class="material-symbols-outlined text-3xl" data-icon="shopping_cart">shopping_cart</span>
+<!-- Red Badge -->
+<div class="absolute -top-1 -right-1 bg-error text-white text-[10px] font-bold w-6 h-6 rounded-full flex items-center justify-center border-2 border-primary group-hover:scale-110 transition-transform">
+            3
+        </div>
+</button>
+<!-- BOTTOM NAV BAR (Mapped from JSON) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 pb-safe bg-surface dark:bg-surface-container-lowest shadow-[0_-4px_12px_rgba(0,26,72,0.05)] z-50 rounded-t-xl">
+<!-- Market (Inactive) -->
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all px-4 py-1 active:scale-90 duration-200 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="font-label-md text-label-md">Market</span>
+</div>
+<!-- Query (Inactive) -->
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all px-4 py-1 active:scale-90 duration-200 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="font-label-md text-label-md">Query</span>
+</div>
+<!-- Plan (Inactive) -->
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all px-4 py-1 active:scale-90 duration-200 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="font-label-md text-label-md">Plan</span>
+</div>
+<!-- Profile (Active State based on Home context) -->
+<!-- Note: We represent "Home" as the default landing, but following JSON logic for the 4 tabs -->
+<!-- If it's a home screen, usually one of these relates to the dashboard or profile -->
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 transition-all active:scale-90 duration-200 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md">Profile</span>
+</div>
+</nav>
+<script>
+        // Simple entrance animation delay for grid items
+        document.addEventListener('DOMContentLoaded', () => {
+            const gridItems = document.querySelectorAll('.grid > button');
+            gridItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = `all 0.4s cubic-bezier(0.23, 1, 0.32, 1) ${index * 0.1}s`;
+                
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, 100);
+            });
+        });
+    </script>
+</body></html>

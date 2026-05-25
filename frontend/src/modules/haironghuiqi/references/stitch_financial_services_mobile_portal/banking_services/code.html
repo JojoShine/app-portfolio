@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>FinSafe - Banking Services</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#f7fafd",
+                    "on-tertiary-fixed-variant": "#004f4f",
+                    "on-tertiary-container": "#55a6a6",
+                    "tertiary-fixed-dim": "#83d4d3",
+                    "tertiary-container": "#003838",
+                    "surface-container-highest": "#e0e3e6",
+                    "on-primary-fixed": "#001946",
+                    "primary-fixed": "#dae2ff",
+                    "on-primary-fixed-variant": "#224489",
+                    "surface-container-low": "#f1f4f7",
+                    "surface-bright": "#f7fafd",
+                    "on-surface": "#181c1e",
+                    "outline-variant": "#c4c6d2",
+                    "surface-container-high": "#e5e8eb",
+                    "primary-fixed-dim": "#b1c5ff",
+                    "on-primary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "primary": "#001a48",
+                    "surface-tint": "#3d5ca2",
+                    "secondary-container": "#fed65b",
+                    "surface-variant": "#e0e3e6",
+                    "on-error-container": "#93000a",
+                    "outline": "#747782",
+                    "secondary-fixed": "#ffe088",
+                    "on-surface-variant": "#444651",
+                    "tertiary-fixed": "#9ff1f0",
+                    "on-secondary-container": "#745c00",
+                    "on-primary-container": "#7a97e2",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#e9c349",
+                    "on-background": "#181c1e",
+                    "inverse-primary": "#b1c5ff",
+                    "secondary": "#735c00",
+                    "surface-dim": "#d7dadd",
+                    "error": "#ba1a1a",
+                    "tertiary": "#002121",
+                    "error-container": "#ffdad6",
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary-fixed": "#002020",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-on-surface": "#eef1f4",
+                    "on-secondary-fixed-variant": "#574500",
+                    "on-tertiary": "#ffffff",
+                    "background": "#f7fafd",
+                    "primary-container": "#002d72",
+                    "on-secondary-fixed": "#241a00",
+                    "surface-container": "#ebeef1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "12px",
+                    "margin-mobile": "16px",
+                    "stack-lg": "24px",
+                    "gutter-mobile": "12px",
+                    "section-padding": "32px",
+                    "base": "8px",
+                    "stack-sm": "4px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-xl-mobile": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .safe-shadow {
+            box-shadow: 0px 4px 12px rgba(0, 26, 72, 0.05);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body-md text-on-surface">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-surface border-b border-outline-variant shadow-sm flex items-center justify-between px-margin-mobile h-16">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="security">security</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">FinSafe</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-container-high rounded-full transition-colors active:scale-95">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-container-high rounded-full transition-colors active:scale-95">search</button>
+</div>
+</header>
+<main class="pb-24">
+<!-- Hero Section: Latest Financial Policy -->
+<section class="px-margin-mobile pt-stack-lg">
+<div class="relative overflow-hidden rounded-xl bg-primary min-h-[180px] p-6 flex flex-col justify-between text-white shadow-lg" style="background: linear-gradient(135deg, #001a48 0%, #224489 100%);">
+<!-- Decorative element -->
+<div class="absolute -right-12 -top-12 w-48 h-48 bg-white opacity-5 rounded-full"></div>
+<div class="z-10">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">LATEST UPDATE</span>
+<span class="text-white/60 font-label-md text-label-md">June 2024</span>
+</div>
+<h2 class="font-headline-md text-headline-md leading-tight mb-2">New Global Asset Protection Standards</h2>
+<p class="text-white/80 font-body-sm text-body-sm max-w-[80%] line-clamp-2">Understanding the mandatory updates for institutional risk management and digital security protocols.</p>
+</div>
+<div class="z-10 mt-4 flex items-center justify-between">
+<a class="inline-flex items-center gap-1 font-label-lg text-label-lg text-secondary-fixed hover:underline transition-all" href="#">
+                        Learn More
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+<div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
+<span class="material-symbols-outlined" data-icon="policy">policy</span>
+</div>
+</div>
+<!-- Abstract Policy Graphic -->
+<div class="absolute bottom-0 right-0 p-4 opacity-20 pointer-events-none">
+<span class="material-symbols-outlined text-[120px] leading-none" data-icon="verified_user">verified_user</span>
+</div>
+</div>
+</section>
+<!-- Navigation Tabs -->
+<nav class="mt-stack-lg px-margin-mobile">
+<div class="flex bg-surface-container-low p-1 rounded-xl">
+<button class="flex-1 py-3 text-center rounded-lg font-label-lg text-label-lg bg-white text-primary shadow-sm transition-all" id="tab-query">
+                    Institution Query
+                </button>
+<button class="flex-1 py-3 text-center rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high transition-all" id="tab-market">
+                    Financial Marketplace
+                </button>
+</div>
+</nav>
+<!-- Institution List -->
+<section class="px-margin-mobile mt-stack-lg space-y-stack-md" id="query-content">
+<!-- Filter/Sort Chips -->
+<div class="flex gap-2 overflow-x-auto no-scrollbar pb-2">
+<span class="px-4 py-2 bg-primary-container text-on-primary-container font-label-md text-label-md rounded-full whitespace-nowrap">All Banks</span>
+<span class="px-4 py-2 bg-surface-container-high text-on-surface-variant font-label-md text-label-md rounded-full whitespace-nowrap">Near Me</span>
+<span class="px-4 py-2 bg-surface-container-high text-on-surface-variant font-label-md text-label-md rounded-full whitespace-nowrap">Corporate</span>
+<span class="px-4 py-2 bg-surface-container-high text-on-surface-variant font-label-md text-label-md rounded-full whitespace-nowrap">Ratings</span>
+</div>
+<!-- Institution Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden safe-shadow group active:scale-[0.98] transition-transform duration-200">
+<div class="flex items-start p-4 gap-4">
+<div class="relative w-16 h-16 shrink-0 rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A grand architectural detail of a modern financial institution's facade. The image features clean lines, massive glass windows reflecting a clear blue sky, and polished stone pillars, evoking a sense of corporate stability and architectural precision. The lighting is bright and professional, emphasizing a minimalist and trustworthy aesthetic consistent with high-end banking." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqtgjtPKYyYjR2Ktm2oJ7zAxlbD2hUGB978-B_xU-1O5eSG0LwBcsDxje_z-qkixhtB7o80bWPpM91lxQcHNUR6eGj_VPetSK-IIjZww0q9i4FD9yOeau2Y5O8hb-u2BJNsExi1p3PCn9Ir6M_2rkAKNmCzF694qCih2-X_JF_CNQvgJu0Dd3g3e1i7a4oR05JtUmwRCjj92HZ44H680D-CREtxJYOpFZdpg_Sj3HnDvBgSm5mvBKL3zotvRjR4p1izXpUq6f2CdHp"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md text-primary leading-none mb-1">Global Trust Bank</h3>
+<span class="material-symbols-outlined text-secondary text-xl">star</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span class="font-body-sm text-body-sm">42 Financial Plaza, New York</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-base">schedule</span>
+<span class="font-body-sm text-body-sm">09:00 - 17:00 (Mon-Fri)</span>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 pb-4">
+<button class="w-full py-3 bg-primary text-on-primary font-label-lg text-label-lg rounded-lg hover:bg-primary-container hover:text-on-primary-container transition-colors active:scale-95">
+                        Appointment Consultation
+                    </button>
+</div>
+</div>
+<!-- Institution Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden safe-shadow group active:scale-[0.98] transition-transform duration-200">
+<div class="flex items-start p-4 gap-4">
+<div class="relative w-16 h-16 shrink-0 rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A low-angle shot of a towering glass skyscraper representing a financial headquarters. The sky is a deep twilight blue, and the building's interior lights glow with a soft, warm amber. The composition is geometric and powerful, symbolizing the legacy and strength of a major corporate bank. The overall atmosphere is sophisticated and quiet, reflecting the premium visual standards of institutional finance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtnEY1LPspc1vrm2KbSMoSximgjWp6qMKiQukXgTyAjDLfwTgP6benHirbTjx0s74d7urO6FUO7xuxwQcdd856XwNeOT6vCgvNHKwuFgqHi5Y_RKOY_FbCGSQwWbF8MTSEXI6ltsjn9MtOXRAHZfODpb9UXQ_Wn1VK-wPe9gJ8W7wPtLfPJfIzh82K4YVBI8-sTlP3yvTKSna-iTRBDgRXN_Yxkg9RcgXGMUac8EKcfZOxXDNPfV0A3IshYCU4lpMwE_vQjAF2lRy5"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md text-primary leading-none mb-1">Apex International</h3>
+<span class="material-symbols-outlined text-secondary text-xl">verified</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span class="font-body-sm text-body-sm">77 Canary Wharf, London</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-base">schedule</span>
+<span class="font-body-sm text-body-sm">08:30 - 18:30 (Mon-Sat)</span>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 pb-4">
+<button class="w-full py-3 bg-primary text-on-primary font-label-lg text-label-lg rounded-lg hover:bg-primary-container hover:text-on-primary-container transition-colors active:scale-95">
+                        Appointment Consultation
+                    </button>
+</div>
+</div>
+<!-- Institution Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden safe-shadow group active:scale-[0.98] transition-transform duration-200">
+<div class="flex items-start p-4 gap-4">
+<div class="relative w-16 h-16 shrink-0 rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A wide, bright interior shot of a contemporary bank lobby. The space is filled with soft natural light, minimalist white furniture, and subtle accents of navy blue. The atmosphere is calm and inviting, with a focus on clean architectural lines and high-quality materials. It projects an image of modern, accessible, yet highly secure financial services in a bright light-mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAptGRXcpad7zlsxngtPcvzI0g63J54IuZ8dDKfpaJ9Qn96jqSh5GovUYMfcfv98DcWU49145FMsMewTrNxxgjobCK0pzRr94vRy0-Ax4e4F7feVZ4Pk9j_paTVL2SMGUccF5nOyoSQTi8XotmfLDSHGhc5d209Wj_G6pQ7pc0VBQGWIvBmcc0LaCSDWpJGt5Cq5vkI6fxgm7FArbfr-iiOXbjOQOfc0fa9-tUpvrMSn3TfuiN5x4hkDSUaHpt18Sro0t6pTBQMxA2j"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md text-primary leading-none mb-1">Heritage Savings</h3>
+<span class="material-symbols-outlined text-secondary text-xl">account_balance</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span class="font-body-sm text-body-sm">12 Old Bridge St, Edinburgh</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-base">schedule</span>
+<span class="font-body-sm text-body-sm">09:30 - 16:30 (Mon-Fri)</span>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 pb-4">
+<button class="w-full py-3 bg-primary text-on-primary font-label-lg text-label-lg rounded-lg hover:bg-primary-container hover:text-on-primary-container transition-colors active:scale-95">
+                        Appointment Consultation
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 pb-safe bg-surface shadow-lg rounded-t-xl z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="font-label-md text-label-md">Market</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="font-label-md text-label-md">Query</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="font-label-md text-label-md">Plan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple tab switching logic for UI feedback
+        const tabQuery = document.getElementById('tab-query');
+        const tabMarket = document.getElementById('tab-market');
+        const content = document.getElementById('query-content');
+
+        tabQuery.addEventListener('click', () => {
+            tabQuery.classList.add('bg-white', 'text-primary', 'shadow-sm');
+            tabQuery.classList.remove('text-on-surface-variant', 'hover:bg-surface-container-high');
+            
+            tabMarket.classList.remove('bg-white', 'text-primary', 'shadow-sm');
+            tabMarket.classList.add('text-on-surface-variant', 'hover:bg-surface-container-high');
+            
+            content.style.opacity = '1';
+        });
+
+        tabMarket.addEventListener('click', () => {
+            tabMarket.classList.add('bg-white', 'text-primary', 'shadow-sm');
+            tabMarket.classList.remove('text-on-surface-variant', 'hover:bg-surface-container-high');
+            
+            tabQuery.classList.remove('bg-white', 'text-primary', 'shadow-sm');
+            tabQuery.classList.add('text-on-surface-variant', 'hover:bg-surface-container-high');
+            
+            content.style.opacity = '0.5'; // Visual feedback for inactive state
+        });
+    </script>
+</body></html>

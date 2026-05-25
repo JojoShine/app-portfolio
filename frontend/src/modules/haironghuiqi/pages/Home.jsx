@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Badge, Tag } from 'antd-mobile';
-import { Heart } from 'lucide-react';
-import bgImage from '../assets/home/bg.png';
+import { Heart, ShoppingCart, Scale, Building2, Shield, TrendingUp, Settings } from 'lucide-react';
+import bgImage from '../assets/home/bg_new.png';
 import logoImage from '../assets/home/logo.png';
+import haironghuiqiLogo from '../assets/home/haironghuiqi.png';
 import product1 from '../assets/home/1.png';
 import product2 from '../assets/home/2.png';
 import product3 from '../assets/home/3.png';
@@ -60,7 +61,7 @@ const HaironghuiqiHome = () => {
   };
 
   return (
-    <div className="haironghuiqi-home w-screen h-screen overflow-hidden">
+    <div className="haironghuiqi-home w-screen h-screen overflow-hidden bg-blue-900">
       {/* 背景 - fixed */}
       <div
         className="fixed inset-0 bg-cover bg-center bg-no-repeat"
@@ -70,115 +71,141 @@ const HaironghuiqiHome = () => {
         }}
       />
 
-      {/* Logo - fixed */}
-      <div
-        className="fixed left-1/2 transform -translate-x-1/2 flex justify-center"
-        style={{
-          top: '4vh',
-          zIndex: 10,
-        }}
-      >
-        <img
-          src={logoImage}
-          alt="海融惠企"
-          className="h-[11.8vw] object-contain"
-          style={{
-            maxWidth: '90vw',
-          }}
-        />
-      </div>
+      {/* 背景叠加效果 - 严格按照code.html的设计 */}
+      <div className="fixed inset-0 bg-blue-900/40 mix-blend-multiply" style={{ zIndex: 1 }} />
+      <div className="fixed inset-0 bg-gradient-to-b from-blue-900/60 via-transparent to-blue-900/80" style={{ zIndex: 1 }} />
 
-      {/* 产品分类网格 - fixed */}
-      <div
-        className="fixed left-1/2 transform -translate-x-1/2 overflow-y-auto"
-        style={{
-          top: '45vh',
-          width: '100vw',
-          height: 'calc(100vh - 45vh)',
-          zIndex: 5,
-        }}
-      >
-        <div className="w-full flex justify-center px-[4vw]">
-          <div className="w-full max-w-[92vw]">
-            <div className="grid grid-cols-2 gap-[5vw] gap-y-[4vw] pb-[2rem]">
-              {products.map((product) => (
-                <div
-                  key={product.id}
-                  onClick={() => handleProductClick(product.id)}
-                  className="cursor-pointer transition-transform duration-300 hover:scale-105 active:scale-95 relative"
-                >
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    className="w-full h-auto object-cover"
-                    style={{
-                      aspectRatio: '408 / 201.6',
-                    }}
-                  />
-                  <div
-                    className="absolute inset-0 flex flex-col justify-start rounded-lg p-[3vw]"
-                  >
-                    <h3
-                      className="font-medium"
-                      style={{
-                        fontSize: '4vw',
-                        color: '#333333',
-                        fontWeight: 500,
-                        lineHeight: 1.2,
-                      }}
-                    >
-                      {product.title}
-                    </h3>
-                    <p
-                      style={{
-                        fontSize: '3vw',
-                        color: '#685F60',
-                        fontWeight: 400,
-                        lineHeight: 1.2,
-                        marginTop: '0.5vw',
-                      }}
-                    >
-                      {product.subtitle}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* 我的资金方案浮动按钮 - fixed */}
-      <div
-        style={{
-          position: 'fixed',
-          bottom: '3vh',
-          left: '50%',
-          marginLeft: '-15vw',
-          zIndex: 50,
-        }}
-      >
-        <Badge content={collectionCount}>
-          <button
-            onClick={() => {
-              navigate('/haironghuiqi/my-applications');
-            }}
-            className="bg-white flex items-center justify-center gap-[2vw]"
+      {/* 主内容区域 */}
+      <main className="relative z-10 flex-grow px-4 pt-6 pb-32 overflow-y-auto h-screen">
+        {/* Logo - 顶部 */}
+        <div className="flex justify-center mb-10 pt-6">
+          <img
+            src={logoImage}
+            alt="海融惠企"
+            className="h-12 object-contain"
             style={{
-              width: '30vw',
-              height: '4vh',
-              borderRadius: '50px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-              border: 'none',
-              cursor: 'pointer',
+              filter: 'brightness(0) invert(1)',
+            }}
+          />
+        </div>
+
+        {/* 欢迎部分 */}
+        <section className="mb-6">
+          <img src={haironghuiqiLogo} alt="海融惠企" className="h-7 mb-3" />
+          <p className="text-white/80 text-sm w-2/3 leading-relaxed">一站式金融服务平台，汇聚银行、保险、证券等多类金融机构，为您提供专业的金融解决方案和优质的金融产品。</p>
+        </section>
+
+        {/* 产品分类网格 - 严格按照code.html的布局 */}
+        <div className="grid grid-cols-2 gap-3">
+          {/* Financial Policy - 占据2列 */}
+          <button
+            onClick={() => handleProductClick(1)}
+            className="col-span-2 glass-card rounded-xl p-6 flex flex-col justify-between items-start h-44 shadow-lg group hover:scale-105 active:scale-95 transition-all duration-300 text-left"
+            style={{
+              background: 'rgba(255, 255, 255, 0.15)',
+              backdropFilter: 'blur(12px)',
+              border: '1px solid rgba(255, 255, 255, 0.25)',
             }}
           >
-            <Heart size={20} style={{ width: '4vw', height: '4vw', color: '#5F6469' }} />
-            <span style={{ fontSize: '3vw', color: '#5F6469', fontWeight: 400 }}>
-              我的资金方案
-            </span>
+            <div className="bg-yellow-400/80 text-gray-800 p-2 rounded-lg mb-3 group-hover:scale-110 transition-transform">
+              <Scale size={24} />
+            </div>
+            <div>
+              <p className="text-white font-semibold text-lg">{products[0].title}</p>
+              <p className="text-white/70 text-xs mt-2 leading-relaxed">了解最新的金融政策动向，获取政策解读和指导，帮助您更好地理解金融监管环境。</p>
+            </div>
           </button>
-        </Badge>
+
+          {/* Banking - 占据1列 */}
+          <button
+            onClick={() => handleProductClick(2)}
+            className="col-span-1 glass-card rounded-xl p-3 flex flex-col items-center justify-center h-40 shadow-lg group hover:scale-105 active:scale-95 transition-all duration-300 text-center"
+            style={{
+              background: 'rgba(255, 255, 255, 0.15)',
+              backdropFilter: 'blur(12px)',
+              border: '1px solid rgba(255, 255, 255, 0.25)',
+            }}
+          >
+            <div className="bg-white/20 p-3 rounded-full mb-3">
+              <Building2 size={24} className="text-white" />
+            </div>
+            <span className="text-white font-semibold text-sm line-clamp-2">{products[1].title}</span>
+            <p className="text-white/70 text-xs mt-1">{products[1].subtitle}</p>
+          </button>
+
+          {/* Insurance - 占据1列 */}
+          <button
+            onClick={() => handleProductClick(3)}
+            className="col-span-1 glass-card rounded-xl p-3 flex flex-col items-center justify-center h-40 shadow-lg group hover:scale-105 active:scale-95 transition-all duration-300 text-center"
+            style={{
+              background: 'rgba(255, 255, 255, 0.15)',
+              backdropFilter: 'blur(12px)',
+              border: '1px solid rgba(255, 255, 255, 0.25)',
+            }}
+          >
+            <div className="bg-white/20 p-3 rounded-full mb-3">
+              <Shield size={24} className="text-white" />
+            </div>
+            <span className="text-white font-semibold text-sm line-clamp-2">{products[2].title}</span>
+            <p className="text-white/70 text-xs mt-1">{products[2].subtitle}</p>
+          </button>
+
+          {/* Securities - 占据1列 */}
+          <button
+            onClick={() => handleProductClick(4)}
+            className="col-span-1 glass-card rounded-xl p-3 flex flex-col items-center justify-center h-40 shadow-lg group hover:scale-105 active:scale-95 transition-all duration-300 text-center"
+            style={{
+              background: 'rgba(255, 255, 255, 0.15)',
+              backdropFilter: 'blur(12px)',
+              border: '1px solid rgba(255, 255, 255, 0.25)',
+            }}
+          >
+            <div className="bg-white/20 p-3 rounded-full mb-3">
+              <TrendingUp size={24} className="text-white" />
+            </div>
+            <span className="text-white font-semibold text-sm line-clamp-2">{products[3].title}</span>
+            <p className="text-white/70 text-xs mt-1">{products[3].subtitle}</p>
+          </button>
+
+          {/* Other Services - 占据1列 */}
+          <button
+            onClick={() => handleProductClick(5)}
+            className="col-span-1 glass-card rounded-xl p-3 flex flex-col items-center justify-center h-40 shadow-lg group hover:scale-105 active:scale-95 transition-all duration-300 text-center"
+            style={{
+              background: 'rgba(255, 255, 255, 0.15)',
+              backdropFilter: 'blur(12px)',
+              border: '1px solid rgba(255, 255, 255, 0.25)',
+            }}
+          >
+            <div className="bg-white/20 p-3 rounded-full mb-3">
+              <Settings size={24} className="text-white" />
+            </div>
+            <span className="text-white font-semibold text-sm line-clamp-2">{products[4].title}</span>
+            <p className="text-white/70 text-xs mt-1">{products[4].subtitle}</p>
+          </button>
+        </div>
+      </main>
+
+      {/* 购物车浮动按钮 */}
+      <div className="fixed bottom-24 right-6 z-50">
+        <button
+          onClick={() => {
+            navigate('/haironghuiqi/my-applications');
+          }}
+          className="relative w-16 h-16 bg-blue-900 hover:bg-blue-800 flex items-center justify-center rounded-full shadow-2xl transition-all active:scale-90"
+          style={{
+            cursor: 'pointer',
+            boxShadow: '0 20px 40px rgba(15, 23, 42, 0.3), 0 10px 20px rgba(15, 23, 42, 0.2)',
+          }}
+        >
+          <ShoppingCart size={32} className="text-white" />
+          {/* 角标 */}
+          {collectionCount > 0 && (
+            <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center border-2 border-blue-900">
+              {collectionCount}
+            </div>
+          )}
+        </button>
       </div>
     </div>
   );

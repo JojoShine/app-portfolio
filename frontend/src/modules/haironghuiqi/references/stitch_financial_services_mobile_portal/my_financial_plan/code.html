@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>My Financial Plan - FinSafe</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#f7fafd",
+                    "on-tertiary-fixed-variant": "#004f4f",
+                    "on-tertiary-container": "#55a6a6",
+                    "tertiary-fixed-dim": "#83d4d3",
+                    "tertiary-container": "#003838",
+                    "surface-container-highest": "#e0e3e6",
+                    "on-primary-fixed": "#001946",
+                    "primary-fixed": "#dae2ff",
+                    "on-primary-fixed-variant": "#224489",
+                    "surface-container-low": "#f1f4f7",
+                    "surface-bright": "#f7fafd",
+                    "on-surface": "#181c1e",
+                    "outline-variant": "#c4c6d2",
+                    "surface-container-high": "#e5e8eb",
+                    "primary-fixed-dim": "#b1c5ff",
+                    "on-primary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "primary": "#001a48",
+                    "surface-tint": "#3d5ca2",
+                    "secondary-container": "#fed65b",
+                    "surface-variant": "#e0e3e6",
+                    "on-error-container": "#93000a",
+                    "outline": "#747782",
+                    "secondary-fixed": "#ffe088",
+                    "on-surface-variant": "#444651",
+                    "tertiary-fixed": "#9ff1f0",
+                    "on-secondary-container": "#745c00",
+                    "on-primary-container": "#7a97e2",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#e9c349",
+                    "on-background": "#181c1e",
+                    "inverse-primary": "#b1c5ff",
+                    "secondary": "#735c00",
+                    "surface-dim": "#d7dadd",
+                    "error": "#ba1a1a",
+                    "tertiary": "#002121",
+                    "error-container": "#ffdad6",
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary-fixed": "#002020",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-on-surface": "#eef1f4",
+                    "on-secondary-fixed-variant": "#574500",
+                    "on-tertiary": "#ffffff",
+                    "background": "#f7fafd",
+                    "primary-container": "#002d72",
+                    "on-secondary-fixed": "#241a00",
+                    "surface-container": "#ebeef1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "12px",
+                    "margin-mobile": "16px",
+                    "stack-lg": "24px",
+                    "gutter-mobile": "12px",
+                    "section-padding": "32px",
+                    "base": "8px",
+                    "stack-sm": "4px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-xl-mobile": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .checkbox-custom:checked + .checkbox-visual {
+            background-color: #002d72;
+            border-color: #002d72;
+        }
+        .checkbox-custom:checked + .checkbox-visual::after {
+            content: 'check';
+            font-family: 'Material Symbols Outlined';
+            color: white;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .glass-header {
+            backdrop-filter: blur(12px);
+            background: rgba(247, 250, 253, 0.85);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen pb-40">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 glass-header border-b border-outline-variant shadow-sm flex items-center justify-between px-margin-mobile h-16">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="security">security</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">FinSafe</h1>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-high transition-colors active:scale-95 duration-100">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+</header>
+<main class="px-margin-mobile pt-stack-lg">
+<!-- Hero Section / Title -->
+<div class="mb-stack-lg">
+<h2 class="font-headline-xl-mobile text-headline-xl-mobile text-primary mb-1">My Financial Plan</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Review and manage your pending product applications.</p>
+</div>
+<!-- Bento-style Feature Card (Status Overview) -->
+<div class="bg-primary-container rounded-xl p-stack-lg mb-stack-lg text-on-primary-container shadow-sm flex items-center gap-4 relative overflow-hidden">
+<div class="relative z-10">
+<p class="font-label-md text-label-md opacity-80 mb-1">PLAN PROGRESS</p>
+<p class="font-headline-md text-headline-md text-white">4 Pending Actions</p>
+<div class="mt-stack-md flex gap-2">
+<span class="bg-on-primary-container/20 px-3 py-1 rounded-full font-label-md text-label-md text-white">Ready to Submit</span>
+</div>
+</div>
+<span class="material-symbols-outlined absolute -right-4 -bottom-4 text-9xl opacity-10 pointer-events-none" data-icon="assignment">assignment</span>
+</div>
+<!-- Product List -->
+<div class="flex flex-col gap-stack-md" id="product-container">
+<!-- Product Card 1 -->
+<label class="group relative block bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm transition-all hover:border-primary cursor-pointer active:scale-[0.98]">
+<input class="checkbox-custom absolute opacity-0 w-0 h-0" data-id="1" type="checkbox"/>
+<div class="flex gap-4">
+<div class="checkbox-visual flex-shrink-0 w-6 h-6 border-2 border-outline rounded flex items-center justify-center transition-colors mt-1"></div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-2">
+<div>
+<p class="font-label-md text-label-md text-secondary uppercase tracking-wider">Heritage Bank</p>
+<h3 class="font-headline-md text-headline-md-mobile text-primary">Ultra-Secure Savings</h3>
+</div>
+<span class="bg-surface-container-high text-on-surface-variant px-2 py-0.5 rounded font-label-md text-label-md">High Yield</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-stack-sm">High-interest accumulation with sovereign-grade encryption protocols for your primary liquid assets.</p>
+<div class="bg-surface-container-low p-stack-sm rounded-lg flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary-container mt-0.5" data-icon="info">info</span>
+<p class="font-label-md text-label-md text-on-surface-variant italic">Min. deposit $10k, KYC Level 3 required.</p>
+</div>
+</div>
+</div>
+</label>
+<!-- Product Card 2 -->
+<label class="group relative block bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm transition-all hover:border-primary cursor-pointer active:scale-[0.98]">
+<input class="checkbox-custom absolute opacity-0 w-0 h-0" data-id="2" type="checkbox"/>
+<div class="flex gap-4">
+<div class="checkbox-visual flex-shrink-0 w-6 h-6 border-2 border-outline rounded flex items-center justify-center transition-colors mt-1"></div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-2">
+<div>
+<p class="font-label-md text-label-md text-secondary uppercase tracking-wider">Apex Insure</p>
+<h3 class="font-headline-md text-headline-md-mobile text-primary">Legacy Trust Policy</h3>
+</div>
+<span class="bg-surface-container-high text-on-surface-variant px-2 py-0.5 rounded font-label-md text-label-md">Protection</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-stack-sm">Multi-generational wealth transfer policy with guaranteed tax-efficient distribution frameworks.</p>
+<div class="bg-surface-container-low p-stack-sm rounded-lg flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary-container mt-0.5" data-icon="info">info</span>
+<p class="font-label-md text-label-md text-on-surface-variant italic">Requires comprehensive medical history.</p>
+</div>
+</div>
+</div>
+</label>
+<!-- Product Card 3 -->
+<label class="group relative block bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm transition-all hover:border-primary cursor-pointer active:scale-[0.98]">
+<input class="checkbox-custom absolute opacity-0 w-0 h-0" data-id="3" type="checkbox"/>
+<div class="flex gap-4">
+<div class="checkbox-visual flex-shrink-0 w-6 h-6 border-2 border-outline rounded flex items-center justify-center transition-colors mt-1"></div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-2">
+<div>
+<p class="font-label-md text-label-md text-secondary uppercase tracking-wider">Quant Global</p>
+<h3 class="font-headline-md text-headline-md-mobile text-primary">Diversified ESG Portfolio</h3>
+</div>
+<span class="bg-surface-container-high text-on-surface-variant px-2 py-0.5 rounded font-label-md text-label-md">Sustainable</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-stack-sm">AI-managed equity fund focusing on decarbonization and ethical governance within the S&amp;P 500.</p>
+<div class="bg-surface-container-low p-stack-sm rounded-lg flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary-container mt-0.5" data-icon="info">info</span>
+<p class="font-label-md text-label-md text-on-surface-variant italic">3-year minimum lock-in period.</p>
+</div>
+</div>
+</div>
+</label>
+<!-- Product Card 4 -->
+<label class="group relative block bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm transition-all hover:border-primary cursor-pointer active:scale-[0.98]">
+<input class="checkbox-custom absolute opacity-0 w-0 h-0" data-id="4" type="checkbox"/>
+<div class="flex gap-4">
+<div class="checkbox-visual flex-shrink-0 w-6 h-6 border-2 border-outline rounded flex items-center justify-center transition-colors mt-1"></div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-2">
+<div>
+<p class="font-label-md text-label-md text-secondary uppercase tracking-wider">Nova Credit</p>
+<h3 class="font-headline-md text-headline-md-mobile text-primary">Executive Line of Credit</h3>
+</div>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded font-label-md text-label-md">Premium</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-stack-sm">Unsecured high-limit credit facility with concierge lifestyle services and 0% foreign transaction fees.</p>
+<div class="bg-surface-container-low p-stack-sm rounded-lg flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary-container mt-0.5" data-icon="info">info</span>
+<p class="font-label-md text-label-md text-on-surface-variant italic">Credit score &gt; 780 required.</p>
+</div>
+</div>
+</div>
+</label>
+</div>
+</main>
+<!-- Fixed Submission Footer -->
+<footer class="fixed bottom-16 left-0 w-full p-margin-mobile bg-surface/90 backdrop-blur-md z-40">
+<button class="w-full h-14 bg-primary text-on-primary rounded-xl font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all disabled:opacity-50 disabled:grayscale" disabled="" id="submitBtn">
+<span>Submit Selected Plans</span>
+<span class="bg-on-primary text-primary w-6 h-6 rounded-full flex items-center justify-center text-[10px] hidden" id="selectedCount">0</span>
+<span class="material-symbols-outlined text-[20px]" data-icon="send">send</span>
+</button>
+</footer>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 pb-safe bg-surface dark:bg-surface-container-lowest shadow-[0_-4px_12px_rgba(0,26,72,0.05)] rounded-t-xl z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="font-label-md text-label-md">Market</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="font-label-md text-label-md">Query</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 hover:bg-surface-container-highest transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="assignment" style="font-variation-settings: 'FILL' 1;">assignment</span>
+<span class="font-label-md text-label-md">Plan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md">Profile</span>
+</a>
+</nav>
+<script>
+        const checkboxes = document.querySelectorAll('.checkbox-custom');
+        const submitBtn = document.getElementById('submitBtn');
+        const countSpan = document.getElementById('selectedCount');
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', () => {
+                const checked = Array.from(checkboxes).filter(c => c.checked);
+                const count = checked.length;
+                
+                if (count > 0) {
+                    submitBtn.disabled = false;
+                    countSpan.textContent = count;
+                    countSpan.classList.remove('hidden');
+                } else {
+                    submitBtn.disabled = true;
+                    countSpan.classList.add('hidden');
+                }
+
+                // Add active visual state to the card
+                const card = cb.closest('label');
+                if (cb.checked) {
+                    card.classList.add('border-primary', 'bg-primary-container/5');
+                } else {
+                    card.classList.remove('border-primary', 'bg-primary-container/5');
+                }
+            });
+        });
+
+        submitBtn.addEventListener('click', () => {
+            if (!submitBtn.disabled) {
+                submitBtn.innerHTML = `
+                    <span class="animate-spin material-symbols-outlined" data-icon="progress_activity">progress_activity</span>
+                    <span>Processing Applications...</span>
+                `;
+                setTimeout(() => {
+                    alert('Applications submitted successfully!');
+                    window.location.reload();
+                }, 1500);
+            }
+        });
+    </script>
+</body></html>

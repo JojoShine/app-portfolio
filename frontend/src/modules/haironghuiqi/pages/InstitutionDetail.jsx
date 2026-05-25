@@ -5,6 +5,7 @@ import { getFileUrl } from '../../../services/fileService';
 import haironghuiqiService from '../services/haironghuiqiService';
 import ProductCard from '../components/ProductCard';
 import ApplicationModal from '../components/ApplicationModal';
+import Notification from '../components/Notification';
 
 /**
  * 机构详情页面
@@ -72,7 +73,7 @@ const InstitutionDetail = () => {
 
   if (loading) {
     return (
-      <div className="w-screen min-h-screen overflow-y-auto" style={{ backgroundColor: '#EFF4F8' }}>
+      <div className="w-screen min-h-screen overflow-y-auto bg-gray-50">
         <div style={{ textAlign: 'center', padding: '5vh 0' }}>
           <p style={{ fontSize: '3.5vw', color: '#999999' }}>加载中...</p>
         </div>
@@ -82,7 +83,7 @@ const InstitutionDetail = () => {
 
   if (error || !institution) {
     return (
-      <div className="w-screen min-h-screen overflow-y-auto" style={{ backgroundColor: '#EFF4F8' }}>
+      <div className="w-screen min-h-screen overflow-y-auto bg-gray-50">
         <div style={{ textAlign: 'center', padding: '5vh 0' }}>
           <p style={{ fontSize: '3.5vw', color: '#ff0000' }}>{error || '机构不存在'}</p>
         </div>
@@ -91,29 +92,14 @@ const InstitutionDetail = () => {
   }
 
   return (
-    <div className="w-screen min-h-screen overflow-y-auto" style={{ backgroundColor: '#EFF4F8' }}>
-      {/* NoticeBar */}
-      {noticeBar.show && (
-        <NoticeBar
-          content={noticeBar.message}
-          color={noticeBar.type === 'success' ? 'success' : 'error'}
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            zIndex: 10000,
-          }}
-        />
-      )}
+    <div className="w-screen min-h-screen overflow-y-auto bg-gray-50">
+      {/* Notification */}
+      <Notification show={noticeBar.show} message={noticeBar.message} type={noticeBar.type} />
 
       {/* 机构信息卡片 */}
       <div className="px-[4vw] py-[2vh]">
         <div
-          className="flex gap-[3vw] p-[3vw] bg-white"
-          style={{
-            borderRadius: '8px',
-          }}
+          className="flex gap-[3vw] p-[3vw] bg-white rounded-xl border border-gray-200 shadow-sm"
         >
           {/* Logo */}
           <div
@@ -145,17 +131,17 @@ const InstitutionDetail = () => {
                 {institution.name}
               </h3>
               <div className="mb-[1vh]">
-                <p style={{ fontSize: '3vw', color: '#333333', margin: 0 }}>
+                <p className="text-sm text-gray-900 m-0">
                   地址：{institution.address}
                 </p>
               </div>
               <div className="mb-[1vh]">
-                <p style={{ fontSize: '3vw', color: '#333333', margin: 0 }}>
+                <p className="text-sm text-gray-900 m-0">
                   营业时间：{institution.businessHours}
                 </p>
               </div>
               <div>
-                <p style={{ fontSize: '3vw', color: '#333333', margin: 0 }}>
+                <p className="text-sm text-gray-900 m-0">
                   电话：{institution.phone || '暂无'}
                 </p>
               </div>
@@ -168,10 +154,7 @@ const InstitutionDetail = () => {
       {institution.description && (
         <div className="px-[4vw]">
           <div
-            className="p-[3vw] bg-white"
-            style={{
-              borderRadius: '8px',
-            }}
+            className="p-[3vw] bg-white rounded-xl border border-gray-200 shadow-sm"
           >
             <h4 style={{ fontSize: '3.5vw', color: '#333333', margin: 0, marginBottom: '1vh' }}>
               机构介绍
@@ -224,8 +207,8 @@ const InstitutionDetail = () => {
           setTimeout(() => setNoticeBar({ show: false, message: '', type: 'success' }), 3000);
         }}
         onError={(errorMessage) => {
-          setNoticeBar({ show: true, message: errorMessage, type: 'fail' });
-          setTimeout(() => setNoticeBar({ show: false, message: '', type: 'fail' }), 3000);
+          setNoticeBar({ show: true, message: errorMessage, type: 'error' });
+          setTimeout(() => setNoticeBar({ show: false, message: '', type: 'error' }), 3000);
         }}
       />
     </div>

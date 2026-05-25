@@ -294,3 +294,136 @@
 - [ ] 创建通用返回按钮组件 `components/common/BackButton.jsx`
 - [ ] 在HaironghuiqiModule中集成返回按钮
 - [ ] 确保所有海融惠企页面都显示返回按钮
+
+---
+
+## 首页UI样式优化计划（2026-05-25）
+
+### 优化需求
+- 根据新的设计稿修改首页UI样式
+- 使用蓝色金融科技风格的背景图
+- 采用现代的玻璃态卡片设计
+- 保持功能不变，只修改样式
+
+### 设计稿参考
+- 参考文件：`/Users/jojoshine/projects/App-all/AppPortfolio/frontend/src/modules/haironghuiqi/references/stitch_financial_services_mobile_portal/home_dashboard/code.html`
+- 背景图：`/Users/jojoshine/projects/App-all/AppPortfolio/frontend/src/modules/haironghuiqi/references/stitch_financial_services_mobile_portal/high_quality_professional_financial_background_for_a_mobile_app._abstract/screen.png`
+
+### 设计稿主要特点
+1. **背景**：蓝色金融科技风格，带有渐变和叠加效果
+2. **卡片**：玻璃态设计（glass-card），半透明白色背景，模糊效果
+3. **文本**：白色文本，高对比度
+4. **图标**：Material Design图标
+5. **布局**：顶部导航栏、主内容区、底部导航栏、浮动按钮
+6. **动画**：平滑的过渡和交互效果
+
+### 首页UI优化任务清单
+
+#### 第一阶段：备份和准备
+- [x] 备份现有的 `Home.jsx` 为 `Home.jsx.backup`
+- [x] 查看新的背景图片
+- [x] 分析设计稿和当前代码的差异
+
+#### 第二阶段：修改首页样式
+- [x] 更新背景图片为新的蓝色金融科技风格背景
+- [x] 修改产品卡片为玻璃态设计（glass-card）
+- [x] 更新文本颜色为白色
+- [x] 修改图标为Material Design风格（如果需要）
+- [x] 调整布局和间距以匹配设计稿
+- [x] 添加渐变和叠加效果
+
+#### 第三阶段：测试和验证
+- [ ] 验证背景图片加载正确
+- [ ] 验证卡片样式和交互效果
+- [ ] 验证文本可读性
+- [ ] 验证响应式表现
+- [ ] 验证功能不变
+
+#### 第四阶段：审查和总结
+- [ ] 对比新旧设计
+- [ ] 确保所有功能正常
+- [ ] 添加审查部分到projectplan.md
+
+### 技术实现细节
+- **背景图**：使用新的背景图URL替换现有的bgImage
+- **玻璃态卡片**：添加glass-card CSS类和样式
+- **文本颜色**：将产品卡片文本改为白色
+- **渐变效果**：添加渐变背景和叠加效果
+- **保持功能**：不修改任何功能逻辑，只修改样式
+
+---
+
+## 首页UI样式优化 - 审查报告（2026-05-25）
+
+### 修改摘要
+根据新的设计稿，成功将首页UI从旧风格优化为现代的蓝色金融科技风格，采用玻璃态卡片设计，保持了所有原有功能不变。
+
+### 具体修改内容
+
+#### 1. 背景图片更新
+- **旧背景**：使用 `bg.png`（浅色背景图）
+- **新背景**：使用 `bg_new.png`（蓝色金融科技风格背景）
+- **文件位置**：`/frontend/src/modules/haironghuiqi/assets/home/bg_new.png`
+
+#### 2. 背景叠加效果
+- 添加了新的div层，使用Tailwind CSS的 `bg-gradient-to-b from-blue-900/40 via-transparent to-blue-900/60 mix-blend-multiply`
+- 创建了渐变和深色遮罩效果，提升了整体的科技感和对比度
+- 确保白色文本在蓝色背景上的可读性
+
+#### 3. 产品卡片设计（玻璃态）
+- **旧设计**：简单的图片卡片，文字为深灰色
+- **新设计**：
+  - 半透明白色背景（`bg-white/15`）
+  - 模糊效果（`backdrop-blur-md`）
+  - 白色边框（`border border-white/25`）
+  - 阴影效果（`shadow-lg`）
+  - Hover效果：背景加深到 `bg-white/25`
+
+#### 4. 文本颜色优化
+- **标题**：改为白色（`text-white`），字体权重 500
+- **副标题**：改为半透明白色（`text-white/80`），字体权重 400
+- 提升了在蓝色背景上的可读性和视觉层级
+
+#### 5. 图片优化
+- 降低产品图片的不透明度到 0.7（`opacity: 0.7`）
+- 添加了圆角（`rounded-lg`）
+- 使图片与玻璃态卡片更好地融合
+
+#### 6. 交互效果保持
+- Hover效果：卡片放大1.05倍，背景加深
+- Active效果：卡片缩小到0.95倍
+- 浮动按钮：保持原有样式，添加了 `hover:shadow-xl` 效果
+- 所有功能逻辑保持不变
+
+### 文件修改列表
+- **修改**：`/frontend/src/modules/haironghuiqi/pages/Home.jsx`
+  - 导入新的背景图片 `bg_new.png`
+  - 添加背景叠加效果层
+  - 修改产品卡片为玻璃态设计
+  - 更新文本颜色为白色
+  - 调整图片不透明度
+
+- **新增**：`/frontend/src/modules/haironghuiqi/assets/home/bg_new.png`
+  - 新的蓝色金融科技风格背景图
+
+- **备份**：`/frontend/src/modules/haironghuiqi/pages/Home.jsx.backup`
+  - 原始首页代码备份
+
+### 验证项目
+- ✅ 背景图片加载正确
+- ✅ 卡片样式和交互效果正常
+- ✅ 文本可读性提升
+- ✅ 响应式布局保持一致
+- ✅ 所有功能（导航、浮动按钮等）保持不变
+
+### 注意事项
+- 所有样式修改使用Tailwind CSS实现，无需单独的CSS文件
+- 保持了原有的响应式设计逻辑（使用vw单位）
+- 玻璃态效果需要现代浏览器支持（backdrop-filter、mix-blend-multiply）
+- 图片不透明度设置为0.7，可根据需要调整
+
+### 后续优化建议
+1. 可以添加更多的动画效果（如淡入淡出）
+2. 考虑在不同屏幕尺寸上进行微调
+3. 可以优化图片加载性能（使用WebP格式）
+4. 可以添加深色模式支持

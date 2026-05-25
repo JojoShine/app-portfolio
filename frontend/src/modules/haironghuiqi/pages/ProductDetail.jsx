@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { NoticeBar } from 'antd-mobile';
 import haironghuiqiService from '../services/haironghuiqiService';
 import ProductCard from '../components/ProductCard';
 import InstitutionCard from '../components/InstitutionCard';
 import ApplicationModal from '../components/ApplicationModal';
+import Notification from '../components/Notification';
 
 /**
  * 产品详情页面
@@ -54,7 +54,7 @@ const ProductDetail = () => {
 
   if (loading) {
     return (
-      <div className="w-screen min-h-screen overflow-y-auto" style={{ backgroundColor: '#EFF4F8' }}>
+      <div className="w-screen min-h-screen overflow-y-auto bg-gray-50">
         <div style={{ textAlign: 'center', padding: '5vh 0' }}>
           <p style={{ fontSize: '3.5vw', color: '#999999' }}>加载中...</p>
         </div>
@@ -64,7 +64,7 @@ const ProductDetail = () => {
 
   if (error || !product) {
     return (
-      <div className="w-screen min-h-screen overflow-y-auto" style={{ backgroundColor: '#EFF4F8' }}>
+      <div className="w-screen min-h-screen overflow-y-auto bg-gray-50">
         <div style={{ textAlign: 'center', padding: '5vh 0' }}>
           <p style={{ fontSize: '3.5vw', color: '#ff0000' }}>{error || '产品不存在'}</p>
         </div>
@@ -73,21 +73,9 @@ const ProductDetail = () => {
   }
 
   return (
-    <div className="w-screen min-h-screen overflow-y-auto" style={{ backgroundColor: '#EFF4F8' }}>
-      {/* NoticeBar */}
-      {noticeBar.show && (
-        <NoticeBar
-          content={noticeBar.message}
-          color={noticeBar.type === 'success' ? 'success' : 'error'}
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            zIndex: 10000,
-          }}
-        />
-      )}
+    <div className="w-screen min-h-screen overflow-y-auto bg-gray-50">
+      {/* Notification */}
+      <Notification show={noticeBar.show} message={noticeBar.message} type={noticeBar.type} />
 
       {/* 产品卡片 */}
       <div className="px-[4vw] py-[2vh]">
@@ -119,8 +107,8 @@ const ProductDetail = () => {
           setTimeout(() => setNoticeBar({ show: false, message: '', type: 'success' }), 3000);
         }}
         onError={(errorMessage) => {
-          setNoticeBar({ show: true, message: errorMessage, type: 'fail' });
-          setTimeout(() => setNoticeBar({ show: false, message: '', type: 'fail' }), 3000);
+          setNoticeBar({ show: true, message: errorMessage, type: 'error' });
+          setTimeout(() => setNoticeBar({ show: false, message: '', type: 'error' }), 3000);
         }}
       />
     </div>

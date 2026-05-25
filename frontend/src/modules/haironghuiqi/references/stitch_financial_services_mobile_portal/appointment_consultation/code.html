@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FinSafe | Appointment Consultation</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface": "#f7fafd",
+                      "on-tertiary-fixed-variant": "#004f4f",
+                      "on-tertiary-container": "#55a6a6",
+                      "tertiary-fixed-dim": "#83d4d3",
+                      "tertiary-container": "#003838",
+                      "surface-container-highest": "#e0e3e6",
+                      "on-primary-fixed": "#001946",
+                      "primary-fixed": "#dae2ff",
+                      "on-primary-fixed-variant": "#224489",
+                      "surface-container-low": "#f1f4f7",
+                      "surface-bright": "#f7fafd",
+                      "on-surface": "#181c1e",
+                      "outline-variant": "#c4c6d2",
+                      "surface-container-high": "#e5e8eb",
+                      "primary-fixed-dim": "#b1c5ff",
+                      "on-primary": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "primary": "#001a48",
+                      "surface-tint": "#3d5ca2",
+                      "secondary-container": "#fed65b",
+                      "surface-variant": "#e0e3e6",
+                      "on-error-container": "#93000a",
+                      "outline": "#747782",
+                      "secondary-fixed": "#ffe088",
+                      "on-surface-variant": "#444651",
+                      "tertiary-fixed": "#9ff1f0",
+                      "on-secondary-container": "#745c00",
+                      "on-primary-container": "#7a97e2",
+                      "on-error": "#ffffff",
+                      "secondary-fixed-dim": "#e9c349",
+                      "on-background": "#181c1e",
+                      "inverse-primary": "#b1c5ff",
+                      "secondary": "#735c00",
+                      "surface-dim": "#d7dadd",
+                      "error": "#ba1a1a",
+                      "tertiary": "#002121",
+                      "error-container": "#ffdad6",
+                      "inverse-surface": "#2d3133",
+                      "on-tertiary-fixed": "#002020",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-on-surface": "#eef1f4",
+                      "on-secondary-fixed-variant": "#574500",
+                      "on-tertiary": "#ffffff",
+                      "background": "#f7fafd",
+                      "primary-container": "#002d72",
+                      "on-secondary-fixed": "#241a00",
+                      "surface-container": "#ebeef1"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-md": "12px",
+                      "margin-mobile": "16px",
+                      "stack-lg": "24px",
+                      "gutter-mobile": "12px",
+                      "section-padding": "32px",
+                      "base": "8px",
+                      "stack-sm": "4px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "headline-xl": ["Inter"],
+                      "label-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "headline-xl-mobile": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "headline-md": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "14px", "fontWeight": "500"}],
+                      "headline-lg-mobile": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                      "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-lg": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-xl-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-overlay {
+            background: rgba(24, 28, 30, 0.4);
+            backdrop-filter: blur(8px);
+        }
+        .modal-shadow {
+            box-shadow: 0px 20px 40px rgba(0, 26, 72, 0.15);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="w-full top-0 sticky bg-surface border-b border-outline-variant shadow-sm flex items-center justify-between px-margin-mobile h-16 z-40">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="security">security</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">FinSafe</h1>
+</div>
+<nav class="hidden md:flex gap-stack-lg">
+<a class="text-primary font-label-lg" href="#">Market</a>
+<a class="text-on-surface-variant font-label-lg hover:text-primary transition-colors" href="#">Query</a>
+<a class="text-on-surface-variant font-label-lg hover:text-primary transition-colors" href="#">Plan</a>
+<a class="text-on-surface-variant font-label-lg hover:text-primary transition-colors" href="#">Profile</a>
+</nav>
+<button class="material-symbols-outlined md:hidden text-on-surface-variant" data-icon="menu">menu</button>
+</header>
+<main class="relative min-h-screen px-margin-mobile py-stack-lg lg:px-section-padding">
+<!-- Service List Background Content -->
+<div class="max-w-6xl mx-auto space-y-stack-lg">
+<header class="mb-stack-lg">
+<h2 class="font-headline-xl-mobile text-headline-xl-mobile md:font-headline-xl md:text-headline-xl text-primary mb-2">Our Financial Services</h2>
+<p class="text-on-surface-variant font-body-md">Expert guidance for your financial legacy and asset security.</p>
+</header>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-stack-lg">
+<!-- Service Cards (Non-interactive in this demo) -->
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-outline-variant hover:border-primary transition-all group">
+<span class="material-symbols-outlined text-primary mb-stack-md" data-icon="account_balance">account_balance</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Asset Management</h3>
+<p class="text-on-surface-variant font-body-sm mb-stack-md">Strategically diversifying your portfolio for long-term growth and stability.</p>
+<span class="text-primary font-label-lg group-hover:underline">Learn more →</span>
+</div>
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-outline-variant hover:border-primary transition-all group">
+<span class="material-symbols-outlined text-primary mb-stack-md" data-icon="payments">payments</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Wealth Planning</h3>
+<p class="text-on-surface-variant font-body-sm mb-stack-md">Customized roadmaps to achieve your financial milestones with precision.</p>
+<span class="text-primary font-label-lg group-hover:underline">Learn more →</span>
+</div>
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-outline-variant hover:border-primary transition-all group">
+<span class="material-symbols-outlined text-primary mb-stack-md" data-icon="shield">shield</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Risk Mitigation</h3>
+<p class="text-on-surface-variant font-body-sm mb-stack-md">Advanced security protocols and insurance strategies to protect your assets.</p>
+<span class="text-primary font-label-lg group-hover:underline">Learn more →</span>
+</div>
+<div class="md:col-span-2 lg:col-span-3 rounded-xl overflow-hidden h-64 relative border border-outline-variant">
+<img alt="Financial Professional" class="w-full h-full object-cover" data-alt="A professional financial advisor in a sleek, glass-walled office overlooking a modern metropolitan skyline at dusk. The lighting is warm and soft, creating a sense of trust and elite consultancy. The composition focuses on the advisor's desk, which is organized with minimalist high-tech tools. The overall mood is sophisticated and corporate, aligning with a premium navy and white color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZBqo5mUXM3HaicQxzgutsMY3BGFL1oueJiwSbsAaYUXgbmAGQ8MI6IrhtToIhJ4aaBdc60Mj1Wk_OEmiuoaGwFu-xri6OGmD716jmUQZak8Vpq4xgv5Qu9yLt2ADYVTNCsG5DGktjnqJ1USNG_iG2mEp9oW5B5leC1MFSjD9i9TT8c5_ZoYcV9pPk0Nltzw_ghI-6HM74Strszg5wEvwLMNGF9mZooOsjkif24Mu7ddEAmtx0HOUgh_lPYqVg4_YbYrixbjJ0we_3"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex items-end p-stack-lg">
+<div class="text-white">
+<p class="font-headline-md text-headline-md mb-1">Tailored Consultations</p>
+<p class="font-body-sm opacity-90">Book a private session with our senior analysts today.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- POPUP MODAL OVERLAY -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 glass-overlay" id="consultation-popup">
+<div class="bg-surface-container-lowest w-full max-w-2xl rounded-xl modal-shadow overflow-hidden flex flex-col max-h-[795px]">
+<!-- Modal Header -->
+<div class="px-stack-lg py-stack-md bg-surface-container border-b border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="event_note">event_note</span>
+<h2 class="font-headline-md text-headline-md text-primary">Consultation Booking</h2>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container-highest transition-colors active:scale-95 duration-100" id="close-modal">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="close">close</span>
+</button>
+</div>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto px-stack-lg py-stack-lg space-y-stack-lg">
+<!-- Section 1: Personal Information -->
+<section>
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="w-1 h-4 bg-primary rounded-full"></span>
+<h3 class="font-label-lg text-primary uppercase tracking-wider">Personal Information</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<div class="space-y-1">
+<label class="font-label-md text-on-surface-variant ml-1">Full Name</label>
+<input class="w-full border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all placeholder:text-outline/50 bg-white px-4 py-2.5" placeholder="John Doe" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-md text-on-surface-variant ml-1">Phone Number</label>
+<input class="w-full border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all placeholder:text-outline/50 bg-white px-4 py-2.5" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+<div class="space-y-1 md:col-span-2">
+<label class="font-label-md text-on-surface-variant ml-1">Email Address</label>
+<input class="w-full border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all placeholder:text-outline/50 bg-white px-4 py-2.5" placeholder="john.doe@financial.com" type="email"/>
+</div>
+</div>
+</section>
+<!-- Section 2: Application Information -->
+<section>
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="w-1 h-4 bg-primary rounded-full"></span>
+<h3 class="font-label-lg text-primary uppercase tracking-wider">Application Information</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<div class="space-y-1">
+<label class="font-label-md text-on-surface-variant ml-1">Service Type</label>
+<select class="w-full border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all bg-white px-4 py-2.5">
+<option>Asset Management</option>
+<option>Wealth Planning</option>
+<option>Risk Mitigation</option>
+<option>Corporate Advisory</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="font-label-md text-on-surface-variant ml-1">Expected Amount</label>
+<select class="w-full border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all bg-white px-4 py-2.5">
+<option>$50k - $250k</option>
+<option>$250k - $1M</option>
+<option>$1M - $5M</option>
+<option>$5M+</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Section 3: Requirements Description -->
+<section>
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="w-1 h-4 bg-primary rounded-full"></span>
+<h3 class="font-label-lg text-primary uppercase tracking-wider">Requirements Description</h3>
+</div>
+<div class="space-y-1">
+<label class="font-label-md text-on-surface-variant ml-1">Specific Needs &amp; Questions</label>
+<textarea class="w-full border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all placeholder:text-outline/50 bg-white px-4 py-2.5 resize-none" placeholder="Please describe your financial goals or any specific concerns you'd like to address during the consultation..." rows="4"></textarea>
+</div>
+</section>
+</div>
+<!-- Modal Footer -->
+<div class="px-stack-lg py-stack-lg bg-surface border-t border-outline-variant flex flex-col sm:flex-row items-center justify-end gap-stack-md">
+<button class="w-full sm:w-auto px-6 py-2.5 text-on-surface-variant font-label-lg hover:bg-surface-container-high rounded-lg transition-colors" id="cancel-btn">
+                        Cancel
+                    </button>
+<button class="w-full sm:w-auto px-10 py-2.5 bg-primary text-on-primary font-label-lg rounded-lg shadow-sm hover:brightness-110 active:scale-95 duration-100 transition-all" id="submit-btn">
+                        Submit Appointment
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation for Mobile -->
+<footer class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 pb-safe bg-surface border-t border-outline-variant md:hidden z-40">
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="font-label-md text-label-md">Market</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="font-label-md text-label-md">Query</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="font-label-md text-label-md">Plan</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md">Profile</span>
+</div>
+</footer>
+<script>
+        // Modal Interaction
+        const popup = document.getElementById('consultation-popup');
+        const closeBtn = document.getElementById('close-modal');
+        const cancelBtn = document.getElementById('cancel-btn');
+        const submitBtn = document.getElementById('submit-btn');
+
+        const closeModal = () => {
+            popup.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+            popup.style.transition = 'all 0.3s ease-out';
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 300);
+        };
+
+        [closeBtn, cancelBtn].forEach(btn => btn.addEventListener('click', closeModal));
+
+        submitBtn.addEventListener('click', () => {
+            submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm" data-icon="sync">sync</span> Processing...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Your appointment request has been submitted successfully.');
+                closeModal();
+                // Reset button
+                submitBtn.innerHTML = 'Submit Appointment';
+                submitBtn.disabled = false;
+            }, 1500);
+        });
+
+        // Close on background click
+        popup.addEventListener('click', (e) => {
+            if (e.target === popup) closeModal();
+        });
+    </script>
+</body></html>
