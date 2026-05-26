@@ -133,10 +133,10 @@ const ServiceSearch = () => {
             </div>
 
             <div className="relative z-10 mt-4 flex items-center justify-between">
-              <a href="#" className="inline-flex items-center gap-1 text-yellow-400 hover:underline transition-all text-sm font-semibold">
+              <button onClick={() => navigate('/haironghuiqi/policy')} className="inline-flex items-center gap-1 text-yellow-400 hover:underline transition-all text-sm font-semibold bg-transparent border-none cursor-pointer">
                 了解更多
                 <span>→</span>
-              </a>
+              </button>
               <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
                 <FileText size={20} className="text-white" />
               </div>

@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
 const env = require('./config/env');
 const logger = require('./common/utils/logger');
-const corsMiddleware = require('./common/middleware/cors');
 const errorHandler = require('./common/middleware/errorHandler');
 
 // 导入路由
@@ -14,8 +14,13 @@ const haironghuiqiRoutes = require('./modules/haironghuiqi/routes/index');
 
 const app = express();
 
+// 安全中间件
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
+  crossOriginOpenerPolicy: false,
+}));
+
 // 中间件
-app.use(corsMiddleware);
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 

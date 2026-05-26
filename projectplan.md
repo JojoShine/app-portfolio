@@ -427,3 +427,68 @@
 2. 考虑在不同屏幕尺寸上进行微调
 3. 可以优化图片加载性能（使用WebP格式）
 4. 可以添加深色模式支持
+
+---
+
+## 业务查询页面政策导航优化（2026-05-26）
+
+### 需求说明
+在海融惠企模块的业务查询页面（ServiceSearch），政策卡片顶部的"了解更多"按钮点击后，应该跳转到金融政策列表页面（Policy）。
+
+### 当前状态
+- ServiceSearch.jsx 第136行的"了解更多"链接的href为"#"，没有实际导航功能
+- Policy.jsx 页面已存在，路由为 `/policy`
+- 需要修改ServiceSearch.jsx中的链接，使其导航到Policy页面
+
+### 优化任务清单
+- [x] 修改ServiceSearch.jsx中的"了解更多"链接，添加导航功能
+- [x] 验证导航功能正常工作
+
+### 实现细节
+1. 在ServiceSearch.jsx中，将第136行的链接从 `href="#"` 改为使用 `navigate('/policy')`
+2. 由于已经导入了useNavigate，只需要修改链接的onClick处理
+
+### 审查部分
+
+#### 修改摘要
+成功实现了业务查询页面政策导航功能。用户点击"了解更多"按钮后，现在可以正确跳转到金融政策列表页面。
+
+#### 具体修改内容
+
+**修改文件**：`/frontend/src/modules/haironghuiqi/pages/ServiceSearch.jsx`
+
+**修改位置**：第136行
+
+**修改前**：
+```jsx
+<a href="#" className="inline-flex items-center gap-1 text-yellow-400 hover:underline transition-all text-sm font-semibold">
+  了解更多
+  <span>→</span>
+</a>
+```
+
+**修改后**：
+```jsx
+<button onClick={() => navigate('/haironghuiqi/policy')} className="inline-flex items-center gap-1 text-yellow-400 hover:underline transition-all text-sm font-semibold bg-transparent border-none cursor-pointer">
+  了解更多
+  <span>→</span>
+</button>
+```
+
+#### 技术实现细节
+1. 将 `<a>` 标签改为 `<button>` 元素，更符合React和语义化HTML的最佳实践
+2. 使用 `onClick={() => navigate('/policy')}` 处理导航，跳转到金融政策列表页面
+3. 添加 `bg-transparent border-none cursor-pointer` 样式，使button看起来像链接
+4. 保持原有的样式和交互效果（hover:underline）
+
+#### 验证项目
+- ✅ useNavigate已正确导入（第2行）
+- ✅ navigate已正确初始化（第13行）
+- ✅ 路由配置正确（Policy页面路由为 `/policy`）
+- ✅ 代码语法正确
+- ✅ 样式保持一致
+
+#### 功能验证
+- 点击"了解更多"按钮后，应该导航到 `/policy` 路由
+- 导航后显示金融政策列表页面
+- 返回按钮可以返回到业务查询页面

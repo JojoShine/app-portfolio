@@ -4,8 +4,11 @@ import HaironghuiqiModule from './modules/haironghuiqi/pages/index';
 import './App.css';
 
 function App() {
+  // 根据环境判断basename
+  const basename = import.meta.env.PROD ? '/app-portfolio' : '/'
+
   return (
-    <Router>
+    <Router basename={basename}>
       <Routes>
         {/* 首页 - 应用门面 */}
         <Route path="/" element={<Home />} />
