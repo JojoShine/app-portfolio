@@ -10,6 +10,9 @@ const router = express.Router();
 // 获取所有产品列表
 router.get('/products', productController.getAllProducts);
 
+// 根据关键词搜索产品（必须在 /products/:id 之前，避免 "search" 被当作 id）
+router.get('/products/search', productController.searchProductsByKeywords);
+
 // 获取指定分类下的产品列表
 router.get('/products/category/:category', productController.getProductsByCategory);
 

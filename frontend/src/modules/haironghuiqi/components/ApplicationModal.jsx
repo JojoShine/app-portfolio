@@ -63,10 +63,17 @@ const ApplicationModal = ({ isOpen, onClose, product, institution, applicationTy
     fetchUserInfo();
   }, [isOpen]);
 
-  // 当userInfo、product、institution变化时，自动生成需求说明
+  // 当userInfo、product变化时，自动生成需求说明
   useEffect(() => {
-    if (userInfo && product && institution) {
-      const generatedDescription = `我是${userInfo.name}，来自${userInfo.workUnit}，现在申请${institution.name}的${product.name}产品。我的联系方式是${userInfo.phone}。`;
+    if (userInfo && product) {
+      let generatedDescription;
+      if (institution) {
+        // 有机构信息：完整格式
+        generatedDescription = `我是${userInfo.name}，来自${userInfo.workUnit}，现在申请${institution.name}的${product.name}产品。我的联系方式是${userInfo.phone}。`;
+      } else {
+        // 没有机构信息：简化格式
+        generatedDescription = `我是${userInfo.name}，来自${userInfo.workUnit}，对${product.name}产品感兴趣。我的联系方式是${userInfo.phone}。`;
+      }
       setRequirementDescription(generatedDescription);
     }
   }, [userInfo, product, institution]);

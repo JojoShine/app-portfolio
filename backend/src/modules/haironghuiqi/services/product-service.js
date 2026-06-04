@@ -183,6 +183,75 @@ const updateProduct = async (productId, productData) => {
 };
 
 /**
+ * 根据关键词搜索产品
+ */
+const searchProductsByKeywords = async (userInput, params = {}) => {
+  try {
+    const { limit = 3 } = params;
+
+    if (!userInput || userInput.trim() === '') {
+      return [];
+    }
+
+    // 获取所有活跃产品
+    const allProducts = await Product.findAll({
+      where: { status: 'active' },
+      order: [['sort', 'ASC'], ['createdAt', 'DESC']],
+    });
+
+    if (allProducts.length === 0) {
+      return [];
+    }
+
+    // 将用户输入转为小写，便于匹配
+    const input = userInput.toLowerCase();
+
+    // 为每个产品计算匹配分数
+    const scoredProducts = allProducts.map((product) => {
+      let score = 0;
+      const keywords = product.keywords || [];
+
+      // 遍历产品的关键词数组
+      keywords.forEach((keyword) => {
+        if (input.includes(keyword.toLowerCase())) {
+          score += 10; // 每个匹配的关键词加10分
+        }
+      });
+
+      // 也在产品名称中搜索
+      if (product.name && input.includes(product.name.toLowerCase())) {
+        score += 20; // 名称匹配加分更高
+      }
+
+      // 在产品描述中搜索
+      if (product.description && input.includes(product.description.toLowerCase())) {
+        score += 5;
+      }
+
+      return { ...product.toJSON(), score };
+    });
+
+    // 过滤出有分数的产品，按分数降序排序，返回前limit个
+    const matchedProducts = scoredProducts
+      .filter((p) => p.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, limit);
+
+    logger.info('Products searched by keywords', {
+      userInput,
+      matchedCount: matchedProducts.length,
+    });
+
+    return matchedProducts;
+  } catch (error) {
+    logger.error('Failed to search products by keywords', {
+      error: error.message,
+    });
+    throw new InternalServerError('Failed to search products');
+  }
+};
+
+/**
  * 删除产品
  */
 const deleteProduct = async (productId) => {
@@ -213,6 +282,7 @@ module.exports = {
   getAllProducts,
   getProductsByInstitution,
   getProductDetail,
+  searchProductsByKeywords,
   createProduct,
   updateProduct,
   deleteProduct,

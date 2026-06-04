@@ -96,6 +96,7 @@ CREATE TABLE IF NOT EXISTS products (
   risk_warning TEXT,
   product_features TEXT,
   tags JSONB DEFAULT '[]'::jsonb,
+  keywords JSONB DEFAULT '[]'::jsonb,
   status product_status DEFAULT 'active',
   sort INTEGER DEFAULT 0,
   is_featured BOOLEAN DEFAULT false,
@@ -120,6 +121,7 @@ COMMENT ON COLUMN products.fee_description IS '费用说明';
 COMMENT ON COLUMN products.risk_warning IS '风险提示';
 COMMENT ON COLUMN products.product_features IS '产品特点/优势';
 COMMENT ON COLUMN products.tags IS '产品标签（数组）';
+COMMENT ON COLUMN products.keywords IS '产品关键词（用于智能匹配，数组）';
 COMMENT ON COLUMN products.status IS '产品状态';
 COMMENT ON COLUMN products.sort IS '排序字段（升序）';
 COMMENT ON COLUMN products.is_featured IS '是否为明星产品';

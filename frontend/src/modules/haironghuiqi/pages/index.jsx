@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import useHaironghuiqiInit from '../hooks/useHaironghuiqiInit';
-import BackButton from '../../../components/common/BackButton';
+
 import HaironghuiqiHome from './Home';
 import ServiceSearch from './ServiceSearch';
 import Policy from './Policy';
@@ -49,7 +49,6 @@ const HaironghuiqiModule = () => {
   // 初始化成功
   return (
     <div className="haironghuiqi-module">
-      <BackButton />
       <Routes>
         <Route path="/" element={<HaironghuiqiHome />} />
         <Route path="/home" element={<HaironghuiqiHome />} />

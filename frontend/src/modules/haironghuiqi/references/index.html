@@ -1,0 +1,351 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+    <title>FinSafe - Secure Financial Portal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f7fafd",
+                        "on-tertiary-fixed-variant": "#004f4f",
+                        "on-tertiary-container": "#55a6a6",
+                        "tertiary-fixed-dim": "#83d4d3",
+                        "tertiary-container": "#003838",
+                        "surface-container-highest": "#e0e3e6",
+                        "on-primary-fixed": "#001946",
+                        "primary-fixed": "#dae2ff",
+                        "on-primary-fixed-variant": "#224489",
+                        "surface-container-low": "#f1f4f7",
+                        "surface-bright": "#f7fafd",
+                        "on-surface": "#181c1e",
+                        "outline-variant": "#c4c6d2",
+                        "surface-container-high": "#e5e8eb",
+                        "primary-fixed-dim": "#b1c5ff",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary": "#001a48",
+                        "surface-tint": "#3d5ca2",
+                        "secondary-container": "#fed65b",
+                        "surface-variant": "#e0e3e6",
+                        "on-error-container": "#93000a",
+                        "outline": "#747782",
+                        "secondary-fixed": "#ffe088",
+                        "on-surface-variant": "#444651",
+                        "tertiary-fixed": "#9ff1f0",
+                        "on-secondary-container": "#745c00",
+                        "on-primary-container": "#7a97e2",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#e9c349",
+                        "on-background": "#181c1e",
+                        "inverse-primary": "#b1c5ff",
+                        "secondary": "#735c00",
+                        "surface-dim": "#d7dadd",
+                        "error": "#ba1a1a",
+                        "tertiary": "#002121",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary-fixed": "#002020",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#eef1f4",
+                        "on-secondary-fixed-variant": "#574500",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f7fafd",
+                        "primary-container": "#002d72",
+                        "on-secondary-fixed": "#241a00",
+                        "surface-container": "#ebeef1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "12px",
+                        "margin-mobile": "16px",
+                        "stack-lg": "24px",
+                        "gutter-mobile": "12px",
+                        "section-padding": "32px",
+                        "base": "8px",
+                        "stack-sm": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-xl-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "14px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                        "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-lg": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-xl-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>body {
+        font-family: 'Inter', sans-serif;
+        -webkit-font-smoothing: antialiased;
+    }
+    .glass-card {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.05) 100%);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 10px 20px rgba(0, 0, 0, 0.2);
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card:active {
+        transform: scale(0.97);
+        background: rgba(255, 255, 255, 0.15);
+    }
+    .bg-full-hero {
+        background-image: url('https://lh3.googleusercontent.com/aida/AP1WRLtr5mr_9ltsZBs1hNeqOPxPGy6zeKir8xTPBHfewBtZWRh4zHDloQV-36bPmsebZB5yg7SJUAVPU-CkvdvOVOUgScNHV1XLxcdl3DbTzzM_Kn80Xpo00S5qgmWlA-z4RoCIaJ5GTOtXivxegwdFfRHbDqkx6JMBtsjffmavVVPy0qlJS8Dl7Mh2UtMj7gmdNsm6ITxoaA1BOntr9WVRvq0Y5DqipML5QNx8hg_3WOpug7VHwD3tc5pNRZk_');
+        background-size: cover;
+        background-position: center;
+    }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .icon-container-layered {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+    }
+    .icon-container-layered::before {
+        content: '';
+        position: absolute;
+        width: 130%;
+        height: 130%;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 9999px;
+        z-index: -1;
+        filter: blur(8px);
+    }
+    .conversational-mode .module-display { display: none; }
+    .module-mode .conversational-display { display: none; }
+    .hide-scroll::-webkit-scrollbar { display: none; }
+    .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }</style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col overflow-x-hidden conversational-mode" id="appBody">
+<!-- HERO BACKGROUND WRAPPER -->
+<div class="fixed inset-0 bg-full-hero z-0">
+    <!-- Dark Overlay for Readability -->
+    <div class="absolute inset-0 bg-primary/40 mix-blend-multiply"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-primary/60 via-transparent to-primary/80"></div>
+</div>
+<!-- HEADER / TOP APP BAR -->
+<header class="w-full top-0 sticky z-50 transition-colors bg-transparent h-16 flex items-center justify-between px-margin-mobile">
+    <div class="flex items-center gap-stack-sm">
+
+        <h1 class="font-headline-lg-mobile text-headline-lg-mobile text-white tracking-tight">FinSafe</h1>
+    </div>
+    <button class="w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-white/10 transition-colors active:scale-95 duration-100">
+        <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+    </button>
+</header>
+<!-- MAIN CONTENT CANVAS -->
+<main class="relative z-10 flex-grow px-margin-mobile pt-stack-lg pb-32">
+    <!-- CONVERSATIONAL MODE DISPLAY (Default) -->
+    <div class="conversational-display flex flex-col h-full animate-fade-in">
+        <section class="mb-stack-lg">
+            <h2 class="font-headline-xl-mobile text-headline-xl-mobile text-white mb-stack-sm">Elite Intelligence.</h2>
+            <p class="font-body-md text-white/80 max-w-[80%]">How can I help with your financial goals today?</p>
+        </section>
+        <!-- Chat History Area -->
+        <div class="space-y-stack-md mb-stack-lg">
+            <div class="flex flex-col items-start">
+                <div class="glass-card rounded-xl p-stack-md max-w-[85%]">
+                    <p class="font-body-md text-white">I'm looking for high-yield diversification options for my portfolio.</p>
+                </div>
+            </div>
+            <div class="flex flex-col items-start w-full">
+                <div class="flex items-center gap-2 mb-2">
+                    <div class="w-6 h-6 bg-secondary-fixed rounded-full flex items-center justify-center">
+                        <span class="material-symbols-outlined text-[14px] text-on-secondary-fixed" data-icon="smart_toy">smart_toy</span>
+                    </div>
+                    <span class="text-white/60 font-label-md">FinSafe AI</span>
+                </div>
+                <div class="glass-card rounded-xl p-stack-md w-full">
+                    <p class="font-body-md text-white mb-stack-md">Based on your risk profile, I've matched these premium products for you:</p>
+                    <!-- Horizontal Scroll Matched Products -->
+                    <div class="flex gap-stack-md overflow-x-auto hide-scroll pb-2">
+                        <div class="min-w-[160px] bg-white/10 rounded-lg p-3 border border-white/10">
+                            <div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center mb-2">
+                                <span class="material-symbols-outlined text-white" data-icon="account_balance_wallet">account_balance_wallet</span>
+                            </div>
+                            <p class="text-white font-label-lg mb-1">Global Alpha Fund</p>
+                            <p class="text-secondary-fixed font-bold">8.4% APY</p>
+                        </div>
+                        <div class="min-w-[160px] bg-white/10 rounded-lg p-3 border border-white/10">
+                            <div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center mb-2">
+                                <span class="material-symbols-outlined text-white" data-icon="real_estate_agent">real_estate_agent</span>
+                            </div>
+                            <p class="text-white font-label-lg mb-1">Estate Growth II</p>
+                            <p class="text-secondary-fixed font-bold">12.1% ROI</p>
+                        </div>
+                        <div class="min-w-[160px] bg-white/10 rounded-lg p-3 border border-white/10">
+                            <div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center mb-2">
+                                <span class="material-symbols-outlined text-white" data-icon="token">token</span>
+                            </div>
+                            <p class="text-white font-label-lg mb-1">Digital Bond Pro</p>
+                            <p class="text-secondary-fixed font-bold">6.2% Est.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Chat Input Area -->
+        <div class="fixed bottom-32 left-margin-mobile right-margin-mobile">
+            <div class="relative">
+                <input class="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-full py-4 pl-6 pr-14 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary-fixed-dim" placeholder="Type your financial query..." type="text">
+                <button class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-primary-container text-white rounded-full flex items-center justify-center">
+                    <span class="material-symbols-outlined" data-icon="arrow_upward">arrow_upward</span>
+                </button>
+            </div>
+            <!-- Switch Mode Prompt -->
+            <div class="mt-4 flex justify-center">
+                <button class="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 font-label-md hover:bg-white/10 transition-colors" onclick="toggleMode()">
+                    <span class="material-symbols-outlined text-sm" data-icon="grid_view">grid_view</span>
+                    Switch to Module Mode
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- MODULE DISPLAY MODE (Preserved State) -->
+    <div class="module-display flex flex-col h-full animate-fade-in">
+        <section class="mb-stack-lg">
+            <h2 class="font-headline-xl-mobile text-headline-xl-mobile text-white mb-stack-sm">Elite Security.</h2>
+            <p class="font-body-md text-white/80 max-w-[80%]">Manage your premium assets with absolute precision and clarity.</p>
+        </section>
+        <!-- ENTRANCE BUTTONS GRID (ASYNCHRONOUS BENTO) -->
+        <div class="grid grid-cols-2 gap-stack-md">
+            <!-- Financial Policy - Large Span -->
+            <button class="col-span-2 glass-card rounded-xl p-stack-lg flex flex-col justify-between items-start h-44 shadow-lg group relative overflow-hidden" style="opacity: 1; transform: translateY(0px); transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-secondary-container/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
+                <div class="icon-container-layered text-on-secondary-container p-2.5 rounded-xl mb-stack-md group-hover:scale-110 transition-transform shadow-[0_4px_12px_rgba(254,214,91,0.3)] bg-secondary-fixed">
+                    <span class="material-symbols-outlined text-2xl" data-icon="gavel">gavel</span>
+                </div>
+                <div class="text-left">
+                    <p class="font-headline-md text-white text-lg">Financial Policy</p>
+                    <p class="font-label-md text-white/70 mt-1">Updated regulations and governance</p>
+                </div>
+            </button>
+            <!-- Banking -->
+            <button class="col-span-1 glass-card rounded-xl p-stack-md flex flex-col items-center justify-center h-40 shadow-lg text-center gap-stack-sm group" style="opacity: 1; transform: translateY(0px); transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0.1s;">
+                <div class="icon-container-layered p-3.5 rounded-full shadow-lg group-hover:bg-white/25 transition-all bg-primary-container text-white">
+                    <span class="material-symbols-outlined text-2xl" data-icon="account_balance">account_balance</span>
+                </div>
+                <span class="font-label-lg text-white font-semibold">Banking</span>
+            </button>
+            <!-- Insurance -->
+            <button class="col-span-1 glass-card rounded-xl p-stack-md flex flex-col items-center justify-center h-40 shadow-lg text-center gap-stack-sm group" style="opacity: 1; transform: translateY(0px); transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0.2s;">
+                <div class="icon-container-layered p-3.5 rounded-full shadow-lg group-hover:bg-white/25 transition-all bg-primary-container text-white">
+                    <span class="material-symbols-outlined text-2xl" data-icon="security">security</span>
+                </div>
+                <span class="font-label-lg text-white font-semibold">Insurance</span>
+            </button>
+            <!-- Securities -->
+            <button class="col-span-1 glass-card rounded-xl p-stack-md flex flex-col items-center justify-center h-40 shadow-lg text-center gap-stack-sm group" style="opacity: 1; transform: translateY(0px); transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0.3s;">
+                <div class="icon-container-layered p-3.5 rounded-full shadow-lg group-hover:bg-white/25 transition-all bg-primary-container text-white">
+                    <span class="material-symbols-outlined text-2xl" data-icon="trending_up">trending_up</span>
+                </div>
+                <span class="font-label-lg text-white font-semibold">Securities</span>
+            </button>
+            <!-- Other Services -->
+            <button class="col-span-1 glass-card rounded-xl p-stack-md flex flex-col items-center justify-center h-40 shadow-lg text-center gap-stack-sm group" style="opacity: 1; transform: translateY(0px); transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0.4s;">
+                <div class="icon-container-layered p-3.5 rounded-full shadow-lg group-hover:bg-white/25 transition-all bg-primary-container text-white">
+                    <span class="material-symbols-outlined text-2xl" data-icon="apps">apps</span>
+                </div>
+                <span class="font-label-lg text-white font-semibold">Other Services</span>
+            </button>
+        </div>
+        <!-- Mode Toggle Button for Module Mode -->
+        <div class="mt-stack-lg flex justify-center">
+            <button class="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 font-label-md hover:bg-white/10 transition-colors" onclick="toggleMode()">
+                <span class="material-symbols-outlined text-sm" data-icon="forum">forum</span>
+                Switch to Conversational Mode
+            </button>
+        </div>
+    </div>
+</main>
+<!-- FLOATING ACTION BUTTON (Shopping Cart) -->
+<button class="fixed bottom-24 right-6 w-16 h-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center z-50 active:scale-90 transition-transform duration-200 group">
+    <span class="material-symbols-outlined text-3xl" data-icon="shopping_cart">shopping_cart</span>
+    <!-- Red Badge -->
+    <div class="absolute -top-1 -right-1 bg-error text-white text-[10px] font-bold w-6 h-6 rounded-full flex items-center justify-center border-2 border-primary group-hover:scale-110 transition-transform">
+        3
+    </div>
+</button>
+<!-- BOTTOM NAV BAR -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 pb-safe bg-surface dark:bg-surface-container-lowest shadow-[0_-4px_12px_rgba(0,26,72,0.05)] z-50 rounded-t-xl">
+    <!-- Market (Inactive) -->
+    <div class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all px-4 py-1 active:scale-90 duration-200 cursor-pointer">
+        <span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+        <span class="font-label-md text-label-md">Market</span>
+    </div>
+    <!-- Query (Inactive) -->
+    <div class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all px-4 py-1 active:scale-90 duration-200 cursor-pointer">
+        <span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+        <span class="font-label-md text-label-md">Query</span>
+    </div>
+    <!-- Plan (Inactive) -->
+    <div class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all px-4 py-1 active:scale-90 duration-200 cursor-pointer">
+        <span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+        <span class="font-label-md text-label-md">Plan</span>
+    </div>
+    <!-- Profile (Active State) -->
+    <div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 transition-all active:scale-90 duration-200 cursor-pointer">
+        <span class="material-symbols-outlined" data-icon="person">person</span>
+        <span class="font-label-md text-label-md">Profile</span>
+    </div>
+</nav>
+<script>
+    function toggleMode() {
+        const body = document.getElementById('appBody');
+        if (body.classList.contains('conversational-mode')) {
+            body.classList.remove('conversational-mode');
+            body.classList.add('module-mode');
+        } else {
+            body.classList.remove('module-mode');
+            body.classList.add('conversational-mode');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const gridItems = document.querySelectorAll('.module-display .grid > button');
+        gridItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = `all 0.4s cubic-bezier(0.23, 1, 0.32, 1) ${index * 0.1}s`;
+
+            setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    });
+</script>
+
+
+</body></html>

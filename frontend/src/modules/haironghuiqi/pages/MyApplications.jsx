@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Trash2, FileText, Info } from 'lucide-react';
+import { Trash2, FileText, Award } from 'lucide-react';
+import featuredImage from '../assets/service_search/isFeatured.png';
 import { Dialog, NoticeBar } from 'antd-mobile';
 import applicationService from '../services/applicationService';
 
@@ -104,26 +105,20 @@ const MyApplications = () => {
   };
 
   return (
-    <div className="w-screen min-h-screen bg-gray-50 pb-32">
+    <div className="w-screen min-h-screen pb-32" style={{ background: 'linear-gradient(180deg, #eef2f7 0%, #f8fafc 50%, #eef2f7 100%)' }}>
       {/* Main Content */}
       <main className="px-4 pt-6 max-w-2xl mx-auto w-full">
-        {/* Hero Section / Title */}
-        <div className="mb-6">
-          <h2 className="text-2xl font-bold text-blue-900 mb-1">我的资金方案</h2>
-          <p className="text-sm text-gray-600">查看和管理您的待处理申请。</p>
-        </div>
-
         {/* Status Overview Card */}
-        <div className="bg-blue-900 rounded-xl p-6 mb-6 text-white shadow-lg relative overflow-hidden">
-          <div className="relative z-10">
-            <p className="text-xs opacity-80 mb-1 uppercase tracking-wider font-semibold">方案进度</p>
-            <p className="text-2xl font-bold mb-4">{applications.length} 个待处理申请</p>
-            <div className="flex gap-2">
-              <span className="bg-white/20 px-3 py-1 rounded-full text-xs font-semibold">准备提交</span>
+        <div className="rounded-xl p-4 mb-5 text-white relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%)' }}>
+          <div className="relative z-10 flex items-center justify-between">
+            <div>
+              <p className="text-xs opacity-80 uppercase tracking-wider font-semibold mb-0.5">方案进度</p>
+              <p className="text-xl font-bold">{applications.length} 个待处理申请</p>
             </div>
+            <span className="bg-white/20 px-3 py-1.5 rounded-full text-xs font-semibold">准备提交</span>
           </div>
-          <div className="absolute -right-4 -bottom-4 opacity-10 pointer-events-none">
-            <FileText size={120} className="text-white" />
+          <div className="absolute -right-2 -bottom-2 opacity-10 pointer-events-none">
+            <FileText size={80} className="text-white" />
           </div>
         </div>
 
@@ -134,28 +129,57 @@ const MyApplications = () => {
           </div>
         ) : applications.length > 0 ? (
           <div className="space-y-4" id="product-container">
-            {applications.map((application) => (
+            {applications.map((application) => {
+              const isFeatured = application.Product?.isFeatured;
+              return (
               <label
                 key={application.id}
-                className="group relative block bg-white border border-gray-200 rounded-xl p-4 shadow-sm transition-all hover:border-blue-900 cursor-pointer active:scale-[0.98]"
+                className={`group relative block rounded-xl p-4 transition-all hover:-translate-y-0.5 cursor-pointer active:scale-[0.98] ${
+                  isFeatured ? 'border border-blue-800 shadow-lg' : ''
+                }`}
+                style={
+                  isFeatured
+                    ? {
+                        position: 'relative',
+                        overflow: 'hidden',
+                      }
+                    : {
+                        background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,245,255,0.9) 100%)',
+                        backdropFilter: 'blur(12px)',
+                        border: '1px solid rgba(200,215,240,0.5)',
+                        boxShadow: '0 4px 20px rgba(30,58,138,0.06), 0 1px 3px rgba(0,0,0,0.04)',
+                      }
+                }
               >
+                {/* 明星产品背景 */}
+                {isFeatured && (
+                  <>
+                    <img
+                      src={featuredImage}
+                      alt={application.Product?.name}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 to-blue-900/20"></div>
+                  </>
+                )}
+
                 <input
                   type="checkbox"
                   checked={selectedIds.includes(application.id)}
                   onChange={() => handleSelectApplication(application.id)}
-                  className="absolute opacity-0 w-0 h-0"
+                  className="absolute opacity-0 w-0 h-0 z-10"
                 />
-                <div className="flex gap-4">
+                <div className={`flex gap-4 ${isFeatured ? 'relative z-10' : ''}`}>
                   {/* Checkbox Visual */}
                   <div
-                    className={`flex-shrink-0 w-6 h-6 border-2 rounded flex items-center justify-center transition-colors mt-1 ${
+                    className={`flex-shrink-0 w-5 h-5 border-2 rounded flex items-center justify-center transition-colors mt-0.5 ${
                       selectedIds.includes(application.id)
                         ? 'bg-blue-900 border-blue-900'
                         : 'border-gray-300'
                     }`}
                   >
                     {selectedIds.includes(application.id) && (
-                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                       </svg>
                     )}
@@ -165,30 +189,84 @@ const MyApplications = () => {
                   <div className="flex-grow">
                     <div className="flex justify-between items-start mb-2">
                       <div>
-                        <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-1">
+                        <p className={`text-xs uppercase tracking-wider font-semibold mb-1 ${
+                          isFeatured ? 'text-white/70' : 'text-gray-500'
+                        }`}>
                           {application.Institution?.name}
                         </p>
-                        <h3 className="text-base font-semibold text-blue-900">
+                        <h3 className={`text-base font-semibold flex items-center gap-1.5 ${
+                          isFeatured ? 'text-white' : 'text-blue-900'
+                        }`}>
                           {application.Product?.name}
+                          {isFeatured && (
+                            <Award size={16} className="text-amber-400" />
+                          )}
                         </h3>
                       </div>
-                      <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-semibold whitespace-nowrap ml-2">
+                      <span className={`px-2 py-1 rounded text-xs font-semibold whitespace-nowrap ml-2 ${
+                        isFeatured ? 'bg-amber-400/20 text-amber-300' : 'bg-gray-100 text-gray-700'
+                      }`}>
                         待提交
                       </span>
                     </div>
-                    <p className="text-sm text-gray-600 mb-3">
-                      {application.Product?.description || '暂无说明'}
-                    </p>
-                    <div className="bg-gray-50 p-3 rounded-lg flex items-start gap-2">
-                      <Info size={16} className="text-blue-900 mt-0.5 flex-shrink-0" />
-                      <p className="text-xs text-gray-600 italic">
-                        {application.requirementDescription || '暂无需求说明'}
-                      </p>
+                    {/* 产品要素信息 */}
+                    <div className="flex gap-2 mb-2">
+                      <div className={`flex-1 rounded-lg px-2 py-2 text-center ${
+                        isFeatured
+                          ? 'bg-white/10'
+                          : 'bg-gradient-to-br from-blue-50 to-blue-100/50'
+                      }`}>
+                        <p className={`text-[10px] mb-0.5 ${
+                          isFeatured ? 'text-white/60' : 'text-gray-400'
+                        }`}>最高额度</p>
+                        <p className={`font-bold text-xs ${
+                          isFeatured ? 'text-amber-400' : 'text-blue-800'
+                        }`}>
+                          {application.Product?.maxLoanAmount ? `${application.Product.maxLoanAmount}万` : '-'}
+                        </p>
+                      </div>
+                      <div className={`flex-1 rounded-lg px-2 py-2 text-center ${
+                        isFeatured
+                          ? 'bg-white/10'
+                          : 'bg-gradient-to-br from-indigo-50 to-indigo-100/50'
+                      }`}>
+                        <p className={`text-[10px] mb-0.5 ${
+                          isFeatured ? 'text-white/60' : 'text-gray-400'
+                        }`}>期限</p>
+                        <p className={`font-bold text-xs ${
+                          isFeatured ? 'text-amber-400' : 'text-indigo-800'
+                        }`}>
+                          {application.Product?.maxLoanTerm ? `${application.Product.maxLoanTerm}年` : '-'}
+                        </p>
+                      </div>
+                      <div className={`flex-1 rounded-lg px-2 py-2 text-center ${
+                        isFeatured
+                          ? 'bg-white/10'
+                          : 'bg-gradient-to-br from-amber-50 to-amber-100/50'
+                      }`}>
+                        <p className={`text-[10px] mb-0.5 ${
+                          isFeatured ? 'text-white/60' : 'text-gray-400'
+                        }`}>年化率</p>
+                        <p className={`font-bold text-xs ${
+                          isFeatured ? 'text-amber-400' : 'text-amber-700'
+                        }`}>
+                          {application.Product?.minAnnualRate ? `${application.Product.minAnnualRate}%` : '-'}
+                        </p>
+                      </div>
                     </div>
+                    <div className={`my-2 ${
+                      isFeatured ? 'border-t border-white/10' : 'border-t border-gray-100'
+                    }`} />
+                    <p className={`text-xs ${
+                      isFeatured ? 'text-white/70' : 'text-gray-500'
+                    }`}>
+                      需求：{application.requirementDescription || '暂无需求说明'}
+                    </p>
                   </div>
                 </div>
               </label>
-            ))}
+              );
+            })}
           </div>
         ) : (
           <div className="text-center py-12">

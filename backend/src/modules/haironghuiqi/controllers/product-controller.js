@@ -61,3 +61,26 @@ exports.getProductDetail = async (req, res, next) => {
     next(error);
   }
 };
+
+// 根据关键词搜索产品
+exports.searchProductsByKeywords = async (req, res, next) => {
+  try {
+    const { query } = req.query;
+    const limit = parseInt(req.query.limit) || 3;
+
+    if (!query || query.trim() === '') {
+      return res.json(response.success([], '请输入搜索内容'));
+    }
+
+    const products = await productService.searchProductsByKeywords(query, { limit });
+    
+    if (products.length === 0) {
+      return res.json(response.success([], '未找到相关产品，建议您切换到选择模式探索更多产品'));
+    }
+
+    res.json(response.success(products, '找到相关产品'));
+  } catch (error) {
+    logger.error('关键词搜索产品失败:', error);
+    next(error);
+  }
+};

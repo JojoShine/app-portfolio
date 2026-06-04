@@ -80,6 +80,12 @@ const Product = sequelize.define(
       defaultValue: [],
       comment: '产品标签（数组）',
     },
+    keywords: {
+      type: DataTypes.JSON,
+      allowNull: true,
+      defaultValue: [],
+      comment: '产品关键词（用于智能匹配，数组）',
+    },
     status: {
       type: DataTypes.ENUM('active', 'inactive'),
       defaultValue: 'active',

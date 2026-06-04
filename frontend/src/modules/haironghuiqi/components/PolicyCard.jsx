@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getFileUrl } from '../../../services/fileService';
+import { FileText, Calendar } from 'lucide-react';
 
 /**
  * 政策卡片组件
@@ -60,42 +61,58 @@ const PolicyCard = ({ policy }) => {
   };
 
   return (
-    <div className="flex items-start gap-4 p-4 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow cursor-pointer active:scale-95">
-      {/* Logo */}
-      <div className="w-28 h-20 shrink-0 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
-        {logoLoading ? (
-          <div className="text-gray-400 text-xs">加载中...</div>
-        ) : logoUrl ? (
-          <img
-            src={logoUrl}
-            alt={policy.title}
-            className="w-full h-full object-cover"
-            onError={(e) => {
-              e.target.style.display = 'none';
-            }}
-          />
-        ) : null}
+    <div
+      className="relative rounded-2xl overflow-hidden cursor-pointer active:scale-[0.98] transition-all duration-300 group hover:-translate-y-0.5"
+      style={{
+        background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,245,255,0.9) 100%)',
+        backdropFilter: 'blur(12px)',
+        border: '1px solid rgba(200,215,240,0.5)',
+        boxShadow: '0 4px 20px rgba(30,58,138,0.06), 0 1px 3px rgba(0,0,0,0.04)',
+      }}
+    >
+      {/* 右下角政策 icon 叠层水印 */}
+      <div className="absolute -right-3 -bottom-3 pointer-events-none" style={{ opacity: 0.05 }}>
+        <FileText size={80} className="text-blue-900" strokeWidth={1} />
       </div>
 
-      {/* 信息 */}
-      <div className="flex-1 min-w-0 flex flex-col justify-between">
-        <div>
-          <h3 className="font-semibold text-gray-900 text-base leading-tight">
-            {policy.title}
-          </h3>
-          <p className="text-gray-600 line-clamp-3 mt-2" style={{ fontSize: '13px' }}>
-            {policy.content || policy.description}
-          </p>
-          {policy.description && policy.content && (
-            <p className="text-gray-500 line-clamp-2 mt-1" style={{ fontSize: '12px' }}>
-              {policy.description}
-            </p>
+      {/* 左侧装饰条 */}
+      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-amber-400 to-blue-800 rounded-l-2xl" />
+
+      <div className="flex items-start gap-4 p-4 pl-5">
+        {/* Logo/图标区 */}
+        <div className="w-24 h-18 shrink-0 rounded-xl overflow-hidden flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)' }}>
+          {logoLoading ? (
+            <div className="text-blue-300 text-xs">...</div>
+          ) : logoUrl ? (
+            <img
+              src={logoUrl}
+              alt={policy.title}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                e.target.style.display = 'none';
+              }}
+            />
+          ) : (
+            <FileText size={28} className="text-blue-300" />
           )}
         </div>
-        <div>
-          <p className="text-gray-500 mt-2" style={{ fontSize: '12px' }}>
-            发布时间：{formatDate(policy.publishedAt || policy.createdAt)}
-          </p>
+
+        {/* 信息 */}
+        <div className="flex-1 min-w-0 flex flex-col justify-between">
+          <div>
+            <h3 className="font-bold text-gray-900 text-[15px] leading-snug group-hover:text-blue-800 transition-colors">
+              {policy.title}
+            </h3>
+            <p className="text-gray-500 line-clamp-2 mt-1.5 text-[13px] leading-relaxed">
+              {policy.content || policy.description}
+            </p>
+          </div>
+          <div className="flex items-center gap-1.5 mt-2.5">
+            <Calendar size={12} className="text-blue-400" />
+            <p className="text-gray-400 text-[11px]">
+              {formatDate(policy.publishedAt || policy.createdAt)}
+            </p>
+          </div>
         </div>
       </div>
     </div>

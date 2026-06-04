@@ -23,8 +23,17 @@ export const getProductDetail = async (productId) => {
   return handleResponse(response);
 };
 
+// 根据关键词搜索产品
+export const searchProductsByKeywords = async (query, limit = 3) => {
+  const response = await api.get('/haironghuiqi/products/search', {
+    params: { query, limit },
+  });
+  return handleListResponse(response);
+};
+
 export default {
   getProductList,
   getProductsByCategory,
   getProductDetail,
+  searchProductsByKeywords,
 };

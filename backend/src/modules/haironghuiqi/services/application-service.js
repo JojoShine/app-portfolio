@@ -68,7 +68,7 @@ const getUserApplications = async (userId, params = {}) => {
         {
           model: Product,
           as: 'Product',
-          attributes: ['id', 'name', 'description', 'maxLoanAmount', 'maxLoanTerm', 'minAnnualRate'],
+          attributes: ['id', 'name', 'description', 'maxLoanAmount', 'maxLoanTerm', 'minAnnualRate', 'isFeatured'],
         },
       ],
       offset,
@@ -108,7 +108,7 @@ const getApplicationDetail = async (applicationId) => {
         {
           model: Product,
           as: 'Product',
-          attributes: ['id', 'name', 'description', 'maxLoanAmount', 'maxLoanTerm', 'minAnnualRate'],
+          attributes: ['id', 'name', 'description', 'maxLoanAmount', 'maxLoanTerm', 'minAnnualRate', 'isFeatured'],
         },
       ],
     });
