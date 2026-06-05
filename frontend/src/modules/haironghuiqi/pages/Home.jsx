@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ShoppingCart, Scale, Building2, Shield, TrendingUp, Settings, MessageSquare, Grid, Send, Info, Trash2, Home } from 'lucide-react';
+import { ShoppingCart, Scale, Building2, Shield, Briefcase, Settings, MessageSquare, Grid, Send, Info, Trash2, Home, DollarSign, CreditCard, Wallet, PiggyBank, Landmark, Coins, Banknote, Receipt, Percent, TrendingUp } from 'lucide-react';
 import bgImage from '../assets/home/bg_new.png';
 import logoImage from '../assets/home/logo.png';
 import haironghuiqiLogo from '../assets/home/haironghuiqi.png';
@@ -58,6 +58,43 @@ const HaironghuiqiHome = () => {
 
     fetchApplicationCount();
   }, []);
+
+  // 金融图标列表（10个不同的图标，增加多样性）
+  const financeIcons = [
+    Briefcase,    // 公文包 - 业务
+    DollarSign,   // 美元符号 - 金钱
+    CreditCard,   // 信用卡 - 支付
+    Wallet,       // 钱包 - 资金
+    PiggyBank,    // 存钱罐 - 储蓄
+    Landmark,     // 银行建筑 - 金融机构
+    Coins,        // 硬币 - 货币
+    Banknote,     // 钞票 - 现金
+    Receipt,      // 收据 - 凭证
+    Percent,      // 百分比 - 利率
+  ];
+
+  // 为每个产品生成一个固定的图标（基于产品ID）
+  const getProductIcon = (productId) => {
+    if (!productId) {
+      console.warn('Invalid productId:', productId);
+      return Briefcase; // 默认返回第一个图标
+    }
+    
+    // 将ID转换为字符串，然后使用字符串哈希算法
+    const idStr = String(productId);
+    let hash = 0;
+    for (let i = 0; i < idStr.length; i++) {
+      const char = idStr.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32bit integer
+    }
+    
+    // 确保hash为正数
+    const positiveHash = Math.abs(hash);
+    const index = positiveHash % financeIcons.length;
+    
+    return financeIcons[index] || Briefcase;
+  };
 
   // 获取明星产品（hero产品）
   useEffect(() => {
@@ -509,28 +546,31 @@ const HaironghuiqiHome = () => {
                       {/* Horizontal Scroll Matched Products */}
                       {message.products && message.products.length > 0 && (
                         <div className="flex gap-2 sm:gap-3 overflow-x-auto hide-scroll pb-2 -mx-1 px-1 hide-scrollbar">
-                          {message.products.map((product, idx) => (
-                            <div
-                              key={idx}
-                              onClick={() => navigate(`/haironghuiqi/product/${product.id}`)}
-                              className="min-w-[140px] max-w-[140px] sm:min-w-[180px] sm:max-w-[180px] bg-white/10 rounded-lg p-3 sm:p-4 border border-white/10 flex flex-col flex-shrink-0 cursor-pointer hover:bg-white/20 transition-colors"
-                            >
-                              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-900/50 rounded-lg flex items-center justify-center mb-2">
-                                <TrendingUp size={18} className="sm:size-5 text-white" />
-                              </div>
-                              <p className="text-white text-sm sm:text-sm font-semibold mb-1 truncate">{product.name}</p>
-                              <p className="text-yellow-400 font-bold text-base sm:text-base mb-2">{product.rate}</p>
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleProductConsult(product);
-                                }}
-                                className="mt-auto w-full py-2 sm:py-2.5 bg-blue-900 hover:bg-blue-800 text-white text-sm sm:text-sm font-semibold rounded-lg transition-colors active:scale-95"
+                          {message.products.map((product, idx) => {
+                            const ProductIcon = getProductIcon(product.id);
+                            return (
+                              <div
+                                key={idx}
+                                onClick={() => navigate(`/haironghuiqi/product/${product.id}`)}
+                                className="min-w-[140px] max-w-[140px] sm:min-w-[180px] sm:max-w-[180px] bg-white/10 rounded-lg p-3 sm:p-4 border border-white/10 flex flex-col flex-shrink-0 cursor-pointer hover:bg-white/20 transition-colors"
                               >
-                                预约咨询
-                              </button>
-                            </div>
-                          ))}
+                                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-900/50 rounded-lg flex items-center justify-center mb-2">
+                                  <ProductIcon size={18} className="sm:size-5 text-white" />
+                                </div>
+                                <p className="text-white text-sm sm:text-sm font-semibold mb-1 truncate">{product.name}</p>
+                                <p className="text-yellow-400 font-bold text-base sm:text-base mb-2">{product.rate}</p>
+                                <button
+                                  onMouseDown={(e) => {
+                                    e.preventDefault();
+                                    navigate(`/haironghuiqi/product/${product.id}`);
+                                  }}
+                                  className="mt-auto w-full py-2 sm:py-2.5 bg-blue-900 hover:bg-blue-800 text-white text-sm sm:text-sm font-semibold rounded-lg transition-colors active:scale-95"
+                                >
+                                  查看详情
+                                </button>
+                              </div>
+                            );
+                          })}
                         </div>
                       )}
                     </div>

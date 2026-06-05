@@ -114,7 +114,7 @@ const MyApplications = () => {
   };
 
   return (
-    <div className="w-full min-h-screen pb-[8vh]" style={{ background: 'linear-gradient(180deg, #eef2f7 0%, #f8fafc 50%, #eef2f7 100%)' }}>
+    <div className="w-full min-h-screen pb-[100px]" style={{ background: 'linear-gradient(180deg, #eef2f7 0%, #f8fafc 50%, #eef2f7 100%)' }}>
       {/* Main Content */}
       <main className="px-[4vw] pt-[2vh] max-w-2xl mx-auto w-full">
         {/* Status Overview Card */}
@@ -273,6 +273,20 @@ const MyApplications = () => {
                     }`}>
                       需求：{application.requirementDescription || '暂无需求说明'}
                     </p>
+                    {/* 加入时间 */}
+                    {application.createdAt && (
+                      <p className={`text-[10px] mt-2 ${
+                        isFeatured ? 'text-white/50' : 'text-gray-400'
+                      }`}>
+                        加入时间：{new Date(application.createdAt).toLocaleString('zh-CN', {
+                          year: 'numeric',
+                          month: '2-digit',
+                          day: '2-digit',
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })}
+                      </p>
+                    )}
                   </div>
                 </div>
               </label>
