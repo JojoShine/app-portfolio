@@ -1,5 +1,5 @@
 const User = require('./model');
-const logger = require('../../common/utils/logger');
+const { app: logger } = require('../../common/utils/logger');
 const { NotFoundError, ConflictError } = require('../../common/utils/error');
 
 // 创建用户

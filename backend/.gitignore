@@ -19,6 +19,9 @@ yarn-error.log
 # Logs
 logs/
 *.log
+# 保留日志目录结构，但忽略日志文件内容
+!logs/.gitkeep
+!logs/*/.gitkeep
 
 # OS
 .DS_Store

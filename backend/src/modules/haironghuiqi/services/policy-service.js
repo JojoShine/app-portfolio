@@ -1,5 +1,5 @@
 const Policy = require('../models/policy-model');
-const logger = require('../../../common/utils/logger');
+const { haironghuiqi: logger } = require('../../../common/utils/logger');
 const { NotFoundError, InternalServerError } = require('../../../common/utils/error');
 
 /**

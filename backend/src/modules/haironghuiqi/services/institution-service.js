@@ -1,6 +1,6 @@
 const Institution = require('../models/institution-model');
 const Product = require('../models/product-model');
-const logger = require('../../../common/utils/logger');
+const { haironghuiqi: logger } = require('../../../common/utils/logger');
 
 /**
  * 海融惠企 Service 层 - 前端查询接口

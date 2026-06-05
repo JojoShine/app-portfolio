@@ -1,7 +1,7 @@
 const app = require('./app');
 const sequelize = require('./config/database');
 const env = require('./config/env');
-const logger = require('./common/utils/logger');
+const { app: logger } = require('./common/utils/logger');
 
 const PORT = env.PORT || 3000;
 

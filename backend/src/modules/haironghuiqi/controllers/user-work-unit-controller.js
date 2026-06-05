@@ -1,6 +1,6 @@
 const userWorkUnitService = require('../services/user-work-unit-service');
 const response = require('../../../common/response');
-const logger = require('../../../common/utils/logger');
+const { haironghuiqi: logger } = require('../../../common/utils/logger');
 
 /**
  * 获取用户的工作单位

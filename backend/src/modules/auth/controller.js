@@ -1,5 +1,5 @@
 const response = require('../../common/response');
-const logger = require('../../common/utils/logger');
+const { auth: logger } = require('../../common/utils/logger');
 const { validateGetToken, validateRefreshToken } = require('./validation');
 const authService = require('./service');
 

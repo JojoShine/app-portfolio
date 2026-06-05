@@ -142,13 +142,13 @@ const Home = () => {
         <div className="relative z-10">
           <h1 className="text-4xl font-bold mb-3">AppPortfolio</h1>
           <p className="text-blue-100 text-base leading-relaxed max-w-2xl">
-            一个H5应用整合矩阵，汇聚各类优质应用服务。我们不定期上线新应用，为您提供更多便捷的服务体验。
+            移动端应用整合矩阵，汇聚各类优质移动应用服务。我们持续更新和上线新应用，为您提供一站式的应用发现和使用体验。
           </p>
         </div>
       </div>
 
       {/* 分类Tab */}
-      <div className="fixed left-0 right-0 z-10 bg-white border-b border-gray-200" style={{ top: '130px' }}>
+      <div className="fixed left-0 right-0 z-10 bg-white border-b border-gray-200" style={{ top: '148px' }}>
         <div className="px-4 pt-4 flex gap-6 overflow-x-auto hide-scrollbar">
           {/* 全部分类按钮 */}
           <button

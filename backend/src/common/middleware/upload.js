@@ -1,7 +1,7 @@
 const multer = require('multer');
 const path = require('path');
 const sharp = require('sharp');
-const logger = require('../utils/logger');
+const { app: logger } = require('../utils/logger');
 const { ValidationError } = require('../utils/error');
 
 // 允许的文件类型

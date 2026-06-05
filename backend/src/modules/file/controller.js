@@ -1,5 +1,5 @@
 const response = require('../../common/response');
-const logger = require('../../common/utils/logger');
+const { app: logger } = require('../../common/utils/logger');
 const { validateUploadFile, validateGetFileStream } = require('./validation');
 const fileService = require('./service');
 

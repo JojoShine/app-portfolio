@@ -1,4 +1,4 @@
-const logger = require('../utils/logger');
+const { app: logger } = require('../utils/logger');
 const response = require('../response');
 const { ApiError } = require('../utils/error');
 

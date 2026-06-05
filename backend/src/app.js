@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const env = require('./config/env');
-const logger = require('./common/utils/logger');
+const { app: logger } = require('./common/utils/logger');
 const errorHandler = require('./common/middleware/errorHandler');
 
 // 导入路由

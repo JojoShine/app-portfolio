@@ -1,4 +1,4 @@
-const logger = require('../utils/logger');
+const { app: logger } = require('../utils/logger');
 const { UnauthorizedError } = require('../utils/error');
 const authService = require('../../modules/auth/service');
 

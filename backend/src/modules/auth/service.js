@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const env = require('../../config/env');
-const logger = require('../../common/utils/logger');
+const { auth: logger } = require('../../common/utils/logger');
 const { InternalServerError } = require('../../common/utils/error');
 
 // JWT密钥（应该从环境变量读取）

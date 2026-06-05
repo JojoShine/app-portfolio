@@ -1,5 +1,5 @@
 const appService = require('./service');
-const logger = require('../../common/utils/logger');
+const { app: logger } = require('../../common/utils/logger');
 const response = require('../../common/response');
 
 /**

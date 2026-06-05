@@ -1,6 +1,6 @@
 const File = require('./model');
 const minioClient = require('../../config/minio');
-const logger = require('../../common/utils/logger');
+const { app: logger } = require('../../common/utils/logger');
 const { NotFoundError, InternalServerError } = require('../../common/utils/error');
 const { v4: uuidv4 } = require('uuid');
 
