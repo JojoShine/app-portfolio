@@ -4,11 +4,6 @@ import { ShoppingCart, Scale, Building2, Shield, TrendingUp, Settings, MessageSq
 import bgImage from '../assets/home/bg_new.png';
 import logoImage from '../assets/home/logo.png';
 import haironghuiqiLogo from '../assets/home/haironghuiqi.png';
-import product1 from '../assets/home/1.png';
-import product2 from '../assets/home/2.png';
-import product3 from '../assets/home/3.png';
-import product4 from '../assets/home/4.png';
-import product5 from '../assets/home/5.png';
 import applicationService from '../services/applicationService';
 import productService from '../services/productService';
 import ApplicationModal from '../components/ApplicationModal';
@@ -43,6 +38,7 @@ const HaironghuiqiHome = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [noticeBar, setNoticeBar] = useState({ show: false, message: '', type: 'success' });
   const chatEndRef = useRef(null);
+  const [isInputFocused, setIsInputFocused] = useState(false);
 
   // 获取用户的申请数量
   useEffect(() => {
@@ -104,8 +100,8 @@ const HaironghuiqiHome = () => {
     if (mode === 'conversational') {
       // 使用 setTimeout 确保 DOM 已渲染完成
       setTimeout(() => {
-        chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+        chatEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      }, 150);
     }
   }, [chatHistory, mode]);
 
@@ -163,11 +159,60 @@ const HaironghuiqiHome = () => {
   const handleSendMessage = async () => {
     if (!chatInput.trim()) return;
 
+    // 获取当前时间
+    const now = new Date();
+    const timestamp = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+
     // 添加用户消息
-    const userMessage = chatInput;
+    const userMessage = chatInput.trim();
     const newHistory = [...chatHistory, { type: 'user', content: userMessage }];
     setChatHistory(newHistory);
     setChatInput('');
+
+    // 检测友好问候语
+    const greetings = ['你好', '您好', '嗨', 'hello', 'hi', 'hey', '早上好', '下午好', '晚上好'];
+    const helpQuestions = ['你能帮我什么', '你能做什么', '你能提供什么帮助', '有什么功能', '怎么用', '如何使用'];
+    
+    const isGreeting = greetings.some(g => userMessage.toLowerCase().includes(g));
+    const isHelpQuestion = helpQuestions.some(q => userMessage.includes(q));
+
+    // 处理友好问候
+    if (isGreeting) {
+      const aiResponse = {
+        type: 'ai',
+        content: '您好！我是海融匹配助手，可以帮您推荐合适的金融产品。您可以描述您的需求，比如“我需要贷款”、“我想了解保险产品”等，我会为您推荐相关产品。',
+        timestamp: timestamp,
+        products: [],
+      };
+      setChatHistory([...newHistory, aiResponse]);
+      return;
+    }
+
+    // 处理帮助问题
+    if (isHelpQuestion) {
+      const aiResponse = {
+        type: 'ai',
+        content: '我可以帮您：\n1. 推荐适合的金融产品（贷款、保险、证券等）\n2. 解答金融政策相关问题\n3. 提供金融机构信息\n\n您可以直接描述您的需求，或者切换到选择模式浏览更多产品。',
+        timestamp: timestamp,
+        products: [],
+      };
+      setChatHistory([...newHistory, aiResponse]);
+      return;
+    }
+
+    // 检测是否为无意义内容（纯数字、乱码等）
+    const isMeaningless = /^\d+$/.test(userMessage) || /^[a-zA-Z]+$/.test(userMessage) && userMessage.length < 4;
+    
+    if (isMeaningless) {
+      const aiResponse = {
+        type: 'ai',
+        content: '我不太理解你的需求，请您重新描述或切换到选择模式，浏览更多金融产品。',
+        timestamp: timestamp,
+        products: [],
+      };
+      setChatHistory([...newHistory, aiResponse]);
+      return;
+    }
 
     try {
       // 调用后端关键词匹配接口
@@ -180,6 +225,7 @@ const HaironghuiqiHome = () => {
         aiResponse = {
           type: 'ai',
           content: `为您找到 ${products.length} 个相关产品：`,
+          timestamp: timestamp,
           products: products.map(p => ({
             id: p.id,
             name: p.name,
@@ -190,7 +236,8 @@ const HaironghuiqiHome = () => {
         // 没有匹配到产品，引导用户去选择模式
         aiResponse = {
           type: 'ai',
-          content: '抱歉，没有找到与您需求匹配的产品。建议您切换到选择模式，浏览更多金融产品。',
+          content: '我不太理解你的需求，请您重新描述或切换到选择模式，浏览更多金融产品。',
+          timestamp: timestamp,
           products: [],
         };
       }
@@ -204,6 +251,7 @@ const HaironghuiqiHome = () => {
         {
           type: 'ai',
           content: '抱歉，服务暂时不可用。请稍后重试或切换到选择模式浏览产品。',
+          timestamp: timestamp,
           products: [],
         },
       ]);
@@ -212,11 +260,11 @@ const HaironghuiqiHome = () => {
 
   // 产品分类数据
   const products = [
-    { id: 1, image: product1, title: '金融政策', subtitle: '金融政策惠民', category: 'policy' },
-    { id: 2, image: product2, title: '银行', subtitle: '便民金融相随', category: 'bank' },
-    { id: 3, image: product3, title: '保险', subtitle: '普惠万家安康', category: 'insurance' },
-    { id: 4, image: product4, title: '证券', subtitle: '守护投资收益', category: 'securities' },
-    { id: 5, image: product5, title: '其他金融', subtitle: '安全融通无忧', category: 'other' },
+    { id: 1, title: '金融政策', subtitle: '金融政策惠民', category: 'policy' },
+    { id: 2, title: '银行', subtitle: '便民金融相随', category: 'bank' },
+    { id: 3, title: '保险', subtitle: '普惠万家安康', category: 'insurance' },
+    { id: 4, title: '证券', subtitle: '守护投资收益', category: 'securities' },
+    { id: 5, title: '其他金融', subtitle: '安全融通无忧', category: 'other' },
   ];
 
   const handleProductClick = (productId) => {
@@ -266,7 +314,7 @@ const HaironghuiqiHome = () => {
       <div className="fixed inset-0 bg-gradient-to-b from-blue-900/60 via-transparent to-blue-900/80" style={{ zIndex: 1 }} />
 
       {/* 主内容区域 */}
-      <main className={`relative z-10 px-[3vw] sm:px-[4vw] pt-[2vh] sm:pt-[3vh] pb-[15vh] sm:pb-[18vh] ${mode === 'conversational' ? 'overflow-hidden h-screen flex flex-col' : 'overflow-y-auto min-h-screen hide-scrollbar'}`}>
+      <main className={`relative z-10 px-[3vw] sm:px-[4vw] pt-[2vh] sm:pt-[3vh] ${mode === 'conversational' ? 'overflow-y-auto h-screen flex flex-col' : 'overflow-y-auto min-h-screen hide-scrollbar'}`}>
         {/* Logo - 顶部（两种模式共有） */}
         <div className="flex justify-center mb-[3vh] sm:mb-[5vh] pt-[2vh] sm:pt-[3vh]">
           <img
@@ -279,11 +327,13 @@ const HaironghuiqiHome = () => {
           />
         </div>
 
-        {/* 欢迎部分（两种模式共有） */}
-        <section className="mb-[2vh] sm:mb-[3vh]">
-          <img src={haironghuiqiLogo} alt="海融惠企" className="h-[2.5vh] sm:h-[3.5vh] mb-[1vh] sm:mb-[1.5vh]" />
-          <p className="text-white/80 text-[1.4vh] sm:text-[1.6vh] w-2/3 leading-relaxed">一站式金融服务平台，汇聚银行、保险、证券等多类金融机构，为您提供专业的金融解决方案和优质的金融产品。</p>
-        </section>
+        {/* 欢迎部分 - 仅选择模式显示 */}
+        {mode === 'module' && (
+          <section className="mb-[2vh] sm:mb-[3vh]">
+            <img src={haironghuiqiLogo} alt="海融惠企" className="h-[2.5vh] sm:h-[3.5vh] mb-[1vh] sm:mb-[1.5vh]" />
+            <p className="text-white/80 text-[1.4vh] sm:text-[1.6vh] w-2/3 leading-relaxed">一站式金融服务平台，汇聚银行、保险、证券等多类金融机构，为您提供专业的金融解决方案和优质的金融产品。</p>
+          </section>
+        )}
 
         {/* 模块模式显示 */}
         {mode === 'module' && (
@@ -417,9 +467,9 @@ const HaironghuiqiHome = () => {
 
         {/* 对话模式显示 */}
         {mode === 'conversational' && (
-          <div className="conversational-display flex-1 min-h-0">
+          <div className="conversational-display flex-1 min-h-0 flex flex-col">
             {/* Chat History Area - 可滚动 */}
-            <div className="h-full overflow-y-auto space-y-3 pt-3 pb-[60px] sm:pb-[80px] hide-scrollbar">
+            <div className="flex-1 overflow-y-auto space-y-3 pt-3 hide-scrollbar">
               {chatHistory.map((message, index) => (
                 <div key={index} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start w-full'}`}>
                   <div className={`flex flex-col ${message.type === 'user' ? 'items-end' : 'items-start'} ${message.type === 'ai' ? 'w-full' : ''}`}>
@@ -429,6 +479,9 @@ const HaironghuiqiHome = () => {
                           <MessageSquare size={14} className="text-gray-800" />
                         </div>
                         <span className="text-white/60 text-xs">海融匹配助手</span>
+                        {message.timestamp && (
+                          <span className="text-white text-xs ml-2">{message.timestamp}</span>
+                        )}
                       </div>
                     )}
                     <div
@@ -440,7 +493,18 @@ const HaironghuiqiHome = () => {
                         maxWidth: '100%',
                       }}
                     >
-                      <p className="text-white text-sm sm:text-base mb-3">{message.content}</p>
+                      <p className="text-white text-sm sm:text-base mb-3 whitespace-pre-line">{message.content}</p>
+                      
+                      {/* 切换到选择模式按钮 - 当内容包含相关提示时显示 */}
+                      {message.content.includes('切换到选择模式') && (
+                        <button
+                          onMouseDown={(e) => { e.preventDefault(); toggleMode(); }}
+                          className="mt-2 px-3 py-1.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-semibold rounded-lg transition-colors active:scale-95 flex items-center gap-1.5"
+                        >
+                          <Grid size={14} />
+                          切换到选择模式
+                        </button>
+                      )}
                       
                       {/* Horizontal Scroll Matched Products */}
                       {message.products && message.products.length > 0 && (
@@ -476,83 +540,89 @@ const HaironghuiqiHome = () => {
               {/* 用于自动滚动的空元素 */}
               <div ref={chatEndRef} />
             </div>
+
+            {/* 输入框区域 - 固定在底部 */}
+            <div className="relative flex-shrink-0 pt-4 pb-4">
+              {/* 购物车浮动按钮 - 悬浮在输入框右上方 */}
+              <div className="absolute -top-12 right-0">
+                <button
+                  onClick={() => {
+                    navigate('/haironghuiqi/my-applications');
+                  }}
+                  className="relative w-12 h-12 sm:w-14 sm:h-14 bg-blue-900 hover:bg-blue-800 flex items-center justify-center rounded-full shadow-2xl transition-all active:scale-90"
+                  style={{
+                    cursor: 'pointer',
+                    boxShadow: '0 20px 40px rgba(15, 23, 42, 0.3), 0 10px 20px rgba(15, 23, 42, 0.2)',
+                  }}
+                >
+                  <ShoppingCart size={20} className="sm:size-6 text-white" />
+                  {/* 角标 */}
+                  {collectionCount > 0 && (
+                    <div className="absolute -top-1 -right-1 sm:-top-1.5 sm:-right-1.5 bg-red-500 text-white text-xs font-bold w-5 h-5 sm:w-5.5 sm:h-5.5 rounded-full flex items-center justify-center border-2 border-blue-900">
+                      {collectionCount}
+                    </div>
+                  )}
+                </button>
+              </div>
+
+              <div className="relative mt-4">
+                <textarea
+                  className="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-xl py-2.5 sm:py-3 px-4 sm:px-5 pr-12 text-white placeholder-white/50 focus:outline-none resize-none h-[44px] sm:h-[48px] text-sm sm:text-base leading-tight overflow-hidden"
+                  placeholder="输入您的需求..."
+                  value={chatInput}
+                  onChange={(e) => setChatInput(e.target.value)}
+                  onFocus={() => setIsInputFocused(true)}
+                  onBlur={() => setIsInputFocused(false)}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSendMessage();
+                    }
+                  }}
+                />
+                <button
+                  onMouseDown={(e) => { e.preventDefault(); handleSendMessage(); }}
+                  className="text-white hover:text-blue-300 transition-colors absolute right-3 top-1/2 -translate-y-1/2 flex items-center justify-center"
+                >
+                  <Send size={18} className="sm:size-5" />
+                </button>
+              </div>
+
+              {/* 模式切换按钮 - 对话模式下（input失焦时显示） */}
+              {!isInputFocused && (
+                <div className="mt-2 sm:mt-3 flex justify-center gap-2 sm:gap-3">
+                  <button
+                    onMouseDown={(e) => { e.preventDefault(); clearChat(); }}
+                    className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-white/5 border border-white/10 text-white text-xs sm:text-sm hover:bg-white/10 transition-colors"
+                  >
+                    <Trash2 size={14} className="sm:size-4" />
+                    清除对话
+                  </button>
+                  <button
+                    onMouseDown={(e) => { e.preventDefault(); toggleMode(); }}
+                    className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs sm:text-sm hover:bg-white/10 transition-colors"
+                  >
+                    <Grid size={14} className="sm:size-4" />
+                    切换为选择模式
+                  </button>
+                </div>
+              )}
+
+              {/* 温馨提示 - input失焦时显示 */}
+              {!isInputFocused && (
+                <div className="mt-2 sm:mt-3 flex items-center justify-center gap-1.5 sm:gap-2">
+                  <Info size={14} className="sm:size-4 text-yellow-400" />
+                  <p className="text-white/70 text-xs sm:text-sm text-center">
+                    您也可以切换到选择模式，直接高效浏览和检索产品
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         )}
       </main>
 
-      {/* 对话模式 - 输入框区域 (独立于对话显示区) */}
-      {mode === 'conversational' && (
-        <div className="fixed bottom-2 sm:bottom-3 left-[3vw] sm:left-[4vw] right-[3vw] sm:right-[4vw] z-30">
-          {/* 购物车浮动按钮 - 输入框上方 */}
-          <div className="absolute -top-16 sm:-top-20 right-0">
-            <button
-              onClick={() => {
-                navigate('/haironghuiqi/my-applications');
-              }}
-              className="relative w-12 h-12 sm:w-14 sm:h-14 bg-blue-900 hover:bg-blue-800 flex items-center justify-center rounded-full shadow-2xl transition-all active:scale-90"
-              style={{
-                cursor: 'pointer',
-                boxShadow: '0 20px 40px rgba(15, 23, 42, 0.3), 0 10px 20px rgba(15, 23, 42, 0.2)',
-              }}
-            >
-              <ShoppingCart size={20} className="sm:size-6 text-white" />
-              {/* 角标 */}
-              {collectionCount > 0 && (
-                <div className="absolute -top-1 -right-1 sm:-top-1.5 sm:-right-1.5 bg-red-500 text-white text-xs font-bold w-5 h-5 sm:w-5.5 sm:h-5.5 rounded-full flex items-center justify-center border-2 border-blue-900">
-                  {collectionCount}
-                </div>
-              )}
-            </button>
-          </div>
 
-          <div className="relative">
-            <textarea
-              className="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-xl py-3 sm:py-3.5 px-4 sm:px-5 pr-12 text-white placeholder-white/50 focus:outline-none resize-none min-h-[60px] sm:min-h-[70px] max-h-[100px] sm:max-h-[120px] text-sm sm:text-base leading-relaxed"
-              placeholder="输入您的需求..."
-              value={chatInput}
-              onChange={(e) => setChatInput(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                  e.preventDefault();
-                  handleSendMessage();
-                }
-              }}
-            />
-            <button
-              onClick={handleSendMessage}
-              className="text-white hover:text-blue-300 transition-colors absolute right-3 bottom-3"
-            >
-              <Send size={18} className="sm:size-5" />
-            </button>
-          </div>
-
-          {/* 模式切换按钮 - 对话模式下 */}
-          <div className="mt-2 sm:mt-3 flex justify-center gap-2 sm:gap-3">
-            <button
-              onClick={clearChat}
-              className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/5 border border-white/10 text-white text-xs sm:text-sm hover:bg-white/10 transition-colors"
-            >
-              <Trash2 size={14} className="sm:size-4" />
-              清除对话
-            </button>
-            <button
-              onClick={toggleMode}
-              className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs sm:text-sm hover:bg-white/10 transition-colors"
-            >
-              <Grid size={14} className="sm:size-4" />
-              切换为选择模式
-            </button>
-          </div>
-
-          {/* 温馨提示 */}
-          <div className="mt-2 sm:mt-3 flex items-center justify-center gap-1.5 sm:gap-2">
-            <Info size={14} className="sm:size-4 text-yellow-400" />
-            <p className="text-white/70 text-xs sm:text-sm text-center">
-              您也可以切换到选择模式，直接高效浏览和检索产品
-            </p>
-          </div>
-        </div>
-      )}
 
       {/* Notification */}
       <Notification show={noticeBar.show} message={noticeBar.message} type={noticeBar.type} />
