@@ -54,7 +54,7 @@ const ProductDetail = () => {
 
   if (loading) {
     return (
-      <div className="w-screen min-h-screen overflow-y-auto bg-gray-50">
+      <div className="w-full max-w-[768px] mx-auto min-h-screen overflow-y-auto bg-gray-50">
         <div style={{ textAlign: 'center', padding: '5vh 0' }}>
           <p style={{ fontSize: '3.5vw', color: '#999999' }}>加载中...</p>
         </div>
@@ -64,7 +64,7 @@ const ProductDetail = () => {
 
   if (error || !product) {
     return (
-      <div className="w-screen min-h-screen overflow-y-auto bg-gray-50">
+      <div className="w-full max-w-[768px] mx-auto min-h-screen overflow-y-auto bg-gray-50">
         <div style={{ textAlign: 'center', padding: '5vh 0' }}>
           <p style={{ fontSize: '3.5vw', color: '#ff0000' }}>{error || '产品不存在'}</p>
         </div>
@@ -73,7 +73,7 @@ const ProductDetail = () => {
   }
 
   return (
-    <div className="w-screen min-h-screen overflow-y-auto bg-gray-50">
+    <div className="w-full max-w-[768px] mx-auto min-h-screen overflow-y-auto bg-gray-50">
       {/* Notification */}
       <Notification show={noticeBar.show} message={noticeBar.message} type={noticeBar.type} />
 

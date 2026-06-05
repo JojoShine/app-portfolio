@@ -23,6 +23,11 @@
   box-sizing: border-box;
 }
 
+/* 防止移动端输入框点击时自动缩放 */
+input, textarea, select {
+  font-size: 16px !important; /* iOS Safari 需要至少 16px 字体大小以防止缩放 */
+}
+
 body {
   margin: 0;
   min-width: 320px;

@@ -114,9 +114,9 @@ const MyApplications = () => {
   };
 
   return (
-    <div className="w-screen min-h-screen pb-32" style={{ background: 'linear-gradient(180deg, #eef2f7 0%, #f8fafc 50%, #eef2f7 100%)' }}>
+    <div className="w-full min-h-screen pb-[8vh]" style={{ background: 'linear-gradient(180deg, #eef2f7 0%, #f8fafc 50%, #eef2f7 100%)' }}>
       {/* Main Content */}
-      <main className="px-4 pt-6 max-w-2xl mx-auto w-full">
+      <main className="px-[4vw] pt-[2vh] max-w-2xl mx-auto w-full">
         {/* Status Overview Card */}
         <div className="rounded-xl p-4 mb-5 text-white relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%)' }}>
           <div className="relative z-10 flex items-center justify-between">

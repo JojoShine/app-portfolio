@@ -242,7 +242,7 @@ const HaironghuiqiHome = () => {
   };
 
   return (
-    <div className="haironghuiqi-home w-screen h-screen overflow-hidden bg-blue-900">
+    <div className="haironghuiqi-home w-full h-screen overflow-hidden bg-blue-900">
       {/* 首页返回按钮 - Home icon */}
       <button
         onClick={handleBack}
@@ -419,7 +419,7 @@ const HaironghuiqiHome = () => {
         {mode === 'conversational' && (
           <div className="conversational-display flex-1 min-h-0">
             {/* Chat History Area - 可滚动 */}
-            <div className="h-full overflow-y-auto space-y-3 pt-3 pb-4 hide-scrollbar">
+            <div className="h-full overflow-y-auto space-y-3 pt-3 pb-[60px] sm:pb-[80px] hide-scrollbar">
               {chatHistory.map((message, index) => (
                 <div key={index} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start w-full'}`}>
                   <div className={`flex flex-col ${message.type === 'user' ? 'items-end' : 'items-start'} ${message.type === 'ai' ? 'w-full' : ''}`}>
@@ -432,7 +432,7 @@ const HaironghuiqiHome = () => {
                       </div>
                     )}
                     <div
-                      className="glass-card rounded-xl p-[1.5vh] sm:p-[2vh] w-full"
+                      className="glass-card rounded-xl p-3 sm:p-4 w-full"
                       style={{
                         background: 'rgba(255, 255, 255, 0.15)',
                         backdropFilter: 'blur(12px)',
@@ -440,28 +440,28 @@ const HaironghuiqiHome = () => {
                         maxWidth: '100%',
                       }}
                     >
-                      <p className="text-white text-[1.4vh] sm:text-[1.6vh] mb-[1.5vh]">{message.content}</p>
+                      <p className="text-white text-sm sm:text-base mb-3">{message.content}</p>
                       
                       {/* Horizontal Scroll Matched Products */}
                       {message.products && message.products.length > 0 && (
-                        <div className="flex gap-[1vh] sm:gap-[1.5vh] overflow-x-auto hide-scroll pb-[1vh] -mx-[0.5vh] px-[0.5vh] hide-scrollbar">
+                        <div className="flex gap-2 sm:gap-3 overflow-x-auto hide-scroll pb-2 -mx-1 px-1 hide-scrollbar">
                           {message.products.map((product, idx) => (
                             <div
                               key={idx}
                               onClick={() => navigate(`/haironghuiqi/product/${product.id}`)}
-                              className="min-w-[35vw] max-w-[35vw] sm:min-w-[200px] sm:max-w-[200px] bg-white/10 rounded-lg p-[1.2vh] sm:p-[1.5vh] border border-white/10 flex flex-col flex-shrink-0 cursor-pointer hover:bg-white/20 transition-colors"
+                              className="min-w-[140px] max-w-[140px] sm:min-w-[180px] sm:max-w-[180px] bg-white/10 rounded-lg p-3 sm:p-4 border border-white/10 flex flex-col flex-shrink-0 cursor-pointer hover:bg-white/20 transition-colors"
                             >
-                              <div className="w-[5vh] h-[5vh] sm:w-[5vh] sm:h-[5vh] bg-blue-900/50 rounded-lg flex items-center justify-center mb-[1vh]">
-                                <TrendingUp size="2.5vh" className="sm:size-[2.5vh] text-white" />
+                              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-900/50 rounded-lg flex items-center justify-center mb-2">
+                                <TrendingUp size={18} className="sm:size-5 text-white" />
                               </div>
-                              <p className="text-white text-[1.4vh] sm:text-[1.4vh] font-semibold mb-[0.5vh] truncate">{product.name}</p>
-                              <p className="text-yellow-400 font-bold text-[1.6vh] sm:text-[1.6vh] mb-[1vh]">{product.rate}</p>
+                              <p className="text-white text-sm sm:text-sm font-semibold mb-1 truncate">{product.name}</p>
+                              <p className="text-yellow-400 font-bold text-base sm:text-base mb-2">{product.rate}</p>
                               <button
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   handleProductConsult(product);
                                 }}
-                                className="mt-auto w-full py-[1vh] sm:py-[1vh] bg-blue-900 hover:bg-blue-800 text-white text-[1.4vh] sm:text-[1.4vh] font-semibold rounded-lg transition-colors active:scale-95"
+                                className="mt-auto w-full py-2 sm:py-2.5 bg-blue-900 hover:bg-blue-800 text-white text-sm sm:text-sm font-semibold rounded-lg transition-colors active:scale-95"
                               >
                                 预约咨询
                               </button>
@@ -482,23 +482,23 @@ const HaironghuiqiHome = () => {
 
       {/* 对话模式 - 输入框区域 (独立于对话显示区) */}
       {mode === 'conversational' && (
-        <div className="fixed bottom-[1vh] sm:bottom-[2vh] left-[3vw] sm:left-[4vw] right-[3vw] sm:right-[4vw] z-30">
+        <div className="fixed bottom-2 sm:bottom-3 left-[3vw] sm:left-[4vw] right-[3vw] sm:right-[4vw] z-30">
           {/* 购物车浮动按钮 - 输入框上方 */}
-          <div className="absolute -top-[8vh] sm:-top-[10vh] right-0">
+          <div className="absolute -top-16 sm:-top-20 right-0">
             <button
               onClick={() => {
                 navigate('/haironghuiqi/my-applications');
               }}
-              className="relative w-[6vh] h-[6vh] sm:w-[8vh] sm:h-[8vh] bg-blue-900 hover:bg-blue-800 flex items-center justify-center rounded-full shadow-2xl transition-all active:scale-90"
+              className="relative w-12 h-12 sm:w-14 sm:h-14 bg-blue-900 hover:bg-blue-800 flex items-center justify-center rounded-full shadow-2xl transition-all active:scale-90"
               style={{
                 cursor: 'pointer',
                 boxShadow: '0 20px 40px rgba(15, 23, 42, 0.3), 0 10px 20px rgba(15, 23, 42, 0.2)',
               }}
             >
-              <ShoppingCart size="3vh" className="sm:size-[4vh] text-white" />
+              <ShoppingCart size={20} className="sm:size-6 text-white" />
               {/* 角标 */}
               {collectionCount > 0 && (
-                <div className="absolute -top-[0.8vh] -right-[0.8vh] sm:-top-[1vh] sm:-right-[1vh] bg-red-500 text-white text-[1.2vh] sm:text-[1.3vh] font-bold w-[2.5vh] h-[2.5vh] sm:w-[3vh] sm:h-[3vh] rounded-full flex items-center justify-center border-2 border-blue-900">
+                <div className="absolute -top-1 -right-1 sm:-top-1.5 sm:-right-1.5 bg-red-500 text-white text-xs font-bold w-5 h-5 sm:w-5.5 sm:h-5.5 rounded-full flex items-center justify-center border-2 border-blue-900">
                   {collectionCount}
                 </div>
               )}
@@ -507,7 +507,7 @@ const HaironghuiqiHome = () => {
 
           <div className="relative">
             <textarea
-              className="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-xl py-[1.5vh] sm:py-[2vh] px-[2vw] sm:px-[3vw] pr-[12vw] text-white placeholder-white/50 focus:outline-none resize-none min-h-[8vh] sm:min-h-[10vh] max-h-[12vh] sm:max-h-[15vh] text-[1.4vh] sm:text-[1.6vh]"
+              className="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-xl py-3 sm:py-3.5 px-4 sm:px-5 pr-12 text-white placeholder-white/50 focus:outline-none resize-none min-h-[60px] sm:min-h-[70px] max-h-[100px] sm:max-h-[120px] text-sm sm:text-base leading-relaxed"
               placeholder="输入您的需求..."
               value={chatInput}
               onChange={(e) => setChatInput(e.target.value)}
@@ -520,39 +520,34 @@ const HaironghuiqiHome = () => {
             />
             <button
               onClick={handleSendMessage}
-              className="text-white hover:text-blue-300 transition-colors"
-              style={{
-                position: 'absolute',
-                right: '2vw',
-                bottom: '1.5vh',
-              }}
+              className="text-white hover:text-blue-300 transition-colors absolute right-3 bottom-3"
             >
-              <Send size="2vh" className="sm:size-[2.5vh]" />
+              <Send size={18} className="sm:size-5" />
             </button>
           </div>
 
           {/* 模式切换按钮 - 对话模式下 */}
-          <div className="mt-[1vh] sm:mt-[2vh] flex justify-center gap-[1vh] sm:gap-[1.5vh]">
+          <div className="mt-2 sm:mt-3 flex justify-center gap-2 sm:gap-3">
             <button
               onClick={clearChat}
-              className="flex items-center gap-[0.8vh] sm:gap-[1vh] px-[2vw] sm:px-[3vw] py-[0.8vh] sm:py-[1vh] rounded-full bg-white/5 border border-white/10 text-white text-[1.3vh] sm:text-[1.4vh] hover:bg-white/10 transition-colors"
+              className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/5 border border-white/10 text-white text-xs sm:text-sm hover:bg-white/10 transition-colors"
             >
-              <Trash2 size="1.5vh" className="sm:size-[2vh]" />
+              <Trash2 size={14} className="sm:size-4" />
               清除对话
             </button>
             <button
               onClick={toggleMode}
-              className="flex items-center gap-[0.8vh] sm:gap-[1vh] px-[2vw] sm:px-[3vw] py-[0.8vh] sm:py-[1vh] rounded-full bg-white/5 border border-white/10 text-white/70 text-[1.3vh] sm:text-[1.4vh] hover:bg-white/10 transition-colors"
+              className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs sm:text-sm hover:bg-white/10 transition-colors"
             >
-              <Grid size="1.5vh" className="sm:size-[2vh]" />
+              <Grid size={14} className="sm:size-4" />
               切换为选择模式
             </button>
           </div>
 
           {/* 温馨提示 */}
-          <div className="mt-[1.5vh] sm:mt-[2vh] flex items-center justify-center gap-[0.8vh]">
-            <Info size="1.5vh" className="sm:size-[2vh] text-yellow-400" />
-            <p className="text-white/70 text-[1.2vh] sm:text-[1.3vh] text-center">
+          <div className="mt-2 sm:mt-3 flex items-center justify-center gap-1.5 sm:gap-2">
+            <Info size={14} className="sm:size-4 text-yellow-400" />
+            <p className="text-white/70 text-xs sm:text-sm text-center">
               您也可以切换到选择模式，直接高效浏览和检索产品
             </p>
           </div>
