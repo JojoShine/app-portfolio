@@ -38,10 +38,17 @@ const ProductCard = ({ product, showApplyButton = false, onApply = null, isFeatu
               <div className="w-12 h-12 rounded-lg bg-amber-400 flex items-center justify-center text-blue-900 shadow-lg">
                 <Shield size={24} />
               </div>
-              <h3 className="font-semibold text-white text-lg leading-tight flex-1 flex items-center gap-1.5">
-                {product.name}
-                <Award size={16} className="text-amber-400" />
-              </h3>
+              <div>
+                <h3 className="font-semibold text-white text-lg leading-tight">
+                  {product.name}
+                </h3>
+                <div className="flex items-center gap-1.5 mt-1">
+                  <Award size={14} className="text-amber-400" />
+                  <span className="bg-amber-400 text-blue-900 px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider">
+                    明星产品
+                  </span>
+                </div>
+              </div>
             </div>
             {!showApplyButton && (
               <button
@@ -51,7 +58,7 @@ const ProductCard = ({ product, showApplyButton = false, onApply = null, isFeatu
                   setShowDetail(true);
                 }}
               >
-                详情
+                产品介绍
                 <ExternalLink size={14} />
               </button>
             )}
@@ -259,7 +266,7 @@ const ProductCard = ({ product, showApplyButton = false, onApply = null, isFeatu
                 setShowDetail(true);
               }}
             >
-              详情
+              产品介绍
               <ExternalLink size={12} />
             </button>
           )}

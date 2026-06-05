@@ -37,6 +37,12 @@ const MyApplications = () => {
 
   // 处理勾选
   const handleSelectApplication = (applicationId) => {
+    // 如果已经提交，不允许勾选
+    const application = applications.find(app => app.id === applicationId);
+    if (application && application.status === 'submitted') {
+      return;
+    }
+    
     setSelectedIds((prev) => {
       if (prev.includes(applicationId)) {
         return prev.filter((id) => id !== applicationId);
@@ -48,10 +54,13 @@ const MyApplications = () => {
 
   // 处理全选
   const handleSelectAll = () => {
-    if (selectedIds.length === applications.length) {
+    // 只选择未提交的申请
+    const unsubmittedApps = applications.filter(app => app.status !== 'submitted');
+    
+    if (selectedIds.length === unsubmittedApps.length && unsubmittedApps.length > 0) {
       setSelectedIds([]);
     } else {
-      setSelectedIds(applications.map((app) => app.id));
+      setSelectedIds(unsubmittedApps.map((app) => app.id));
     }
   };
 
@@ -113,7 +122,7 @@ const MyApplications = () => {
           <div className="relative z-10 flex items-center justify-between">
             <div>
               <p className="text-xs opacity-80 uppercase tracking-wider font-semibold mb-0.5">方案进度</p>
-              <p className="text-xl font-bold">{applications.length} 个待处理申请</p>
+              <p className="text-xl font-bold">{applications.filter(app => app.status !== 'submitted').length} 个待处理申请</p>
             </div>
             <span className="bg-white/20 px-3 py-1.5 rounded-full text-xs font-semibold">准备提交</span>
           </div>
@@ -163,27 +172,29 @@ const MyApplications = () => {
                   </>
                 )}
 
-                <input
-                  type="checkbox"
-                  checked={selectedIds.includes(application.id)}
-                  onChange={() => handleSelectApplication(application.id)}
-                  className="absolute opacity-0 w-0 h-0 z-10"
-                />
                 <div className={`flex gap-4 ${isFeatured ? 'relative z-10' : ''}`}>
-                  {/* Checkbox Visual */}
-                  <div
-                    className={`flex-shrink-0 w-5 h-5 border-2 rounded flex items-center justify-center transition-colors mt-0.5 ${
-                      selectedIds.includes(application.id)
-                        ? 'bg-blue-900 border-blue-900'
-                        : 'border-gray-300'
-                    }`}
-                  >
-                    {selectedIds.includes(application.id) && (
-                      <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                      </svg>
-                    )}
-                  </div>
+                  {/* Checkbox - 仅在未提交时显示 */}
+                  {application.status !== 'submitted' && (
+                    <>
+                      <input
+                        type="checkbox"
+                        checked={selectedIds.includes(application.id)}
+                        onChange={() => handleSelectApplication(application.id)}
+                        className="absolute opacity-0 w-0 h-0 z-10"
+                      />
+                      <div className={`flex-shrink-0 w-5 h-5 border-2 rounded flex items-center justify-center transition-colors mt-0.5 ${
+                        selectedIds.includes(application.id)
+                          ? 'bg-blue-900 border-blue-900'
+                          : 'border-gray-300'
+                      }`}>
+                        {selectedIds.includes(application.id) && (
+                          <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                          </svg>
+                        )}
+                      </div>
+                    </>
+                  )}
 
                   {/* Application Info */}
                   <div className="flex-grow">
@@ -206,7 +217,7 @@ const MyApplications = () => {
                       <span className={`px-2 py-1 rounded text-xs font-semibold whitespace-nowrap ml-2 ${
                         isFeatured ? 'bg-amber-400/20 text-amber-300' : 'bg-gray-100 text-gray-700'
                       }`}>
-                        待提交
+                        {application.status === 'submitted' ? '已提交' : '待提交'}
                       </span>
                     </div>
                     {/* 产品要素信息 */}
@@ -293,15 +304,15 @@ const MyApplications = () => {
       {/* Fixed Submission Footer */}
       <footer className="fixed bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-gray-200 z-40">
         <div className="max-w-2xl mx-auto flex items-center gap-4">
-          <label className="flex items-center gap-2 cursor-pointer">
+          <label className={`flex items-center gap-2 ${applications.filter(app => app.status !== 'submitted').length === 0 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}>
             <div
               className={`w-6 h-6 border-2 rounded flex items-center justify-center transition-colors ${
-                selectedIds.length === applications.length && applications.length > 0
+                selectedIds.length === applications.filter(app => app.status !== 'submitted').length && applications.filter(app => app.status !== 'submitted').length > 0
                   ? 'bg-blue-900 border-blue-900'
                   : 'border-gray-300'
               }`}
             >
-              {selectedIds.length === applications.length && applications.length > 0 && (
+              {selectedIds.length === applications.filter(app => app.status !== 'submitted').length && applications.filter(app => app.status !== 'submitted').length > 0 && (
                 <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                 </svg>
@@ -309,8 +320,9 @@ const MyApplications = () => {
             </div>
             <input
               type="checkbox"
-              checked={selectedIds.length === applications.length && applications.length > 0}
+              checked={selectedIds.length === applications.filter(app => app.status !== 'submitted').length && applications.filter(app => app.status !== 'submitted').length > 0}
               onChange={handleSelectAll}
+              disabled={applications.filter(app => app.status !== 'submitted').length === 0}
               className="hidden"
             />
             <span className="text-sm font-semibold text-gray-700">全选</span>

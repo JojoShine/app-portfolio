@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { NoticeBar } from 'antd-mobile';
+import { Building2 } from 'lucide-react';
 import { getFileUrl } from '../../../services/fileService';
 import haironghuiqiService from '../services/haironghuiqiService';
 import ProductCard from '../components/ProductCard';
@@ -99,51 +100,65 @@ const InstitutionDetail = () => {
       {/* 机构信息卡片 */}
       <div className="px-[4vw] py-[2vh]">
         <div
-          className="flex gap-[3vw] p-[3vw] bg-white rounded-xl border border-gray-200 shadow-sm"
+          className="relative rounded-2xl overflow-hidden p-[3vw]"
+          style={{
+            background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,245,255,0.9) 100%)',
+            backdropFilter: 'blur(12px)',
+            border: '1px solid rgba(200,215,240,0.5)',
+            boxShadow: '0 4px 20px rgba(30,58,138,0.06), 0 1px 3px rgba(0,0,0,0.04)',
+          }}
         >
-          {/* Logo */}
-          <div
-            className="flex-shrink-0 bg-red-500 flex items-center justify-center"
-            style={{
-              width: '13vw',
-              height: '13vw',
-              borderRadius: '4px',
-            }}
-          >
-            {logoUrl ? (
-              <img
-                src={logoUrl}
-                alt={institution.name}
-                className="w-full h-full object-cover"
-                style={{
-                  borderRadius: '4px',
-                }}
-              />
-            ) : (
-              <div style={{ color: '#ffffff', fontSize: '3vw' }}>无logo</div>
-            )}
+          {/* 右下角机构 icon 叠层水印 */}
+          <div className="absolute -right-3 -bottom-3 pointer-events-none" style={{ opacity: 0.05 }}>
+            <Building2 size={80} className="text-blue-900" strokeWidth={1} />
           </div>
 
-          {/* 信息 */}
-          <div className="flex-1 flex flex-col justify-between">
-            <div>
-              <h3 className="font-medium mb-[1vh]" style={{ fontSize: '4vw', color: '#333333' }}>
-                {institution.name}
-              </h3>
-              <div className="mb-[1vh]">
-                <p className="text-sm text-gray-900 m-0">
-                  地址：{institution.address}
-                </p>
-              </div>
-              <div className="mb-[1vh]">
-                <p className="text-sm text-gray-900 m-0">
-                  营业时间：{institution.businessHours}
-                </p>
-              </div>
+          {/* 卡片内容 */}
+          <div className="relative flex gap-[3vw]">
+            {/* Logo */}
+            <div
+              className="flex-shrink-0 bg-red-500 flex items-center justify-center"
+              style={{
+                width: '13vw',
+                height: '13vw',
+                borderRadius: '4px',
+              }}
+            >
+              {logoUrl ? (
+                <img
+                  src={logoUrl}
+                  alt={institution.name}
+                  className="w-full h-full object-cover"
+                  style={{
+                    borderRadius: '4px',
+                  }}
+                />
+              ) : (
+                <div style={{ color: '#ffffff', fontSize: '3vw' }}>无logo</div>
+              )}
+            </div>
+
+            {/* 信息 */}
+            <div className="flex-1 flex flex-col justify-between">
               <div>
-                <p className="text-sm text-gray-900 m-0">
-                  电话：{institution.phone || '暂无'}
-                </p>
+                <h3 className="font-medium mb-[1vh]" style={{ fontSize: '4vw', color: '#333333' }}>
+                  {institution.name}
+                </h3>
+                <div className="mb-[1vh]">
+                  <p className="text-sm text-gray-900 m-0">
+                    地址：{institution.address}
+                  </p>
+                </div>
+                <div className="mb-[1vh]">
+                  <p className="text-sm text-gray-900 m-0">
+                    营业时间：{institution.businessHours}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-900 m-0">
+                    电话：{institution.phone || '暂无'}
+                  </p>
+                </div>
               </div>
             </div>
           </div>

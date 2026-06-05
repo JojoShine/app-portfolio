@@ -101,16 +101,10 @@ const PolicyCard = ({ policy }) => {
         <div className="flex-1 min-w-0 flex flex-col justify-between">
           <div>
             <h3 className="font-bold text-gray-900 text-[15px] leading-snug group-hover:text-blue-800 transition-colors">
-              {policy.title}
+              {formatDate(policy.publishedAt || policy.createdAt)} {policy.title}
             </h3>
             <p className="text-gray-500 line-clamp-2 mt-1.5 text-[13px] leading-relaxed">
               {policy.content || policy.description}
-            </p>
-          </div>
-          <div className="flex items-center gap-1.5 mt-2.5">
-            <Calendar size={12} className="text-blue-400" />
-            <p className="text-gray-400 text-[11px]">
-              {formatDate(policy.publishedAt || policy.createdAt)}
             </p>
           </div>
         </div>
