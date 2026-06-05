@@ -266,13 +266,13 @@ const HaironghuiqiHome = () => {
       <div className="fixed inset-0 bg-gradient-to-b from-blue-900/60 via-transparent to-blue-900/80" style={{ zIndex: 1 }} />
 
       {/* 主内容区域 */}
-      <main className={`relative z-10 px-4 pt-6 pb-32 ${mode === 'conversational' ? 'overflow-hidden h-screen flex flex-col' : 'overflow-y-auto min-h-screen hide-scrollbar'}`}>
+      <main className={`relative z-10 px-[3vw] sm:px-[4vw] pt-[2vh] sm:pt-[3vh] pb-[15vh] sm:pb-[18vh] ${mode === 'conversational' ? 'overflow-hidden h-screen flex flex-col' : 'overflow-y-auto min-h-screen hide-scrollbar'}`}>
         {/* Logo - 顶部（两种模式共有） */}
-        <div className="flex justify-center mb-10 pt-6">
+        <div className="flex justify-center mb-[3vh] sm:mb-[5vh] pt-[2vh] sm:pt-[3vh]">
           <img
             src={logoImage}
             alt="海融惠企"
-            className="h-12 object-contain"
+            className="h-[4vh] sm:h-[6vh] object-contain"
             style={{
               filter: 'brightness(0) invert(1)',
             }}
@@ -280,9 +280,9 @@ const HaironghuiqiHome = () => {
         </div>
 
         {/* 欢迎部分（两种模式共有） */}
-        <section className="mb-6">
-          <img src={haironghuiqiLogo} alt="海融惠企" className="h-7 mb-3" />
-          <p className="text-white/80 text-sm w-2/3 leading-relaxed">一站式金融服务平台，汇聚银行、保险、证券等多类金融机构，为您提供专业的金融解决方案和优质的金融产品。</p>
+        <section className="mb-[2vh] sm:mb-[3vh]">
+          <img src={haironghuiqiLogo} alt="海融惠企" className="h-[2.5vh] sm:h-[3.5vh] mb-[1vh] sm:mb-[1.5vh]" />
+          <p className="text-white/80 text-[1.4vh] sm:text-[1.6vh] w-2/3 leading-relaxed">一站式金融服务平台，汇聚银行、保险、证券等多类金融机构，为您提供专业的金融解决方案和优质的金融产品。</p>
         </section>
 
         {/* 模块模式显示 */}
@@ -293,107 +293,131 @@ const HaironghuiqiHome = () => {
               {/* Financial Policy - 占据2列 */}
               <button
                 onClick={() => handleProductClick(1)}
-                className="col-span-2 glass-card rounded-xl p-6 flex flex-col justify-between items-start h-44 shadow-lg group hover:scale-105 active:scale-95 transition-all duration-300 text-left"
+                className="col-span-2 glass-card rounded-xl p-[2vh] sm:p-[3vh] flex flex-col justify-between items-start h-[18vh] sm:h-[22vh] shadow-lg group hover:scale-105 active:scale-95 transition-all duration-300 text-left"
                 style={{
                   background: 'rgba(255, 255, 255, 0.15)',
                   backdropFilter: 'blur(12px)',
                   border: '1px solid rgba(255, 255, 255, 0.25)',
                 }}
               >
-                <div className="bg-yellow-400/80 text-gray-800 p-2 rounded-lg mb-3 group-hover:scale-110 transition-transform">
-                  <Scale size={24} />
+                <div className="bg-yellow-400/80 text-gray-800 p-[1.5vh] sm:p-[2vh] rounded-lg mb-[1vh] sm:mb-[1.5vh] group-hover:scale-110 transition-transform">
+                  <Scale size="3vh" className="sm:size-[3.5vh]" />
                 </div>
                 <div>
-                  <p className="text-white font-semibold text-lg">{products[0].title}</p>
-                  <p className="text-white/70 text-xs mt-2 leading-relaxed">了解最新的金融政策动向，获取政策解读和指导，帮助您更好地理解金融监管环境。</p>
+                  <p className="text-white font-semibold text-[2vh] sm:text-[2.2vh]">{products[0].title}</p>
+                  <p className="text-white/70 text-[1.4vh] sm:text-[1.6vh] mt-[0.5vh] sm:mt-[1vh] leading-relaxed">了解最新的金融政策动向，获取政策解读和指导，帮助您更好地理解金融监管环境。</p>
                 </div>
               </button>
 
               {/* Banking - 占据1列 */}
               <button
                 onClick={() => handleProductClick(2)}
-                className="col-span-1 glass-card rounded-xl p-3 flex flex-col items-center justify-center h-40 shadow-lg group hover:scale-105 active:scale-95 transition-all duration-300 text-center"
+                className="col-span-1 glass-card rounded-xl p-[1.5vh] sm:p-[2vh] flex flex-col items-center justify-center h-[16vh] sm:h-[20vh] shadow-lg group hover:scale-105 active:scale-95 transition-all duration-300 text-center"
                 style={{
                   background: 'rgba(255, 255, 255, 0.15)',
                   backdropFilter: 'blur(12px)',
                   border: '1px solid rgba(255, 255, 255, 0.25)',
                 }}
               >
-                <div className="bg-blue-900 p-3 rounded-full mb-3">
-                  <Building2 size={24} className="text-white" />
+                <div className="bg-blue-900 p-[1.5vh] sm:p-[2vh] rounded-full mb-[1vh] sm:mb-[1.5vh]">
+                  <Building2 size="3vh" className="sm:size-[3.5vh] text-white" />
                 </div>
-                <span className="text-white font-semibold text-sm line-clamp-2">{products[1].title}</span>
-                <p className="text-white/70 text-xs mt-1">{products[1].subtitle}</p>
+                <span className="text-white font-semibold text-[1.6vh] sm:text-[1.8vh] line-clamp-2">{products[1].title}</span>
+                <p className="text-white/70 text-[1.3vh] sm:text-[1.4vh] mt-[0.3vh] sm:mt-[0.5vh]">{products[1].subtitle}</p>
               </button>
 
               {/* Insurance - 占据1列 */}
               <button
                 onClick={() => handleProductClick(3)}
-                className="col-span-1 glass-card rounded-xl p-3 flex flex-col items-center justify-center h-40 shadow-lg group hover:scale-105 active:scale-95 transition-all duration-300 text-center"
+                className="col-span-1 glass-card rounded-xl p-[1.5vh] sm:p-[2vh] flex flex-col items-center justify-center h-[16vh] sm:h-[20vh] shadow-lg group hover:scale-105 active:scale-95 transition-all duration-300 text-center"
                 style={{
                   background: 'rgba(255, 255, 255, 0.15)',
                   backdropFilter: 'blur(12px)',
                   border: '1px solid rgba(255, 255, 255, 0.25)',
                 }}
               >
-                <div className="bg-blue-900 p-3 rounded-full mb-3">
-                  <Shield size={24} className="text-white" />
+                <div className="bg-blue-900 p-[1.5vh] sm:p-[2vh] rounded-full mb-[1vh] sm:mb-[1.5vh]">
+                  <Shield size="3vh" className="sm:size-[3.5vh] text-white" />
                 </div>
-                <span className="text-white font-semibold text-sm line-clamp-2">{products[2].title}</span>
-                <p className="text-white/70 text-xs mt-1">{products[2].subtitle}</p>
+                <span className="text-white font-semibold text-[1.6vh] sm:text-[1.8vh] line-clamp-2">{products[2].title}</span>
+                <p className="text-white/70 text-[1.3vh] sm:text-[1.4vh] mt-[0.3vh] sm:mt-[0.5vh]">{products[2].subtitle}</p>
               </button>
 
               {/* Securities - 占据1列 */}
               <button
                 onClick={() => handleProductClick(4)}
-                className="col-span-1 glass-card rounded-xl p-3 flex flex-col items-center justify-center h-40 shadow-lg group hover:scale-105 active:scale-95 transition-all duration-300 text-center"
+                className="col-span-1 glass-card rounded-xl p-[1.5vh] sm:p-[2vh] flex flex-col items-center justify-center h-[16vh] sm:h-[20vh] shadow-lg group hover:scale-105 active:scale-95 transition-all duration-300 text-center"
                 style={{
                   background: 'rgba(255, 255, 255, 0.15)',
                   backdropFilter: 'blur(12px)',
                   border: '1px solid rgba(255, 255, 255, 0.25)',
                 }}
               >
-                <div className="bg-blue-900 p-3 rounded-full mb-3">
-                  <TrendingUp size={24} className="text-white" />
+                <div className="bg-blue-900 p-[1.5vh] sm:p-[2vh] rounded-full mb-[1vh] sm:mb-[1.5vh]">
+                  <TrendingUp size="3vh" className="sm:size-[3.5vh] text-white" />
                 </div>
-                <span className="text-white font-semibold text-sm line-clamp-2">{products[3].title}</span>
-                <p className="text-white/70 text-xs mt-1">{products[3].subtitle}</p>
+                <span className="text-white font-semibold text-[1.6vh] sm:text-[1.8vh] line-clamp-2">{products[3].title}</span>
+                <p className="text-white/70 text-[1.3vh] sm:text-[1.4vh] mt-[0.3vh] sm:mt-[0.5vh]">{products[3].subtitle}</p>
               </button>
 
               {/* Other Services - 占据1列 */}
               <button
                 onClick={() => handleProductClick(5)}
-                className="col-span-1 glass-card rounded-xl p-3 flex flex-col items-center justify-center h-40 shadow-lg group hover:scale-105 active:scale-95 transition-all duration-300 text-center"
+                className="col-span-1 glass-card rounded-xl p-[1.5vh] sm:p-[2vh] flex flex-col items-center justify-center h-[16vh] sm:h-[20vh] shadow-lg group hover:scale-105 active:scale-95 transition-all duration-300 text-center"
                 style={{
                   background: 'rgba(255, 255, 255, 0.15)',
                   backdropFilter: 'blur(12px)',
                   border: '1px solid rgba(255, 255, 255, 0.25)',
                 }}
               >
-                <div className="bg-blue-900 p-3 rounded-full mb-3">
-                  <Settings size={24} className="text-white" />
+                <div className="bg-blue-900 p-[1.5vh] sm:p-[2vh] rounded-full mb-[1vh] sm:mb-[1.5vh]">
+                  <Settings size="3vh" className="sm:size-[3.5vh] text-white" />
                 </div>
-                <span className="text-white font-semibold text-sm line-clamp-2">{products[4].title}</span>
-                <p className="text-white/70 text-xs mt-1">{products[4].subtitle}</p>
+                <span className="text-white font-semibold text-[1.6vh] sm:text-[1.8vh] line-clamp-2">{products[4].title}</span>
+                <p className="text-white/70 text-[1.3vh] sm:text-[1.4vh] mt-[0.3vh] sm:mt-[0.5vh]">{products[4].subtitle}</p>
               </button>
             </div>
 
             {/* 模式切换按钮 - 模块模式下 */}
-            <div className="mt-6 flex justify-center">
+            <div className="mt-[3vh] sm:mt-[4vh] flex justify-center">
               <button
                 onClick={toggleMode}
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs hover:bg-white/10 transition-colors"
+                className="flex items-center gap-[1vh] sm:gap-[1.2vh] px-[3vw] sm:px-[4vw] py-[1vh] sm:py-[1.2vh] rounded-full bg-white/5 border border-white/10 text-white/70 text-[1.4vh] sm:text-[1.5vh] hover:bg-white/10 transition-colors"
               >
-                <MessageSquare size={14} />
+                <MessageSquare size="1.8vh" className="sm:size-[2vh]" />
                 切换到对话模式
               </button>
             </div>
           </div>
         )}
 
+        {/* 选择模式 - 购物车浮动按钮 */}
+        {mode === 'module' && (
+          <div className="fixed bottom-[10vh] sm:bottom-[12vh] right-[4vw] sm:right-[6vw] z-50">
+            <button
+              onClick={() => {
+                navigate('/haironghuiqi/my-applications');
+              }}
+              className="relative w-[6vh] h-[6vh] sm:w-[8vh] sm:h-[8vh] bg-blue-900 hover:bg-blue-800 flex items-center justify-center rounded-full shadow-2xl transition-all active:scale-90"
+              style={{
+                cursor: 'pointer',
+                boxShadow: '0 20px 40px rgba(15, 23, 42, 0.3), 0 10px 20px rgba(15, 23, 42, 0.2)',
+              }}
+            >
+              <ShoppingCart size="3vh" className="sm:size-[4vh] text-white" />
+              {/* 角标 */}
+              {collectionCount > 0 && (
+                <div className="absolute -top-[0.8vh] -right-[0.8vh] sm:-top-[1vh] sm:-right-[1vh] bg-red-500 text-white text-[1.2vh] sm:text-[1.3vh] font-bold w-[2.5vh] h-[2.5vh] sm:w-[3vh] sm:h-[3vh] rounded-full flex items-center justify-center border-2 border-blue-900">
+                  {collectionCount}
+                </div>
+              )}
+            </button>
+          </div>
+        )}
+
         {/* 对话模式显示 */}
         {mode === 'conversational' && (
-          <div className="conversational-display" style={{ height: 'calc(100vh - 520px)' }}>
+          <div className="conversational-display flex-1 min-h-0">
             {/* Chat History Area - 可滚动 */}
             <div className="h-full overflow-y-auto space-y-3 pt-3 pb-4 hide-scrollbar">
               {chatHistory.map((message, index) => (
@@ -408,7 +432,7 @@ const HaironghuiqiHome = () => {
                       </div>
                     )}
                     <div
-                      className="glass-card rounded-xl p-4 w-full"
+                      className="glass-card rounded-xl p-[1.5vh] sm:p-[2vh] w-full"
                       style={{
                         background: 'rgba(255, 255, 255, 0.15)',
                         backdropFilter: 'blur(12px)',
@@ -416,28 +440,28 @@ const HaironghuiqiHome = () => {
                         maxWidth: '100%',
                       }}
                     >
-                      <p className="text-white text-sm mb-3">{message.content}</p>
+                      <p className="text-white text-[1.4vh] sm:text-[1.6vh] mb-[1.5vh]">{message.content}</p>
                       
                       {/* Horizontal Scroll Matched Products */}
                       {message.products && message.products.length > 0 && (
-                        <div className="flex gap-3 overflow-x-auto hide-scroll pb-2 -mx-1 px-1 hide-scrollbar">
+                        <div className="flex gap-[1vh] sm:gap-[1.5vh] overflow-x-auto hide-scroll pb-[1vh] -mx-[0.5vh] px-[0.5vh] hide-scrollbar">
                           {message.products.map((product, idx) => (
                             <div
                               key={idx}
                               onClick={() => navigate(`/haironghuiqi/product/${product.id}`)}
-                              className="min-w-[160px] max-w-[160px] bg-white/10 rounded-lg p-3 border border-white/10 flex flex-col flex-shrink-0 cursor-pointer hover:bg-white/20 transition-colors"
+                              className="min-w-[35vw] max-w-[35vw] sm:min-w-[200px] sm:max-w-[200px] bg-white/10 rounded-lg p-[1.2vh] sm:p-[1.5vh] border border-white/10 flex flex-col flex-shrink-0 cursor-pointer hover:bg-white/20 transition-colors"
                             >
-                              <div className="w-10 h-10 bg-blue-900/50 rounded-lg flex items-center justify-center mb-2">
-                                <TrendingUp size={20} className="text-white" />
+                              <div className="w-[5vh] h-[5vh] sm:w-[5vh] sm:h-[5vh] bg-blue-900/50 rounded-lg flex items-center justify-center mb-[1vh]">
+                                <TrendingUp size="2.5vh" className="sm:size-[2.5vh] text-white" />
                               </div>
-                              <p className="text-white text-xs font-semibold mb-1 truncate">{product.name}</p>
-                              <p className="text-yellow-400 font-bold text-sm mb-2">{product.rate}</p>
+                              <p className="text-white text-[1.4vh] sm:text-[1.4vh] font-semibold mb-[0.5vh] truncate">{product.name}</p>
+                              <p className="text-yellow-400 font-bold text-[1.6vh] sm:text-[1.6vh] mb-[1vh]">{product.rate}</p>
                               <button
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   handleProductConsult(product);
                                 }}
-                                className="mt-auto w-full py-2 bg-blue-900 hover:bg-blue-800 text-white text-xs font-semibold rounded-lg transition-colors active:scale-95"
+                                className="mt-auto w-full py-[1vh] sm:py-[1vh] bg-blue-900 hover:bg-blue-800 text-white text-[1.4vh] sm:text-[1.4vh] font-semibold rounded-lg transition-colors active:scale-95"
                               >
                                 预约咨询
                               </button>
@@ -458,10 +482,32 @@ const HaironghuiqiHome = () => {
 
       {/* 对话模式 - 输入框区域 (独立于对话显示区) */}
       {mode === 'conversational' && (
-        <div className="fixed bottom-32 left-4 right-4 z-30">
+        <div className="fixed bottom-[1vh] sm:bottom-[2vh] left-[3vw] sm:left-[4vw] right-[3vw] sm:right-[4vw] z-30">
+          {/* 购物车浮动按钮 - 输入框上方 */}
+          <div className="absolute -top-[8vh] sm:-top-[10vh] right-0">
+            <button
+              onClick={() => {
+                navigate('/haironghuiqi/my-applications');
+              }}
+              className="relative w-[6vh] h-[6vh] sm:w-[8vh] sm:h-[8vh] bg-blue-900 hover:bg-blue-800 flex items-center justify-center rounded-full shadow-2xl transition-all active:scale-90"
+              style={{
+                cursor: 'pointer',
+                boxShadow: '0 20px 40px rgba(15, 23, 42, 0.3), 0 10px 20px rgba(15, 23, 42, 0.2)',
+              }}
+            >
+              <ShoppingCart size="3vh" className="sm:size-[4vh] text-white" />
+              {/* 角标 */}
+              {collectionCount > 0 && (
+                <div className="absolute -top-[0.8vh] -right-[0.8vh] sm:-top-[1vh] sm:-right-[1vh] bg-red-500 text-white text-[1.2vh] sm:text-[1.3vh] font-bold w-[2.5vh] h-[2.5vh] sm:w-[3vh] sm:h-[3vh] rounded-full flex items-center justify-center border-2 border-blue-900">
+                  {collectionCount}
+                </div>
+              )}
+            </button>
+          </div>
+
           <div className="relative">
             <textarea
-              className="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-xl py-3 px-4 pr-16 text-white placeholder-white/50 focus:outline-none resize-none min-h-[80px] max-h-[120px]"
+              className="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-xl py-[1.5vh] sm:py-[2vh] px-[2vw] sm:px-[3vw] pr-[12vw] text-white placeholder-white/50 focus:outline-none resize-none min-h-[8vh] sm:min-h-[10vh] max-h-[12vh] sm:max-h-[15vh] text-[1.4vh] sm:text-[1.6vh]"
               placeholder="输入您的需求..."
               value={chatInput}
               onChange={(e) => setChatInput(e.target.value)}
@@ -474,70 +520,44 @@ const HaironghuiqiHome = () => {
             />
             <button
               onClick={handleSendMessage}
+              className="text-white hover:text-blue-300 transition-colors"
               style={{
                 position: 'absolute',
-                right: '12px',
-                bottom: '12px',
+                right: '2vw',
+                bottom: '1.5vh',
               }}
-              className="text-white hover:text-blue-300 transition-colors"
             >
-              <Send size={20} />
+              <Send size="2vh" className="sm:size-[2.5vh]" />
             </button>
           </div>
 
           {/* 模式切换按钮 - 对话模式下 */}
-          <div className="mt-4 flex justify-center gap-3">
+          <div className="mt-[1vh] sm:mt-[2vh] flex justify-center gap-[1vh] sm:gap-[1.5vh]">
             <button
               onClick={clearChat}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white text-xs hover:bg-white/10 transition-colors"
+              className="flex items-center gap-[0.8vh] sm:gap-[1vh] px-[2vw] sm:px-[3vw] py-[0.8vh] sm:py-[1vh] rounded-full bg-white/5 border border-white/10 text-white text-[1.3vh] sm:text-[1.4vh] hover:bg-white/10 transition-colors"
             >
-              <Trash2 size={14} />
+              <Trash2 size="1.5vh" className="sm:size-[2vh]" />
               清除对话
             </button>
             <button
               onClick={toggleMode}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs hover:bg-white/10 transition-colors"
+              className="flex items-center gap-[0.8vh] sm:gap-[1vh] px-[2vw] sm:px-[3vw] py-[0.8vh] sm:py-[1vh] rounded-full bg-white/5 border border-white/10 text-white/70 text-[1.3vh] sm:text-[1.4vh] hover:bg-white/10 transition-colors"
             >
-              <Grid size={14} />
+              <Grid size="1.5vh" className="sm:size-[2vh]" />
               切换为选择模式
             </button>
           </div>
+
+          {/* 温馨提示 */}
+          <div className="mt-[1.5vh] sm:mt-[2vh] flex items-center justify-center gap-[0.8vh]">
+            <Info size="1.5vh" className="sm:size-[2vh] text-yellow-400" />
+            <p className="text-white/70 text-[1.2vh] sm:text-[1.3vh] text-center">
+              您也可以切换到选择模式，直接高效浏览和检索产品
+            </p>
+          </div>
         </div>
       )}
-
-      {/* 购物车浮动按钮 */}
-      <div className="fixed bottom-24 right-6 z-50">
-        <button
-          onClick={() => {
-            navigate('/haironghuiqi/my-applications');
-          }}
-          className="relative w-16 h-16 bg-blue-900 hover:bg-blue-800 flex items-center justify-center rounded-full shadow-2xl transition-all active:scale-90"
-          style={{
-            cursor: 'pointer',
-            boxShadow: '0 20px 40px rgba(15, 23, 42, 0.3), 0 10px 20px rgba(15, 23, 42, 0.2)',
-          }}
-        >
-          <ShoppingCart size={32} className="text-white" />
-          {/* 角标 */}
-          {collectionCount > 0 && (
-            <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center border-2 border-blue-900">
-              {collectionCount}
-            </div>
-          )}
-        </button>
-      </div>
-
-      {/* 温馨提示 - 页面底部 */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-blue-900/90 backdrop-blur-md border-t border-white/10 px-4 py-3">
-        <div className="max-w-md mx-auto flex items-center justify-center gap-2">
-          <Info size={14} className="text-yellow-400 flex-shrink-0" />
-          <p className="text-white/80 text-xs text-center">
-            当前为<span className="text-yellow-400 font-semibold">{mode === 'conversational' ? '对话模式' : '选择模式'}</span>
-            {mode === 'conversational' ? '，可与AI助手对话查询产品' : '，可浏览各类金融产品'}
-            ，点击按钮切换模式
-          </p>
-        </div>
-      </div>
 
       {/* Notification */}
       <Notification show={noticeBar.show} message={noticeBar.message} type={noticeBar.type} />

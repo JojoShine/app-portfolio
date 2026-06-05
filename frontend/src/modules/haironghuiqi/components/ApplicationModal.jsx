@@ -115,7 +115,7 @@ const ApplicationModal = ({ isOpen, onClose, product, institution, applicationTy
         </div>
 
         {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+        <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6 hide-scrollbar">
           {/* Section 1: Personal Information */}
           {maskedUser && (
             <section>
