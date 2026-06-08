@@ -237,13 +237,35 @@ const HaironghuiqiHome = () => {
       return;
     }
 
-    // 检测是否为无意义内容（纯数字、乱码等）
+    // 检测是否为无意义内容(纯数字、乱码等)
     const isMeaningless = /^\d+$/.test(userMessage) || /^[a-zA-Z]+$/.test(userMessage) && userMessage.length < 4;
-    
+        
     if (isMeaningless) {
       const aiResponse = {
         type: 'ai',
-        content: '我不太理解你的需求，请您重新描述或切换到选择模式，浏览更多金融产品。',
+        content: '我不太理解你的需求,请您重新描述或切换到选择模式,浏览更多金融产品。',
+        timestamp: timestamp,
+        products: [],
+      };
+      setChatHistory([...newHistory, aiResponse]);
+      return;
+    }
+    
+    // 检测模糊的贷款相关需求
+    const vagueLoanKeywords = ['贷款', '借钱', '借款', '融资', '资金', '周转'];
+    const hasVagueLoanIntent = vagueLoanKeywords.some(keyword => userMessage.includes(keyword));
+        
+    // 检查是否包含具体的贷款信息(金额、用途等)
+    const hasSpecificInfo = /\d+/.test(userMessage) || 
+                           userMessage.includes('装修') || userMessage.includes('购房') || 
+                           userMessage.includes('经营') || userMessage.includes('消费') ||
+                           userMessage.includes('企业') || userMessage.includes('个人');
+        
+    // 如果是模糊的贷款需求但没有具体信息,引导用户提供更多细节
+    if (hasVagueLoanIntent && !hasSpecificInfo) {
+      const aiResponse = {
+        type: 'ai',
+        content: '我了解到您需要贷款服务。为了给您推荐更合适的产品,能否告诉我:\n\n1. 您需要的贷款金额大概是多少?\n2. 贷款用途是什么?(如:经营周转、扩大规模、设备采购等)\n3. 您的企业类型和经营状况如何?\n\n或者您可以切换到选择模式,浏览所有贷款产品。',
         timestamp: timestamp,
         products: [],
       };
@@ -270,10 +292,19 @@ const HaironghuiqiHome = () => {
           })),
         };
       } else {
-        // 没有匹配到产品，引导用户去选择模式
+        // 没有匹配到产品,判断是否是模糊需求
+        let fallbackMessage;
+              
+        // 如果包含贷款相关词汇但没匹配到,说明需求还不够具体
+        if (hasVagueLoanIntent) {
+          fallbackMessage = '我理解您需要贷款服务,但目前没有找到完全匹配的产品。建议您:\n\n1. 提供更多具体信息(如金额、用途等)\n2. 切换到选择模式,浏览所有贷款产品\n3. 直接点击"银行"分类查看银行贷款产品';
+        } else {
+          fallbackMessage = '我不太理解你的需求,请您重新描述或切换到选择模式,浏览更多金融产品。';
+        }
+              
         aiResponse = {
           type: 'ai',
-          content: '我不太理解你的需求，请您重新描述或切换到选择模式，浏览更多金融产品。',
+          content: fallbackMessage,
           timestamp: timestamp,
           products: [],
         };
