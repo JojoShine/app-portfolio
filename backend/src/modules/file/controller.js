@@ -17,8 +17,9 @@ const uploadFile = async (req, res, next) => {
 // 获取文件流（用于展示图片等）
 const getFileStream = async (req, res, next) => {
   try {
-    validateGetFileStream(req.params.id);
-    const fileData = await fileService.getFileStream(req.params.id);
+    const fileIdentifier = req.fileIdentifier || req.params.id;
+    validateGetFileStream(fileIdentifier);
+    const fileData = await fileService.getFileStream(fileIdentifier);
 
     // 设置响应头
     res.setHeader('Content-Type', fileData.mimeType);
