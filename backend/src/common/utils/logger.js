@@ -42,7 +42,7 @@ const fileFormat = winston.format.combine(
 
 /**
  * 创建模块日志器
- * @param {string} moduleName - 模块名称（如：auth, user, app, haironghuiqi等）
+ * @param {string} moduleName - 模块名称（如：auth, user, app 等）
  * @returns {object} Winston logger 实例
  */
 const createModuleLogger = (moduleName = 'app') => {
@@ -110,5 +110,4 @@ module.exports = {
   user: createModuleLogger('user'),
   app: createModuleLogger('app'),
   file: createModuleLogger('file'),
-  haironghuiqi: createModuleLogger('haironghuiqi'),
 };

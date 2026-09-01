@@ -17,6 +17,7 @@ const FILE_SIZE_LIMITS = {
   document: 50 * 1024 * 1024, // 50MB
   default: 10 * 1024 * 1024, // 10MB
 };
+const COMPRESSED_IMAGE_LIMIT = 2 * 1024 * 1024;
 
 // 配置 multer 存储
 const storage = multer.memoryStorage();
@@ -63,17 +64,34 @@ const processFile = async (req, res, next) => {
     // 如果是图片，进行压缩
     if (mimeType.startsWith('image/')) {
       try {
-        const compressedBuffer = await sharp(file.buffer)
-          .resize(2000, 2000, {
-            fit: 'inside',
-            withoutEnlargement: true,
-          })
-          .jpeg({ quality: 80, progressive: true })
-          .toBuffer();
+        let compressedBuffer;
+        const attempts = [
+          { width: 2000, quality: 82 },
+          { width: 1800, quality: 72 },
+          { width: 1600, quality: 62 },
+          { width: 1400, quality: 52 },
+        ];
+        for (const attempt of attempts) {
+          compressedBuffer = await sharp(file.buffer)
+            .rotate()
+            .resize(attempt.width, attempt.width, {
+              fit: 'inside',
+              withoutEnlargement: true,
+            })
+            .flatten({ background: '#ffffff' })
+            .jpeg({ quality: attempt.quality, progressive: true, mozjpeg: true })
+            .toBuffer();
+          if (compressedBuffer.length <= COMPRESSED_IMAGE_LIMIT) break;
+        }
+        if (compressedBuffer.length > COMPRESSED_IMAGE_LIMIT) {
+          throw new ValidationError('图片压缩后仍过大，请选择更清晰且尺寸较小的图片');
+        }
 
         // 更新文件信息
         req.file.buffer = compressedBuffer;
         req.file.size = compressedBuffer.length;
+        req.file.mimetype = 'image/jpeg';
+        req.file.originalname = `${path.parse(file.originalname).name}.jpg`;
         req.file.compressed = true;
 
         logger.debug('Image compressed', {
@@ -103,4 +121,5 @@ module.exports = {
   processFile,
   ALLOWED_MIME_TYPES,
   FILE_SIZE_LIMITS,
+  COMPRESSED_IMAGE_LIMIT,
 };

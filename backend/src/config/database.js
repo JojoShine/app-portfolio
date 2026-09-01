@@ -1,28 +1,33 @@
-const { Sequelize } = require('sequelize');
+const { PrismaClient } = require('@prisma/client');
 const env = require('./env');
 
-const sequelize = new Sequelize(
-  env.DB_NAME,
-  env.DB_USER,
-  env.DB_PASSWORD,
-  {
-    host: env.DB_HOST,
-    port: env.DB_PORT,
-    dialect: 'postgres',
-    timezone: '+08:00', // 东八区时区
-    underscored: true, // 自动将驼峰命名转换为下划线命名
-    logging: env.NODE_ENV === 'development' ? console.log : false,
-    pool: {
-      max: 5,
-      min: 0,
-      acquire: 30000,
-      idle: 10000,
-    },
-    dialectOptions: {
-      // PostgreSQL 特定配置
-      application_name: 'app-portfolio',
-    },
-  }
-);
+const withTimezone = (connectionString) => {
+  if (!/^postgres(?:ql)?:\/\//i.test(connectionString)) return connectionString;
+  if (/[?&]options=/i.test(connectionString)) return connectionString;
+  const separator = connectionString.includes('?') ? '&' : '?';
+  const options = encodeURIComponent(`-c timezone=${env.DB_TIMEZONE}`);
+  return `${connectionString}${separator}options=${options}`;
+};
 
-module.exports = sequelize;
+const buildDatabaseUrl = () => {
+  if (env.DATABASE_URL) return withTimezone(env.DATABASE_URL);
+
+  const username = encodeURIComponent(env.DB_USER);
+  const password = encodeURIComponent(env.DB_PASSWORD || '');
+  const database = encodeURIComponent(env.DB_NAME);
+  return withTimezone(
+    `postgresql://${username}:${password}@${env.DB_HOST}:${env.DB_PORT}/${database}?schema=public`
+  );
+};
+
+const globalDatabase = globalThis;
+const database = globalDatabase.__appPortfolioPrisma || new PrismaClient({
+  datasourceUrl: buildDatabaseUrl(),
+  log: env.DB_LOGGING ? ['query', 'info', 'warn', 'error'] : ['warn', 'error'],
+});
+
+if (env.NODE_ENV !== 'production') {
+  globalDatabase.__appPortfolioPrisma = database;
+}
+
+module.exports = database;

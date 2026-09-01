@@ -28,7 +28,7 @@
   - Node.js/Express API 服务（按业务模块划分）
   - Sequelize + PostgreSQL 数据层
   - MinIO 对象存储（后端中转）
-  - Redis 缓存/会话/热点数据
+  - 可选的外部基础能力按真实业务需求接入，不预置空转依赖
 
 #### 2.2 业务模块化原则
 - 每个业务以"模块"方式接入聚合前端（例如：`modules/<bizName>/...`）
@@ -43,7 +43,7 @@
 - React
 - Zustand（全局状态）
 - Axios（HTTP 请求）
-- UI：shadcn/ui + Tailwind CSS（规范化组件与样式）
+- UI：Ant Design Mobile + Tailwind CSS（规范化移动端组件与样式）
 - 要求：统一代码风格、统一组件规范、统一请求与错误处理规范
 
 #### 3.2 前端核心能力（框架性内容）
@@ -53,7 +53,7 @@
 - 业务常用组件（可逐步沉淀）：用户信息卡片、定位展示组件、上传组件等
 - 组件规范：
   - 组件必须可配置、可复用，避免写死业务逻辑
-  - 样式统一通过 Tailwind 与 shadcn/ui 组合实现
+  - 交互组件优先使用 Ant Design Mobile，布局与品牌样式使用 Tailwind CSS
   - 禁止业务模块重复造轮子
 
 ##### 3.2.2 通用 Service 层（外部能力封装）
@@ -114,7 +114,6 @@
 - Sequelize ORM
 - PostgreSQL
 - MinIO（对象存储）
-- Redis（缓存/会话/热点数据）
 
 #### 4.2 后端模块化结构
 后端按业务模块划分，推荐目录结构：
@@ -141,7 +140,6 @@ backend/
 │   │   └── error.js
 │   ├── config/
 │   │   ├── database.js
-│   │   ├── redis.js
 │   │   ├── minio.js
 │   │   └── logger.js
 │   ├── migrations/
@@ -210,14 +208,7 @@ psql -h <host> -U <user> -d <dbname> -f db/seeder.sql
 - 格式：`<module>/<timestamp>-<uuid>.<ext>`
 - 示例：`user/1715596800000-a1b2c3d4.jpg`
 
-##### 4.3.5 缓存与会话（Redis）
-- 典型用途：
-  - 登录态/Token 缓存
-  - 热点数据缓存
-  - 短期幂等 key、防重复提交
-- 需要定义 key 命名规范与过期策略
-
-##### 4.3.6 CORS
+##### 4.3.5 CORS
 - 后端支持跨域访问（CORS）
 - 生产环境建议收敛 origin 白名单
 
@@ -232,12 +223,6 @@ DB_PORT=5432
 DB_NAME=app_portfolio
 DB_USER=<your-user>
 DB_PASSWORD=<your-password>
-
-# Redis
-REDIS_HOST=<your-host>
-REDIS_PORT=6379
-REDIS_USERNAME=<your-username>
-REDIS_PASSWORD=<your-password>
 
 # MinIO
 MINIO_ENDPOINT=<your-host>
@@ -296,14 +281,13 @@ PORT=3000
   - MinIO 访问控制策略清晰
 - 性能：
   - 文件流传输时考虑分块/压缩
-  - Redis 缓存热点数据
 
 ---
 
 ### 8. 交付物清单
 
 **前端：**
-- [ ] 聚合容器工程（含路由、layout、zustand、axios、shadcn/ui+tailwind 基础配置）
+- [ ] 聚合容器工程（含路由、layout、zustand、axios、Ant Design Mobile + Tailwind CSS 基础配置）
 - [ ] 通用 service 层（用户、定位、文件等）
 - [ ] 业务模块示例（最小可运行模块模板）
 - [ ] 文件上传/查看组件示例
@@ -313,7 +297,6 @@ PORT=3000
 - [ ] Sequelize model 与基础 CRUD 示例
 - [ ] 文件上传接口（`POST /api/files/upload`）
 - [ ] 文件流获取接口（`GET /api/files/stream/:fileId`）
-- [ ] Redis 接入与示例
 - [ ] `db/schema.sql`（数据库结构初始化）
 - [ ] `db/seeder.sql`（初始化数据）
 

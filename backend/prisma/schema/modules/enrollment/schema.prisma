@@ -1,0 +1,213 @@
+/// 招生年度
+model EnrollmentSeason {
+  id           String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  year         Int                     @unique
+  name         String                  @db.VarChar(100)
+  active       Boolean                 @default(false)
+  createdAt    DateTime                @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime                @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  windows      EnrollmentWindow[]
+  schools      EnrollmentSchool[]
+  contents     EnrollmentContent[]
+  applications EnrollmentApplication[]
+  publications EnrollmentPublication[]
+
+  @@map("enrollment_seasons")
+}
+
+/// 按学段和报名类别管理的报名时间窗口
+model EnrollmentWindow {
+  id        String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  seasonId  String           @map("season_id") @db.Uuid
+  stage     String           @db.VarChar(30)
+  category  String           @db.VarChar(30)
+  startsAt  DateTime         @map("starts_at") @db.Timestamptz(6)
+  endsAt    DateTime         @map("ends_at") @db.Timestamptz(6)
+  createdAt DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime         @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  season    EnrollmentSeason @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+
+  @@unique([seasonId, stage, category])
+  @@map("enrollment_windows")
+}
+
+/// 招生学校及学校政策配置
+model EnrollmentSchool {
+  id            String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  seasonId      String                  @map("season_id") @db.Uuid
+  stage         String                  @db.VarChar(30)
+  category      String                  @db.VarChar(30)
+  name          String                  @db.VarChar(160)
+  address       String                  @db.VarChar(500)
+  scopeSummary  String                  @map("scope_summary") @db.Text
+  policyTitle   String                  @map("policy_title") @db.VarChar(255)
+  policyVersion String                  @map("policy_version") @db.VarChar(50)
+  policyContent Json                    @default("{}") @map("policy_content") @db.JsonB
+  formRules     Json                    @default("{}") @map("form_rules") @db.JsonB
+  active        Boolean                 @default(true)
+  sort          Int                     @default(0)
+  createdAt     DateTime                @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt     DateTime                @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  season        EnrollmentSeason        @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  applications  EnrollmentApplication[]
+
+  @@index([seasonId, stage, category, active, sort], map: "idx_enrollment_schools_catalog")
+  @@map("enrollment_schools")
+}
+
+/// 招生门户内容，包括 Banner、政策、问答和指南
+model EnrollmentContent {
+  id        String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  seasonId  String?           @map("season_id") @db.Uuid
+  type      String            @db.VarChar(40)
+  stage     String?           @db.VarChar(30)
+  category  String?           @db.VarChar(30)
+  title     String            @db.VarChar(255)
+  summary   String?           @db.Text
+  content   Json              @default("{}") @db.JsonB
+  imageUrl  String?           @map("image_url") @db.VarChar(500)
+  target    String?           @db.VarChar(500)
+  startsAt  DateTime?         @map("starts_at") @db.Timestamptz(6)
+  endsAt    DateTime?         @map("ends_at") @db.Timestamptz(6)
+  active    Boolean           @default(true)
+  sort      Int               @default(0)
+  createdAt DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime          @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  season    EnrollmentSeason? @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+
+  @@index([seasonId, type, active, sort], map: "idx_enrollment_contents_portal")
+  @@map("enrollment_contents")
+}
+
+/// 家长提交的招生报名主记录
+model EnrollmentApplication {
+  id                   String                         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  ownerUserId          String                         @map("owner_user_id") @db.VarChar(255)
+  seasonId             String                         @map("season_id") @db.Uuid
+  schoolId             String                         @map("school_id") @db.Uuid
+  stage                String                         @db.VarChar(30)
+  category             String                         @db.VarChar(30)
+  status               String                         @default("draft") @db.VarChar(30)
+  studentNameEncrypted String                         @map("student_name_encrypted") @db.Text
+  studentNameHash      String                         @map("student_name_hash") @db.VarChar(64)
+  studentIdEncrypted   String                         @map("student_id_encrypted") @db.Text
+  studentIdHash        String                         @map("student_id_hash") @db.VarChar(64)
+  studentIdLastSixHash String                         @map("student_id_last_six_hash") @db.VarChar(64)
+  payloadEncrypted     String                         @map("payload_encrypted") @db.Text
+  draftVersion         Int                            @default(1) @map("draft_version")
+  policyVersion        String?                        @map("policy_version") @db.VarChar(50)
+  policyConfirmedAt    DateTime?                      @map("policy_confirmed_at") @db.Timestamptz(6)
+  authorizationVersion String?                        @map("authorization_version") @db.VarChar(50)
+  authorizedAt         DateTime?                      @map("authorized_at") @db.Timestamptz(6)
+  declarationVersion   String?                        @map("declaration_version") @db.VarChar(50)
+  truthConfirmedAt     DateTime?                      @map("truth_confirmed_at") @db.Timestamptz(6)
+  submittedAt          DateTime?                      @map("submitted_at") @db.Timestamptz(6)
+  submissionReceipt    String?                        @unique @map("submission_receipt") @db.VarChar(32)
+  idempotencyKey       String?                        @map("idempotency_key") @db.VarChar(100)
+  reviewMessage        String?                        @map("review_message") @db.Text
+  returnedFields       Json                           @default("[]") @map("returned_fields") @db.JsonB
+  offlineArrangement   Json?                          @map("offline_arrangement") @db.JsonB
+  admittedSchoolName   String?                        @map("admitted_school_name") @db.VarChar(160)
+  hasUpdate            Boolean                        @default(false) @map("has_update")
+  lastViewedAt         DateTime?                      @map("last_viewed_at") @db.Timestamptz(6)
+  createdAt            DateTime                       @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt            DateTime                       @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  season               EnrollmentSeason               @relation(fields: [seasonId], references: [id])
+  school               EnrollmentSchool               @relation(fields: [schoolId], references: [id])
+  versions             EnrollmentApplicationVersion[]
+  verifications        EnrollmentVerification[]
+  materials            EnrollmentMaterial[]
+  auditLogs            EnrollmentAuditLog[]
+
+  @@index([ownerUserId, createdAt(sort: Desc)], map: "idx_enrollment_applications_owner")
+  @@index([seasonId, stage, status], map: "idx_enrollment_applications_review")
+  @@index([seasonId, studentNameHash, studentIdLastSixHash, status], map: "idx_enrollment_applications_public_query")
+  @@map("enrollment_applications")
+}
+
+/// 报名信息版本快照
+model EnrollmentApplicationVersion {
+  id                String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  applicationId     String                @map("application_id") @db.Uuid
+  version           Int
+  event             String                @db.VarChar(40)
+  snapshotEncrypted String                @map("snapshot_encrypted") @db.Text
+  createdBy         String                @map("created_by") @db.VarChar(255)
+  note              String?               @db.Text
+  createdAt         DateTime              @default(now()) @map("created_at") @db.Timestamptz(6)
+  application       EnrollmentApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  @@unique([applicationId, version])
+  @@map("enrollment_application_versions")
+}
+
+/// 多部门共享数据核验记录
+model EnrollmentVerification {
+  id                 String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  applicationId      String                @map("application_id") @db.Uuid
+  type               String                @db.VarChar(40)
+  source             String                @db.VarChar(100)
+  adapterVersion     String                @map("adapter_version") @db.VarChar(40)
+  queriedAt          DateTime              @map("queried_at") @db.Timestamptz(6)
+  status             String                @db.VarChar(30)
+  originalEncrypted  String?               @map("original_encrypted") @db.Text
+  declaredEncrypted  String?               @map("declared_encrypted") @db.Text
+  manuallyModified   Boolean               @default(false) @map("manually_modified")
+  modificationReason String?               @map("modification_reason") @db.Text
+  failureReason      String?               @map("failure_reason") @db.VarChar(255)
+  createdAt          DateTime              @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt          DateTime              @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  application        EnrollmentApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  @@unique([applicationId, type])
+  @@map("enrollment_verifications")
+}
+
+/// 报名图片材料与文件的关联
+model EnrollmentMaterial {
+  id            String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  applicationId String                @map("application_id") @db.Uuid
+  fileId        String                @map("file_id") @db.Uuid
+  itemCode      String                @map("item_code") @db.VarChar(80)
+  sort          Int                   @default(0)
+  deletedAt     DateTime?             @map("deleted_at") @db.Timestamptz(6)
+  createdAt     DateTime              @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt     DateTime              @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  application   EnrollmentApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  file          File                  @relation(fields: [fileId], references: [id])
+
+  @@index([applicationId, itemCode, sort], map: "idx_enrollment_materials_application")
+  @@map("enrollment_materials")
+}
+
+/// 初审和录取结果的统一公示配置
+model EnrollmentPublication {
+  id          String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  seasonId    String           @map("season_id") @db.Uuid
+  type        String           @db.VarChar(20)
+  published   Boolean          @default(false)
+  publishedAt DateTime?        @map("published_at") @db.Timestamptz(6)
+  arrangement Json?            @db.JsonB
+  updatedBy   String?          @map("updated_by") @db.VarChar(255)
+  createdAt   DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime         @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  season      EnrollmentSeason @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+
+  @@unique([seasonId, type])
+  @@map("enrollment_publications")
+}
+
+/// 招生业务操作审计日志
+model EnrollmentAuditLog {
+  id            BigInt                 @id @default(autoincrement())
+  applicationId String?                @map("application_id") @db.Uuid
+  actorId       String                 @map("actor_id") @db.VarChar(255)
+  action        String                 @db.VarChar(80)
+  details       Json                   @default("{}") @db.JsonB
+  requestId     String?                @map("request_id") @db.VarChar(80)
+  createdAt     DateTime               @default(now()) @map("created_at") @db.Timestamptz(6)
+  application   EnrollmentApplication? @relation(fields: [applicationId], references: [id], onDelete: SetNull)
+
+  @@index([applicationId, createdAt(sort: Desc)], map: "idx_enrollment_audit_application")
+  @@map("enrollment_audit_logs")
+}

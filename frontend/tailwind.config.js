@@ -109,7 +109,7 @@ export default {
   },
   plugins: [
     // 自定义组件类
-    function({ addComponents, theme }) {
+    function({ addComponents }) {
       addComponents({
         // 徽章/标签组件
         '.badge': {
@@ -155,5 +155,4 @@ export default {
     },
   ],
 }
-
 

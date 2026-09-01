@@ -1,5 +1,5 @@
 const app = require('./app');
-const sequelize = require('./config/database');
+const database = require('./config/database');
 const env = require('./config/env');
 const { app: logger } = require('./common/utils/logger');
 
@@ -21,30 +21,14 @@ const startServer = async () => {
   try {
     printBanner();
 
-    // 测试数据库连接
+    env.validate();
+
     logger.info('📡 Connecting to database...');
-    await sequelize.authenticate();
+    await database.$connect();
     logger.info('✅ Database connection established');
 
-    // 初始化模型关联
-    logger.info('🔗 Initializing model associations...');
-    const models = sequelize.models;
-    Object.keys(models).forEach(modelName => {
-      if (models[modelName].associate) {
-        models[modelName].associate(models);
-      }
-    });
-    logger.info('✅ Model associations initialized');
-
-    // 同步数据库模型（开发环境）
-    if (env.NODE_ENV === 'development') {
-      logger.info('🔄 Synchronizing database models...');
-      await sequelize.sync({ alter: false });
-      logger.info('✅ Database models synchronized');
-    }
-
     // 启动 Express 服务器
-    app.listen(PORT, () => {
+    const server = app.listen(PORT, () => {
       logger.info(`🌐 Server is running on http://localhost:${PORT}`);
       logger.info(`📦 Environment: ${env.NODE_ENV}`);
       logger.info(`📝 Logs directory: ./logs`);
@@ -52,6 +36,16 @@ const startServer = async () => {
       logger.info('✨ Server started successfully!');
       console.log('\n');
     });
+
+    const shutdown = (signal) => {
+      logger.info(`${signal} received, shutting down`);
+      server.close(async () => {
+        await database.$disconnect();
+        process.exit(0);
+      });
+    };
+    process.once('SIGTERM', () => shutdown('SIGTERM'));
+    process.once('SIGINT', () => shutdown('SIGINT'));
   } catch (error) {
     logger.error('❌ Failed to start server', {
       error: error.message,

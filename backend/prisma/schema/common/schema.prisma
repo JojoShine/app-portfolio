@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// 用户状态：正常、停用、禁用
+enum UserStatus {
+  active
+  inactive
+  banned
+
+  @@map("user_status")
+}
+
+/// 文件类型：图片、文档、视频、音频、其他
+enum FileType {
+  image
+  document
+  video
+  audio
+  other
+
+  @@map("file_type_enum")
+}
+
+/// 应用状态：可用、开发中、已下线
+enum AppStatus {
+  active
+  developing
+  offline
+
+  @@map("app_status")
+}

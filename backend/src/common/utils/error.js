@@ -52,6 +52,13 @@ class InternalServerError extends ApiError {
   }
 }
 
+class ServiceUnavailableError extends ApiError {
+  constructor(message = 'Service Unavailable') {
+    super(message, 1007, 503);
+    this.name = 'ServiceUnavailableError';
+  }
+}
+
 module.exports = {
   ApiError,
   ValidationError,
@@ -60,4 +67,5 @@ module.exports = {
   ForbiddenError,
   ConflictError,
   InternalServerError,
+  ServiceUnavailableError,
 };

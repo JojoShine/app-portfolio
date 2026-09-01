@@ -1,0 +1,49 @@
+services:
+  postgres:
+    image: postgres:16.8-alpine
+    container_name: app-portfolio-postgres
+    restart: unless-stopped
+    command: postgres -c timezone=Asia/Shanghai
+    environment:
+      POSTGRES_DB: app_portfolio
+      POSTGRES_USER: app_portfolio
+      POSTGRES_PASSWORD: app_portfolio_local
+      TZ: Asia/Shanghai
+    ports:
+      - "5433:5432"
+    volumes:
+      - app_portfolio_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app_portfolio -d app_portfolio"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  minio:
+    image: minio/minio:latest
+    container_name: app-portfolio-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: app_portfolio_minio
+      MINIO_ROOT_PASSWORD: app_portfolio_minio_local
+      TZ: Asia/Shanghai
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - app_portfolio_minio_data:/data
+
+  minio-init:
+    image: minio/mc:latest
+    depends_on:
+      - minio
+    restart: "no"
+    entrypoint: >
+      /bin/sh -c "until mc alias set local http://minio:9000 app_portfolio_minio app_portfolio_minio_local; do sleep 1; done;
+      mc mb --ignore-existing local/app-portfolio;
+      mc anonymous set none local/app-portfolio;"
+
+volumes:
+  app_portfolio_postgres_data:
+  app_portfolio_minio_data:
