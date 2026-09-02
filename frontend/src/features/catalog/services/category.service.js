@@ -1,5 +1,5 @@
-import api, { unwrap } from '../../../shared/api/api';
+import api from '../../../shared/api/api';
 
 export const categoryService = {
-  list: async () => unwrap(await api.get('/app/categories')) || [],
+  list: async () => (await api.get('/app/categories')) || [],
 };

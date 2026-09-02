@@ -25,7 +25,19 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use(
-  (response) => response.data,
+  (response) => {
+    const payload = response.data;
+    if (payload === null || typeof payload !== 'object' || Array.isArray(payload) || payload instanceof Blob) {
+      return payload;
+    }
+    if (payload.code !== 0) {
+      throw new ApiClientError(payload?.message || '业务请求失败', {
+        code: payload?.code,
+        requestId: payload?.requestId,
+      });
+    }
+    return payload.data;
+  },
   (error) => {
     if (error.response?.status === 401) useSessionStore.getState().clearSession();
     const payload = error.response?.data;
@@ -40,16 +52,6 @@ api.interceptors.response.use(
     ));
   }
 );
-
-export const unwrap = (payload) => {
-  if (!payload || payload.code !== 0) {
-    throw new ApiClientError(payload?.message || '业务请求失败', {
-      code: payload?.code,
-      requestId: payload?.requestId,
-    });
-  }
-  return payload.data;
-};
 
 export const configureApiAdapter = (adapter) => {
   api.defaults.adapter = adapter;

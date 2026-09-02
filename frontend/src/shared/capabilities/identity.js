@@ -1,4 +1,4 @@
-import apiClient, { unwrap } from '../api/api';
+import apiClient from '../api/api';
 import useSessionStore from '../auth/sessionStore';
 import { appConfig } from '../../app/config/env';
 
@@ -31,7 +31,7 @@ export const identityCapability = {
   },
 
   async getCurrentUser() {
-    const user = withDevelopmentProfile(unwrap(await apiClient.get('/auth/me')));
+    const user = withDevelopmentProfile(await apiClient.get('/auth/me'));
     useSessionStore.getState().setUser(user);
     return user;
   },
@@ -47,11 +47,11 @@ export const identityCapability = {
       }
     }
 
-    const session = unwrap(await apiClient.post('/auth/development-token', {
+    const session = await apiClient.post('/auth/development-token', {
       userId: DEVELOPMENT_TEST_USER.userId,
       displayName: DEVELOPMENT_TEST_USER.displayName,
       roles: DEVELOPMENT_TEST_USER.roles,
-    }));
+    });
     useSessionStore.getState().setAccessToken(session.accessToken);
     return this.getCurrentUser();
   },
