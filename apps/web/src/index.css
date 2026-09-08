@@ -206,6 +206,8 @@ input, textarea, select { font-size: 16px !important; }
 .pixel-footer span { font-family: Menlo, Monaco, Consolas, monospace; font-size: 7px; letter-spacing: .08em; }
 .pixel-footer p { margin: 3px 0 0; font-size: 11px; }
 .pixel-footer strong { color: var(--pixel-blue); }
+.pixel-footer a { color: inherit; text-decoration: none; transition: opacity .2s; }
+.pixel-footer a:hover { opacity: .7; }
 
 @media (min-width: 600px) {
   .pixel-market { padding-right: 28px; padding-left: 28px; }

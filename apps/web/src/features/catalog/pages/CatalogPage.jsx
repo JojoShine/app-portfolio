@@ -153,7 +153,7 @@ const CatalogPage = () => {
         </section>
       </main>
 
-      <footer className="pixel-footer"><span>MADE FROM REAL WORK</span><p>Powered by <strong>TBTparent</strong></p></footer>
+      <footer className="pixel-footer"><span>MADE FROM REAL WORK</span><p>Powered by <a href="https://tbtparent.me" target="_blank" rel="noopener noreferrer"><strong>TBTparent</strong></a></p></footer>
     </div>
   );
 };
