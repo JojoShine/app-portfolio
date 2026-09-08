@@ -1,0 +1,24 @@
+.git
+.idea
+.qoder
+*.md
+docs
+
+# Frontend (not needed for API image)
+apps/web
+
+# Non-production files
+**/node_modules
+**/dist
+**/logs
+**/.env*
+**/tmp
+**/temp
+
+# Docker files (avoid recursive context)
+**/Dockerfile
+**/.dockerignore
+
+# Test files
+**/*.test.js
+**/*.spec.js

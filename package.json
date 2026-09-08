@@ -1,0 +1,16 @@
+{
+  "name": "app-portfolio",
+  "private": true,
+  "packageManager": "pnpm@8.9.2",
+  "scripts": {
+    "dev:api": "pnpm --filter @app-portfolio/api dev",
+    "dev:web": "pnpm --filter @app-portfolio/web dev",
+    "build:web": "pnpm --filter @app-portfolio/web build",
+    "db:migrate": "pnpm --filter @app-portfolio/api db:migrate",
+    "db:migrate:dev": "pnpm --filter @app-portfolio/api db:migrate:dev",
+    "prisma:generate": "pnpm --filter @app-portfolio/api prisma:generate"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
