@@ -43,3 +43,19 @@ temp/
 
 # pnpm store
 .pnpm-store/
+
+# AI agent config
+AGENTS.md
+CLAUDE.md
+
+# IDE and tool config
+.idea/
+.qoder/
+
+# Temporary design files
+design-qa.md
+projectplan.md
+requirement.md
+
+# Documentation (design docs, requirements)
+docs/
