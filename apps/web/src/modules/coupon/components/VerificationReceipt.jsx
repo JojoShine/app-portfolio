@@ -1,0 +1,9 @@
+import PropTypes from 'prop-types';
+import Artwork from './Artwork';
+import CouponValue from './CouponValue';
+export default function VerificationReceipt({ record, merchant = false }) {
+  const verifiedAt = new Date(record.createdAt).toLocaleString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).replaceAll('/', '.');
+  const rows = merchant ? [['用户姓名', record.user || '李**'], ['商户名称', record.store.name], ['核销时间', verifiedAt], ['券码序列号', record.id], ['核销方式', record.method || '商家确认核销']] : [['商户名称', record.store.shortName || record.store.name], ['门店名称', record.store.branch || record.store.name], ['核销时间', verifiedAt], ['券码编号', record.id], ['核销方式', record.method || '商家确认核销']];
+  return <article className={`cv-receipt ${merchant ? 'cv-receipt--merchant' : ''}`}>{merchant && <div className="cv-receipt-letterhead"><span>YANCHENG</span><span>BETTER LIFE<br />TOGETHER</span></div>}{!merchant && <div className="cv-receipt-title"><Artwork name="user-result-ticket-art" /><small>—<br />YANCHENG<br />CONSUMPTION SEASON</small><h2>{record.coupon.name}</h2><CouponValue coupon={record.coupon} /></div>}<Artwork name={merchant ? 'merchant-result-stamp' : 'user-result-stamp'} className="cv-receipt-stamp" alt="核销成功" />{merchant && <p className="cv-receipt-motto">— 惠 民 消 费 · 美 好 盐 城 —</p>}{merchant && <div className="cv-receipt-coupon"><Artwork name="result-coupon-icon" /><div><h2>{record.coupon.name}</h2><CouponValue coupon={record.coupon} /></div></div>}<dl className="cv-receipt-details">{rows.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl><p className="cv-receipt-thanks">{merchant ? <>— 感谢参与盐城惠民消费季 —<small>山海湿地 人间烟火</small></> : '— 大美湿地 鹤舞盐城 —'}</p></article>;
+}
+VerificationReceipt.propTypes = { record: PropTypes.object.isRequired, merchant: PropTypes.bool };

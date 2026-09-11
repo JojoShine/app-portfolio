@@ -13,9 +13,9 @@ const categories = [
 
 const applications = [
   { id: '116', name: '招生报名', description: '幼儿园入学、幼升小和小升初报名服务', icon: 'GraduationCap', path: '/enrollment', status: 'active', categoryId: '004', sort: 1 },
-  { id: '125', name: '消费券', description: '覆盖消费券发放、领取、查看与核销的全流程服务', icon: 'Coupon', path: '/coupon', status: 'developing', categoryId: '002', sort: 2 },
-  { id: '126', name: '积分商城', description: '积分获取、商品兑换和兑换记录管理服务', icon: 'Shopbag', path: '/points-mall', status: 'developing', categoryId: '003', sort: 3 },
-  { id: '127', name: '通用答题服务', description: '支持题库配置、在线答题、评分与结果查看', icon: 'Content', path: '/quiz', status: 'developing', categoryId: '006', sort: 4 },
+  { id: '125', name: '消费券', description: '覆盖消费券发放、领取、查看与核销的全流程服务', icon: 'Coupon', path: '/coupon', status: 'active', categoryId: '002', sort: 2 },
+  { id: '126', name: '积分商城', description: '绿色签到、积分好礼与城市权益兑换', icon: 'Shopbag', path: '/green-points', status: 'active', categoryId: '003', sort: 3 },
+  { id: '127', name: '通用答题', description: '主题活动挑战、即时答案反馈、成绩回顾与排行榜', icon: 'Content', path: '/quiz', status: 'active', categoryId: '006', sort: 4 },
   { id: '128', name: '智慧社区', description: '面向社区居民的通知、服务与事项办理入口', icon: 'Team', path: '/smart-community', status: 'developing', categoryId: '005', sort: 5 },
   { id: '129', name: '通用信息填报', description: '可配置表单、材料上传和填报记录管理服务', icon: 'Fillin', path: '/information-collection', status: 'developing', categoryId: '006', sort: 6 },
   { id: '130', name: '城市停车助手', description: '查询停车场、剩余车位、收费标准并记录停车位置', icon: 'MapPin', path: '/city-parking', status: 'developing', categoryId: '007', sort: 7 },

@@ -1,0 +1,10 @@
+import api from '../../../shared/api/api';
+export const getCredential = (id) => api.post(`/coupon/wallet/${encodeURIComponent(id)}/credential`);
+export const previewVerification = (code, storeId) => api.post('/coupon/verifications/preview', { code, storeId });
+export const confirmVerification = (code, storeId, requestId) => api.post('/coupon/verifications', { code, storeId, requestId });
+export const listVerifications = (storeId) => api.get('/coupon/verifications', { params: { storeId } });
+export const getVerification = (id) => api.get(`/coupon/verifications/${encodeURIComponent(id)}`);
+export const listPendingRequests = (storeId) => api.get('/coupon/requests', { params: { storeId } });
+export const getPendingRequest = (id) => api.get(`/coupon/requests/${encodeURIComponent(id)}`);
+export const createPendingRequest = (couponId, storeId) => api.post('/coupon/requests', { couponId, storeId });
+export const confirmPendingRequest = (id, requestId) => api.post(`/coupon/requests/${encodeURIComponent(id)}/confirm`, { requestId });

@@ -401,26 +401,22 @@
   line-height: 16px;
 }
 
-.contact-strip {
-  display: block;
-  min-height: 48px;
-  margin-top: 20px;
-  color: #3d4f6d;
-  font-size: 13px;
-  background: linear-gradient(135deg, #f6f8fc 0%, #eef2f9 100%);
-  border: 1px solid #e2e8f2;
-  border-radius: 12px;
-}
-
-.contact-strip svg { color: var(--enroll-primary); }
-.contact-strip header { display: flex; align-items: center; gap: 7px; padding-bottom: 6px; border-bottom: 1px solid #e2e8f2; }
-.contact-strip header small { margin-left: auto; color: var(--enroll-muted); font-size: 11px; font-weight: 400; }
-.contact-strip__phones { display: grid; grid-template-columns: 1fr; gap: 0; }
-.contact-strip__phones a { display: flex; min-width: 0; min-height: 44px; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 4px; color: #33445f; text-decoration: none; border-top: 1px solid rgba(128, 154, 190, .12); transition: background .15s; }
-.contact-strip__phones a:first-child { border-top: 0; }
-.contact-strip__phones a:active { background: rgba(23, 103, 232, .04); }
-.contact-strip__phones span { color: #596a84; font-size: 14px; line-height: 20px; white-space: nowrap; }
-.contact-strip__phones strong { color: #1767e8; font-size: 14px; font-weight: 600; line-height: 20px; white-space: nowrap; letter-spacing: .3px; }
+.enrollment-page .contact-entry { display: inline-flex; align-items: center; justify-content: flex-end; flex: none; gap: 5px; min-height: 44px; margin: -8px 0; padding: 8px 0 8px 12px; color: #1767e8; background: transparent; border: 0; border-radius: 4px; font-size: 14px; font-weight: 500; }
+.contact-entry > svg { flex: none; font-size: 16px; }
+.contact-entry:active { opacity: .65; }
+.contact-entry:focus-visible { outline: 2px solid #3984f6; outline-offset: 2px; }
+.enrollment-contact-popup { left: 0; right: 0; width: min(100%, 760px); margin-inline: auto; border-radius: 18px 18px 0 0; }
+.contact-panel { padding: 24px 20px max(20px, env(safe-area-inset-bottom)); color: #14213d; }
+.contact-panel h2 { margin: 0 30px 7px 0; font-size: 20px; line-height: 28px; }
+.contact-panel > p { margin: 0 0 18px; color: #66758e; font-size: 12px; line-height: 18px; }
+.contact-panel__list { display: grid; gap: 8px; }
+.contact-panel__list a { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 66px; padding: 10px 14px; color: #66758e; background: #fff; border-radius: 10px; text-decoration: none; }
+.contact-panel__list a:first-child { background: #f0f6ff; }
+.contact-panel__list a > span { font-size: 13px; line-height: 20px; }
+.contact-panel__list strong { display: block; margin-top: 3px; color: #1767e8; font-size: 19px; line-height: 25px; }
+.contact-panel__list small { margin-left: 8px; color: #1767e8; font-size: 10px; }
+.contact-panel__list svg { color: #1767e8; font-size: 21px; }
+.contact-panel__list a:active { background: #d7e6fb; }
 
 .fixed-action-bar {
   position: fixed;
@@ -1107,7 +1103,7 @@
 .service-entry-grid button { border-color: #dfe6f0; box-shadow: 0 4px 14px rgba(33,70,120,.04); }
 .service-entry-grid svg { color: #1769e9; font-size: 28px; }
 .service-entry-grid strong { color: #071431; }
-.contact-strip { color: #3d4f6d; background: linear-gradient(135deg, #f6f8fc 0%, #eef2f9 100%); }
+
 
 .stage-switcher-wrap {
   position: relative;
@@ -1350,7 +1346,6 @@
   font-size: 11px;
   line-height: 16px;
 }
-.contact-strip { min-height: 44px; margin-top: 18px; border-radius: 10px; }
 
 .stage-switcher-wrap {
   padding: 22px 18px 17px;
@@ -2421,32 +2416,68 @@
 .school-list-content .school-card__facts { margin-top: 8px; }
 
 /* Enrollment home refinements. */
+.enrollment-home { position: relative; }
+.enrollment-home__return { position: absolute; top: calc(8px + env(safe-area-inset-top)); left: 18px; z-index: 4; display: inline-flex; align-items: center; justify-content: center; gap: 4px; min-height: 28px; padding: 3px 10px 3px 7px; color: #fff; background: rgba(255, 255, 255, .14); border: 1px solid rgba(255, 255, 255, .38); border-radius: 18px; font-size: 12px; text-decoration: none; }
+.enrollment-home__return > svg { font-size: 14px; }
+.enrollment-home__return:active { background: rgba(255, 255, 255, .25); }
+.enrollment-home__return:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 .enrollment-home__content { padding: 2px 16px 18px; }
 .enrollment-home .enrollment-section-title { min-height: 27px; margin: 14px 0 9px; }
 .enrollment-home .enrollment-section-title:first-child { margin-top: 11px; }
 .enrollment-home .enrollment-section-title h2 { font-size: 18px; font-weight: 800; line-height: 24px; }
 .enrollment-home .stage-entry-grid { gap: 9px; }
-.enrollment-home .stage-entry { min-height: 82px; padding: 11px 12px; box-shadow: 0 3px 10px rgba(33, 70, 120, .04); }
-.enrollment-home .stage-entry--featured { min-height: 72px; }
-.enrollment-home .stage-entry__icon { width: 44px; height: 44px; }
-.enrollment-home .stage-entry strong { font-size: 16px; font-weight: 800; line-height: 22px; white-space: nowrap; }
-.enrollment-home .stage-entry small { margin-top: 3px; font-size: 13px; line-height: 18px; }
-.enrollment-home .stage-entry:not(.stage-entry--featured) {
-  min-height: 82px;
-  display: grid;
-  grid-template-columns: 40px minmax(0, 1fr);
-  grid-template-rows: 40px auto;
-  align-items: center;
-  column-gap: 8px;
-  row-gap: 4px;
-  padding-inline: 10px;
+/* Isolated stage silhouettes, tinted by their original artwork colors. */
+.enrollment-home .stage-entry {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 132px;
+  padding: 14px;
+  box-shadow: none;
 }
-.enrollment-home .stage-entry:not(.stage-entry--featured) .stage-entry__icon { width: 40px; height: 40px; }
-.enrollment-home .stage-entry:not(.stage-entry--featured) strong { font-size: 15px; }
-.enrollment-home .stage-entry:not(.stage-entry--featured) .stage-entry__copy { display: contents; }
-.enrollment-home .stage-entry:not(.stage-entry--featured) strong { grid-column: 2; grid-row: 1; }
-.enrollment-home .stage-entry:not(.stage-entry--featured) small { grid-column: 1 / -1; grid-row: 2; width: 100%; margin-top: 0; text-align: center; white-space: nowrap; }
-.enrollment-home .stage-entry:not(.stage-entry--featured) > svg { position: static; }
+.enrollment-home .stage-entry::after {
+  position: absolute;
+  bottom: 0;
+  z-index: -1;
+  content: '';
+  pointer-events: none;
+  background-image: url('./assets/reference/stage-decoration.png');
+  background-repeat: no-repeat;
+  background-size: 307.2px 204.8px;
+  opacity: .13;
+  mix-blend-mode: multiply;
+}
+.enrollment-home .stage-entry--blue::after {
+  width: 104px;
+  height: 85px;
+  right: 38px;
+  background-position: -9px -89px;
+}
+.enrollment-home .stage-entry--green::after {
+  width: 70px;
+  height: 94px;
+  right: 6px;
+  background-position: -130px -85px;
+}
+.enrollment-home .stage-entry--orange::after {
+  width: 83px;
+  height: 94px;
+  right: 3px;
+  background-position: -216px -80px;
+}
+.enrollment-home .stage-entry--featured { min-height: 98px; }
+.enrollment-home .stage-entry__icon { width: 48px; height: 48px; }
+.enrollment-home .stage-entry strong { font-size: 16px; font-weight: 800; line-height: 22px; }
+.enrollment-home .stage-entry small { margin-top: 5px; font-size: 12px; line-height: 18px; }
+.enrollment-home .stage-entry:not(.stage-entry--featured) {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
+}
+.enrollment-home .stage-entry:not(.stage-entry--featured) .stage-entry__copy { flex-basis: auto; }
+.enrollment-home .stage-entry > svg { position: absolute; top: 30px; right: 13px; }
+.enrollment-home .stage-entry--featured > svg { top: 39px; }
 .enrollment-home .application-summary { border-radius: 9px; box-shadow: 0 2px 8px rgba(33, 70, 120, .035); }
 .enrollment-home .application-summary .adm-card-body { padding: 12px 13px; }
 .enrollment-home .application-summary__top strong { min-width: 0; overflow: hidden; font-size: 15px; line-height: 21px; text-overflow: ellipsis; white-space: nowrap; }
@@ -2481,8 +2512,6 @@
 .enrollment-home .service-entry-grid svg { margin-bottom: 5px; font-size: 22px; }
 .enrollment-home .service-entry-grid strong { font-size: 13px; line-height: 18px; }
 .enrollment-home .service-entry-grid span { margin-top: 2px; font-size: 11px; line-height: 15px; }
-.enrollment-home .contact-strip { min-height: 0; margin-top: 12px; padding: 9px 10px 10px; font-size: 13px; border-radius: 9px; }
-.enrollment-home .contact-strip header { margin-bottom: 7px; }
 .enrollment-home .stage-entry:active,
 .enrollment-home .service-entry-grid button:active,
 .enrollment-home .application-summary:active { transform: scale(.985); }
@@ -2493,7 +2522,13 @@
   padding: calc(33px + env(safe-area-inset-top)) 18px 17px;
 }
 .category-page .stage-switcher-wrap::before {
-  top: 0;
+  top: env(safe-area-inset-top);
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  background: url('./assets/reference/hero-category-complete.png') right bottom / auto 125% no-repeat;
+  mask-image: linear-gradient(to right, transparent 20%, #000 65%), linear-gradient(to bottom, #000 45%, transparent 92%);
+  mask-composite: intersect;
 }
 .category-page .stage-switcher {
   position: relative;

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import {
   Button,
   Card,
@@ -16,6 +16,7 @@ import {
   CheckCircleFill,
   ContentOutline,
   LocationOutline,
+  LeftOutline,
   RightOutline,
   TeamOutline,
 } from 'antd-mobile-icons';
@@ -32,7 +33,7 @@ import enrollmentService from '../services';
 import useSessionStore from '../../../shared/auth/sessionStore';
 import {
   CompactNotice,
-  ContactStrip,
+  ContactEntry,
   FixedActionBar,
   GovHero,
   SectionTitle,
@@ -79,10 +80,11 @@ export const EnrollmentHomePage = () => {
 
   return (
     <div className="enrollment-page enrollment-home">
+      <Link className="enrollment-home__return" to="/"><LeftOutline />返回主页</Link>
       <GovHero eyebrow="教育服务" title={`${portalYear}年招生报名`} subtitle="入学报名 一站办理" visual="home" />
 
       <main className="enrollment-home__content">
-        <SectionTitle>选择报名入口</SectionTitle>
+        <SectionTitle action={<ContactEntry />}>选择报名入口</SectionTitle>
         <div className="stage-entry-grid">
           {STAGES.map((stage, index) => (
             <button
@@ -96,6 +98,7 @@ export const EnrollmentHomePage = () => {
                 <strong>{stage.name}</strong>
                 <small>{stage.description}</small>
               </span>
+              <RightOutline />
             </button>
           ))}
         </div>
@@ -146,7 +149,6 @@ export const EnrollmentHomePage = () => {
             );
           })}
         </div>
-        <ContactStrip />
       </main>
     </div>
   );
@@ -194,7 +196,7 @@ export const CategoryPage = () => {
         </div>
       </div>
       <main className="enrollment-content">
-        <SectionTitle>请选择报名类别</SectionTitle>
+        <SectionTitle action={<ContactEntry stageId={currentStage.id} />}>请选择报名类别</SectionTitle>
         <p className="section-description">请根据拟报名学校所属类别选择</p>
         <div className="category-options">
           {CATEGORIES.map((category) => (

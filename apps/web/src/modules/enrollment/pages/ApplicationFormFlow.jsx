@@ -904,7 +904,7 @@ export const SubmitSuccessPage = () => {
       <main className="enrollment-content">
         <div className="success-mark"><CheckCircleFill /></div>
         <h1>报名已提交</h1>
-        <p>报名信息已进入学校审核，请在"我的报名"查看最新状态。</p>
+        <p>报名信息已进入学校审核，请在“我的报名”查看最新状态。</p>
         {application ? (
           <>
             <div className="success-receipt">
@@ -917,7 +917,7 @@ export const SubmitSuccessPage = () => {
             </div>
             <Button block color="primary" size="large" onClick={() => navigate(`/enrollment/applications/${application.id}`)}>查看报名详情</Button>
           </>
-        ) : <CompactNotice type="info">可在"我的报名"中查看刚刚提交的记录。</CompactNotice>}
+        ) : <CompactNotice type="info">可在“我的报名”中查看刚刚提交的记录。</CompactNotice>}
         <Button block fill="none" onClick={() => navigate('/enrollment')}>返回招生报名首页</Button>
       </main>
     </div>

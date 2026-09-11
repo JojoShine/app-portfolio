@@ -1,0 +1,125 @@
+/// 消费券活动及发放批次
+model CouponActivity {
+  /// 唯一编号
+  id        String @id
+  /// 名称
+  name      String
+  /// 适用行业
+  category  String
+  /// 适用区域
+  region    String
+  /// 活动副标题
+  subtitle  String
+  /// active 开放、upcoming 未开始、ended 结束
+  status    String @default("upcoming")
+  /// 批次展示信息
+  batches   Json
+  /// 开放领取时间
+  startsAt  DateTime @db.Timestamptz(3)
+  /// 领取截止时间
+  endsAt    DateTime @db.Timestamptz(3)
+  /// 活动下的券种
+  tickets   CouponTicket[]
+  @@map("coupon_activities")
+}
+
+/// 消费券券种，库存由领取事务原子扣减
+model CouponTicket {
+  /// 唯一编号
+  id         String @id
+  /// 所属活动编号
+  activityId String
+  /// 所属活动
+  activity   CouponActivity @relation(fields: [activityId], references: [id])
+  /// 名称
+  name       String
+  /// 券面优惠数值，仅展示不参与结算
+  value      String
+  /// 券面单位
+  unit       String
+  /// 券面使用条件
+  rule       String
+  /// 券型名称
+  type       String
+  /// 领取后有效天数
+  days       Int
+  /// 可领取剩余库存
+  remaining  Int @default(0)
+  /// 已领取的用户券
+  coupons    CouponWallet[]
+  @@map("coupon_tickets")
+}
+
+/// 用户消费券与短期动态凭证
+model CouponWallet {
+  /// 唯一编号
+  id          String @id @default(uuid())
+  /// 持券用户账号编号
+  userId      String
+  /// 券种编号
+  ticketId    String
+  /// 所属券种
+  ticket      CouponTicket @relation(fields: [ticketId], references: [id])
+  /// available 可用、used 已使用；过期由有效期实时判定
+  status      String @default("available")
+  /// 消费券有效期截止时间
+  expiresAt   DateTime @db.Timestamptz(3)
+  /// 创建时间
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+  /// 动态八位数字凭证
+  code        String? @unique
+  /// 动态凭证失效时间
+  codeExpires DateTime? @db.Timestamptz(3)
+  /// 唯一核销记录
+  record      CouponVerification?
+  @@unique([userId, ticketId])
+  @@map("coupon_wallet")
+}
+
+/// 消费券适用门店与授权操作员账号
+model CouponMerchant {
+  /// 唯一编号
+  id         String @id
+  /// 名称
+  name       String
+  /// 适用行业
+  category   String
+  /// 适用区域
+  region     String
+  /// 门店地址
+  address    String
+  /// 营业时间说明
+  hours      String
+  /// 门店联系电话
+  phone      String @default("")
+  /// 业务状态
+  status     String @default("营业中")
+  /// 授权核销操作员账号编号
+  operatorId String
+  /// 门店核销记录
+  records    CouponVerification[]
+  @@map("coupon_merchants")
+}
+
+/// 不可撤销的核销凭证，一张券最多一条记录
+model CouponVerification {
+  /// 唯一编号
+  id         String @id @default(uuid())
+  /// 已核销的消费券编号
+  couponId   String @unique
+  /// 已核销的消费券
+  coupon     CouponWallet @relation(fields: [couponId], references: [id])
+  /// 核销门店编号
+  storeId    String
+  /// 核销门店
+  store      CouponMerchant @relation(fields: [storeId], references: [id])
+  /// 核销幂等请求编号
+  requestId  String @unique
+  /// 动态八位数字凭证
+  code       String
+  /// 授权核销操作员账号编号
+  operatorId String
+  /// 创建时间
+  createdAt  DateTime @default(now()) @db.Timestamptz(3)
+  @@map("coupon_verifications")
+}

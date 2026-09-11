@@ -10,6 +10,9 @@
  * }
  */
 export const applicationModules = Object.freeze([
+  { id: 'quiz', path: '/quiz', load: () => import('../../modules/quiz') },
+  { id: 'green-points', path: '/green-points', load: () => import('../../modules/green-points') },
+  { id: 'coupon', path: '/coupon', load: () => import('../../modules/coupon') },
   {
     id: 'enrollment',
     path: '/enrollment',

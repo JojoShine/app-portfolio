@@ -8,6 +8,7 @@ const requestContext = require('./common/middleware/requestContext');
 
 const system = require('./system');
 const enrollment = require('./modules/enrollment');
+const coupon = require('./modules/coupon');
 
 const app = express();
 
@@ -53,6 +54,7 @@ app.use('/api/users', system.user.routes);
 app.use('/api/files', system.file.routes);
 app.use('/api/app', system.app.routes);
 app.use('/api/enrollment', enrollment.routes);
+app.use('/api/coupon', coupon.routes);
 
 // 404 处理
 app.use((req, res) => {
