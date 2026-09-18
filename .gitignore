@@ -59,3 +59,7 @@ requirement.md
 
 # Documentation (design docs, requirements)
 docs/
+!docs/
+docs/*
+!docs/library/
+!docs/library/**

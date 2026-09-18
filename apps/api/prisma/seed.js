@@ -1,6 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
+const { seedLibrary } = require('./seed/library');
 
 const categoryRows = [
   ['550e8400-e29b-41d4-a716-446655440002', '营销服务', 1],
@@ -39,7 +40,7 @@ const appRows = [
   ['146', '情绪音乐日记', '记录每日情绪与音乐，形成可回顾的个人情绪轨迹', 'Content', '/mood-music-diary', 'developing', '008', 23],
   ['147', '线上预约', '支持服务预约、排班、排队、取消和到场核销', 'Content', '/online-booking', 'developing', '006', 24],
   ['148', '招聘服务', '提供职位发布、简历投递、面试安排和招聘进度管理', 'Briefcase', '/recruitment', 'developing', '009', 25],
-  ['149', '图书馆服务', '支持馆藏查询、借阅续借、座位预约和阅读活动', 'BookOpen', '/library', 'developing', '004', 26],
+  ['149', '图书馆服务', '支持馆藏查询、借阅续借、座位预约和阅读活动', 'BookOpen', '/library', 'active', '004', 26],
   ['150', '志愿者服务', '提供志愿活动报名、签到、服务时长和证书管理', 'Team', '/volunteer', 'developing', '005', 27],
   ['151', '旅游服务', '整合景点导览、路线规划、门票预约和游记分享', 'MapPin', '/travel', 'developing', '009', 28],
   ['152', '医院服务', '提供预约挂号、候诊提醒、报告查询和就诊记录', 'Shield', '/hospital', 'developing', '009', 29],
@@ -184,6 +185,7 @@ async function seedEnrollment() {
 async function main() {
   await seedSystem();
   await seedEnrollment();
+  await seedLibrary(prisma);
 }
 
 main()

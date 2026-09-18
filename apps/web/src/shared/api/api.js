@@ -17,6 +17,7 @@ const api = axios.create({
   timeout: appConfig.requestTimeoutMs,
   headers: { Accept: 'application/json' },
 });
+const networkAdapter = axios.getAdapter(api.defaults.adapter);
 
 api.interceptors.request.use((config) => {
   const accessToken = useSessionStore.getState().accessToken;
@@ -54,7 +55,7 @@ api.interceptors.response.use(
 );
 
 export const configureApiAdapter = (adapter) => {
-  api.defaults.adapter = adapter;
+  api.defaults.adapter = async (config) => (await adapter(config)) ?? networkAdapter(config);
 };
 
 export default api;

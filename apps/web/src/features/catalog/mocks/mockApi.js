@@ -37,7 +37,7 @@ const applications = [
   { id: '146', name: '情绪音乐日记', description: '记录每日情绪与音乐，形成可回顾的个人情绪轨迹', icon: 'Content', path: '/mood-music-diary', status: 'developing', categoryId: '008', sort: 23 },
   { id: '147', name: '线上预约', description: '支持服务预约、排班、排队、取消和到场核销', icon: 'Content', path: '/online-booking', status: 'developing', categoryId: '006', sort: 24 },
   { id: '148', name: '招聘服务', description: '提供职位发布、简历投递、面试安排和招聘进度管理', icon: 'Briefcase', path: '/recruitment', status: 'developing', categoryId: '009', sort: 25 },
-  { id: '149', name: '图书馆服务', description: '支持馆藏查询、借阅续借、座位预约和阅读活动', icon: 'BookOpen', path: '/library', status: 'developing', categoryId: '004', sort: 26 },
+  { id: '149', name: '图书馆服务', description: '支持馆藏查询、借阅续借、座位预约和阅读活动', icon: 'BookOpen', path: '/library', status: 'active', categoryId: '004', sort: 26 },
   { id: '150', name: '志愿者服务', description: '提供志愿活动报名、签到、服务时长和证书管理', icon: 'Team', path: '/volunteer', status: 'developing', categoryId: '005', sort: 27 },
   { id: '151', name: '旅游服务', description: '整合景点导览、路线规划、门票预约和游记分享', icon: 'MapPin', path: '/travel', status: 'developing', categoryId: '009', sort: 28 },
   { id: '152', name: '医院服务', description: '提供预约挂号、候诊提醒、报告查询和就诊记录', icon: 'Shield', path: '/hospital', status: 'developing', categoryId: '009', sort: 29 },

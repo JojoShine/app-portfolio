@@ -178,6 +178,11 @@ export const mockApiAdapter = async (config) => {
   const method = String(config.method || 'get').toLowerCase();
   const parsed = new URL(config.url || '/', 'http://mock.local');
   const path = parsed.pathname.replace(/^\/app-portfolio\/api|^\/api/, '');
+  const isEnrollmentMockPath = path.startsWith('/enrollment/')
+    || path.startsWith('/auth/')
+    || path === '/files'
+    || path.startsWith('/files/');
+  if (!isEnrollmentMockPath) return null;
   const params = { ...Object.fromEntries(parsed.searchParams.entries()), ...(config.params || {}) };
   const body = parseBody(config.data);
 

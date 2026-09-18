@@ -1,0 +1,26 @@
+import api from '../../../shared/api/api';
+
+export const getHome = () => api.get('/library/home');
+export const getCategories = () => api.get('/library/categories');
+export const getBooks = (params) => api.get('/library/books', { params });
+export const getBook = (id) => api.get(`/library/books/${id}`);
+export const getBranches = () => api.get('/library/branches');
+export const getBranch = (id) => api.get(`/library/branches/${id}`);
+export const getEvents = () => api.get('/library/events');
+export const getEvent = (id) => api.get(`/library/events/${id}`);
+export const getProfile = () => api.get('/library/profile');
+export const getLoans = () => api.get('/library/loans');
+export const renewLoan = (id) => api.post(`/library/loans/${id}/renew`);
+export const getBookReservations = () => api.get('/library/book-reservations');
+export const createBookReservation = (data) => api.post('/library/book-reservations', data);
+export const cancelBookReservation = (id) => api.delete(`/library/book-reservations/${id}`);
+export const getSeatAvailability = (params) => api.get('/library/seats/availability', { params });
+export const getSeatReservations = () => api.get('/library/seat-reservations');
+export const createSeatReservation = (data) => api.post('/library/seat-reservations', data);
+export const cancelSeatReservation = (id) => api.delete(`/library/seat-reservations/${id}`);
+export const registerEvent = (id) => api.post(`/library/events/${id}/registrations`);
+export const getReadingSummary = () => api.get('/library/reading/summary');
+export const addReadingCheckIn = (data) => api.post('/library/reading/check-ins', data);
+export const getMessages = () => api.get('/library/messages');
+export const readMessage = (id) => api.patch(`/library/messages/${id}/read`);
+export const readAllMessages = () => api.post('/library/messages/read-all');
