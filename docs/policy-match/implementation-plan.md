@@ -1,6 +1,6 @@
 # 政策智能匹配 Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **执行方式：** 由当前会话直接完成，不使用子代理。步骤使用 checkbox（`- [ ]`）记录完成状态。
 
 **Goal:** 在现有 App Portfolio 中交付一个无 TabBar、可嵌入载体的政策智能匹配全栈模块，支持个人/企业画像、规则匹配、政策解释、站内模拟申报和外部办理引导。
 
@@ -568,4 +568,3 @@ README 增加 `/policy-match` 入口、`db:seed:policy-match` 命令、演示身
 - [ ] **Step 6: 提交最终集成**
 
 Run: `git add README.md apps/web/README.md apps/api/README.md && git commit -m "docs: document policy matching module"`
-
