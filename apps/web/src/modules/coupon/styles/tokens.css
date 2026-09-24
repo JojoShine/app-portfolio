@@ -1,0 +1,28 @@
+.coupon-app {
+  --cv-bg: #f7f4ec;
+  --cv-paper: #fffdf8;
+  --cv-ink: #0c1d28;
+  --cv-muted: #777d80;
+  --cv-accent: #c8532c;
+  --cv-orange: var(--cv-accent);
+  --cv-accent-strong: #a74424;
+  --cv-line: #ddd7cb;
+  --cv-page-gutter: clamp(14px, 3.5vw, 28px);
+  --cv-touch-target: 44px;
+  --cv-radius-sm: 8px;
+  --cv-radius-md: 12px;
+  --cv-radius-lg: 22px;
+  --cv-font-sans: "PingFang SC", "Microsoft YaHei", sans-serif;
+  --cv-font-serif: "Songti SC", "STSong", serif;
+  --cv-font-numeric: "Geist Mono", "SFMono-Regular", Consolas, monospace;
+  --adm-color-primary: var(--cv-accent);
+  min-height: 100dvh;
+  width: 100%;
+  max-width: none;
+  color: var(--cv-ink);
+  background: var(--cv-bg) url('../assets/paper.png') repeat;
+  font-family: var(--cv-font-sans);
+  line-height: 1.45;
+  padding-bottom: env(safe-area-inset-bottom);
+  container-type: inline-size;
+}

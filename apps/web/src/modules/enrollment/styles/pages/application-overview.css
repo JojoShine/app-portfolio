@@ -1,0 +1,99 @@
+.autosave-line { display: flex; margin: 0 0 18px; align-items: center; gap: 7px; color: var(--enroll-muted); font-size: 13px; }
+.autosave-line svg { color: var(--enroll-primary); }
+.information-timeline { padding-left: 3px; }
+
+.application-overview-page .enrollment-content { padding-top: 12px; }
+.autosave-line { margin: 0 1px 18px; }
+
+.application-overview-page .enrollment-content { padding: 12px 16px 92px; }
+.application-overview-page .application-overview-head {
+  margin-bottom: 20px;
+  padding: 10px;
+  background: var(--enroll-surface);
+  border: 1px solid #e2e9f3;
+  border-radius: var(--enroll-radius-12);
+  box-shadow: 0 5px 16px rgba(32, 62, 105, .06);
+}
+.application-overview-page .application-context {
+  min-height: 39px;
+  margin-bottom: 0;
+  padding: 8px 12px;
+  color: #17233d;
+  font-size: 15px;
+  background: linear-gradient(100deg, #eaf2ff, #f5f8fe);
+  border: 1px solid #dce8fa;
+  border-radius: var(--enroll-radius-8);
+}
+.application-overview-page .autosave-line {
+  margin: 9px 3px 1px;
+  color: #61718b;
+  font-size: 14px;
+  line-height: 22px;
+}
+.application-overview-page .information-timeline { padding-left: 1px; }
+.application-overview-page .timeline-cluster {
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 8px;
+  padding-bottom: 20px;
+}
+.application-overview-page .timeline-cluster__rail span {
+  width: 24px;
+  height: 24px;
+  margin-top: 4px;
+  font-size: 14px;
+  border: 0;
+  box-shadow: none;
+}
+.application-overview-page .timeline-cluster__rail::after {
+  top: 28px;
+  bottom: -4px;
+  left: 11px;
+  width: 2px;
+  background: #c9d9f1;
+}
+.application-overview-page .timeline-cluster__head {
+  min-height: 32px;
+  gap: 7px;
+}
+.application-overview-page .timeline-cluster__title { gap: 8px; }
+.application-overview-page .timeline-cluster__title strong {
+  color: #071431;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+}
+.application-overview-page .timeline-cluster__title .adm-tag { font-size: 12px; }
+.application-overview-page .timeline-cluster__edit {
+  min-width: 50px;
+  height: 30px;
+  padding: 0 11px;
+  color: var(--enroll-primary) !important;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 28px;
+  background: #eef5ff;
+  border: 1px solid #a9c8f7;
+  border-radius: 15px;
+}
+.application-overview-page .icon-button { width: 26px; height: 30px; }
+.application-overview-page .timeline-cluster__body {
+  width: calc(100% + 10px);
+  margin-top: 7px;
+  margin-left: -10px;
+  padding: 10px 13px;
+  border-radius: var(--enroll-radius-8);
+  box-shadow: none;
+}
+.application-overview-page .timeline-cluster--expanded .timeline-cluster__body { padding: 13px; }
+.application-overview-page .timeline-cluster__summary {
+  color: #566987;
+  font-size: 14px;
+  line-height: 21px;
+}
+.application-overview-page .timeline-photo-row { min-height: 86px; }
+.application-overview-page .timeline-photo-row > span { color: #566987; font-size: 15px; }
+.application-overview-page .summary-row { min-height: 42px; padding: 7px 0; }
+.application-overview-page .summary-row span,
+.application-overview-page .summary-row strong { font-size: 14px; }
+.application-overview-page .source-tags { margin-top: 12px; }
+.information-timeline { padding-left: 1px; }

@@ -178,6 +178,10 @@ export const mockApiAdapter = async (config) => {
   const method = String(config.method || 'get').toLowerCase();
   const parsed = new URL(config.url || '/', 'http://mock.local');
   const path = parsed.pathname.replace(/^\/app-portfolio\/api|^\/api/, '');
+  // 真实令牌的身份、私有文件请求不能被招生演示数据接管。
+  const authorization = String(config.headers?.Authorization || '');
+  if (authorization.startsWith('Bearer ') && !authorization.includes('mock-')
+    && (path === '/auth/me' || path === '/files' || path.startsWith('/files/'))) return null;
   const isEnrollmentMockPath = path.startsWith('/enrollment/')
     || path.startsWith('/auth/')
     || path === '/files'

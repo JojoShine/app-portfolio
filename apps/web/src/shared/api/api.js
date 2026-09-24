@@ -55,7 +55,9 @@ api.interceptors.response.use(
 );
 
 export const configureApiAdapter = (adapter) => {
-  api.defaults.adapter = async (config) => (await adapter(config)) ?? networkAdapter(config);
+  api.defaults.adapter = async (config) => config.networkOnly
+    ? networkAdapter(config)
+    : (await adapter(config)) ?? networkAdapter(config);
 };
 
 export default api;

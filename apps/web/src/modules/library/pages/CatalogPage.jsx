@@ -2,8 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Popup, Radio } from 'antd-mobile';
 import { CloseCircleFill, DownOutline, RightOutline, SearchOutline } from 'antd-mobile-icons';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import useLibraryQuery from '../hooks/useLibraryQuery';
-import { getBooks, getBranches } from '../services/library.service';
+import { useLibraryBooks, useLibraryBranches } from '../hooks/useCatalogData';
 import { updateCatalogParams } from '../utils/catalogFilters';
 import AssetImage from '../components/AssetImage';
 import { BottomNav, PageState } from '../components/LibraryLayout';
@@ -28,14 +27,14 @@ export default function CatalogPage() {
   const branchId = params.get('branchId') || '';
   const availability = params.get('availability') || '';
   const sort = params.get('sort') || 'relevance';
-  const branchesQuery = useLibraryQuery(getBranches, []);
-  const query = useLibraryQuery(() => getBooks({
+  const branchesQuery = useLibraryBranches();
+  const query = useLibraryBooks({
     q: params.get('q') || undefined,
     category: category || undefined,
     branchId: branchId || undefined,
     availability: availability || undefined,
     sort,
-  }), [params.toString()]);
+  }, [params.toString()]);
 
   const branchOptions = useMemo(() => [
     { value: '', label: '全部分馆' },
@@ -78,7 +77,7 @@ export default function CatalogPage() {
     <div className="lib-filters">
       <div className="lib-category-row">
         <button type="button" className={!category ? 'is-active' : ''} onClick={() => chooseCategory('')}>全部</button>
-        <button type="button" className={category === '中国现代文学' ? 'is-active' : ''} onClick={() => chooseCategory('中国现代文学')}>文学</button>
+        <button type="button" className={category === '文学' ? 'is-active' : ''} onClick={() => chooseCategory('文学')}>文学</button>
         <button type="button" className={category === '少儿阅读' ? 'is-active' : ''} onClick={() => chooseCategory('少儿阅读')}>少儿</button>
         <button type="button" className={category === '地方文献' ? 'is-active' : ''} onClick={() => chooseCategory('地方文献')}>地方文献</button>
       </div>

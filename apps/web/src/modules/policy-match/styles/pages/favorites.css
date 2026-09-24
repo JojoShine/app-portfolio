@@ -1,0 +1,21 @@
+.pm-app .pm-page-favorites { --pm-page-gutter: 12px; padding: 0 var(--pm-page-gutter) calc(24px + env(safe-area-inset-bottom)); }
+.pm-page-favorites .pm-segments { margin: 12px 0 18px; padding: 0; gap: 0; background: #f3f4f3; }
+.pm-page-favorites .pm-segments button { border: 1px solid transparent; border-radius: var(--pm-radius-sm); min-height: 40px; font-weight: var(--pm-weight-medium); }
+.pm-page-favorites .pm-segments button.active { background: var(--pm-selected); border-color: var(--pm-selected-border); font-weight: var(--pm-weight-semibold); box-shadow: inset 0 0 0 1px #c3e3cc44; }
+.pm-page-favorites .pm-segments svg { font-size: 21px; }
+.pm-page-favorites .pm-favorites-panel { padding: 16px 10px 10px; border-radius: var(--pm-radius-card); background: var(--pm-surface); }
+.pm-page-favorites .pm-favorites-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 4px 14px; }
+.pm-page-favorites .pm-favorites-heading h2 { font-size: 18px; line-height: 26px; font-weight: var(--pm-weight-semibold); }
+.pm-page-favorites .pm-favorites-heading>span { font-size: 12px; color: var(--pm-muted); }
+.pm-page-favorites .pm-favorites-list { display: flex; flex-direction: column; gap: 8px; }
+.pm-page-favorites .pm-favorite-row { display: grid; grid-template-columns: 40px minmax(0,1fr) 16px; align-items: center; gap: 12px; min-height: 72px; padding: 12px; border: 1px solid var(--pm-border); border-radius: var(--pm-radius-md); background: var(--pm-surface); box-shadow: 0 2px 8px #17251f04; }
+.pm-page-favorites .pm-favorite-icon { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: var(--pm-radius-sm); background: var(--pm-selected); color: var(--pm-green); font-size: 26px; }
+.pm-page-favorites .pm-favorite-copy { min-width: 0; }
+.pm-page-favorites .pm-favorite-copy h3 { font-size: 14px; line-height: 22px; font-weight: var(--pm-weight-semibold); overflow-wrap: anywhere; }
+.pm-page-favorites .pm-favorite-copy p { margin-top: 3px; font-size: 12px; line-height: 18px; color: var(--pm-muted); }
+.pm-page-favorites .pm-favorite-arrow { font-size: 16px; color: var(--pm-muted); }
+.pm-page-favorites .pm-favorite-row:active { background: var(--pm-selected); border-color: var(--pm-selected-border); }
+.pm-page-favorites .pm-favorite-row:focus-visible { outline: 2px solid var(--pm-focus); outline-offset: 0; }
+@media(max-width:359px) {
+  .pm-page-favorites .pm-favorite-row { gap: 10px; padding: 12px 10px; }
+}

@@ -1,0 +1,70 @@
+/* Services */
+.lib-service-head { min-height: 238px; margin: -16px -22px 0; padding: 44px 32px 22px; border-bottom: 1px solid var(--lib-edge); background-size: 110% auto; }
+.lib-service-head > span { display: block; color: var(--lib-ink); font-size: 20px; font-weight: 600; }
+.lib-service-head > span small { display: block; margin-top: 5px; color: var(--lib-muted); font-family: serif; font-size: 11px; letter-spacing: .25em; }
+.lib-service-head > aside { position: absolute; top: 48px; right: 28px; color: var(--lib-muted); font-family: "Songti SC",serif; letter-spacing: .12em; }
+.lib-service-head h1 { margin: 48px 0 4px; font-size: 46px; }
+.lib-service-head > p { margin: 0; color: var(--lib-muted); letter-spacing: .14em; }
+.lib-service-head button { right: 27px; bottom: 40px; font-family: "Songti SC",serif; font-size: 17px; font-weight: 600; }
+.lib-reader-strip { min-height: 92px; }
+.lib-loan { min-height: 214px; grid-template-columns: 112px minmax(0,1fr) auto; }
+.lib-loan > img { width: 112px; }
+.lib-loan h2 { font-size: 24px; }
+.lib-loan > button { min-width: 80px; }
+.lib-service-links button { min-height: 86px; }
+.lib-service-head { min-height: 180px; padding: 26px 30px 16px; background-size: 96% auto; }
+.lib-service-head > aside { top: 29px; right: 26px; font-size: 11px; }
+.lib-service-head h1 { margin-top: 28px; font-size: 42px; }
+.lib-service-head > p { font-size: 11px; }
+.lib-service-head button { right: 24px; bottom: 23px; font-size: 15px; }
+.lib-reader-strip { min-height: 80px; }
+.lib-loan { min-height: 190px; padding: 14px 0; grid-template-columns: 100px minmax(0,1fr) auto; gap: 13px; }
+.lib-loan > img { width: 100px; }
+.lib-loan h2 { font-size: 22px; }
+.lib-loan strong { margin-top: 9px; }
+.lib-loan > button { min-width: 74px; }
+.lib-view-all { min-height: 46px; margin: 0 0 8px; }
+.lib-service-links button { min-height: 78px; }
+
+/* Services — calibrated against the approved borrowing-service composition */
+.lib-services { padding-top: 0; }
+.lib-services > .lib-service-head { max-width: none; min-height: 174px; margin: 0 -22px; padding: 20px 31px 11px 53px; isolation: isolate; overflow: hidden; background-image: none; }
+.lib-service-sketch { position: absolute; z-index: 0; top: 25px; right: -6px; width: 342px; height: 142px; object-fit: contain; object-position: right center; opacity: .62; pointer-events: none; }
+.lib-service-brand-mark { position: absolute; z-index: 2; top: 21px; left: 29px; width: 8px; height: 48px; border-right: 1px solid rgba(168,79,61,.72); border-left: 2px solid rgba(168,79,61,.72); }
+.lib-service-brand-mark::after { position: absolute; bottom: 5px; left: 10px; width: 7px; height: 2px; background: var(--lib-red); content: ""; }
+.lib-service-head > span { position: relative; z-index: 2; font-family: "Songti SC",serif; font-size: 19px; letter-spacing: .08em; }
+.lib-service-head > span small { margin-top: 6px; font-family: Georgia,serif; font-size: 11px; line-height: 1.65; letter-spacing: .34em; }
+.lib-service-head > aside { z-index: 2; top: 20px; right: 30px; font-size: 11px; font-weight: 400; letter-spacing: .17em; }
+.lib-service-head .lib-service-sketch-note { position: absolute; z-index: 2; top: 70px; right: 29px; margin: 0; padding-left: 10px; color: var(--lib-muted); font-family: "Songti SC",serif; font-size: 11px; line-height: 1.65; letter-spacing: .14em; border-left: 1px solid rgba(168,79,61,.5); }
+.lib-service-head h1 { position: relative; z-index: 2; margin: 14px 0 2px -32px; font-size: 42px; line-height: 1.08; letter-spacing: .02em; }
+.lib-service-head > .lib-service-subtitle { position: relative; z-index: 2; margin: 7px 0 0 -32px; color: var(--lib-muted); font-size: 12px; letter-spacing: .2em; }
+.lib-service-head button { z-index: 2; right: 20px; bottom: 10px; display: flex; min-height: 40px; padding: 0; align-items: center; gap: 4px; font-size: 16px; }
+.lib-service-head button svg { width: 14px; height: 14px; flex: 0 0 14px; }
+.lib-reader-strip { position: relative; display: grid; min-height: 92px; grid-template-columns: 31px minmax(0,1fr) auto 91px; gap: 12px; }
+.lib-reader-strip > svg { width: 29px; height: 29px; }
+.lib-reader-strip b { font-family: "Songti SC",serif; font-size: 16px; }
+.lib-reader-strip small { font-size: 11px; }
+.lib-reader-strip em { align-self: start; margin-top: 23px; padding: 5px 10px; font-size: 12px; border: 1px solid rgba(72,100,87,.24); border-radius: 8px; transform: translateX(-30px); }
+.lib-reader-signature { min-width: 0; margin: 0; padding-left: 10px; overflow: hidden; color: #aaa197; font-family: Georgia,serif; font-size: 11px; line-height: 1.7; letter-spacing: .32em; border-left: 1px solid var(--lib-edge); }
+.lib-reader-signature small { display: block; margin-top: 5px; font-size: 11px; letter-spacing: .04em; white-space: nowrap; }
+.lib-loan { height: 190px; min-height: 190px; padding: 8px 0 7px; grid-template-columns: 108px minmax(0,1fr) 92px; grid-template-rows: 150px 20px; align-items: center; column-gap: 18px; row-gap: 4px; }
+.lib-loan > img { width: 108px; height: 150px; object-fit: cover; border-radius: 2px; box-shadow: -3px 1px 0 rgba(111,99,83,.2), 6px 8px 14px rgba(62,48,34,.2); transform: perspective(420px) rotateY(1deg); transform-origin: left center; }
+.lib-loan > div { min-width: 0; }
+.lib-loan h2 { margin-bottom: 5px; font-size: 21px; font-weight: 600; line-height: 1.2; letter-spacing: .01em; }
+.lib-loan p, .lib-loan code, .lib-loan small { margin-bottom: 5px; font-size: 12px; }
+.lib-loan strong { margin: 9px 0 4px; font-size: 15px; white-space: nowrap; }
+.lib-loan strong.is-muted { margin-top: 11px; font-family: "Songti SC", "STSong", "SimSun", serif; font-size: 14px; font-weight: 600; line-height: 1.5; white-space: normal; }
+.lib-loan-renewal-reason { display: block; margin-top: 2px; color: #8e776c; line-height: 1.45; }
+.lib-loan > button { min-width: 92px; height: 43px; padding: 0 9px; font-family: "Songti SC",serif; font-size: 16px; border-radius: 8px; }
+.lib-loan-excerpt { grid-column: 1 / -1; margin: 0 !important; padding-top: 3px; color: #8e877d !important; font-family: "Songti SC",serif; font-size: 11px !important; border-top: 0; }
+.lib-view-all { min-height: 54px; margin: 0; gap: 5px; font-family: "Songti SC",serif; font-size: 15px; border-bottom: 1px solid var(--lib-edge) !important; }
+.lib-view-all svg { width: 13px; height: 13px; }
+.lib-service-links { display: grid; grid-template-columns: minmax(0,1fr) 88px; border-top: 0; }
+.lib-service-links > div button { min-height: 72px; padding: 0 4px; grid-template-columns: 34px minmax(0,1fr) 15px; gap: 12px; }
+.lib-service-links > div button > svg:first-child { width: 29px; height: 29px; color: var(--lib-red); }
+.lib-service-seat-icon { width: 31px; height: 31px; object-fit: contain; }
+.lib-service-links > div button > svg:last-child { width: 14px; height: 14px; }
+.lib-service-links b { font-size: 17px; }
+.lib-service-links small { margin-top: 3px; font-size: 11px; }
+.lib-service-links > aside { display: flex; margin-left: 6px; padding-left: 18px; flex-direction: column; justify-content: center; color: #9a9288; font-family: "Songti SC",serif; font-size: 11px; line-height: 1.7; border-left: 1px solid var(--lib-edge); }
+.lib-service-links > aside i { width: 13px; height: 1px; margin-top: 8px; background: var(--lib-red); }

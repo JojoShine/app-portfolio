@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Navigate, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import {
@@ -22,7 +22,7 @@ import {
   UpOutline,
   UserCircleOutline,
 } from 'antd-mobile-icons';
-import { CURRENT_YEAR, getCategory, getStage } from '../domain/constants';
+import { getCategory, getStage } from '../domain/constants';
 import useEnrollmentStore from '../store/enrollmentStore';
 import enrollmentService from '../services';
 import { fileCapability } from '../../../shared/capabilities';
@@ -35,7 +35,12 @@ import {
   SummaryRows,
   TimelineCluster,
 } from '../components';
-import studentPortrait from '../assets/reference/student-portrait.png';
+import { useMaterialFiles } from '../hooks/useMaterialFiles';
+
+const StudentPhoto = () => {
+  const { files, error } = useMaterialFiles('student_photo');
+  return files[0] ? <img src={files[0].url} alt="学生证件照" /> : <span>{error || '尚未上传证件照'}</span>;
+};
 
 const studentRows = (student) => [
   { label: '学生姓名', value: student.name },
@@ -138,7 +143,7 @@ export const ApplicationOverviewPage = () => {
             onEdit={() => edit('student')}
             summary={`${draft.student.name} · ${draft.student.householdLocation}`}
           >
-            <div className="timeline-photo-row"><span>学生照片</span><img src={studentPortrait} alt="学生证件照" /></div>
+            <div className="timeline-photo-row"><span>学生照片</span><StudentPhoto /></div>
             <SummaryRows rows={studentRows(draft.student)} />
             <div className="source-tags">{draft.student.modifiedReason ? <SourceTag type="modified" /> : <SourceTag type="department" />}</div>
           </TimelineCluster>
@@ -247,13 +252,14 @@ const ImageMaterial = ({
   title,
   itemCode,
   required = false,
-  value = false,
   onChange,
   onUpload,
   onRemove,
   description = '',
 }) => {
-  const [files, setFiles] = useState(value ? [{ url: `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="180" height="120"><rect width="180" height="120" fill="#edf3ff"/><text x="90" y="66" font-size="18" text-anchor="middle" fill="#2457d6">已上传材料</text></svg>')}` }] : []);
+  const { files: savedFiles, error } = useMaterialFiles(itemCode);
+  const [files, setFiles] = useState([]);
+  useEffect(() => { setFiles(savedFiles); }, [savedFiles]);
   const upload = async (file) => {
     try {
       const material = await onUpload(file, itemCode);
@@ -288,6 +294,7 @@ const ImageMaterial = ({
           <div className="custom-upload-button"><CameraOutline /><span>上传图片</span></div>
         </ImageUploader>
         <p><PictureOutline /> 仅支持图片，最多10张，单张不超过10MB</p>
+        {error && <p role="alert">{error}</p>}
       </div>
     </section>
   );
@@ -305,12 +312,10 @@ ImageMaterial.propTypes = {
 };
 
 const StudentPhotoField = ({ value = false, onChange, onUpload }) => {
-  const [preview, setPreview] = useState(studentPortrait);
   const upload = async (file) => {
     if (!file) return;
     try {
       await onUpload(file, 'student_photo');
-      setPreview(URL.createObjectURL(file));
       onChange(true);
     } catch (error) {
       Toast.show({ content: error.message || '证件照上传失败，请重试' });
@@ -320,7 +325,7 @@ const StudentPhotoField = ({ value = false, onChange, onUpload }) => {
     <section className="student-photo-field" data-uploaded={value ? 'true' : 'false'}>
       <span className="edit-field__label">学生证件照</span>
       <div className="student-photo-uploader">
-        <div className="student-photo-placeholder"><img src={preview} alt="学生证件照" /><small>近期正面免冠照，建议纯色背景</small></div>
+        <div className="student-photo-placeholder"><StudentPhoto /><small>近期正面免冠照，建议纯色背景</small></div>
         <div className="student-photo-actions">
           <label className="photo-action"><CameraOutline />拍照<input type="file" accept="image/*" capture="user" onChange={(event) => upload(event.target.files?.[0])} /></label>
           <label className="photo-action"><PictureOutline />从相册选择<input type="file" accept="image/*" onChange={(event) => upload(event.target.files?.[0])} /></label>
@@ -463,12 +468,14 @@ export const ClusterEditPage = () => {
       itemCode,
       sort: 0,
     });
+    useEnrollmentStore.getState().addServerMaterial(material);
     syncServerApplication({ id: serverApplicationId, version: material.version });
     return material;
   };
 
   const removeMaterial = async (materialId) => {
     const result = await enrollmentService.removeMaterial(serverApplicationId, materialId);
+    useEnrollmentStore.getState().removeServerMaterial(materialId);
     syncServerApplication({ id: serverApplicationId, version: result.version });
   };
 
@@ -533,22 +540,22 @@ export const ClusterEditPage = () => {
     <div className={`enrollment-page enrollment-page--with-actions edit-page edit-page--${cluster}`}>
       <div className="edit-page__meta">
         <span>{draft.student.name.slice(0, 1)}*{draft.student.name.slice(-1)} <i>·</i> {school.name} <i>·</i> {stage.name}</span>
-        <em><CheckCircleFill /> 已自动保存 {savedAt}</em>
+        <em><CheckCircleFill /> {savedAt ? `本次编辑 ${savedAt}` : '已加载报名信息'}</em>
       </div>
       <main className="enrollment-content">
         <CompactNotice type="info">共享数据已自动带入，请核对并补充</CompactNotice>
 
         {cluster === 'student' && (
           <div className="edit-form">
-            <Field label="学生姓名" required source="department"><Input value={values.name} onChange={(value) => setField('name', value)} /></Field>
-            <Field label="证件类型" required source="department">
+            <Field label="学生姓名" required source={departmentFields.includes('name') ? 'department' : 'manual'}><Input value={values.name} onChange={(value) => setField('name', value)} /></Field>
+            <Field label="证件类型" required source={departmentFields.includes('documentType') ? 'department' : 'manual'}>
               <PickerControl
                 options={[{ label: '居民身份证', value: '居民身份证' }, { label: '其他证件', value: '其他证件' }]}
                 value={values.documentType}
                 onChange={(value) => setField('documentType', value)}
               />
             </Field>
-            <Field label="证件号码" required source="department"><Input value={values.documentNumber} onChange={(value) => setField('documentNumber', value)} /></Field>
+            <Field label="证件号码" required source={departmentFields.includes('documentNumber') ? 'department' : 'manual'}><Input value={values.documentNumber} onChange={(value) => setField('documentNumber', value)} /></Field>
             <StudentPhotoField
               value={Boolean(values.photoName || draft.materials.studentPhoto)}
               onChange={(value) => {
@@ -557,8 +564,8 @@ export const ClusterEditPage = () => {
               }}
               onUpload={uploadMaterial}
             />
-            <Field label="户籍所在地" required source="department"><Input value={values.householdLocation} onChange={(value) => setField('householdLocation', value)} /></Field>
-            <Field label="当前居住地址" required source={hasDepartmentModifications ? 'modified' : 'department'}>
+            <Field label="户籍所在地" required source={departmentFields.includes('householdLocation') ? 'department' : 'manual'}><Input value={values.householdLocation} onChange={(value) => setField('householdLocation', value)} /></Field>
+            <Field label="当前居住地址" required source={hasDepartmentModifications ? 'modified' : departmentFields.includes('residenceAddress') ? 'department' : 'manual'}>
               <TextArea autoSize={{ minRows: 2, maxRows: 4 }} value={values.residenceAddress} onChange={(value) => setField('residenceAddress', value)} />
               {hasDepartmentModifications && <Input className="modified-reason" value={values.modifiedReason} onChange={(value) => setField('modifiedReason', value)} placeholder="请输入修改原因" />}
             </Field>
@@ -578,17 +585,17 @@ export const ClusterEditPage = () => {
         {cluster === 'family' && (
           <div className="edit-form">
             <SectionTitle>监护人信息</SectionTitle>
-            <Field label="监护人姓名" required source="department"><Input value={values.guardianName} onChange={(value) => setField('guardianName', value)} /></Field>
+            <Field label="监护人姓名" required source={departmentFields.includes('guardianName') ? 'department' : 'manual'}><Input value={values.guardianName} onChange={(value) => setField('guardianName', value)} /></Field>
             <Field label="与学生关系" required><PickerControl options={['父亲', '母亲', '其他法定监护人'].map((item) => ({ label: item, value: item }))} value={values.guardianRelation} onChange={(value) => setField('guardianRelation', value)} /></Field>
-            <Field label="证件号码" required source="department"><Input value={values.guardianDocument} onChange={(value) => setField('guardianDocument', value)} /></Field>
+            <Field label="证件号码" required source={departmentFields.includes('guardianDocument') ? 'department' : 'manual'}><Input value={values.guardianDocument} onChange={(value) => setField('guardianDocument', value)} /></Field>
             <Field label="联系电话" required source="manual"><Input type="tel" value={values.guardianPhone} onChange={(value) => setField('guardianPhone', value)} /></Field>
             <SectionTitle>户籍信息</SectionTitle>
             <Checkbox className="guardian-household-check" checked={Boolean(values.guardianIsHouseholdHead)} onChange={setGuardianAsHouseholdHead}>监护人即户主</Checkbox>
-            <Field label="户主姓名" required source="department"><Input value={values.householdHeadName} onChange={(value) => setField('householdHeadName', value)} /></Field>
-            <Field label="户主证件号码" required source="department"><Input value={values.householdHeadDocument} onChange={(value) => setField('householdHeadDocument', value)} /></Field>
+            <Field label="户主姓名" required source={departmentFields.includes('householdHeadName') ? 'department' : 'manual'}><Input value={values.householdHeadName} onChange={(value) => setField('householdHeadName', value)} /></Field>
+            <Field label="户主证件号码" required source={departmentFields.includes('householdHeadDocument') ? 'department' : 'manual'}><Input value={values.householdHeadDocument} onChange={(value) => setField('householdHeadDocument', value)} /></Field>
             <Field label="户主联系电话" required source="manual"><Input type="tel" value={values.householdHeadPhone} onChange={(value) => setField('householdHeadPhone', value)} /></Field>
             <Field label="户主与学生关系" required><PickerControl options={['父亲', '母亲', '祖父母', '其他'].map((item) => ({ label: item, value: item }))} value={values.householdHeadRelation} onChange={(value) => setField('householdHeadRelation', value)} /></Field>
-            <Field label="户籍地址" required source="department"><TextArea autoSize={{ minRows: 2, maxRows: 4 }} value={values.householdAddress} onChange={(value) => setField('householdAddress', value)} /></Field>
+            <Field label="户籍地址" required source={departmentFields.includes('householdAddress') ? 'department' : 'manual'}><TextArea autoSize={{ minRows: 2, maxRows: 4 }} value={values.householdAddress} onChange={(value) => setField('householdAddress', value)} /></Field>
             {hasDepartmentModifications && (
             <Field label="部门数据修改原因" hint="修改共享户籍或监护人关键数据时填写">
               <Input value={values.modifiedReason} onChange={(value) => setField('modifiedReason', value)} placeholder="例如：部门数据未及时更新" />
@@ -612,9 +619,9 @@ export const ClusterEditPage = () => {
             </Field>
             {values.hasProperty !== false && (
               <>
-                <Field label="产权人" required source="department"><Input value={values.ownerName} onChange={(value) => setField('ownerName', value)} /></Field>
-                <Field label="产权人身份证号" required source="department"><Input value={values.ownerDocument} onChange={(value) => setField('ownerDocument', value)} /></Field>
-                <Field label="产权人与学生关系" required source="department">
+                <Field label="产权人" required source={departmentFields.includes('ownerName') ? 'department' : 'manual'}><Input value={values.ownerName} onChange={(value) => setField('ownerName', value)} /></Field>
+                <Field label="产权人身份证号" required source={departmentFields.includes('ownerDocument') ? 'department' : 'manual'}><Input value={values.ownerDocument} onChange={(value) => setField('ownerDocument', value)} /></Field>
+                <Field label="产权人与学生关系" required source={departmentFields.includes('relation') ? 'department' : 'manual'}>
                   <PickerControl
                     options={['父亲', '母亲', '祖父', '祖母', '外祖父', '外祖母', '其他'].map((item) => ({ label: item, value: item }))}
                     value={values.relation}
@@ -637,7 +644,7 @@ export const ClusterEditPage = () => {
                     >
                       <div className="property-choice-card__head">
                         <strong>{property.address}</strong>
-                        <SourceTag type="department" />
+                        <SourceTag type={departmentFields.length ? 'department' : 'manual'} />
                       </div>
                       <div className="property-choice-card__rows">
                         <span>产权证号<strong>{property.certificateNumber}</strong></span>
@@ -680,11 +687,11 @@ export const ClusterEditPage = () => {
                 {values.socialEnabled && (
                   <div className="conditional-group__fields">
                     <Field label="参保人" required><PickerControl options={['父亲', '母亲', '其他法定监护人'].map((item) => ({ label: item, value: item }))} value={values.socialPerson} onChange={(value) => setField('socialPerson', value)} /></Field>
-                    <Field label="参保人证件号码" required source="department"><Input value={values.socialDocument} onChange={(value) => setField('socialDocument', value)} /></Field>
-                    <Field label="参保地区" required source="department"><Input value={values.socialRegion} onChange={(value) => setField('socialRegion', value)} /></Field>
-                    <Field label="参保状态" required source="department"><Input value={values.socialStatus} onChange={(value) => setField('socialStatus', value)} /></Field>
-                    <Field label="首次参保时间" required source="department"><Input value={values.socialFirstDate} onChange={(value) => setField('socialFirstDate', value)} placeholder="YYYY-MM" /></Field>
-                    <Field label="连续缴纳月数" required source="department"><Input type="number" value={values.socialMonths} onChange={(value) => setField('socialMonths', value)} /></Field>
+                    <Field label="参保人证件号码" required source={departmentFields.includes('socialDocument') ? 'department' : 'manual'}><Input value={values.socialDocument} onChange={(value) => setField('socialDocument', value)} /></Field>
+                    <Field label="参保地区" required source={departmentFields.includes('socialRegion') ? 'department' : 'manual'}><Input value={values.socialRegion} onChange={(value) => setField('socialRegion', value)} /></Field>
+                    <Field label="参保状态" required source={departmentFields.includes('socialStatus') ? 'department' : 'manual'}><Input value={values.socialStatus} onChange={(value) => setField('socialStatus', value)} /></Field>
+                    <Field label="首次参保时间" required source={departmentFields.includes('socialFirstDate') ? 'department' : 'manual'}><Input value={values.socialFirstDate} onChange={(value) => setField('socialFirstDate', value)} placeholder="YYYY-MM" /></Field>
+                    <Field label="连续缴纳月数" required source={departmentFields.includes('socialMonths') ? 'department' : 'manual'}><Input type="number" value={values.socialMonths} onChange={(value) => setField('socialMonths', value)} /></Field>
                     <ImageMaterial title="社保证明图片" itemCode="social_security_proof" value={values.socialSecurity} onChange={(value) => setField('socialSecurity', value)} onUpload={uploadMaterial} onRemove={removeMaterial} />
                   </div>
                 )}
@@ -694,13 +701,13 @@ export const ClusterEditPage = () => {
                 {values.businessEnabled && (
                   <div className="conditional-group__fields">
                     <Field label="经营主体与学生关系" required><PickerControl options={['父亲', '母亲', '其他法定监护人'].map((item) => ({ label: item, value: item }))} value={values.businessOwnerRelation} onChange={(value) => setField('businessOwnerRelation', value)} /></Field>
-                    <Field label="统一社会信用代码" required source="department"><Input value={values.businessCreditCode} onChange={(value) => setField('businessCreditCode', value)} /></Field>
-                    <Field label="市场主体名称" required source="department"><Input value={values.businessName} onChange={(value) => setField('businessName', value)} /></Field>
-                    <Field label="经营者或法定代表人" required source="department"><Input value={values.businessOperator} onChange={(value) => setField('businessOperator', value)} /></Field>
-                    <Field label="主体类型" required source="department"><Input value={values.businessType} onChange={(value) => setField('businessType', value)} /></Field>
-                    <Field label="注册地址" required source="department"><TextArea autoSize={{ minRows: 2, maxRows: 4 }} value={values.businessAddress} onChange={(value) => setField('businessAddress', value)} /></Field>
-                    <Field label="成立日期" required source="department"><Input value={values.businessEstablishedDate} onChange={(value) => setField('businessEstablishedDate', value)} placeholder="YYYY-MM-DD" /></Field>
-                    <Field label="登记状态" required source="department"><Input value={values.businessStatus} onChange={(value) => setField('businessStatus', value)} /></Field>
+                    <Field label="统一社会信用代码" required source={departmentFields.includes('businessCreditCode') ? 'department' : 'manual'}><Input value={values.businessCreditCode} onChange={(value) => setField('businessCreditCode', value)} /></Field>
+                    <Field label="市场主体名称" required source={departmentFields.includes('businessName') ? 'department' : 'manual'}><Input value={values.businessName} onChange={(value) => setField('businessName', value)} /></Field>
+                    <Field label="经营者或法定代表人" required source={departmentFields.includes('businessOperator') ? 'department' : 'manual'}><Input value={values.businessOperator} onChange={(value) => setField('businessOperator', value)} /></Field>
+                    <Field label="主体类型" required source={departmentFields.includes('businessType') ? 'department' : 'manual'}><Input value={values.businessType} onChange={(value) => setField('businessType', value)} /></Field>
+                    <Field label="注册地址" required source={departmentFields.includes('businessAddress') ? 'department' : 'manual'}><TextArea autoSize={{ minRows: 2, maxRows: 4 }} value={values.businessAddress} onChange={(value) => setField('businessAddress', value)} /></Field>
+                    <Field label="成立日期" required source={departmentFields.includes('businessEstablishedDate') ? 'department' : 'manual'}><Input value={values.businessEstablishedDate} onChange={(value) => setField('businessEstablishedDate', value)} placeholder="YYYY-MM-DD" /></Field>
+                    <Field label="登记状态" required source={departmentFields.includes('businessStatus') ? 'department' : 'manual'}><Input value={values.businessStatus} onChange={(value) => setField('businessStatus', value)} /></Field>
                     <ImageMaterial title="营业执照图片" itemCode="business_license" value={values.businessLicense} onChange={(value) => setField('businessLicense', value)} onUpload={uploadMaterial} onRemove={removeMaterial} />
                   </div>
                 )}
@@ -709,9 +716,9 @@ export const ClusterEditPage = () => {
                 <Checkbox checked={values.noPropertyEnabled} onChange={(value) => setField('noPropertyEnabled', value)}>使用祖辈房产并需父辈无房证明</Checkbox>
                 {values.noPropertyEnabled && (
                   <div className="conditional-group__fields">
-                    <Field label="核验区域" required source="department"><Input value={values.noPropertyRegion} onChange={(value) => setField('noPropertyRegion', value)} /></Field>
-                    <Field label="父亲名下房产核验结果" required source="department"><PickerControl options={['无房', '有房', '未查到结果'].map((item) => ({ label: item, value: item }))} value={values.fatherNoPropertyResult} onChange={(value) => setField('fatherNoPropertyResult', value)} /></Field>
-                    <Field label="母亲名下房产核验结果" required source="department"><PickerControl options={['无房', '有房', '未查到结果'].map((item) => ({ label: item, value: item }))} value={values.motherNoPropertyResult} onChange={(value) => setField('motherNoPropertyResult', value)} /></Field>
+                    <Field label="核验区域" required source={departmentFields.includes('noPropertyRegion') ? 'department' : 'manual'}><Input value={values.noPropertyRegion} onChange={(value) => setField('noPropertyRegion', value)} /></Field>
+                    <Field label="父亲名下房产核验结果" required source={departmentFields.includes('fatherNoPropertyResult') ? 'department' : 'manual'}><PickerControl options={['无房', '有房', '未查到结果'].map((item) => ({ label: item, value: item }))} value={values.fatherNoPropertyResult} onChange={(value) => setField('fatherNoPropertyResult', value)} /></Field>
+                    <Field label="母亲名下房产核验结果" required source={departmentFields.includes('motherNoPropertyResult') ? 'department' : 'manual'}><PickerControl options={['无房', '有房', '未查到结果'].map((item) => ({ label: item, value: item }))} value={values.motherNoPropertyResult} onChange={(value) => setField('motherNoPropertyResult', value)} /></Field>
                     <ImageMaterial title="父辈无房证明图片" itemCode="parents_no_property_proof" value={values.parentNoProperty} onChange={(value) => setField('parentNoProperty', value)} onUpload={uploadMaterial} onRemove={removeMaterial} description="父母双方分别提供，特殊情况可上传说明材料" />
                   </div>
                 )}
@@ -774,6 +781,7 @@ export const ReviewSubmitPage = () => {
   const serverApplicationId = useEnrollmentStore((state) => state.serverApplicationId);
   const serverVersion = useEnrollmentStore((state) => state.serverVersion);
   const syncServerApplication = useEnrollmentStore((state) => state.syncServerApplication);
+  const year = useEnrollmentStore((state) => state.seasonYear);
   const [declared, setDeclared] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [expanded, setExpanded] = useState({ student: true, family: true, property: true, materials: true });
@@ -823,11 +831,11 @@ export const ReviewSubmitPage = () => {
   return (
     <div className="enrollment-page review-page">
       <main className="enrollment-content">
-        <GovHero title={`${draft.student.name} · ${school.name}`} subtitle={`${CURRENT_YEAR}年${stage.name} · ${category.name}`} compact visual="summary" />
+        <GovHero title={`${draft.student.name} · ${school.name}`} subtitle={`${year}年${stage.name} · ${category.name}`} compact visual="summary" />
 
         <div className="review-sections">
           <ReviewSection title="学生信息" expanded={expanded.student} onToggle={() => toggle('student')}>
-            <div className="review-photo"><span>学生证件照</span><img src={studentPortrait} alt="学生证件照" /></div>
+            <div className="review-photo"><span>学生证件照</span><StudentPhoto /></div>
             <SummaryRows rows={studentRows(draft.student).map((row) => row.label === '证件号码' ? { ...row, value: maskDocument(row.value) } : row)} />
             {draft.student.modifiedReason && (
               <div className="data-compare">

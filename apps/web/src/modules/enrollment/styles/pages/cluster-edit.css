@@ -1,0 +1,379 @@
+.edit-page__meta { display: flex; min-height: 58px; padding: 12px 16px; align-items: center; justify-content: space-between; gap: 12px; color: var(--enroll-muted); font-size: 13px; background: #f8faff; }
+.edit-page__meta i { margin: 0 5px; font-style: normal; }
+.edit-page__meta em { display: flex; align-items: center; gap: 5px; color: var(--enroll-success); font-style: normal; white-space: nowrap; }
+.edit-form { display: grid; gap: 18px; }
+.edit-field { display: grid; gap: 8px; }
+.edit-field__label { display: flex; align-items: center; gap: 7px; color: #536179; font-size: 14px; }
+.edit-field__label em,
+.material-upload-card em { color: var(--enroll-danger); font-style: normal; }
+.edit-field > .adm-input,
+.edit-field > .adm-text-area,
+.modified-reason { min-height: 50px; padding: 12px 13px; background: var(--enroll-surface); border: 1px solid var(--enroll-line); border-radius: var(--enroll-radius-10); }
+.edit-field > .adm-text-area { min-height: 75px; }
+.edit-field > small { color: var(--enroll-muted); font-size: 12px; line-height: 18px; }
+.edit-field .adm-selector { --border-radius: 9px; }
+.modified-reason { color: #bd5e1c; border-color: #efae79 !important; }
+.student-photo-uploader { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 14px; background: var(--enroll-surface); border: 1px solid var(--enroll-line); border-radius: var(--enroll-radius-12); }
+.student-photo-placeholder { display: grid; grid-row: 1 / 3; min-height: 156px; align-content: center; justify-items: center; gap: 8px; color: var(--enroll-muted); background: var(--enroll-background); border-radius: 9px; }
+.student-photo-placeholder svg { color: var(--enroll-primary); font-size: 62px; }
+.photo-action { display: flex; min-height: 58px; align-items: center; justify-content: center; gap: 7px; color: var(--enroll-primary); background: var(--enroll-surface); border: 1px solid var(--enroll-primary); border-radius: 9px; }
+.photo-action input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.material-list { display: grid; gap: 15px; }
+.material-upload-card { padding: 14px; background: var(--enroll-surface); border: 1px solid var(--enroll-line); border-radius: var(--enroll-radius-12); }
+.material-upload-card > div:first-child strong,
+.material-upload-card > div:first-child small { display: block; }
+.material-upload-card > div:first-child small { margin: 5px 0 12px; color: var(--enroll-muted); }
+.material-upload-card > p { margin: 9px 0 0; color: var(--enroll-muted); font-size: 12px; }
+.custom-upload-button { display: grid; width: 80px; height: 80px; align-content: center; justify-items: center; gap: 6px; color: var(--enroll-primary); font-size: 11px; background: var(--enroll-pale); border: 1px dashed #8db1f2; border-radius: var(--enroll-radius-8); }
+.custom-upload-button svg { font-size: 22px; }
+.conditional-materials { display: grid; gap: 12px; padding: 15px; background: #f8faff; border: 1px solid #dce6f5; border-radius: var(--enroll-radius-12); }
+.conditional-materials > h3 { display: flex; margin: 0; align-items: center; gap: 8px; font-size: 16px; }
+.conditional-materials > p { margin: -4px 0 0; color: var(--enroll-muted); font-size: 13px; line-height: 20px; }
+.conditional-group { padding: 13px; background: var(--enroll-surface); border: 1px solid var(--enroll-line); border-radius: var(--enroll-radius-10); }
+.conditional-group__fields { display: grid; gap: 14px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--enroll-line); }
+.save-action { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 12px; }
+.save-action > span { display: flex; align-items: center; gap: 5px; color: var(--enroll-success); font-size: 12px; }
+.save-action .adm-button { min-width: 52%; border-radius: var(--enroll-radius-10); }
+
+@media (max-width: 380px) {
+  .edit-page__meta { align-items: flex-start; flex-direction: column; }
+}
+
+@media (max-width: 380px) {
+  .student-photo-uploader { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 380px) {
+  .student-photo-placeholder { grid-row: auto; }
+}
+
+.edit-page__meta {
+  min-height: 39px;
+  padding: 8px 19px;
+  background: #f0f5fc;
+}
+.edit-page .enrollment-content { padding: 13px 19px 96px; }
+.edit-page .compact-notice { margin-top: 0; }
+.edit-form { gap: 17px; }
+.edit-field { gap: 8px; }
+.edit-field__label { color: #60708a; font-size: 14px; }
+.edit-field > .adm-input,
+.edit-field > .adm-text-area { min-height: 45px; padding: 10px 12px; border-radius: 7px; }
+.student-photo-field { display: grid; gap: 8px; }
+.student-photo-uploader { grid-template-columns: 43% 57%; padding: 8px 11px; border-radius: var(--enroll-radius-8); }
+.student-photo-placeholder { min-height: 151px; padding: 0; background: transparent; }
+.student-photo-placeholder img { width: 99px; height: 124px; object-fit: cover; border-radius: 6px; }
+.student-photo-placeholder small { color: #738098; font-size: 11px; }
+.photo-action { min-height: 49px; margin: 6px 0; border-radius: 7px; }
+
+.edit-page__meta { background: var(--enroll-pale); }
+.edit-page .edit-page__meta {
+  align-items: center;
+  flex-direction: row;
+  gap: 8px;
+}
+.edit-page .edit-page__meta > span {
+  min-width: 0;
+  flex: 1;
+  color: var(--enroll-muted);
+  font-size: 12px;
+  line-height: 18px;
+  white-space: nowrap;
+}
+.edit-page .edit-page__meta > em {
+  flex: 0 0 auto;
+  font-size: 12px;
+  line-height: 18px;
+  white-space: nowrap;
+}
+.edit-form { gap: 17px; }
+.edit-page .edit-field__control {
+  position: relative;
+  display: grid;
+  gap: 7px;
+}
+.edit-page .edit-field__control > .adm-input,
+.edit-page .edit-field__control > .adm-text-area,
+.modified-reason { border-radius: var(--enroll-radius-8); }
+.edit-page .edit-field__control > .adm-input,
+.edit-page .edit-field__control > .adm-text-area {
+  min-height: 46px;
+  padding: 10px 13px;
+  color: #101b31;
+  font-size: 15px;
+  background: var(--enroll-surface);
+  border: 1px solid #dfe6f0;
+}
+.edit-page .edit-field__control--sourced > .adm-input,
+.edit-page .edit-field__control--sourced > .adm-text-area,
+.edit-page .edit-field__control--sourced > .edit-picker-control { padding-right: 94px; }
+.edit-page .edit-field__control > .source-tag {
+  position: absolute;
+  top: 11px;
+  right: 12px;
+  z-index: 2;
+  padding: 4px 7px;
+  font-size: 12px;
+  line-height: 17px;
+  border-radius: 6px;
+}
+.edit-page .edit-field__label {
+  color: #596981;
+  font-size: 14px;
+  line-height: 21px;
+}
+.edit-picker-control {
+  display: flex;
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px;
+  align-items: center;
+  justify-content: space-between;
+  color: #101b31;
+  font-size: 15px;
+  text-align: left;
+  background: var(--enroll-surface);
+  border: 1px solid #dfe6f0;
+  border-radius: var(--enroll-radius-8);
+}
+.edit-picker-control svg { flex: none; color: #6a7890; font-size: 15px; }
+.edit-page .edit-field__control:has(.edit-picker-control) > .source-tag { right: 39px; }
+.edit-page .edit-field__control--sourced > .edit-picker-control { padding-right: 118px; }
+.edit-page .edit-field__control--sourced > .edit-picker-control svg {
+  position: absolute;
+  right: 13px;
+}
+.edit-page .source-tag--modified {
+  color: #e86f1c;
+  background: #fff1e7;
+}
+.edit-page .modified-reason {
+  min-height: 34px;
+  margin-top: -5px;
+  padding: 6px 10px;
+  color: #e87325;
+  font-size: 13px;
+  border-color: #f0a36d;
+}
+.edit-page .edit-field__control:has(.modified-reason) > .adm-text-area { min-height: 48px; }
+.edit-page .compact-notice {
+  min-height: 37px;
+  margin-bottom: 14px;
+  padding: 8px 12px;
+  font-size: 13px;
+  line-height: 20px;
+  background: linear-gradient(100deg, #eaf2ff, #f3f7fe);
+}
+.edit-page .compact-notice svg {
+  margin-top: 1px;
+  font-size: 17px;
+}
+.student-photo-uploader,
+.material-upload-card,
+.conditional-materials,
+.conditional-group { border-radius: var(--enroll-radius-10); }
+.edit-page .student-photo-uploader {
+  grid-template-columns: 45% minmax(0, 1fr);
+  gap: 10px;
+  height: 164px;
+  padding: 8px 11px;
+}
+.edit-page .student-photo-placeholder {
+  min-height: 146px;
+  background: transparent;
+}
+.edit-page .student-photo-placeholder img {
+  width: 99px;
+  height: 124px;
+}
+.edit-page .student-photo-placeholder small {
+  font-size: 11px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+.edit-page .student-photo-actions {
+  display: grid;
+  align-content: center;
+  gap: 12px;
+}
+.edit-page .photo-action {
+  min-height: 38px;
+  margin: 0;
+  font-size: 14px;
+}
+.edit-page .enrollment-section-title {
+  margin: 7px 0 -2px;
+}
+.edit-page .enrollment-section-title h2 {
+  font-size: 17px;
+  line-height: 24px;
+}
+.guardian-household-check {
+  min-height: 44px;
+  padding: 10px 12px;
+  color: #24344f;
+  font-size: 14px;
+  background: #f3f7fd;
+  border: 1px solid #d8e4f5;
+  border-radius: var(--enroll-radius-8);
+}
+.property-choice-section { min-width: 0; }
+.property-choice-section .enrollment-section-title { margin: 2px 0 12px; }
+.property-choice-list { display: grid; gap: 12px; }
+.property-choice-card {
+  --icon-size: 21px;
+  width: 100%;
+  padding: 14px;
+  align-items: flex-start;
+  background: var(--enroll-surface);
+  border: 1px solid #dce4ef;
+  border-radius: var(--enroll-radius-10);
+  transition: border-color .16s ease, background-color .16s ease;
+}
+.property-choice-card.is-selected {
+  background: #f4f8ff;
+  border-color: #4f86e8;
+}
+.property-choice-card .adm-checkbox-content {
+  min-width: 0;
+  flex: 1;
+  padding-left: 11px;
+}
+.property-choice-card__head {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid #e8edf4;
+}
+.property-choice-card__head > strong {
+  min-width: 0;
+  color: #17243b;
+  font-size: 15px;
+  line-height: 22px;
+}
+.property-choice-card__head .source-tag { flex: none; }
+.property-choice-card__rows { display: grid; gap: 8px; padding-top: 11px; }
+.property-choice-card__rows span {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 10px;
+  color: #748198;
+  font-size: 13px;
+  line-height: 20px;
+}
+.property-choice-card__rows strong {
+  min-width: 0;
+  color: #33415a;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+.special-property-fields {
+  display: grid;
+  gap: 17px;
+  padding: 14px;
+  background: #f8faff;
+  border: 1px solid #dce6f5;
+  border-radius: var(--enroll-radius-10);
+}
+.special-property-fields .enrollment-section-title { margin: 0 0 1px; }
+.edit-page .material-upload-card {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  background: var(--enroll-surface);
+  border: 1px solid #dfe6f0;
+  border-radius: var(--enroll-radius-8);
+  box-shadow: 0 3px 12px rgba(31, 65, 110, .04);
+}
+.edit-page .material-upload-card__head > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.edit-page .material-upload-card__head strong {
+  color: #596981;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+}
+.edit-page .material-upload-card__head em {
+  padding: 2px 6px;
+  color: #e86f1c;
+  font-size: 11px;
+  font-style: normal;
+  line-height: 16px;
+  background: #fff1e7;
+  border-radius: 5px;
+}
+.edit-page .material-upload-card__head small {
+  display: block;
+  margin-top: 3px;
+  color: #748198;
+  font-size: 12px;
+  line-height: 18px;
+}
+.edit-page .material-upload-card__control {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+.edit-page .material-upload-card__control .adm-image-uploader { --cell-size: 76px; --gap: 9px; }
+.edit-page .material-upload-card__control > p {
+  display: flex;
+  margin: 9px 0 0;
+  align-items: center;
+  gap: 5px;
+  color: #748198;
+  font-size: 11px;
+  line-height: 17px;
+}
+.edit-page .material-upload-card__control > p svg { color: #8b9ab0; font-size: 14px; }
+.edit-page .custom-upload-button {
+  width: 76px;
+  height: 76px;
+  color: var(--enroll-primary);
+  background: #f5f9ff;
+  border-color: #92b7ee;
+}
+.edit-page .custom-upload-button span { width: auto; line-height: 16px; white-space: nowrap; }
+.edit-page .material-upload-card__control .adm-image-uploader-space > .adm-space-item:only-child,
+.edit-page .material-upload-card__control .adm-image-uploader-space > .adm-space-item:only-child .adm-image-uploader-upload-button-wrap {
+  width: 100%;
+}
+.edit-page .material-upload-card__control .adm-image-uploader-space > .adm-space-item:only-child .custom-upload-button {
+  display: flex;
+  width: 100%;
+  height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 14px;
+  background: var(--enroll-surface);
+  border-style: solid;
+}
+.edit-page .material-upload-card__control .adm-image-uploader-space > .adm-space-item:only-child .custom-upload-button span {
+  width: auto;
+  line-height: 20px;
+}
+.edit-page .conditional-materials > p {
+  font-size: 12px;
+  line-height: 18px;
+}
+.edit-page .conditional-group .adm-checkbox-content {
+  font-size: 13px;
+  line-height: 19px;
+}
+.edit-page .save-action .adm-button {
+  width: 52%;
+  min-width: 190px;
+}
+.edit-page .save-action > span {
+  min-width: 0;
+  flex: 1;
+  font-size: 12px;
+  white-space: nowrap;
+}

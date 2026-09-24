@@ -1,0 +1,38 @@
+.cv-pending>img:first-child{width:100%}.cv-pending-hourglass{width:48%;margin:0 auto 5px;mix-blend-mode:multiply}.cv-pending-clock{text-align:center;color:#c65a2b;font-family:'Arial Narrow',sans-serif;font-size:67px;line-height:1.08;font-weight:650;letter-spacing:-2px}.cv-pending-caption{text-align:center;font-size:16px!important;color:#89929a;margin:0 0 18px!important;letter-spacing:1px}.cv-pending-ticket{background:var(--cv-paper) url('../../assets/paper.png');padding:12px 23px;box-shadow:0 5px 14px #7e6b4420;border-radius:4px}.cv-pending-store{display:flex;align-items:center;gap:15px;border-bottom:1px dashed #bebdb2;padding-bottom:9px}.cv-pending-store>img{width:81px;height:81px;border-radius:50%}.cv-pending-store h2{font-size:19px;font-weight:700;white-space:nowrap}.cv-pending-store p{font-size:12px;color:#849299;margin-top:8px;display:flex;gap:5px}.cv-pending-coupon{position:relative;margin-top:11px;background:#eae5d88c;padding:12px 13px;overflow:hidden;isolation:isolate}.cv-pending-coupon h2{font-family:var(--cv-font-serif);font-size:16px;font-weight:650}.cv-pending-coupon .cv-value{font-size:26px}.cv-pending-coupon .cv-value strong{font-size:43px}.cv-pending-coupon>img{position:absolute;right:0;bottom:0;width:30%;z-index:-1;mix-blend-mode:multiply}.cv-request-number{font-size:11px!important;color:#8a969f;margin-top:10px!important}.cv-progress{display:flex;justify-content:space-between;text-align:center;margin:20px 5px 8px}.cv-progress>div{position:relative;display:flex;flex-direction:column;align-items:center;flex:1;font-size:12px;color:#be5a2d}.cv-progress>div:not(:last-child):after{content:'';position:absolute;top:10px;left:60%;width:80%;border-top:1px dashed #d1b097}.cv-progress svg,.cv-progress b{width:24px;height:24px;margin-bottom:8px;color:#d5683b}.cv-progress b{border:1px solid #c26942;border-radius:50%;background:#d76535;box-shadow:inset 0 0 0 4px var(--cv-paper)}.cv-progress>div:last-child{color:#929ba3}.cv-progress>div:last-child b{background:#d5d7d5;border-color:#b6babd;box-shadow:none}.cv-progress small{font-size:9px;color:#8b959a;margin-top:3px}.cv-pending-demo{display:block;text-align:center;color:#8c8f87!important;font-size:10px;text-decoration:underline!important;margin:10px 0}
+
+.cv-pending-hourglass{transform:translateX(15px);mask-image:radial-gradient(ellipse at 48% 50%,#000 49%,transparent 75%)}.cv-pending-caption{margin-bottom:5px!important}.cv-pending-coupon{padding:9px 13px}.cv-pending-coupon h2{font-size:14px;line-height:1.2}.cv-pending-coupon .cv-value{font-size:25px;line-height:1.05}.cv-pending-coupon .cv-value strong{font-size:40px;line-height:1}.cv-pending-coupon>img{mask-image:linear-gradient(to right,transparent,#000 35%);opacity:.7}.cv-pending-store p{font-size:10px}.cv-request-number{margin-top:8px!important}.cv-pending>.cv-footer{margin-top:8px}
+
+.cv-pending-hourglass{mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent),linear-gradient(to bottom,transparent,#000 7%,#000 93%,transparent);mask-composite:intersect}.cv-pending>.cv-footer{width:96%;margin-left:2%}.cv-pending-endline{text-align:center;font-family:var(--cv-font-serif);letter-spacing:2px;font-size:10px!important;color:#8a9397;margin:12px 0!important}
+.cv-pending-hero { padding-top: var(--cv-host-top-inset, max(44px, env(safe-area-inset-top, 0px))); }
+.cv-pending-hero-art { height: 72cqw; background-size: 105.83cqw auto; background-position: -2.98cqw -13.65cqw; background-repeat: no-repeat; mask-image: linear-gradient(to bottom, transparent, #000 3%, #000 97%, transparent); }
+.cv-pending .cv-pending-clock { font-size: 16cqw; font-weight: 650; line-height: 1.1; letter-spacing: -.6cqw; font-variant-numeric: tabular-nums; margin-top: 1cqw; }
+.cv-pending .cv-pending-caption { font-size: 3.7cqw !important; line-height: 1.6; letter-spacing: .15cqw; margin: .8cqw 0 4cqw !important; }
+.cv-pending > .cv-page-padding { padding-inline: 4cqw; }
+.cv-pending-ticket-shadow { filter: drop-shadow(0 1.2cqw 1.5cqw #7e6b441c); }
+.cv-pending .cv-pending-ticket { padding: 3.4cqw 5.8cqw 3cqw; border-radius: 0; box-shadow: none; mask-image: radial-gradient(circle at 0 50%, transparent .9cqw, #000 1cqw), radial-gradient(circle at 100% 50%, transparent .9cqw, #000 1cqw), radial-gradient(circle at 0 46%, transparent 2.4cqw, #000 2.5cqw), radial-gradient(circle at 100% 46%, transparent 2.4cqw, #000 2.5cqw); mask-size: 100% 3.4cqw, 100% 3.4cqw, 100% 100%, 100% 100%; mask-repeat: repeat-y, repeat-y, no-repeat, no-repeat; mask-composite: intersect; }
+.cv-pending .cv-pending-store { gap: 4cqw; padding-bottom: 2cqw; }
+.cv-pending .cv-pending-store > img { width: 20cqw; height: 20cqw; object-fit: cover; flex-shrink: 0; }
+.cv-pending .cv-pending-store > div { min-width: 0; }
+.cv-pending .cv-pending-store h2 { font-size: 4.3cqw; font-weight: 650; line-height: 1.45; white-space: normal; }
+.cv-pending .cv-pending-store p { margin-top: 1.5cqw; font-size: 3cqw; line-height: 1.6; align-items: flex-start; }
+.cv-pending .cv-pending-store p svg { margin-top: .6cqw; flex-shrink: 0; }
+.cv-pending-voucher { display: grid; grid-template-columns: minmax(0, 1fr) 32%; gap: 2.6cqw; margin-top: 3cqw; }
+.cv-pending-voucher > div { min-width: 0; }
+.cv-pending .cv-pending-coupon { margin-top: 0; padding: 3cqw 3.6cqw 2.4cqw; background: #f0ece1; }
+.cv-pending .cv-pending-coupon h2 { font-size: 3.5cqw; font-weight: 600; line-height: 1.5; }
+.cv-pending .cv-pending-coupon .cv-value { margin-top: 1cqw; font-size: 5.7cqw; line-height: 1.1; letter-spacing: -.3cqw; }
+.cv-pending .cv-pending-coupon .cv-value strong { font-size: 10cqw; line-height: 1; letter-spacing: -.4cqw; }
+.cv-pending .cv-pending-coupon > img { width: 27%; opacity: .65; mask-image: linear-gradient(to right, transparent, #000 30%), linear-gradient(to bottom, transparent, #000 20%); mask-composite: intersect; }
+.cv-pending-voucher-art { border-left: 1px dashed #c9c5bb; padding-left: 1.5cqw; display: flex; align-items: flex-end; }
+.cv-pending-voucher-art > span { display: block; width: 100%; aspect-ratio: 196 / 199; background-size: 435.204% auto; background-position: 89.802% 68.085%; background-repeat: no-repeat; }
+.cv-pending .cv-request-number { font-size: 2.7cqw !important; line-height: 1.5; margin-top: 2cqw !important; overflow-wrap: anywhere; }
+.cv-pending .cv-progress { margin: 5cqw 0 4.5cqw; }
+.cv-pending .cv-progress > div { font-size: 3cqw; line-height: 1.5; min-width: 0; }
+.cv-pending .cv-progress svg, .cv-pending .cv-progress b { width: 5.6cqw; height: 5.6cqw; margin-bottom: 1.8cqw; position: relative; z-index: 1; }
+.cv-pending .cv-progress > div:not(:last-child)::after { top: 2.8cqw; left: calc(50% + 2.8cqw); width: calc(100% - 5.6cqw); }
+.cv-pending .cv-progress small { font-size: 2.4cqw; line-height: 1.5; margin-top: .5cqw; }
+.cv-pending > .cv-footer { width: 94%; margin: 0 auto; margin-top: 0 !important; padding-top: 0; }
+.cv-pending .cv-pending-endline { font-size: 2.8cqw !important; margin: 3cqw 0 !important; line-height: 1.6; letter-spacing: .25cqw; }
+.cv-pending > .cv-pending-wallet-button { display: flex; align-items: center; justify-content: center; gap: 8px; align-self: center; width: 72%; min-height: 46px; margin: 8px auto calc(24px + env(safe-area-inset-bottom)); padding: 11px 20px; border: 1px solid #c87550; border-radius: 24px; background: #fffdf8b3; color: #ae522e; font-size: 15px; font-weight: 500; line-height: 1.5; text-decoration: none; }
+.cv-pending-wallet-button > svg { width: 20px; height: 20px; }
+.cv-pending > .cv-pending-wallet-button:active { background: #f4e5d8; }

@@ -1,0 +1,355 @@
+.review-summary-card {
+  border: 1px solid var(--enroll-line);
+  border-radius: var(--enroll-radius-14);
+  box-shadow: 0 6px 20px rgba(26, 44, 82, .05);
+}
+.review-photo { display: flex; min-height: 66px; align-items: center; justify-content: space-between; color: var(--enroll-muted); border-bottom: 1px solid var(--enroll-line); }
+.review-photo svg { color: var(--enroll-primary); font-size: 45px; }
+
+.review-page .gov-hero { margin-bottom: 16px; }
+.review-timeline { margin-top: 18px; }
+.modified-note { display: flex; align-items: center; gap: 8px; margin: 12px 0 0; color: #80560b; font-size: 13px; }
+.review-section { margin: 22px 0; }
+.review-section__body { padding: 14px 16px; background: var(--enroll-surface); border: 1px solid var(--enroll-line); border-radius: 13px; }
+.data-compare { margin-top: 13px; padding: 12px; background: #f7fbff; border: 1px solid #cbdcf7; border-radius: 9px; }
+.data-compare > strong { display: flex; align-items: center; gap: 7px; }
+.data-compare p { display: grid; grid-template-columns: 86px 1fr; gap: 8px; margin: 10px 0; color: #36435a; font-size: 13px; line-height: 20px; }
+.data-compare p span { color: var(--enroll-muted); }
+.data-compare small { color: var(--enroll-warning); }
+.material-thumbnails { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+.material-thumbnails div { display: grid; min-height: 88px; align-content: center; justify-items: center; gap: 7px; color: var(--enroll-muted); font-size: 12px; background: var(--enroll-background); border-radius: var(--enroll-radius-8); }
+.material-thumbnails svg { color: var(--enroll-primary); font-size: 25px; }
+.truth-declaration { padding: 16px; background: var(--enroll-surface); border: 1px solid var(--enroll-line); border-radius: 13px; }
+.truth-declaration h3 { display: flex; margin: 0 0 14px; align-items: center; gap: 8px; }
+.truth-declaration .adm-checkbox { align-items: flex-start; font-size: 15px; line-height: 24px; }
+.truth-declaration p { display: flex; margin: 13px 0 0; align-items: flex-start; gap: 7px; color: var(--enroll-warning); font-size: 13px; line-height: 20px; }
+.review-summary-card { display: flex; align-items: center; gap: 9px; }
+.review-summary-card svg { color: var(--enroll-success); font-size: 23px; }
+.review-summary-card strong { color: var(--enroll-success); }
+.review-summary-card span { margin-left: auto; color: var(--enroll-muted); font-size: 13px; }
+
+.gov-hero--summary { isolation: isolate; }
+.gov-hero--summary .gov-hero__illustration { display: none; }
+
+.gov-hero--summary {
+  min-height: 112px;
+  padding: 27px 20px;
+  color: #071431;
+  background: var(--enroll-pale) url('../../assets/reference/hero-summary-art.png') right center / auto 100% no-repeat;
+  border-radius: 9px;
+}
+.gov-hero--summary .gov-hero__copy { width: 58%; }
+.gov-hero--summary h1 { font-size: 20px; }
+.gov-hero--summary p { color: #52617b; font-size: 14px; letter-spacing: 0; }
+.review-photo img { width: 61px; height: 76px; object-fit: cover; border-radius: 5px; }
+
+.review-page .enrollment-content { padding-top: 13px; }
+.review-page .compact-notice { margin: 12px 0; }
+.review-page .timeline-cluster__edit { display: none; }
+.review-page .timeline-cluster__body { padding: 13px; }
+.truth-declaration { margin-top: 14px; }
+.review-summary-card { min-height: 51px; }
+
+.review-summary-card {
+  border-radius: var(--enroll-radius-12);
+  box-shadow: 0 4px 15px rgba(31, 65, 110, .05);
+}
+
+.review-page .gov-hero--summary {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(110deg, var(--enroll-pale) 0%, var(--enroll-pale) 58%, #dcecff 100%);
+}
+.review-page .gov-hero--summary::after {
+  position: absolute;
+  inset: 0 0 0 54%;
+  z-index: 1;
+  display: block;
+  width: auto;
+  height: auto;
+  background: url('../../assets/reference/hero-summary-art.png') right center / auto 100% no-repeat;
+  border: 0;
+  border-radius: 0;
+  content: '';
+  transform: none;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,.45) 16%, #000 34%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,.45) 16%, #000 34%);
+}
+.review-page .gov-hero--summary .gov-hero__copy { position: relative; z-index: 2; }
+.review-page .enrollment-content { padding: 12px 16px 30px !important; }
+.review-page .gov-hero--summary {
+  min-height: 112px !important;
+  margin: 0 0 22px !important;
+  padding: 25px 20px !important;
+  border-radius: 9px !important;
+  box-shadow: none;
+}
+.review-page .gov-hero--summary .gov-hero__copy { width: 62% !important; }
+.review-page .gov-hero--summary h1 { margin: 0 0 9px !important; font-size: 20px !important; line-height: 28px; white-space: nowrap; }
+.review-page .gov-hero--summary p { margin: 0 !important; font-size: 14px !important; line-height: 21px; white-space: nowrap; }
+.review-page .summary-row { min-height: 47px !important; padding: 9px 0 !important; }
+.review-page .summary-row span,
+.review-page .summary-row strong { font-size: 15px !important; line-height: 22px; }
+.review-page {
+  background: #f7f9fc;
+}
+
+.review-page .enrollment-content {
+  padding: 12px 16px 30px;
+}
+
+.review-page .gov-hero--summary {
+  min-height: 112px;
+  margin: 0 0 22px;
+  padding: 25px 20px;
+  border-radius: 9px;
+  box-shadow: none;
+}
+
+.review-page .gov-hero--summary .gov-hero__copy {
+  width: 62%;
+}
+
+.review-page .gov-hero--summary h1 {
+  margin: 0 0 9px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  white-space: nowrap;
+}
+
+.review-page .gov-hero--summary p {
+  margin: 0;
+  color: #50617e;
+  font-size: 14px;
+  line-height: 21px;
+  white-space: nowrap;
+}
+
+.review-sections {
+  display: grid;
+  gap: 22px;
+}
+
+.review-section {
+  margin: 0;
+}
+
+.review-section__head {
+  display: flex;
+  min-height: 35px;
+  margin-bottom: 11px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.review-section__head h2 {
+  position: relative;
+  margin: 0;
+  padding-left: 13px;
+  color: #071431;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+.review-section__head h2::before {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 0;
+  width: 4px;
+  background: #1677ff;
+  border-radius: 3px;
+  content: '';
+}
+
+.review-section__head button {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  place-items: center;
+  color: #1677ff;
+  font-size: 20px;
+  background: transparent;
+  border: 0;
+}
+
+.review-section__card {
+  padding: 0 13px;
+  overflow: hidden;
+  background: var(--enroll-surface);
+  border: 1px solid #dfe6f0;
+  border-radius: 9px;
+  box-shadow: 0 2px 8px rgba(28, 57, 97, .025);
+}
+
+.review-page .review-photo {
+  min-height: 98px;
+  padding: 11px 0;
+  color: #50617e;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.review-page .review-photo img {
+  width: 70px;
+  height: 77px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.review-page .summary-row {
+  min-height: 47px;
+  gap: 16px;
+  padding: 9px 0;
+}
+
+.review-page .summary-row span,
+.review-page .summary-row strong {
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.review-page .summary-row span {
+  flex-basis: 36%;
+  color: #52617b;
+}
+
+.review-page .summary-row strong {
+  color: #0b1733;
+  font-weight: 500;
+}
+
+.review-section__card:has(.review-person-group) {
+  display: grid;
+  gap: 8px;
+  padding: 0;
+  overflow: visible;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.review-person-group {
+  padding: 10px 13px 0;
+  overflow: hidden;
+  background: var(--enroll-surface);
+  border: 1px solid #dfe6f0;
+  border-radius: 9px;
+  box-shadow: 0 2px 8px rgba(28, 57, 97, .025);
+}
+
+.review-person-group h3 {
+  display: flex;
+  min-height: 34px;
+  margin: 0;
+  align-items: center;
+  gap: 7px;
+  color: #1677ff;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+.review-person-group h3 svg {
+  font-size: 19px;
+}
+
+.review-person-group--guardian h3 {
+  color: #ff832b;
+}
+
+.review-page .material-thumbnails {
+  padding: 4px 0 13px;
+}
+
+.review-page .modified-note,
+.review-page .data-compare {
+  margin: 10px 0 13px;
+}
+
+.review-page .truth-declaration {
+  margin-top: 22px;
+  padding: 14px;
+  border-radius: 9px;
+}
+
+.review-page .truth-declaration h3 {
+  color: #071431;
+  font-size: 16px;
+}
+
+.review-page .truth-declaration .adm-checkbox-content {
+  color: #3f4f68;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.review-submit-action {
+  margin-top: 18px;
+}
+
+.review-submit-action .adm-button {
+  min-height: 48px;
+  color: var(--enroll-surface);
+  font-size: 17px;
+  border-radius: 9px;
+}
+
+.review-page .gov-hero--summary {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(110deg, var(--enroll-pale) 0%, var(--enroll-pale) 58%, #dcecff 100%);
+}
+.review-page .gov-hero--summary::after {
+  position: absolute;
+  inset: 0 0 0 40%;
+  z-index: 1;
+  display: block;
+  background: url('../../assets/reference/hero-summary-art.png') center / cover no-repeat;
+  content: '';
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,.45) 16%, #000 34%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,.45) 16%, #000 34%);
+}
+.review-page .gov-hero--summary .gov-hero__copy { position: relative; z-index: 2; }
+
+.review-page .gov-hero { min-height: 136px; margin-bottom: 14px; }
+.review-timeline { margin-top: 16px; }
+.review-page .timeline-cluster__body { padding: 15px; }
+.truth-declaration { border-radius: var(--enroll-radius-10); }
+
+.review-page .gov-hero--summary {
+  min-height: 112px;
+  padding: 27px 20px;
+  color: #071431;
+  background: var(--enroll-pale) url('../../assets/reference/hero-summary-art.png') right center / auto 100% no-repeat;
+  border-radius: 9px;
+}
+.review-page .gov-hero--summary .gov-hero__copy { width: 58%; }
+.review-page .gov-hero--summary h1 { font-size: 20px; }
+.review-page .gov-hero--summary p { color: #52617b; font-size: 14px; letter-spacing: 0; }
+
+.gov-hero--summary .gov-hero__illustration { display: none; }
+.review-page .gov-hero--summary {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(110deg, var(--enroll-pale) 0%, var(--enroll-pale) 58%, #dcecff 100%);
+}
+.review-page .gov-hero--summary::after {
+  position: absolute;
+  inset: 0 0 0 54%;
+  z-index: 1;
+  display: block;
+  width: auto;
+  height: auto;
+  background: url('../../assets/reference/hero-summary-art.png') right center / auto 100% no-repeat;
+  border: 0;
+  border-radius: 0;
+  content: '';
+  transform: none;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,.45) 16%, #000 34%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,.45) 16%, #000 34%);
+}
+.review-page .gov-hero--summary .gov-hero__copy { position: relative; z-index: 2; }

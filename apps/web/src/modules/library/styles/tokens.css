@@ -1,0 +1,23 @@
+.library-app {
+  --lib-paper: #f5f0e6;
+  --lib-sheet: #fffdf8;
+  --lib-ink: #22211e;
+  --lib-muted: #6f6a61;
+  --lib-faint: #9a9388;
+  --lib-edge: #d8d0c2;
+  --lib-red: #a84f3d;
+  --lib-red-wash: #ead8d1;
+  --lib-amber: #8a642b;
+  --lib-green: #486457;
+  --lib-page-gutter: clamp(14px, 4vw, 22px);
+  --lib-touch-target: 44px;
+  --lib-radius-sm: 8px;
+  --lib-radius-md: 12px;
+  --lib-font-sans: "PingFang SC", "Microsoft YaHei", sans-serif;
+  --lib-font-serif: "Songti SC", "STSong", serif;
+  --lib-font-mono: "Geist Mono", "SFMono-Regular", Consolas, monospace;
+  min-height: 100dvh;
+  color: var(--lib-ink);
+  background: var(--lib-paper);
+  font-family: var(--lib-font-sans);
+}

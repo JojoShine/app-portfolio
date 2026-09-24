@@ -1,0 +1,32 @@
+.pm-page-success {
+  padding: 0 var(--pm-page-gutter) var(--pm-space-6);
+}
+
+:where(.pm-page-success) .pm-success {
+  padding: 35px 10px;
+  text-align: center;
+}
+
+:where(.pm-page-success) .pm-success>span {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(140deg,#d2f0df,#0a7554);
+  color: white;
+  box-shadow: 0 6px 18px #237c4430;
+  margin: 0 auto 22px;
+}
+
+:where(.pm-page-success) .pm-success h1 {
+  font-size: 26px;
+  color: var(--pm-green);
+}
+
+:where(.pm-page-success) .pm-success p {
+  font-size: 13px;
+  color: #798f80;
+  margin-top: 10px;
+}

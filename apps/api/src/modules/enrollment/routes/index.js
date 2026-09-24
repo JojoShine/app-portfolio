@@ -1,5 +1,7 @@
 const express = require('express');
 const controller = require('../controllers/enrollment.controller');
+const directory = require('../controllers/directory.controller');
+const draft = require('../controllers/draft.controller');
 const { requireAuth, requireRole } = require('../../../common/middleware/authorize');
 
 const router = express.Router();
@@ -13,7 +15,8 @@ router.get('/schools/:schoolId', controller.getSchool);
 router.get('/contents', controller.getContents);
 router.get('/faqs', controller.getFaqs);
 router.get('/guides', controller.getGuides);
-router.get('/districts', controller.searchDistrict);
+router.get('/districts', directory.districts);
+router.get('/contacts', directory.contacts);
 
 // 二维码公示查询与实名报名完全隔离
 router.get('/public/captcha', controller.getCaptcha);
@@ -21,10 +24,13 @@ router.get('/public/:type/status', controller.getPublicationStatus);
 router.post('/public/:type/query', controller.publicQuery);
 
 router.use(requireAuth);
+router.get('/profile', directory.profile);
+router.get('/property-degrees', directory.propertyDegree);
 
 router.get('/applications', controller.listApplications);
 router.post('/applications', controller.createApplication);
 router.get('/applications/:applicationId', controller.getApplication);
+router.delete('/applications/:applicationId', draft.discard);
 router.patch('/applications/:applicationId/draft', controller.updateDraft);
 router.patch('/applications/:applicationId/school', controller.changeSchool);
 router.post('/applications/:applicationId/policy-confirmation', controller.confirmPolicy);

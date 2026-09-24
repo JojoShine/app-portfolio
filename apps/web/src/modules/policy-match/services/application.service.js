@@ -1,0 +1,4 @@
+import api from '../../../shared/api/api';
+import {fileCapability} from '../../../shared/capabilities/files';
+export const withdrawApplication=(id,version)=>api.post('/policy-match/applications/'+id+'/withdraw',{version});
+export const applicationService={list:(subjectType)=>api.get('/policy-match/applications',{params:{subjectType}}),get:(id)=>api.get('/policy-match/applications/'+id),create:(policyId,benefitDeclaration)=>api.post('/policy-match/applications',{policyId,benefitDeclaration}),save:(id,payload,version)=>api.patch('/policy-match/applications/'+id,{payload,version}),submit:(id,version,key)=>api.post('/policy-match/applications/'+id+'/submit',{version,key}),progress:(id,data)=>api.patch('/policy-match/applications/'+id+'/external-progress',data),upload:fileCapability.upload,attach:(id,data)=>api.post('/policy-match/applications/'+id+'/materials',data),preview:fileCapability.createObjectUrl,release:fileCapability.releaseObjectUrl};

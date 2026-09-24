@@ -1,0 +1,58 @@
+.cv-merchants-hero{position:relative;padding-top:2px}.cv-merchants-hero>.cv-icon-button{position:absolute;left:5px;top:3px;z-index:1}.cv-merchants-hero>img{width:100%}.cv-map-tabs{display:flex;border:1px solid #ddd6ca;border-radius:24px;margin:0 33px 12px;height:41px;overflow:hidden}.cv-map-tabs button{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;font-size:17px;font-weight:550}.cv-map-tabs button[aria-pressed=true]{color:var(--cv-paper);background:#d37750;border-radius:20px 7px 7px 20px}.cv-map-tabs button svg{font-size:20px}.cv-map-filters{display:flex;gap:8px;padding:0 var(--cv-page-gutter);position:relative;z-index:1;margin-bottom:-1px}.cv-map-filters button{background:#f5f2e9eb;border:1px solid #dcd8cf;border-radius:23px;min-height:33px;padding:5px 20px;font-size:14px;display:flex;gap:6px;align-items:center}.cv-map-filters button:first-child{background:#cf7049;color:var(--cv-paper);border-color:#cf7049}.cv-map{position:relative;margin-top:-1px}.cv-map>img{width:100%}.cv-map-locate{position:absolute;bottom:12px;right:12px;width:40px;height:40px;background:var(--cv-paper)!important;border-radius:50%;font-size:23px;box-shadow:0 1px 5px #3c424117;display:grid;place-content:center}.cv-nearby{position:relative;background:#fffdf8e8;border-radius:25px 25px 0 0;padding:8px 12px 16px;margin-top:-2px}.cv-nearby h2{font-family:var(--cv-font-serif);font-size:21px;font-weight:800;margin:14px 5px}.cv-nearby h2>span{font-family:sans-serif;font-size:18px;color:#d47550;margin-left:5px}.cv-merchant-card{display:flex;align-items:center;gap:11px;border:1px solid #e8e4dc;border-radius:11px;padding:8px;margin:7px 0;min-height:94px}.cv-merchant-card>img{width:78px;height:78px;object-fit:cover;border-radius:9px}.cv-merchant-card>div{flex:1;min-width:0}.cv-merchant-card h3{font-size:15px;font-weight:700;white-space:nowrap}.cv-merchant-card p{font-size:10px;color:#84909a;margin:8px 0;white-space:nowrap}.cv-merchant-card p strong{font-weight:500;color:#485764;margin-right:6px}.cv-merchant-card small{font-size:9px;color:#929aa1;display:flex;align-items:center;gap:3px;white-space:nowrap}.cv-merchant-card aside{width:59px;flex-shrink:0;align-self:stretch;display:flex;align-items:center;flex-direction:column;justify-content:space-between}.cv-merchant-card aside>span{color:#bd6948;background:#f7e7dc;font-size:10px;padding:3px 6px;border-radius:7px;white-space:nowrap}.cv-merchant-card aside>button{background:#f2f0eb;padding:7px;border-radius:50%;width:49px;height:49px;display:flex;align-items:center;flex-direction:column;justify-content:center;gap:1px;font-size:19px;color:#5d666e}.cv-merchant-card aside small{font-size:10px;color:#5d666e}.cv-nearby>.cv-text-button{width:100%;margin-top:8px}.cv-search{width:100%;border:1px solid #ddd8ce;background:#fffdf88c;border-radius:24px;padding:10px 14px;color:#253844;min-height:37px}.cv-merchant-card>div{position:relative;z-index:1}
+
+.cv-merchants-hero{padding-top:8px}.cv-merchants-hero>.cv-icon-button{top:9px}.cv-map>img{height:auto;min-height:calc(100cqw * .894)}.cv-nearby h2{font-size:18px}
+.cv-merchant-card h3 { font-size: 14px; }
+.cv-merchant-card p, .cv-merchant-card small { font-size: 11px; }
+.cv-merchant-card > div > small { white-space: normal; line-height: 1.4; }
+.cv-merchant-card > div > small svg { flex-shrink: 0; }
+.cv-merchants-hero { padding-top: var(--cv-host-top-inset, max(44px, env(safe-area-inset-top, 0px))); }
+
+.cv-merchants .cv-map-tabs { position: relative; margin: -3cqw 8.5cqw 12px; height: 10.5cqw; background: #f6f3ed; }
+.cv-merchants .cv-map-tabs button { font-size: 4.2cqw; }
+.cv-merchants .cv-map-tabs button[aria-pressed=true] { background: linear-gradient(105deg,#cd7954,#d57850); }
+.cv-merchants .cv-map-tabs button:last-child[aria-pressed=true] { border-radius: 7px 20px 20px 7px; }
+.cv-merchants .cv-map-filters { gap: 7px; padding: 0 3.5cqw; }
+.cv-merchants .cv-map-filters button { min-height: 8cqw; padding: 4px 5cqw; font-size: 3.6cqw; font-weight: 600; }
+.cv-merchants .cv-map-filters:has(+ .cv-map) { margin-bottom: -9cqw; }
+.cv-merchants .cv-map > img { display: block; width: 100%; height: auto; min-height: 0; }
+.cv-merchants .cv-map-locate { right: 3cqw; bottom: 3cqw; width: 10cqw; height: 10cqw; }
+.cv-merchants .cv-nearby { padding: 8px 3cqw max(20px,env(safe-area-inset-bottom)); background: #fcfaf6; border-radius: 24px 24px 0 0; }
+.cv-merchants .cv-nearby h2 { font-size: 5cqw; margin: 16px 6px 10px; }
+.cv-merchants .cv-nearby h2 > span { font-size: 4.4cqw; }
+.cv-merchants .cv-merchant-card { display: grid; grid-template-columns: 20cqw minmax(0,1fr) 14cqw; gap: 2.5cqw; padding: 2cqw; min-height: 24cqw; margin: 7px 0; background: #fffdf9; border-radius: 12px; }
+.cv-merchants .cv-merchant-card > img { width: 20cqw; height: 20cqw; border-radius: 8px; }
+.cv-merchants .cv-merchant-card h3 { font-size: 3.65cqw; line-height: 1.4; white-space: normal; }
+.cv-merchants .cv-merchant-card p { font-size: 2.9cqw; margin: 7px 0; white-space: normal; line-height: 1.5; }
+.cv-merchants .cv-merchant-card > div > small { font-size: 2.65cqw; line-height: 1.5; }
+.cv-merchants .cv-merchant-card aside { width: auto; }
+.cv-merchants .cv-merchant-card aside > span { font-size: 2.55cqw; padding: 3px 5px; }
+.cv-merchants .cv-merchant-card aside > button { width: 12cqw; height: 12cqw; font-size: 5cqw; }
+.cv-merchants .cv-merchant-card aside small { font-size: 2.6cqw; }
+
+.cv-merchants { min-height: calc(100dvh - env(safe-area-inset-bottom)); display: flex; flex-direction: column; }
+.cv-merchants > * { flex-shrink: 0; }
+.cv-merchants > .cv-nearby { flex: 1; }
+.cv-merchants > .cv-page-padding { padding-top: 8px; padding-bottom: 10px; }
+
+
+.cv-map-marker { position: absolute; transform: translate(-50%,-100%); width: 44px; height: 48px; display: grid; place-items: center; z-index: 1; }
+.cv-map-marker > svg { width: 25px; height: 35px; filter: drop-shadow(0 2px 2px #78634422); }
+.cv-map-marker:hover > svg, .cv-map-marker:focus-visible > svg { transform: scale(1.12); }
+
+.cv-merchants-hero { padding-top: var(--cv-host-top-inset, max(44px, env(safe-area-inset-top, 0px))); line-height: 0; }
+.cv-merchants-hero > .cv-art { display: block; width: 100%; height: auto; margin: 0; object-fit: contain; }
+.cv-merchants .cv-map-locate { color: #505963; }
+.cv-merchants .cv-map-locate > svg { width: 6cqw; height: 6cqw; }
+.cv-merchants .cv-merchant-card h3 { font-weight: 750; }
+.cv-merchants .cv-merchant-card p { font-weight: 500; }
+.cv-merchants .cv-merchant-card p strong { font-weight: 650; }
+.cv-merchants .cv-merchant-card .cv-open { font-weight: 600; }
+.cv-merchants .cv-merchant-card aside > span { font-weight: 600; }
+.cv-merchants .cv-merchant-card aside small { font-weight: 650; }
+.cv-merchants-hero { padding-top: max(0px, calc(var(--cv-host-top-inset, max(44px, env(safe-area-inset-top, 0px))) - 10cqw)); }
+
+.cv-merchants .cv-map-filters .cv-filter-chevron { width: 14px; height: 14px; flex: 0 0 14px; display: block; }
+.cv-merchants .cv-map-filters button { gap: 7px; align-items: center; line-height: 1.4; }
+
+.cv-merchants .cv-nearby > .cv-text-button { font-size: clamp(12px, 3.1cqw, 14px); font-weight: 600; line-height: 1.5; color: #56616c !important; gap: 8px; }
+.cv-merchants .cv-nearby > .cv-text-button > svg { width: 14px; height: 14px; }

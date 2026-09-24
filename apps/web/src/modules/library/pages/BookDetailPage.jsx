@@ -2,14 +2,13 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { HeartOutline, HeartFill, DownOutline, RightOutline, TagOutline } from 'antd-mobile-icons';
 import { Toast } from 'antd-mobile';
-import useLibraryQuery from '../hooks/useLibraryQuery';
-import { createBookReservation, getBook } from '../services/library.service';
+import { useLibraryBook } from '../hooks/useCatalogData';
+import { createBookReservation } from '../services/library.service';
 import AssetImage from '../components/AssetImage';
 import { PageHeader, PageState } from '../components/LibraryLayout';
-import changanDetail from '../assets/book-changan-detail.png';
 
 export default function BookDetailPage() {
-  const { id } = useParams(); const query = useLibraryQuery(() => getBook(id), [id]); const book = query.data;
+  const { id } = useParams(); const query = useLibraryBook(id); const book = query.data;
   const navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -26,7 +25,7 @@ export default function BookDetailPage() {
     : book?.description;
   const reserve = async () => { if (submitting) return; setSubmitting(true); try { const branch = book.holdings.find((item) => item.availableCopies === 0)?.branchId || book.holdings[0]?.branchId; await createBookReservation({ bookId: book.id, pickupBranchId: branch }); Toast.show('预约成功'); } catch (error) { Toast.show(error.message); } finally { setSubmitting(false); } };
   return <main className="lib-page lib-detail"><PageHeader title="图书详情" action={<button aria-label={isWanted ? '取消想读' : '加入想读'} aria-pressed={isWanted} onClick={toggleWanted}>{isWanted ? <HeartFill /> : <HeartOutline />}</button>} /><PageState {...query} onRetry={query.reload} />{book && <>
-    <section className="lib-book-hero"><div className={`lib-detail-cover ${isChangan ? 'is-product' : ''}`}>{isChangan ? <img src={changanDetail} alt={`${book.title}立体封面`} /> : <AssetImage key={book.id} remote={book.coverUrl} fallback="changan" alt={`${book.title}封面`} />}</div><div className="lib-detail-book-info"><h1>{book.title}</h1><p className="lib-detail-author">{book.author} <span>著</span></p><p>{book.publisher}<br />{book.publishedYear}年出版</p><i /><blockquote>{isChangan ? <>一骑红尘妃子笑，<br />无人知是荔枝来。</> : book.description}</blockquote><small>{isChangan ? '中国文学　|　历史小说　|　社会人文' : book.category}</small></div></section>
+    <section className="lib-book-hero"><div className={`lib-detail-cover ${isChangan ? 'is-product' : ''}`}><AssetImage key={book.id} remote={book.coverUrl} alt={`${book.title}封面`} /></div><div className="lib-detail-book-info"><h1>{book.title}</h1><p className="lib-detail-author">{book.author} <span>著</span></p><p>{book.publisher}<br />{book.publishedYear}年出版</p><i /><blockquote>{isChangan ? <>一骑红尘妃子笑，<br />无人知是荔枝来。</> : book.description}</blockquote><small>{isChangan ? '中国文学　|　历史小说　|　社会人文' : book.category}</small></div></section>
     <section className="lib-detail-section lib-detail-intro"><h2>内容简介</h2><p id="book-synopsis" className={expanded ? 'is-expanded' : ''}>{synopsis}</p><button className="lib-detail-expand" aria-expanded={expanded} aria-controls="book-synopsis" onClick={() => setExpanded(!expanded)}>{expanded ? '收起' : '展开'}<DownOutline /></button></section>
     <section className="lib-detail-section lib-holdings"><header><h2>馆藏分布</h2><span>共 {book.holdings.length} 家馆藏 <RightOutline /></span></header>{book.holdings.map((item) => <button className="lib-holding-row" key={item.id} onClick={() => navigate(`/library/branches/${item.branchId}`)}><div><h3>{item.branchName}</h3><p>{item.floor}{item.area} · <span>{item.callNumber}</span></p></div><b>{item.availableCopies ? `可借 ${item.availableCopies} 册` : '已借出 · 可预约'}</b><RightOutline /></button>)}</section>
     <p className="lib-detail-signoff">阅读，让一座城市更温暖<br />书香海安 · 与你共读</p>

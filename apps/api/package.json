@@ -12,7 +12,14 @@
     "db:migrate": "prisma migrate deploy",
     "db:migrate:dev": "prisma migrate dev",
     "db:seed": "prisma db seed",
-    "db:seed:library-media": "node prisma/seed-library-media.js"
+    "db:seed:system": "node prisma/seed.js system",
+    "db:seed:enrollment": "node prisma/seed.js enrollment",
+    "db:seed:library": "node prisma/seed.js library",
+    "db:seed:coupon": "node prisma/seed.js coupon",
+    "db:seed:snap-report": "node prisma/seed.js snap-report",
+    "db:seed:green-points": "node prisma/seed.js green-points",
+    "db:seed:quiz": "node prisma/seed.js quiz",
+    "db:seed:policy-match": "node prisma/seed.js policy-match"
   },
   "keywords": [],
   "author": "",

@@ -1,0 +1,25 @@
+.enrollment-app {
+  --enroll-primary: #1767e8;
+  --enroll-deep: #0f4fc2;
+  --enroll-pale: #edf5ff;
+  --enroll-text: #14213d;
+  --enroll-muted: #66758e;
+  --enroll-weak: #8a94a6;
+  --enroll-line: #e1e8f2;
+  --enroll-success: #17845b;
+  --enroll-warning: #b86b00;
+  --enroll-danger: #c63f3f;
+  --adm-color-primary: #1767e8;
+  --enroll-surface: #fff;
+  --enroll-background: #f5f8fc;
+  --enroll-hero-blue: #1267df;
+  --enroll-font-sans: "PingFang SC", "Microsoft YaHei", sans-serif;
+  --enroll-radius-8: 8px;
+  --enroll-radius-10: 10px;
+  --enroll-radius-12: 12px;
+  --enroll-radius-14: 14px;
+  --enroll-radius-18: 18px;
+  width: 100%;
+  min-width: 0;
+  font-family: var(--enroll-font-sans);
+}

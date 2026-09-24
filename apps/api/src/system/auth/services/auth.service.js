@@ -51,4 +51,4 @@ const verifyAccessToken = (token) => {
   }
 };
 
-module.exports = { issueDevelopmentToken, verifyAccessToken };
+module.exports = { issueDevelopmentToken, issueAccessToken: issueDevelopmentToken, verifyAccessToken };

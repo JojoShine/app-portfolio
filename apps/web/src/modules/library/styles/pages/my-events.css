@@ -1,0 +1,35 @@
+/* My events */
+.lib-my-events { padding-right: 22px; padding-left: 22px; background: var(--lib-paper) url('../../assets/library-paper.png') center / 760px auto; font-family: "Songti SC", "STSong", serif; }
+.lib-my-events .lib-page-header { min-height: 62px; grid-template-columns: 72px 1fr 72px; }
+.lib-my-events .lib-personal-tabs { margin: 8px 0 6px; }
+.lib-my-event-list { display: grid; }
+.lib-my-event-list > button { display: grid; width: 100%; min-height: 132px; padding: 17px 0; grid-template-columns: 96px minmax(0,1fr) 14px; align-items: center; gap: 14px; text-align: left; border-bottom: 1px solid rgba(184,173,155,.42); }
+.lib-my-event-list > button > img { width: 96px; height: 96px; object-fit: cover; border-radius: 5px; box-shadow: 0 5px 14px rgba(70,58,44,.1); }
+.lib-my-event-list > button > span { min-width: 0; }
+.lib-my-event-list em { display: inline-block; padding: 3px 8px; color: #a34f38; background: rgba(168,79,61,.1); border-radius: 10px; font-size: 12px; font-style: normal; }
+.lib-my-event-list em.is-waitlisted { color: #8a642b; background: rgba(196,151,74,.14); }
+.lib-my-event-list h2 { margin: 8px 0 6px; overflow: hidden; font-size: 20px; text-overflow: ellipsis; white-space: nowrap; }
+.lib-my-event-list p { margin: 0 0 8px; color: #71695e; font-size: 14px; }
+.lib-my-event-list small { display: flex; align-items: center; gap: 4px; color: #8a8175; font-size: 13px; }
+.lib-my-event-list small svg { width: 15px; height: 15px; }
+.lib-my-event-list .lib-my-event-entry { display: block; margin-top: 9px; color: #a34f38; font-size: 13px; font-weight: 500; }
+.lib-my-event-list > button > svg { width: 13px; height: 18px; color: #81796d; }
+.lib-event-registration-detail > em { display: inline-block; padding: 4px 10px; color: #a34f38; background: rgba(168,79,61,.1); border-radius: 12px; font-style: normal; }
+.lib-event-registration-detail h3 { margin: 14px 0 16px; font-size: 23px; }
+.lib-event-registration-detail > p { display: flex; margin: 9px 0; align-items: center; gap: 8px; color: #71695e; }
+.lib-event-registration-detail > p svg { width: 18px; height: 18px; color: #746d63; }
+.lib-event-checkin-code { margin-top: 20px; padding: 18px; text-align: center; border: 1px solid rgba(168,79,61,.2); border-radius: 10px; background: rgba(255,253,248,.48); }
+.lib-event-checkin-code small, .lib-event-checkin-code span { display: block; color: #8a8175; }
+.lib-event-checkin-code strong { display: block; margin: 9px 0; color: #342f2a; font-family: "Geist Mono", "SFMono-Regular", monospace; font-size: 25px; letter-spacing: .16em; }
+.lib-event-checkin-code span { font-size: 13px; }
+.lib-dialog-event-registration { overflow-x: hidden; }
+.lib-dialog-event-registration .lib-dialog-paper { overflow: hidden; }
+.lib-dialog-event-registration .lib-dialog-paper::after { position: absolute; z-index: 0; top: 104px; right: -52px; width: 340px; height: 230px; pointer-events: none; background: url('../../assets/library-ink-landscape.png') right bottom / contain no-repeat; opacity: .18; mix-blend-mode: multiply; content: ""; -webkit-mask-image: linear-gradient(135deg,transparent 4%,#000 48%,transparent 100%); mask-image: linear-gradient(135deg,transparent 4%,#000 48%,transparent 100%); }
+.lib-dialog-event-registration .lib-dialog-paper > * { position: relative; z-index: 1; }
+@media (max-width: 390px) {
+  .lib-messages .lib-message-list > button { grid-template-columns: 46px minmax(0,1fr) 8px; gap: 11px; }
+  .lib-message-icon { width: 44px; height: 44px; }
+  .lib-message-icon svg { width: 26px; height: 26px; }
+  .lib-message-row-heading { flex-wrap: wrap; gap: 2px; }
+  .lib-messages .lib-message-tabs { gap: 9px; padding-right: 10px; }
+}

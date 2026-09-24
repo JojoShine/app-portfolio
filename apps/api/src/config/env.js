@@ -40,13 +40,17 @@ const env = {
 
   FILE_STORAGE_ENABLED: toBoolean(process.env.FILE_STORAGE_ENABLED),
   MINIO_ENDPOINT: process.env.MINIO_ENDPOINT,
-  MINIO_PORT: toNumber(process.env.MINIO_PORT, 9000),
+  MINIO_PORT: toNumber(process.env.MINIO_PORT, 9100),
   MINIO_USE_SSL: toBoolean(process.env.MINIO_USE_SSL),
   MINIO_ACCESS_KEY: process.env.MINIO_ACCESS_KEY,
   MINIO_SECRET_KEY: process.env.MINIO_SECRET_KEY,
   MINIO_BUCKET: process.env.MINIO_BUCKET || 'app-portfolio',
 
   ENROLLMENT_DATA_KEY: process.env.ENROLLMENT_DATA_KEY,
+  SNAP_AI_URL: process.env.SNAP_AI_URL || '',
+  SNAP_AI_KEY: process.env.SNAP_AI_KEY || '',
+  SNAP_AI_MODEL: process.env.SNAP_AI_MODEL || '',
+  AMAP_REST_KEY: process.env.AMAP_REST_KEY || '',
 
   CORS_ORIGINS: (process.env.CORS_ORIGINS || 'http://localhost:5173')
     .split(',')

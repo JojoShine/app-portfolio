@@ -1,6 +1,8 @@
 import api from '../../../shared/api/api';
 
 export const portalService = {
+  getProfile: () => api.get('/enrollment/profile'),
+  getContacts: () => api.get('/enrollment/contacts'),
   getPortal: () => api.get('/enrollment/portal'),
   getWindows: (filters = {}) => api.get('/enrollment/windows', { params: filters }),
   getContents: (params = {}) => api.get('/enrollment/contents', { params }),

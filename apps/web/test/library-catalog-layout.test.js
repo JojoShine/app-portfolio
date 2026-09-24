@@ -2,7 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
-const css = readFileSync(new URL('../src/modules/library/library.css', import.meta.url), 'utf8');
+const css = ['pages/foundation.css', 'pages/catalog.css', 'responsive.css']
+  .map((file) => readFileSync(new URL(`../src/modules/library/styles/${file}`, import.meta.url), 'utf8')).join('\n');
 const catalog = readFileSync(new URL('../src/modules/library/pages/CatalogPage.jsx', import.meta.url), 'utf8');
 
 test('馆藏头图突破内容宽度并完整铺满页面', () => {

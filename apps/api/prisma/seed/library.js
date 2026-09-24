@@ -15,7 +15,7 @@ const ids = {
   eventLocal: '770e8400-e29b-41d4-a716-446655440303',
 };
 
-const upsert = (model, id, data) => model.upsert({ where: { id }, update: data, create: { id, ...data } });
+const upsert = (model, id, data) => model.upsert({ where: { id }, update: {}, create: { id, ...data } });
 
 async function seedLibrary(prisma) {
   await upsert(prisma.libraryBranch, ids.branchMain, {
@@ -136,4 +136,20 @@ async function seedLibrary(prisma) {
   }
 }
 
-module.exports = { seedLibrary };
+async function seedLibraryAssets(assetStore) {
+  const sourceDir = path.resolve(__dirname, 'assets/library');
+  for (const [objectKey, filename] of assets) {
+    await assetStore.uploadFile({ objectKey, sourcePath: path.join(sourceDir, filename), mimeType: 'image/png' });
+  }
+}
+
+module.exports = { seedData: seedLibrary, seedAssets: seedLibraryAssets };
+const path = require('node:path');
+
+const assets = [
+  ['library/reading-circle.png', 'reading-circle.png'],
+  ['library/branch-interior.png', 'branch-interior.png'],
+  ['library/book-human-world.png', 'book-human-world.png'],
+  ['library/book-changan.png', 'book-changan.png'],
+  ['library/book-ditan.png', 'book-ditan.png'],
+];

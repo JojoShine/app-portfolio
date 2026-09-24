@@ -1,0 +1,142 @@
+/// 政策匹配个人或企业画像
+model PolicyMatchProfile {
+  /// 画像标识
+  id String @id @default(uuid()) @db.Uuid
+  /// 所属认证用户
+  userId String @db.VarChar(255)
+  /// 个人或企业
+  subjectType String @db.VarChar(20)
+  /// 结构化画像
+  payload Json @default("{}")
+  /// 乐观锁版本
+  version Int @default(1)
+  /// 更新时刻
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+  @@unique([userId, subjectType])
+  @@map("policy_match_profiles")
+}
+
+/// 通用演示政策和规则
+model PolicyDefinition {
+  /// 稳定政策标识
+  id String @id @db.VarChar(80)
+  /// 政策名称
+  title String @db.VarChar(200)
+  /// 适用主体
+  subjectType String @db.VarChar(20)
+  /// 政策类别
+  category String @db.VarChar(30)
+  /// 支持摘要
+  benefit String @db.VarChar(100)
+  /// 排序用支持金额
+  amount Int @default(0)
+  /// 办理方式
+  channel String @db.VarChar(20)
+  /// 截止时刻
+  endsAt DateTime @db.Timestamptz(6)
+  /// 是否发布
+  active Boolean @default(true)
+  /// 政策及规则版本
+  version Int @default(1)
+  /// 政策说明
+  description String @db.Text
+  /// 可解释条件规则
+  rules Json
+  /// 申报周期、重复享受和叠加互斥规则及来源
+  benefitRules Json @default("{}")
+  /// 材料要求
+  materials Json
+  /// 外部办理网址，空值为未配置
+  externalUrl String? @db.VarChar(500)
+  /// 收藏关系
+  favorites PolicyFavorite[]
+  /// 申请关系
+  applications PolicyApplication[]
+  @@map("policy_definitions")
+}
+
+/// 用户收藏的政策
+model PolicyFavorite {
+  /// 所属用户
+  userId String @db.VarChar(255)
+  /// 政策标识
+  policyId String @db.VarChar(80)
+  /// 政策关系
+  policy PolicyDefinition @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  /// 收藏时刻
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  @@id([userId, policyId])
+  @@map("policy_favorites")
+}
+
+/// 不可变匹配结果快照
+model PolicyMatchSnapshot {
+  /// 快照标识
+  id String @id @default(uuid()) @db.Uuid
+  /// 所属用户
+  userId String @db.VarChar(255)
+  /// 主体类型
+  subjectType String @db.VarChar(20)
+  /// 当次画像
+  profile Json
+  /// 政策及规则与解释快照
+  results Json
+  /// 匹配时刻
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  @@index([userId, subjectType, createdAt])
+  @@map("policy_match_snapshots")
+}
+
+/// 站内申请或外部办理记录
+model PolicyApplication {
+  /// 申请标识
+  id String @id @default(uuid()) @db.Uuid
+  /// 所属用户
+  userId String @db.VarChar(255)
+  /// 主体类型
+  subjectType String @db.VarChar(20)
+  /// 政策标识
+  policyId String @db.VarChar(80)
+  /// 政策关系
+  policy PolicyDefinition @relation(fields: [policyId], references: [id])
+  /// 当前状态
+  status String @default("draft") @db.VarChar(40)
+  /// 创建时政策版本
+  policyVersion Int
+  /// 乐观锁版本
+  version Int @default(1)
+  /// 申请信息与提交快照
+  payload Json @default("{}")
+  /// 外部准备材料代码
+  prepared Json @default("[]")
+  /// 演示受理编号
+  receipt String? @unique @db.VarChar(80)
+  /// 提交幂等键
+  submissionKey String? @db.VarChar(100)
+  /// 事件时间线
+  events Json @default("[]")
+  /// 文件关联
+  materials PolicyApplicationMaterial[]
+  /// 创建时刻
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  /// 更新时刻
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+  @@index([userId, subjectType, updatedAt])
+  @@map("policy_applications")
+}
+
+/// 政策申请的私有文件关联
+model PolicyApplicationMaterial {
+  /// 申请标识
+  applicationId String @db.Uuid
+  /// 材料项目代码
+  code String @db.VarChar(80)
+  /// 私有文件标识
+  fileId String @db.Uuid
+  /// 申请关系
+  application PolicyApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  /// 文件关系
+  file File @relation(fields: [fileId], references: [id], onDelete: Restrict)
+  @@id([applicationId, code])
+  @@map("policy_application_materials")
+}

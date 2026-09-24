@@ -1,0 +1,119 @@
+.school-filter-bar,
+.sticky-search {
+  position: sticky;
+  top: 54px;
+  z-index: 12;
+  padding: 13px 16px;
+  background: rgba(244, 246, 250, .96);
+  backdrop-filter: blur(12px);
+}
+
+.school-filter-bar p {
+  display: flex;
+  margin: 0 0 12px;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.school-filter-bar p svg { color: var(--enroll-primary); }
+.school-filter-bar .adm-search-bar,
+.sticky-search .adm-search-bar { --background: #fff; --border-radius: 12px; }
+
+.school-list-content { padding-top: 6px; }
+.school-card { position: relative; margin-bottom: 14px; overflow: hidden; border: 1px solid var(--enroll-line); border-radius: var(--enroll-radius-14); background: radial-gradient(circle at 94% 20%, rgba(83, 147, 242, .08), transparent 33%), linear-gradient(135deg, var(--enroll-surface) 0%, #fbfdff 58%, #f2f7ff 100%); box-shadow: 0 5px 18px rgba(26, 44, 82, .045); }
+.school-card::after {
+  position: absolute;
+  right: 0;
+  bottom: 16px;
+  left: 0;
+  width: 100%;
+  height: 132px;
+  background: center bottom / 100% 100% no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 430 150' preserveAspectRatio='none' fill='none'%3E%3Cg stroke='%232e75d5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke-width='1.5' d='M8 135h414M82 132V68h218v64M100 68l90-36 92 36M190 32V12h42l-12 7 12 8h-42M126 132V82h130v50M177 132v-29h38v29M143 91h18v10h-18zM221 91h18v10h-18zM145 112h16v9h-16zM222 112h16v9h-16z'/%3E%3Cpath stroke-width='1.3' d='M82 87H42v45M42 96H12v36M300 87h48v45M348 98h58v34M54 106h17M54 119h17M20 108h13M20 121h13M310 102h25M310 116h25M360 109h32M360 122h32'/%3E%3Cpath stroke-width='1.4' d='M29 135c5-8 5-19 5-29M21 113c4-7 8-11 13-14 5 3 10 8 14 14M382 135c5-9 5-20 5-29M376 113c3-7 7-12 11-15 5 4 10 9 14 15M67 135c3-6 3-13 3-20M63 120c2-5 4-8 7-10 3 2 6 5 8 10M324 135c3-6 3-13 3-20M318 121c3-5 6-9 9-11 4 3 7 6 10 11'/%3E%3Cpath stroke-width='1.1' d='M6 141c60-5 110-5 158 0s99 5 150 0 81-4 110-1M19 49c18-6 39-6 57 0M326 44c18-6 40-6 59 0'/%3E%3C/g%3E%3Cpath fill='%232e75d5' fill-opacity='.06' d='M82 68h218v64H82zM42 87h40v45H42zM300 87h48v45h-48zM348 98h58v34h-58z'/%3E%3C/svg%3E");
+  content: '';
+  opacity: .12;
+  pointer-events: none;
+}
+.school-card .adm-card-body { position: relative; z-index: 1; }
+.school-card.is-selected::after { opacity: .17; }
+.school-card.is-selected { border: 2px solid var(--enroll-primary); }
+.school-card__head { display: flex; align-items: center; gap: 12px; }
+.school-card__icon { display: grid; width: 54px; height: 54px; flex: 0 0 auto; color: var(--enroll-surface); font-size: 26px; background: var(--enroll-primary); border-radius: 50%; place-items: center; }
+.school-card__head > div { min-width: 0; flex: 1; }
+.school-card__head strong { font-size: 18px; }
+.school-card__summary { display: flex; min-width: 0; align-items: flex-start; flex-direction: column; gap: 5px; }
+.school-card__summary strong { display: -webkit-box; width: 100%; overflow: hidden; line-height: 1.4; overflow-wrap: anywhere; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.school-card__check { flex: 0 0 auto; color: var(--enroll-primary); font-size: 24px; }
+.school-card__radio { width: 24px; height: 24px; flex: 0 0 auto; border: 2px solid #b6becb; border-radius: 50%; }
+.school-card__facts { margin: 14px 0 0 66px; }
+.school-card__facts p { display: flex; margin: 8px 0; align-items: flex-start; gap: 9px; color: var(--enroll-muted); font-size: 14px; line-height: 21px; }
+.school-card__facts svg { flex: 0 0 auto; margin-top: 2px; color: var(--enroll-primary); }
+.school-card__policy { display: flex; width: calc(100% - 66px); margin: 13px 0 0 66px; padding: 13px 0 0; align-items: center; justify-content: space-between; color: var(--enroll-primary) !important; background: none; border: 0; border-top: 1px solid var(--enroll-line); }
+.sticky-search.faq-search {
+  padding-top: 11px;
+  padding-bottom: 11px;
+  background: #f4f7fb;
+  border-bottom: 1px solid #e5ebf2;
+}
+
+.school-card__icon {
+  display: block;
+  padding: 0;
+  object-fit: cover;
+  background: transparent !important;
+  box-shadow: none;
+}
+.school-card__icon { width: 58px; height: 58px; border-radius: 50%; }
+
+.school-filter-bar { padding: 17px 21px 14px; }
+.school-filter-bar p { margin-bottom: 17px; font-size: 15px; }
+.school-filter-bar .adm-search-bar-input-box { height: 44px; }
+.school-list-content { padding: 8px 17px 95px; }
+.school-card { border-radius: 9px; }
+.school-card .adm-card-body { padding: 18px 15px; }
+.school-card__head { align-items: flex-start; gap: 15px; }
+.school-card__head strong { font-size: 20px; line-height: 28px; }
+.school-card__facts { margin: 11px 0 0 73px; }
+.school-card__facts p { margin: 9px 0; font-size: 14px; }
+.school-card__policy { width: calc(100% - 73px); margin-left: 73px; }
+
+.school-filter-bar,
+.sticky-search { top: calc(56px + env(safe-area-inset-top)); padding: 13px 18px; background: var(--enroll-background); backdrop-filter: none; }
+.school-filter-bar .adm-search-bar,
+.sticky-search .adm-search-bar { --border-radius: 22px; }
+.school-card { margin-bottom: 13px; border-radius: var(--enroll-radius-12); box-shadow: 0 4px 15px rgba(31,65,110,.05); }
+.school-card .adm-card-body { padding: 17px; }
+.school-card__icon { width: 50px; height: 50px; font-size: 24px; }
+.school-card__head strong { font-size: 17px; }
+
+.school-list-content .school-card { border-radius: 9px; }
+.school-list-content .school-card.is-selected { border: 2px solid var(--enroll-primary); }
+.school-list-content .school-card .adm-card-body { padding: 16px; }
+.school-list-content .school-card__icon { width: 58px; height: 58px; }
+.school-list-content .school-card__facts { margin: 7px 0 0 73px; }
+.school-list-content .school-card__facts p { margin: 6px 0; line-height: 20px; }
+.school-list-content .school-card__policy { width: calc(100% - 73px); margin: 9px 0 0 73px; padding-top: 10px; }
+.school-filter-bar p { margin-bottom: 20px; }
+.school-filter-bar {
+  padding: 21px 20px 17px;
+  background: #f4f8ff;
+}
+.school-filter-bar p {
+  margin-bottom: 16px;
+  gap: 9px;
+  font-size: 16px;
+  line-height: 22px;
+}
+.school-filter-bar p svg { font-size: 20px; }
+.school-filter-bar .adm-search-bar-input-box {
+  height: 44px;
+  padding-left: 12px;
+  border: 1px solid #e7edf7;
+  border-radius: 24px;
+  box-shadow: 0 3px 10px rgba(44, 74, 117, .06);
+}
+.school-list-content .school-card__facts { margin-top: 8px; }
+.school-filter-bar,
+.sticky-search {
+  top: env(safe-area-inset-top);
+}

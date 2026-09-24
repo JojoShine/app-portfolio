@@ -1,0 +1,126 @@
+.district-policy-card {
+  border: 1px solid var(--enroll-line);
+  border-radius: var(--enroll-radius-14);
+  box-shadow: 0 6px 20px rgba(26, 44, 82, .05);
+}
+.district-search-box .adm-input { min-height: 48px; padding: 0 12px; background: #f8faff; border: 1px solid var(--enroll-line); border-radius: var(--enroll-radius-10); }
+.district-policy-card h2 { margin: 12px 0 8px; font-size: 18px; line-height: 26px; }
+.district-policy-card p { color: var(--enroll-muted); line-height: 22px; }
+.district-search-box { display: flex; align-items: center; gap: 9px; padding: 12px; background: var(--enroll-surface); border: 1px solid var(--enroll-line); border-radius: 13px; }
+.district-search-box > svg { color: var(--enroll-primary); font-size: 22px; }
+.district-search-box .adm-input { flex: 1; }
+.district-result-list .adm-card { margin: 0; border: 1px solid var(--enroll-line); border-radius: var(--enroll-radius-12); }
+.district-result-list .adm-card + .adm-card { margin-top: 12px; }
+.district-result-list .adm-card-body { padding: 15px; }
+.district-result-list h3 { display: flex; margin: 0 0 12px; align-items: center; gap: 8px; }
+.district-result-list h3 svg { color: var(--enroll-primary); }
+.district-result-list p { display: grid; grid-template-columns: 74px 1fr; gap: 8px; margin: 7px 0 0; color: var(--enroll-muted); line-height: 22px; }
+.district-result-list { margin-bottom: 16px; }
+.district-query-tabs { margin-bottom: 16px; }
+.district-query-tabs .adm-tabs-header {
+  margin-bottom: 15px;
+  background: var(--enroll-surface);
+  border: 1px solid #e0e7f0;
+  border-radius: var(--enroll-radius-10);
+}
+.district-query-tabs .adm-tabs-tab {
+  min-height: 46px;
+  padding: 12px 0;
+  color: #66758c;
+  font-size: 15px;
+}
+.district-query-tabs .adm-tabs-tab-active { color: var(--enroll-primary); font-weight: 600; }
+.district-query-tabs .adm-tabs-tab-line { height: 3px; background: var(--enroll-primary); border-radius: 3px; }
+.district-query-tabs .adm-tabs-content { padding: 0; }
+.district-region-map {
+  position: relative;
+  height: 264px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  background: #edf3f7;
+  border: 1px solid #d6e0e9;
+  border-radius: 11px;
+}
+.district-region-map__water {
+  position: absolute;
+  top: -35px;
+  bottom: 35px;
+  left: -42px;
+  width: 78px;
+  background: #b8dcf2;
+  border-right: 7px solid rgba(255,255,255,.75);
+  border-radius: 45%;
+  transform: rotate(7deg);
+}
+.district-region-map__areas { position: absolute; inset: 12px 12px 44px 22px; }
+.district-region {
+  position: absolute;
+  display: grid;
+  padding: 8px;
+  color: #28516e;
+  font-size: 12px;
+  font-weight: 600;
+  border: 3px solid var(--enroll-surface);
+  place-items: center;
+  transition: filter .15s ease, transform .15s ease;
+}
+.district-region span { padding: 4px 7px; background: rgba(255,255,255,.72); border-radius: 999px; }
+.district-region--1 { top: 2%; left: 2%; width: 50%; height: 49%; background: #a9d7c0; clip-path: polygon(5% 10%, 88% 0, 100% 78%, 73% 100%, 0 88%); }
+.district-region--2 { top: 0; right: 0; width: 49%; height: 52%; background: #b8d2f0; clip-path: polygon(4% 8%, 92% 0, 100% 78%, 66% 100%, 0 82%); }
+.district-region--3 { bottom: 0; left: 0; width: 51%; height: 51%; background: #f0d5a9; clip-path: polygon(0 9%, 70% 0, 100% 25%, 88% 100%, 8% 91%); }
+.district-region--4 { right: 0; bottom: 0; width: 51%; height: 51%; background: #c8c0e8; clip-path: polygon(4% 22%, 68% 0, 100% 9%, 94% 90%, 15% 100%); }
+.district-region.is-selected {
+  z-index: 2;
+  color: var(--enroll-surface);
+  background: var(--enroll-primary);
+  filter: drop-shadow(0 5px 8px rgba(23,103,232,.28));
+  transform: scale(1.025);
+}
+.district-region.is-selected span { background: rgba(12,67,157,.54); }
+.district-region-map__legend {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  height: 43px;
+  padding: 0 12px;
+  align-items: center;
+  gap: 7px;
+  color: #53647b;
+  font-size: 11px;
+  background: rgba(255,255,255,.94);
+  border-top: 1px solid #dde5ed;
+}
+.district-region-map__legend i { width: 11px; height: 11px; background: #a9d7c0; border-radius: 3px; }
+.district-region-map__legend span { margin-left: auto; color: #8995a6; }
+.district-region-summary {
+  margin-bottom: 12px;
+  padding: 13px 14px;
+  background: #eef5ff;
+  border: 1px solid #cddff8;
+  border-radius: 9px;
+}
+.district-region-summary strong { color: #2059a8; font-size: 15px; line-height: 22px; }
+.district-region-summary p { margin: 5px 0 0; color: #596b83; font-size: 13px; line-height: 21px; }
+.district-query-tabs .district-search-box {
+  position: relative;
+  margin-bottom: 12px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+.district-query-tabs .district-search-box > svg { position: absolute; left: 14px; z-index: 2; }
+.district-query-tabs .district-search-box .adm-input {
+  min-height: 50px;
+  padding-left: 43px;
+  background: var(--enroll-surface);
+  border-color: #cfd9e5;
+}
+.district-query-tabs + .compact-notice { margin-top: 16px; }
+
+.district-policy-card {
+  border-radius: var(--enroll-radius-12);
+  box-shadow: 0 4px 15px rgba(31, 65, 110, .05);
+}
+.service-tabs.district-query-tabs .adm-tabs-header { margin-bottom: 16px; }

@@ -1,0 +1,33 @@
+.pm-app {
+  --pm-green: #09654e;
+  --pm-focus: #268567;
+  --pm-selected: #e0f1e5;
+  --pm-selected-border: #c3e3cc;
+  --pm-weight-medium: 500;
+  --pm-weight-semibold: 600;
+  --pm-weight-bold: 700;
+  --pm-ink: #17251f;
+  --pm-muted: #768079;
+  --pm-border: #e6ece7;
+  --pm-background: #f3f7f5;
+  --pm-surface: #fff;
+  --pm-surface-raised: #fcfefd;
+  --pm-font-sans: "PingFang SC","Microsoft YaHei",sans-serif;
+  --pm-page-gutter: 16px;
+  --pm-space-1: 4px;
+  --pm-space-2: 8px;
+  --pm-space-3: 12px;
+  --pm-space-4: 16px;
+  --pm-space-5: 20px;
+  --pm-space-6: 24px;
+  --pm-radius-sm: 8px;
+  --pm-radius-md: 10px;
+  --pm-radius-card: 15px;
+  --pm-radius-hero: 18px;
+  --pm-text-xs: 11px;
+  --pm-text-sm: 12px;
+  --pm-text-body: 15px;
+  --pm-text-title: 20px;
+  --pm-text-heading: 29px;
+  --pm-touch-target: 48px;
+}

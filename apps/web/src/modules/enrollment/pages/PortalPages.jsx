@@ -25,7 +25,6 @@ import {
 } from 'antd-mobile-icons';
 import {
   CATEGORIES,
-  CURRENT_YEAR,
   STAGES,
 } from '../domain/constants';
 import useEnrollmentStore from '../store/enrollmentStore';
@@ -82,11 +81,14 @@ const GUIDE_STEP_ICONS = [AppOutline, ContentOutline, CheckShieldOutline, FileOu
 
 export const ApplicationListPage = () => {
   const navigate = useNavigate();
+  const year = useEnrollmentStore((state) => state.seasonYear);
   const fallbackApplication = useEnrollmentStore((state) => state.application);
+  const resetDraft = useEnrollmentStore((state) => state.resetDraft);
   const [source, setSource] = useState(fallbackApplication ? [fallbackApplication] : []);
   const [studentName, setStudentName] = useState('all');
   const [stageId, setStageId] = useState('all');
   const [loadError, setLoadError] = useState('');
+  const [deletingId, setDeletingId] = useState('');
   const applications = useMemo(() => source.filter((application) => (
     (studentName === 'all' || application.studentName === studentName)
     && (stageId === 'all' || application.stage === stageId)
@@ -102,11 +104,33 @@ export const ApplicationListPage = () => {
       .then(setSource)
       .catch((error) => setLoadError(error.message || '报名记录加载失败'));
   }, [fallbackApplication]);
+
+  const deleteDraft = async (event, application) => {
+    event.stopPropagation();
+    const confirmed = await Dialog.confirm({
+      content: '确定删除这条待提交报名吗？删除后无法恢复。',
+      confirmText: '删除',
+      cancelText: '取消',
+    });
+    if (!confirmed) return;
+    setDeletingId(application.id);
+    try {
+      await enrollmentService.deleteApplication(application.id);
+      setSource((items) => items.filter((item) => item.id !== application.id));
+      if (fallbackApplication?.id === application.id) resetDraft();
+      Toast.show({ content: '待提交报名已删除' });
+    } catch (error) {
+      Toast.show({ content: error.message || '删除失败' });
+    } finally {
+      setDeletingId('');
+    }
+  };
+
   return (
     <div className="enrollment-page">
       <main className="enrollment-content application-list-page">
         <section className="application-filter-panel">
-          <strong><CalendarOutline /> {CURRENT_YEAR}年招生</strong>
+          <strong><CalendarOutline /> {year}年招生</strong>
           <div className="application-filter-controls">
             <Picker
               columns={[studentOptions]}
@@ -153,7 +177,19 @@ export const ApplicationListPage = () => {
                 <p><span>报名编号</span><strong title={application.applicationNumber || application.id}>{application.applicationNumber || application.id}</strong></p>
                 <p><span>更新时间</span><strong>{formatDateTime(application.updatedAt)}</strong></p>
               </div>
-              <button type="button">查看详情</button>
+              <div className="application-list-card__actions">
+                {application.status === '待提交' && (
+                  <button
+                    type="button"
+                    className="application-list-card__delete"
+                    disabled={deletingId === application.id}
+                    onClick={(event) => deleteDraft(event, application)}
+                  >
+                    {deletingId === application.id ? '删除中…' : '删除草稿'}
+                  </button>
+                )}
+                <button type="button" onClick={(event) => { event.stopPropagation(); navigate(`/enrollment/applications/${application.id}`); }}>查看详情</button>
+              </div>
             </Card>
           ))}
         </div>
@@ -171,6 +207,7 @@ export const ApplicationDetailPage = () => {
   const [loadError, setLoadError] = useState('');
   const markRead = useEnrollmentStore((state) => state.markApplicationRead);
   const hydrateDraftFromServer = useEnrollmentStore((state) => state.hydrateDraftFromServer);
+  const resetDraft = useEnrollmentStore((state) => state.resetDraft);
 
   useEffect(() => {
     enrollmentService.getApplication(applicationId).then((record) => {
@@ -219,6 +256,7 @@ export const ApplicationDetailPage = () => {
       cancelText: '取消',
       onConfirm: () => {
         enrollmentService.deleteApplication(applicationId).then(() => {
+          resetDraft();
           Toast.show({ content: '已删除' });
           navigate('/enrollment/applications');
         }).catch((error) => {
@@ -348,6 +386,7 @@ export const SchedulePage = () => {
 };
 
 export const PoliciesPage = () => {
+  const year = useEnrollmentStore((state) => state.seasonYear);
   const [policy, setPolicy] = useState(null);
   const [loadError, setLoadError] = useState('');
 
@@ -368,7 +407,7 @@ export const PoliciesPage = () => {
               <span>招生政策</span>
               <h1>{policy.title}</h1>
               <p>{policy.summary}</p>
-              <div><time>{CURRENT_YEAR}年发布</time><i />适用于本年度招生报名</div>
+              <div><time>{year}年发布</time><i />适用于本年度招生报名</div>
             </header>
             <div className="policy-document__body">
               {policy.content?.sections?.map((section) => (
@@ -462,7 +501,7 @@ export const DistrictLookupPage = () => {
 
   const selectRegion = (region) => {
     setSelectedRegion(region);
-    runSearch({ regionId: region.id, keyword: region.name });
+    runSearch({ regionId: region.id });
   };
 
   const changeMode = (key) => {
@@ -580,7 +619,7 @@ export const PropertyDegreeLookupPage = () => {
             <SectionTitle>查询结果</SectionTitle>
             <Card className={`property-degree-status property-degree-status--${result.degree?.status}`}>
               <div className="property-degree-result__status">
-                {result.degree?.status === 'occupied' ? <ExclamationCircleOutline /> : <CheckCircleFill />}
+                {result.degree?.status === 'available' ? <CheckCircleFill /> : <ExclamationCircleOutline />}
                 <div><strong>{result.degree?.label}</strong></div>
               </div>
               <p><span>查询方式</span>{result.queryType === 'address' ? '房产地址' : '产权证号'}</p>
@@ -651,6 +690,7 @@ export const GuidePage = () => {
 
 export const PublicQueryPage = () => {
   const navigate = useNavigate();
+  const year = useEnrollmentStore((state) => state.seasonYear);
   const { type } = useParams();
   const finalQuery = type === 'final';
   const [name, setName] = useState('');
@@ -725,7 +765,7 @@ export const PublicQueryPage = () => {
 
   return (
     <div className="enrollment-page public-query-page">
-      <GovHero title={finalQuery ? '录取结果查询' : '初审公示查询'} subtitle={`${CURRENT_YEAR}年招生报名`} visual="public" />
+      <GovHero title={finalQuery ? '录取结果查询' : '初审公示查询'} subtitle={`${year}年招生报名`} visual="public" />
       <main className="enrollment-content">
         <Card className="public-query-card">
           <SectionTitle>请输入学生信息</SectionTitle>

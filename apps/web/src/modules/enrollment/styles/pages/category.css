@@ -1,0 +1,149 @@
+.stage-switcher-wrap {
+  padding: 25px 16px 18px;
+  background: #eaf3ff;
+}
+
+.stage-switcher-wrap > strong {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--enroll-primary);
+  font-size: 20px;
+}
+
+.stage-switcher {
+  display: flex;
+  overflow-x: auto;
+  padding: 5px;
+  background: rgba(255, 255, 255, .88);
+  border-radius: 13px;
+}
+
+.stage-switcher button {
+  display: flex;
+  min-width: max-content;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 12px;
+  color: var(--enroll-muted);
+  font-size: 13px;
+  background: transparent;
+  border: 0;
+  border-radius: var(--enroll-radius-10);
+}
+
+.stage-switcher button.is-active {
+  color: var(--enroll-surface);
+  font-weight: 600;
+  background: var(--enroll-primary);
+}
+
+.category-options {
+  display: grid;
+  gap: 14px;
+}
+
+.category-option {
+  display: flex;
+  min-height: 116px;
+  align-items: center;
+  gap: 16px;
+  padding: 18px;
+  text-align: left;
+  background: var(--enroll-surface);
+  border: 1px solid var(--enroll-line);
+  border-radius: var(--enroll-radius-14);
+  box-shadow: 0 6px 20px rgba(26, 44, 82, .05);
+}
+
+.category-option.is-selected { border: 2px solid var(--enroll-primary); background: #f8fbff; }
+.category-option__icon { display: grid; width: 62px; height: 62px; flex: 0 0 auto; color: var(--enroll-primary); font-size: 30px; background: var(--enroll-pale); border-radius: 50%; place-items: center; }
+.category-option--green .category-option__icon { color: #2b8f64; background: #eaf7f0; }
+.category-option--orange .category-option__icon { color: #d96a18; background: #fff1e5; }
+.category-option > span:nth-child(2) { min-width: 0; flex: 1; }
+.category-option strong,
+.category-option small { display: block; }
+.category-option strong { font-size: 21px; }
+.category-option small { margin-top: 7px; color: var(--enroll-muted); font-size: 14px; line-height: 21px; }
+.category-option > svg { color: var(--enroll-primary); font-size: 24px; }
+
+.category-option__icon {
+  display: block;
+  padding: 0;
+  object-fit: cover;
+  background: transparent !important;
+  box-shadow: none;
+}
+.category-option__icon { width: 70px; height: 70px; border-radius: 50%; }
+
+
+.stage-switcher-wrap {
+  position: relative;
+  overflow: hidden;
+  min-height: 141px;
+  padding: 33px 16px 17px;
+  background: #eaf4ff;
+}
+.stage-switcher-wrap::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 252px;
+  height: 78px;
+  background: url('../../assets/reference/hero-category-art.png') right top / auto 78px no-repeat;
+  opacity: 1;
+  content: '';
+}
+.stage-switcher-wrap > * { position: relative; z-index: 1; }
+.stage-switcher-wrap > strong { margin-bottom: 18px; font-size: 22px; }
+.stage-switcher {
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--enroll-radius-14);
+  box-shadow: 0 6px 20px rgba(31,74,130,.06);
+  scrollbar-width: none;
+}
+.stage-switcher::-webkit-scrollbar { display: none; }
+.stage-switcher button { min-width: 0; min-height: 43px; padding-inline: 6px; font-size: 14px; white-space: nowrap; }
+.category-options { gap: 15px; }
+.category-option { min-height: 115px; padding: 17px 16px; border-radius: var(--enroll-radius-8); }
+.category-option strong { font-size: 22px; }
+.category-option small { font-size: 14px; }
+
+.stage-switcher-wrap {
+  padding: 22px 18px 17px;
+  background: linear-gradient(180deg, #eaf4ff 0%, #f4f8fd 100%);
+}
+.stage-switcher-wrap > strong { margin-bottom: 13px; font-size: 19px; }
+.stage-switcher { padding: 4px; border: 1px solid #dfe9f7; border-radius: var(--enroll-radius-10); }
+.stage-switcher button { padding: 10px 8px; border-radius: var(--enroll-radius-8); }
+
+.category-options { gap: 13px; }
+.category-option {
+  min-height: 108px;
+  padding: 17px;
+  border-radius: var(--enroll-radius-12);
+  box-shadow: 0 4px 14px rgba(31, 65, 110, .05);
+}
+.category-option__icon { width: 58px; height: 58px; font-size: 28px; }
+.category-option strong { font-size: 19px; }
+.category-option small { margin-top: 5px; font-size: 13px; }
+.category-page .stage-switcher-wrap {
+  min-height: calc(141px + env(safe-area-inset-top));
+  padding: calc(33px + env(safe-area-inset-top)) 18px 17px;
+}
+.category-page .stage-switcher-wrap::before {
+  top: env(safe-area-inset-top);
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  background: url('../../assets/reference/hero-category-complete.png') right bottom / auto 125% no-repeat;
+  mask-image: linear-gradient(to right, transparent 20%, #000 65%), linear-gradient(to bottom, #000 45%, transparent 92%);
+  mask-composite: intersect;
+}
+.category-page .stage-switcher {
+  position: relative;
+  z-index: 2;
+  border: 0;
+}

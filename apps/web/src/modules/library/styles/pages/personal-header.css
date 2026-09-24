@@ -1,0 +1,23 @@
+/* Shared top display area for pages entered from My. */
+.lib-page.lib-personal-subpage { padding-top: 0; }
+.lib-personal-page-hero {
+  width: calc(100% + 44px);
+  min-height: calc(clamp(150px, 38vw, 178px) + env(safe-area-inset-top));
+  margin: 0 -22px;
+  padding: calc(10px + env(safe-area-inset-top)) 22px 20px;
+  overflow: hidden;
+  background-image: linear-gradient(to bottom, rgba(250,247,240,.1), rgba(250,247,240,.06) 70%, #f4f0e8 100%), url('../../assets/personal-subpage-header.png');
+  background-position: center, center bottom;
+  background-size: 100% 100%, cover;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid rgba(173,159,140,.26);
+}
+.lib-personal-page-hero .lib-page-header { min-height: 62px; grid-template-columns: 72px minmax(0,1fr) 72px; }
+.lib-personal-page-hero .lib-page-header h1 { overflow: hidden; font-size: 24px; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
+.lib-personal-page-hero .lib-page-header > div > button { font-family: "Songti SC", "STSong", serif; }
+
+@media (max-width: 380px) {
+  .lib-personal-page-hero { min-height: calc(148px + env(safe-area-inset-top)); }
+  .lib-personal-page-hero .lib-page-header { grid-template-columns: 64px minmax(0,1fr) 64px; }
+  .lib-personal-page-hero .lib-page-header h1 { font-size: 22px; }
+}

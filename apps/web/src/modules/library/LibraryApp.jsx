@@ -8,12 +8,16 @@ import BookReservationsPage from './pages/BookReservationsPage';
 import SeatSelectionPage from './pages/SeatSelectionPage';
 import EventsPage from './pages/EventsPage';
 import EventDetailPage from './pages/EventDetailPage';
+import MyEventsPage from './pages/MyEventsPage';
 import ReadingPlanPage from './pages/ReadingPlanPage';
 import BranchDetailPage from './pages/BranchDetailPage';
 import MessagesPage from './pages/MessagesPage';
 import ProfilePage from './pages/ProfilePage';
+import FavoritesPage from './pages/FavoritesPage';
+import ReadingHistoryPage from './pages/ReadingHistoryPage';
+import BorrowingRulesPage from './pages/BorrowingRulesPage';
 import LoginPage from './pages/LoginPage';
-import './library.css';
+import './styles/index.css';
 
 export default function LibraryApp() {
   const { pathname } = useLocation();
@@ -27,10 +31,14 @@ export default function LibraryApp() {
     <Route path="seats" element={<SeatSelectionPage />} />
     <Route path="events" element={<EventsPage />} />
     <Route path="events/:id" element={<EventDetailPage />} />
+    <Route path="my-events" element={<MyEventsPage />} />
     <Route path="reading-plan" element={<ReadingPlanPage />} />
     <Route path="branches/:id" element={<BranchDetailPage />} />
     <Route path="messages" element={<MessagesPage />} />
     <Route path="profile" element={<ProfilePage />} />
+    <Route path="favorites" element={<FavoritesPage />} />
+    <Route path="reading-history" element={<ReadingHistoryPage />} />
+    <Route path="rules" element={<BorrowingRulesPage />} />
     <Route path="login" element={<LoginPage />} />
     <Route path="*" element={<Navigate to="/library" replace />} />
   </Routes></div>;

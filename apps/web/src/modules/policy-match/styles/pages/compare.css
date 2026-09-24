@@ -1,0 +1,56 @@
+.pm-app .pm-page-compare {
+  --pm-page-gutter: 12px;
+  --pm-compare-blue: #3264af;
+  --pm-compare-blue-surface: #f2f6fc;
+  --pm-compare-green-surface: #f0f8f5;
+  --pm-compare-orange: #c56713;
+  padding: 0 var(--pm-page-gutter) calc(18px + env(safe-area-inset-bottom));
+}
+.pm-app .pm-compare-demo { padding: 5px 8px; border-radius: var(--pm-radius-sm); background: var(--pm-selected); color: var(--pm-green); font-size: 11px; }
+.pm-page-compare .pm-compare-hero { min-height: 136px; margin: 0 0 10px; padding: 16px 12px; border-radius: var(--pm-radius-hero); background-size: cover; background-position: center; }
+.pm-page-compare .pm-compare-hero h1 { color: var(--pm-green); font-size: 24px; line-height: 1.3; font-weight: var(--pm-weight-bold); letter-spacing: -.5px; }
+.pm-page-compare .pm-compare-hero p { margin-top: 8px; color: #31594e; font-size: 11px; line-height: 1.6; }
+.pm-page-compare .pm-compare-policies { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 7px; margin-bottom: 8px; }
+.pm-page-compare .is-a { --pm-column-color: var(--pm-green); --pm-column-surface: var(--pm-compare-green-surface); }
+.pm-page-compare .is-b { --pm-column-color: var(--pm-compare-blue); --pm-column-surface: var(--pm-compare-blue-surface); }
+.pm-page-compare .pm-compare-summary { display: block; min-width: 0; padding: 11px 9px; border: 1px solid var(--pm-border); border-radius: var(--pm-radius-card); background: var(--pm-surface); box-shadow: 0 3px 10px #17251f04; }
+.pm-page-compare .pm-compare-summary-heading { display: flex; gap: 8px; align-items: flex-start; }
+.pm-page-compare .pm-compare-summary h2 { font-size: 15px; font-weight: var(--pm-weight-semibold); line-height: 1.4; }
+.pm-page-compare .pm-compare-summary small { display: block; margin-top: 4px; color: var(--pm-muted); font-size: 10px; }
+.pm-page-compare .pm-compare-letter { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 18px; height: 19px; border-radius: 4px; color: white; background: var(--pm-column-color); font-size: 12px; font-weight: var(--pm-weight-semibold); }
+.pm-page-compare .pm-compare-summary-heading>.pm-compare-letter { width: 31px; height: 33px; border-radius: 8px; font-size: 21px; }
+.pm-page-compare .pm-compare-summary-description { display: flex; gap: 7px; align-items: center; padding-top: 9px; margin-top: 9px; border-top: 1px solid var(--pm-border); }
+.pm-page-compare .pm-compare-summary-description p { flex: 1; min-width: 0; font-size: 11px; line-height: 1.6; color: var(--pm-muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.pm-page-compare .pm-compare-policy-icon { display: flex; align-items: center; justify-content: center; width: 32px; height: 36px; border-radius: 11px; background: var(--pm-column-surface); color: var(--pm-column-color); font-size: 22px; }
+.pm-page-compare .pm-compare-table { display: grid; gap: 8px; }
+.pm-page-compare .pm-compare-row { display: grid; grid-template-columns: 1.12fr 1fr 1fr; gap: 6px; padding: 7px; border-radius: var(--pm-radius-card); background: var(--pm-surface); }
+.pm-page-compare .pm-compare-label { min-width: 0; padding: 4px 1px; }
+.pm-page-compare .pm-compare-label h2 { display: flex; align-items: center; gap: 5px; white-space: nowrap; font-size: 13px; font-weight: var(--pm-weight-semibold); }
+.pm-page-compare .pm-compare-label h2>span { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 30px; flex-shrink: 0; border-radius: 10px; background: #edf8f3; color: var(--pm-green); font-size: 20px; }
+.pm-page-compare .pm-compare-label p { margin-top: 6px; font-size: 11px; line-height: 1.6; color: var(--pm-muted); }
+.pm-page-compare .pm-compare-cell { position: relative; min-width: 0; padding: 10px 7px; border-radius: var(--pm-radius-md); background: var(--pm-column-surface); }
+.pm-page-compare .pm-compare-cell>.pm-compare-letter { position: absolute; left: 7px; top: 10px; }
+.pm-page-compare .pm-compare-value>strong { display: block; min-height: 22px; padding-left: 23px; font-size: 12px; line-height: 1.6; font-weight: var(--pm-weight-semibold); }
+.pm-page-compare .pm-compare-value .pm-compare-score { font-size: 20px; line-height: 1.1; color: var(--pm-column-color); white-space: nowrap; }
+.pm-page-compare .pm-compare-score small { font-size: 14px; }
+.pm-page-compare .pm-compare-value .pm-badge { display: table; margin: 7px auto 0; padding: 2px 5px; font-size: 10px; white-space: normal; text-align: center; }
+.pm-page-compare .pm-compare-value p { margin-top: 10px; font-size: 11px; line-height: 1.65; color: var(--pm-muted); }
+.pm-page-compare .pm-compare-benefit { color: var(--pm-compare-orange); }
+.pm-page-compare .pm-compare-conditions { padding: 0; margin: 0; list-style: none; font-size: 11px; line-height: 1.6; }
+.pm-page-compare .pm-compare-conditions li:first-child { padding-left: 23px; }
+.pm-page-compare .pm-compare-conditions li+li { margin-top: 5px; }
+.pm-page-compare .pm-compare-warning { display: block; color: var(--pm-compare-orange); font-size: 10px; }
+.pm-page-compare .pm-compare-material-note { display: block; margin-top: 6px; font-size: 9px; color: var(--pm-muted); }
+.pm-page-compare .pm-compare-back { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 44px; margin: 16px 0 0; border-radius: var(--pm-radius-card); font-size: 15px; font-weight: var(--pm-weight-medium); }
+.pm-page-compare .pm-compare-footer { padding-top: 16px; text-align: center; font-size: 10px; line-height: 1.8; color: var(--pm-muted); }
+@media (max-width: 359px) {
+  .pm-page-compare .pm-compare-hero h1 { font-size: 21px; }
+  .pm-page-compare .pm-compare-hero p { font-size: 10px; }
+  .pm-page-compare .pm-compare-row { gap: 4px; padding: 6px; grid-template-columns: 1fr 1fr 1fr; }
+  .pm-page-compare .pm-compare-label h2 { font-size: 11px; gap: 3px; }
+  .pm-page-compare .pm-compare-label h2>span { width: 21px; font-size: 16px; }
+  .pm-page-compare .pm-compare-cell { padding: 8px 5px; }
+  .pm-page-compare .pm-compare-cell>.pm-compare-letter { left: 5px; top: 8px; }
+  .pm-page-compare .pm-compare-summary-heading { gap: 5px; }
+  .pm-page-compare .pm-compare-summary h2 { font-size: 12px; }
+}

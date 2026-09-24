@@ -90,7 +90,7 @@ const createApplication = async (userId, input, context = {}) => withSerializabl
 }, { isolationLevel: 'Serializable' });
 
 const listApplications = async (userId, filters = {}) => {
-  const where = { ownerUserId: userId };
+  const where = { ownerUserId: userId, status: { not: 'discarded' } };
   if (filters.stage) where.stage = filters.stage;
   if (filters.studentName) where.studentNameHash = digest(filters.studentName);
   const seasonWhere = filters.year ? { year: Number(filters.year) } : { active: true };

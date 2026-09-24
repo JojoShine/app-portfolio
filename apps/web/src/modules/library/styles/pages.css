@@ -1,0 +1,16 @@
+@import './pages/foundation.css';
+@import './pages/home.css';
+@import './pages/catalog.css';
+@import './pages/book-detail.css';
+@import './pages/personal.css';
+@import './pages/services.css';
+@import './pages/reservations.css';
+@import './pages/dialogs.css';
+@import './pages/seats.css';
+@import './pages/events.css';
+@import './pages/reading.css';
+@import './pages/branch.css';
+@import './pages/messages.css';
+@import './pages/my-events.css';
+@import './pages/profile.css';
+@import './pages/personal-header.css';

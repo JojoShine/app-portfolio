@@ -1,0 +1,72 @@
+.pm-app .pm-page-policy-detail { --pm-page-gutter: 12px; padding: 0 var(--pm-page-gutter) calc(90px + env(safe-area-inset-bottom)); }
+.pm-page-policy-detail .pm-detail-hero { min-height: 152px; padding: 14px; border-radius: var(--pm-radius-md); color: white; background-color: var(--pm-green); background-size: cover; background-position: center; }
+.pm-page-policy-detail .pm-detail-demo { display: inline-block; padding: 2px 8px; border: 1px solid #ffffff70; border-radius: 12px; font-size: 10px; }
+.pm-page-policy-detail .pm-detail-hero h1 { max-width: 72%; margin-top: 8px; font-size: 20px; line-height: 1.4; font-weight: var(--pm-weight-semibold); text-wrap: balance; }
+.pm-app:has(.pm-page-policy-detail) .pm-header button svg { font-size: 24px; }
+.pm-page-policy-detail .pm-detail-hero p { max-width: 65%; margin-top: 5px; font-size: 12px; }
+.pm-page-policy-detail .pm-detail-audience { display: inline-block; max-width: 65%; margin-top: 10px; padding: 3px 7px; border: 1px solid #ffffff80; border-radius: 16px; font-size: 10px; }
+.pm-page-policy-detail .pm-detail-facts { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); margin: 8px 0; padding: 12px 0; border: 6px solid white; border-radius: var(--pm-radius-card); background: #edf8f4; text-align: center; }
+.pm-page-policy-detail .pm-detail-facts>div+div { border-left: 1px solid #d8eae4; }
+.pm-page-policy-detail .pm-detail-facts b { color: var(--pm-green); font-size: 17px; font-weight: var(--pm-weight-semibold); }
+.pm-page-policy-detail .pm-detail-facts small { display: block; margin-top: 3px; font-size: 11px; color: var(--pm-muted); }
+.pm-page-policy-detail .pm-detail-section { padding: 16px 12px; margin: 10px 0; border-radius: var(--pm-radius-card); background: var(--pm-surface); }
+.pm-page-policy-detail .pm-detail-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 14px; }
+.pm-page-policy-detail .pm-detail-heading h2 { display: flex; align-items: center; gap: 7px; font-size: 18px; line-height: 1.4; font-weight: var(--pm-weight-semibold); }
+.pm-page-policy-detail .pm-detail-heading>span { display: inline-flex; align-items: center; gap: 5px; flex-shrink: 0; font-size: var(--pm-text-sm); color: var(--pm-muted); }
+.pm-page-policy-detail .pm-result-summary { display: flex; align-items: center; gap: 17px; padding: 2px 0 3px; }
+.pm-page-policy-detail .adm-progress-circle { --size: 90px; --track-width: 8px; --track-color: #dfede7; --fill-color: #20886b; flex-shrink: 0; }
+.pm-page-policy-detail .adm-progress-circle strong { display: block; font-size: 24px; line-height: 1.1; color: var(--pm-green); }
+.pm-page-policy-detail .adm-progress-circle strong small { font-size: 15px; }
+.pm-page-policy-detail .adm-progress-circle span { display: block; font-size: 10px; margin-top: 4px; }
+.pm-page-policy-detail .pm-result-summary h3 { font-size: 16px; line-height: 1.55; font-weight: var(--pm-weight-semibold); }
+.pm-page-policy-detail .pm-result-summary p { margin-top: 8px; font-size: var(--pm-text-sm); line-height: 1.8; color: var(--pm-muted); }
+.pm-page-policy-detail summary { cursor: pointer; list-style: none; }
+.pm-page-policy-detail summary::-webkit-details-marker { display: none; }
+.pm-page-policy-detail summary:focus-visible { outline: 2px solid var(--pm-focus); outline-offset: 0; border-radius: 4px; }
+.pm-page-policy-detail details[open]>summary .antd-mobile-icon:last-child { transform: rotate(180deg); }
+.pm-page-policy-detail .pm-conditions:not([open])>.pm-detail-heading { margin-bottom: 0; }
+.pm-page-policy-detail .pm-condition-list,.pm-page-policy-detail .pm-material-list { padding: 0 8px; border: 1px solid var(--pm-border); border-radius: var(--pm-radius-sm); }
+.pm-page-policy-detail .pm-condition-row { display: grid; grid-template-columns: 20px 1fr 1.1fr; align-items: center; gap: 8px; min-height: 56px; padding: 13px 0; }
+.pm-page-policy-detail .pm-condition-row+.pm-condition-row { border-top: 1px solid var(--pm-border); }
+.pm-page-policy-detail .pm-condition-icon { display: flex; color: #20886b; font-size: 18px; }
+.pm-page-policy-detail .missing .pm-condition-icon,.pm-page-policy-detail .missing em { color: #a66a16; }
+.pm-page-policy-detail .unmatched .pm-condition-icon,.pm-page-policy-detail .unmatched em { color: #a84a35; }
+.pm-page-policy-detail .pm-condition-row strong { font-size: 14px; line-height: 1.6; font-weight: 400; }
+.pm-page-policy-detail .pm-condition-row p { font-size: var(--pm-text-sm); color: var(--pm-muted); line-height: 1.7; }
+.pm-page-policy-detail .pm-condition-row em { font-size: 14px; font-weight: var(--pm-weight-medium); }
+.pm-page-policy-detail .pm-condition-row small { display: block; font-size: 10px; }
+.pm-page-policy-detail .pm-detail-profile { display: flex; align-items: center; justify-content: flex-end; gap: 4px; min-height: 36px; margin-bottom: -5px; font-size: 11px; color: var(--pm-green); }
+.pm-page-policy-detail .pm-material-list>div { display: flex; align-items: center; gap: 10px; padding: 9px 0; }
+.pm-page-policy-detail .pm-material-list>div+div { border-top: 1px solid var(--pm-border); }
+.pm-page-policy-detail .pm-material-icon { width: 36px; height: 38px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 7px; color: var(--pm-green); background: #e7f5ef; font-size: 24px; }
+.pm-page-policy-detail .pm-material-list section { flex: 1; min-width: 0; }
+.pm-page-policy-detail .pm-material-list h3 { font-size: 14px; font-weight: var(--pm-weight-medium); }
+.pm-page-policy-detail .pm-material-list p { margin-top: 4px; font-size: var(--pm-text-sm); line-height: 1.6; color: var(--pm-muted); }
+.pm-page-policy-detail .pm-material-required { flex-shrink: 0; font-size: 10px; color: #a66a16; }
+.pm-page-policy-detail .pm-material-hint { margin-top: 7px; font-size: 10px; color: var(--pm-muted); }
+.pm-page-policy-detail .pm-detail-prose { font-size: 14px; line-height: 1.85; color: #66736c; }
+.pm-page-policy-detail .pm-detail-steps details { position: relative; }
+.pm-page-policy-detail .pm-detail-steps details:not(:last-child)::before { content: ''; position: absolute; left: 12px; top: 27px; height: 100%; border-left: 1px solid #badbd0; }
+.pm-page-policy-detail .pm-detail-steps summary { position: relative; display: grid; grid-template-columns: 26px 1fr 1.7fr 12px; gap: 10px; align-items: center; min-height: 54px; padding: 12px 0; }
+.pm-page-policy-detail .pm-detail-steps b { display: flex; align-items: center; justify-content: center; height: 26px; border-radius: 50%; background: #299779; color: white; font-size: 14px; font-weight: var(--pm-weight-medium); }
+.pm-page-policy-detail .pm-detail-steps strong { font-size: 14px; font-weight: var(--pm-weight-medium); }
+.pm-page-policy-detail .pm-detail-steps span,.pm-page-policy-detail .pm-detail-steps svg { font-size: var(--pm-text-sm); line-height: 1.7; color: var(--pm-muted); }
+.pm-page-policy-detail .pm-detail-steps details+details summary { border-top: 1px solid var(--pm-border); }
+.pm-page-policy-detail .pm-detail-steps details>p { padding: 0 0 16px 36px; font-size: var(--pm-text-sm); line-height: 1.8; color: var(--pm-muted); }
+.pm-page-policy-detail .pm-detail-source h2 { font-size: 13px; }
+.pm-page-policy-detail .pm-detail-source h2 svg { color: #528d9a; }
+.pm-page-policy-detail .pm-detail-source p { font-size: 11px; line-height: 1.7; color: var(--pm-muted); }
+.pm-page-policy-detail .pm-actionbar { position: fixed; left: 50%; transform: translateX(-50%); bottom: 0; width: min(100%,760px); padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); margin: 0; }
+.pm-page-policy-detail .pm-actionbar .pm-primary { width: 100%; min-height: 44px; border-radius: var(--pm-radius-md); font-size: 16px; }
+@media(max-width:359px) {
+  .pm-page-policy-detail .pm-detail-hero h1 { font-size: 19px; }
+  .pm-page-policy-detail .pm-detail-facts b { font-size: 13px; }
+  .pm-page-policy-detail .pm-result-summary { gap: 10px; }
+  .pm-page-policy-detail .adm-progress-circle { --size: 78px; --track-width: 7px; }
+  .pm-page-policy-detail .pm-result-summary h3 { font-size: 15px; }
+  .pm-page-policy-detail .pm-condition-row { gap: 5px; grid-template-columns: 17px 1fr 1fr; }
+  .pm-page-policy-detail .pm-detail-heading h2 { font-size: 16px; }
+  .pm-page-policy-detail .pm-detail-heading>span { font-size: 11px; }
+  .pm-page-policy-detail .pm-condition-row strong,.pm-page-policy-detail .pm-condition-row em { font-size: 13px; }
+  .pm-page-policy-detail .pm-detail-steps summary { gap: 7px; grid-template-columns: 26px 1fr 1.5fr 12px; }
+}

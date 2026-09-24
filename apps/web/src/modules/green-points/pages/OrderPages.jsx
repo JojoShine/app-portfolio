@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import QRCode from 'qrcode';
 import { Dialog } from 'antd-mobile';
-import { Arrow, Header, Art, ProductArt, Rows, Rules, Empty, Tabs, Icon } from '../components/UI';
+import { Arrow, Header, ProductArt, Rows, Rules, Empty, Tabs, Icon } from '../components/UI';
+import voucherDecoration from '../assets/voucher-decoration.png';
 import { useMallContext, dateText, statuses } from '../components/MallContext';
 import { redemptionIssue } from '../utils/rules';
 import { redeem, cancelOrder, completeOrder } from '../services/order.service';
@@ -235,7 +236,7 @@ export function OrderPage() {
 </div>
 </section>
 {!shipping && !(physical && o.status === 'completed') && <section className="gp-panel gp-credential">
-<h2>{physical ? '提货凭证' : '电子凭证'}</h2>{valid ? <>{physical ? qr ? <img src={qr} className="gp-qr" alt="演示提货二维码" /> : <p>正在准备二维码…</p> : <Art name="voucher" className="gp-ticket" />}<small>演示凭证</small>
+<h2>{physical ? '提货凭证' : '电子凭证'}</h2>{valid ? <>{physical ? qr ? <img src={qr} className="gp-qr" alt="演示提货二维码" /> : <p>正在准备二维码…</p> : <img src={voucherDecoration} className="gp-ticket" alt="" />}<small>演示凭证</small>
 <p>{physical ? '提货码' : '兑换码'}</p>
 <strong className="gp-code">{o.code.match(/.{1,4}/g).join(' ')}</strong>{!physical && <button className="gp-button gp-outline" onClick={copy}>复制兑换码</button>}<p>{physical ? '到店出示二维码或提货码' : '使用时出示兑换码'}</p>
 </> : <div className="gp-invalid">

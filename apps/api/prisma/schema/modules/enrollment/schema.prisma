@@ -11,6 +11,7 @@ model EnrollmentSeason {
   contents     EnrollmentContent[]
   applications EnrollmentApplication[]
   publications EnrollmentPublication[]
+  districts    EnrollmentDistrict[]
 
   @@map("enrollment_seasons")
 }
@@ -50,6 +51,7 @@ model EnrollmentSchool {
   updatedAt     DateTime                @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
   season        EnrollmentSeason        @relation(fields: [seasonId], references: [id], onDelete: Cascade)
   applications  EnrollmentApplication[]
+  districts     EnrollmentDistrictSchool[]
 
   @@index([seasonId, stage, category, active, sort], map: "idx_enrollment_schools_catalog")
   @@map("enrollment_schools")
@@ -210,4 +212,78 @@ model EnrollmentAuditLog {
 
   @@index([applicationId, createdAt(sort: Desc)], map: "idx_enrollment_audit_application")
   @@map("enrollment_audit_logs")
+}
+
+/// 家长在外层绑定的学生与监护人资料；个人信息加密存储
+model EnrollmentProfile {
+  /// 外层认证用户标识
+  userId           String   @id @map("user_id") @db.VarChar(255)
+  /// 学生及监护人的加密资料
+  payloadEncrypted String   @map("payload_encrypted") @db.Text
+  updatedAt        DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("enrollment_profiles")
+}
+
+/// 已同步的部门共享数据，授权查询时按家长、学生和数据类型隔离
+model EnrollmentDepartmentRecord {
+  id               String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  /// 可查询此资料的家长身份
+  userId           String   @map("user_id") @db.VarChar(255)
+  /// 学生证件号码的带密钥摘要
+  studentIdHash    String   @map("student_id_hash") @db.VarChar(64)
+  /// 户籍、房产、社保、营业执照或父母无房核验
+  type             String   @db.VarChar(40)
+  /// 数据来源，演示资料使用 demo 前缀
+  source           String   @db.VarChar(100)
+  /// 部门原始内容加密存储，不向公共查询暴露
+  payloadEncrypted String   @map("payload_encrypted") @db.Text
+  active           Boolean  @default(true)
+  updatedAt        DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@unique([userId, studentIdHash, type])
+  @@map("enrollment_department_records")
+}
+
+/// 当年度公开学区信息
+model EnrollmentDistrict {
+  id          String                     @id @db.VarChar(80)
+  seasonId    String                     @map("season_id") @db.Uuid
+  name        String                     @db.VarChar(100)
+  description String                     @db.Text
+  sort        Int                        @default(0)
+  active      Boolean                    @default(true)
+  season      EnrollmentSeason           @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  schools     EnrollmentDistrictSchool[]
+
+  @@map("enrollment_districts")
+}
+
+/// 学区与对口学校关联，不以关键词猜测学区范围
+model EnrollmentDistrictSchool {
+  districtId String             @map("district_id") @db.VarChar(80)
+  schoolId   String             @map("school_id") @db.Uuid
+  district   EnrollmentDistrict @relation(fields: [districtId], references: [id], onDelete: Cascade)
+  school     EnrollmentSchool   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+
+  @@id([districtId, schoolId])
+  @@map("enrollment_district_schools")
+}
+
+/// 房产学位核验目录，只公开占用状态，不保存学生身份
+model EnrollmentPropertyDegree {
+  id              String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  /// 用于精确匹配的完整房产地址
+  address         String  @unique @db.VarChar(500)
+  /// 产权证号摘要，不保存明文证号
+  certificateHash String  @unique @map("certificate_hash") @db.VarChar(64)
+  /// available 未占用、occupied 已占用
+  status          String  @db.VarChar(30)
+  /// 占用年度
+  year            Int?
+  /// 占用学段
+  stage           String? @db.VarChar(30)
+  active          Boolean @default(true)
+
+  @@map("enrollment_property_degrees")
 }

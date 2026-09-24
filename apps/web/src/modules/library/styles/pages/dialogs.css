@@ -1,0 +1,32 @@
+/* Library-owned dialog: no third-party modal surface or button styles. */
+dialog.lib-dialog { position: fixed; inset: 0; box-sizing: border-box; width: calc(100% - 40px); max-width: none; max-height: calc(100dvh - 48px); margin: auto; padding: 0; overflow: auto; overscroll-behavior: contain; border: 1px solid #ded5c5; border-radius: 12px; background: #f6f2e9; color: #302b25; box-shadow: 0 18px 70px #211b1733; font-family: "Songti SC", "STSong", serif; }
+.lib-dialog::backdrop { background: #26211970; backdrop-filter: blur(2px); }
+.lib-dialog-paper { position: relative; isolation: isolate; padding: 22px 24px 24px; }
+.lib-dialog-paper::before { position: absolute; z-index: -1; inset: 0; border-radius: inherit; background: url('../../assets/library-paper.png') center top / 500px auto repeat; opacity: .24; mix-blend-mode: multiply; pointer-events: none; content: ''; }
+.lib-dialog header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.lib-dialog-eyebrow { color: #a39682; font-size: 11px; letter-spacing: .12em; }
+.lib-dialog button { font: inherit; cursor: pointer; }
+.lib-dialog button.lib-dialog-close { display: grid; place-items: center; flex: 0 0 36px; width: 36px; min-height: 36px; margin: -8px -9px -8px 0; padding: 0; border: 0; background: transparent; color: #938774; }
+.lib-dialog-close svg { width: 18px; height: 18px; }
+.lib-dialog h2 { margin: 21px 0 16px; font-size: 25px; font-weight: 600; line-height: 1.4; letter-spacing: .05em; }
+.lib-dialog-content { max-height: 48dvh; overflow: auto; overscroll-behavior: contain; color: #746a5c; font-size: 15px; line-height: 1.85; overflow-wrap: anywhere; }
+.lib-dialog-content p { margin: 0 0 12px; }
+.lib-dialog-content p:last-child { margin-bottom: 0; }
+.lib-dialog-content h3 { margin: 0 0 12px; color: #302b25; font-size: 19px; font-weight: 500; }
+.lib-dialog-notice { padding: 10px 12px; border-left: 2px solid #ad573f; background: #a34f380a; color: #a34f38; }
+.lib-dialog footer { display: flex; gap: 12px; margin-top: 25px; }
+.lib-dialog footer button { flex: 1; min-height: 45px; padding: 10px 8px; border-radius: 7px; font-size: 16px; line-height: 1.5; }
+.lib-dialog button.lib-dialog-primary { border: 1px solid #a34f38; background: #a34f38; color: #fff8ed; }
+.lib-dialog button.lib-dialog-secondary { border: 1px solid #b5a38b70; background: transparent; color: #7c6750; }
+.lib-dialog button:disabled { cursor: wait; opacity: .5; }
+.lib-dialog button:focus-visible { outline: 2px solid #ad573f; outline-offset: 3px; }
+@media (max-width: 380px) {
+  .lib-reservations { padding-right: 16px; padding-left: 16px; }
+  .lib-reservation-footer { margin-right: -16px; margin-left: -16px; padding-right: 34px; padding-left: 34px; gap: 18px; }
+  .lib-reservation-masthead { margin-right: -16px; margin-left: -16px; padding-left: 23px; }
+  .lib-reservation-masthead p { font-size: 12px; letter-spacing: .22em; }
+  .lib-reservations .lib-reservation-list article { gap: 15px; }
+  .lib-reservations .lib-reservation-list h2 { font-size: 20px; }
+  .lib-reservations .lib-reservation-list .lib-pickup-deadline { font-size: 13px; padding-right: 4px; padding-left: 4px; }
+  .lib-reservations .lib-reservation-list button { padding: 0 8px; font-size: 12px; }
+}

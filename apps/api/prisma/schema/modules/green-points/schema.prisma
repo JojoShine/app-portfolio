@@ -1,0 +1,91 @@
+/// 积分商城可兑换商品
+model GreenPointsProduct {
+  id           String   @id @db.VarChar(50)
+  name         String   @db.VarChar(120)
+  price        Int
+  original     Int?
+  stock        Int
+  category     String   @db.VarChar(50)
+  type         String   @db.VarChar(20)
+  limit        Int      @default(2)
+  spec         String   @db.Text
+  description  String   @db.Text
+  usage        String   @db.Text
+  site         String?  @db.VarChar(160)
+  address      String?  @db.VarChar(300)
+  hours        String?  @db.VarChar(120)
+  imageAssetId String   @map("image_asset_id") @db.VarChar(60)
+  activityId   String?  @map("activity_id") @db.VarChar(50)
+  active       Boolean  @default(true)
+  sort         Int      @default(0)
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@index([active, sort])
+  @@map("green_points_products")
+}
+
+/// 积分商城抵扣券配置
+model GreenPointsCoupon {
+  id        String   @id @db.VarChar(50)
+  title     String   @db.VarChar(120)
+  amount    Int
+  minimum   Int
+  days      Int
+  active    Boolean  @default(true)
+  sort      Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("green_points_coupons")
+}
+
+/// 积分商城运营活动
+model GreenPointsActivity {
+  id           String   @id @db.VarChar(50)
+  type         String   @db.VarChar(40)
+  title        String   @db.VarChar(120)
+  description  String   @db.Text
+  startsAt     DateTime @map("starts_at") @db.Timestamptz(6)
+  endsAt       DateTime @map("ends_at") @db.Timestamptz(6)
+  bonus        Int      @default(0)
+  productIds   Json     @default("[]") @map("product_ids") @db.JsonB
+  imageAssetId String   @map("image_asset_id") @db.VarChar(60)
+  active       Boolean  @default(true)
+  sort         Int      @default(0)
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("green_points_activities")
+}
+
+/// 积分商城 MinIO 资源索引
+model GreenPointsAsset {
+  id        String   @id @db.VarChar(60)
+  objectKey String   @unique @map("object_key") @db.VarChar(500)
+  mimeType  String   @map("mime_type") @db.VarChar(100)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("green_points_assets")
+}
+
+/// 用户积分账户及业务状态
+model GreenPointsAccount {
+  userId    String   @id @map("user_id") @db.VarChar(255)
+  balance   Int      @default(0)
+  state     Json     @default("{}") @db.JsonB
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("green_points_accounts")
+}
+
+/// 积分商城公共配置
+model GreenPointsConfig {
+  id        String   @id @db.VarChar(50)
+  settings  Json     @default("{}") @db.JsonB
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("green_points_configs")
+}

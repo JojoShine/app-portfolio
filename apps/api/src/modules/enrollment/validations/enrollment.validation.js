@@ -120,13 +120,9 @@ const validateVerificationRequest = (body) => {
   const types = Array.isArray(body.types) && body.types.length
     ? [...new Set(body.types.map((type) => enumValue(type, VERIFICATION_TYPES, '查询类型')))]
     : null;
-  const mockFailures = Array.isArray(body.mockFailures)
-    ? body.mockFailures.filter((type) => VERIFICATION_TYPES.includes(type))
-    : [];
   return {
     authorizationVersion: requiredText(body.authorizationVersion || 'v1', '授权文本版本', 50),
     types,
-    mockFailures,
   };
 };
 

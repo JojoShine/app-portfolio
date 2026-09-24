@@ -1,0 +1,10 @@
+.app-shell__content:has(.coupon-app) {
+  width: 100%;
+  max-width: none;
+  background: #f7f4ec;
+}
+.coupon-app { width: 100%; max-width: none; overflow-x: clip; }
+.coupon-app * { box-sizing: border-box; }
+.coupon-app img { max-width: 100%; }
+.coupon-app button, .coupon-app input { font: inherit; }
+.coupon-app > *, .coupon-app article > *, .coupon-app section > * { min-width: 0; }

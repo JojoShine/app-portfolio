@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { Toast } from 'antd-mobile';
 import { ContentOutline, RightOutline } from 'antd-mobile-icons';
-import useLibraryQuery from '../hooks/useLibraryQuery';
-import { addReadingCheckIn, getReadingSummary } from '../services/library.service';
+import { useLibraryReadingSummary } from '../hooks/useReaderData';
+import { addReadingCheckIn } from '../services/library.service';
 import AssetImage from '../components/AssetImage';
 import LibraryDialog from '../components/LibraryDialog';
-import { PageHeader, PageState } from '../components/LibraryLayout';
+import { PersonalPageHeader, PageState } from '../components/LibraryLayout';
 
 const recordDate = (value) => new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Shanghai', month: '2-digit', day: '2-digit' }).format(new Date(value)).split('/').reverse().join('.');
 
 export default function ReadingPlanPage() {
-  const query = useLibraryQuery(getReadingSummary, []);
+  const query = useLibraryReadingSummary();
   const data = query.data;
   const [dialog, setDialog] = useState(null);
   const [minutes, setMinutes] = useState('30');
@@ -27,11 +27,10 @@ export default function ReadingPlanPage() {
   };
   const progress = Math.min(100, Math.max(0, Number(data?.progress) || 0));
   const records = data?.checkIns || [];
-  return <main className="lib-page lib-reading">
-    <PageHeader title="阅读计划" action={<span className="lib-script-brand">书香海安<small>— 阅读让生活更美好 —</small></span>} />
+  return <main className="lib-page lib-personal-subpage lib-reading">
+    <PersonalPageHeader title="阅读计划" />
     <PageState {...query} onRetry={query.reload} />
     {data && <>
-      <header className="lib-reading-masthead"><h1><em>{new Date().getFullYear()}</em> 海安共读计划</h1><p>在书中遇见更好的自己</p><aside>江海有书<br />阅见山海</aside></header>
       <section className="lib-goal">
         <div><h2>今年读完 <em>{data.annualGoal}</em> 本</h2><p>已读 <strong>{data.finished}</strong> 本</p></div>
         <div className="lib-bookshelf" role="img" aria-label={`年度目标 ${data.annualGoal} 本，已读 ${data.finished} 本`} style={{ gridTemplateColumns: `repeat(${Math.max(1, data.annualGoal)}, minmax(0, 1fr))` }}>{Array.from({ length: Math.max(0, data.annualGoal) }, (_, index) => <i key={index} className={index < data.finished ? 'is-read' : ''} />)}</div>

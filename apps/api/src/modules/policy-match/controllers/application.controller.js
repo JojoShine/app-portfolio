@@ -1,0 +1,10 @@
+const service=require('../services/application.service');
+const response=require('../../../common/response');
+exports.list=async(req,res)=>res.json(response.success(await service.list(req.user.id,req.validated.subjectType)));
+exports.create=async(req,res)=>res.json(response.success(await service.create(req.user.id,req.validated.id,req.validated.declaration)));
+exports.detail=async(req,res)=>res.json(response.success(await service.detail(req.user.id,req.validated.id)));
+exports.save=async(req,res)=>res.json(response.success(await service.save(req.user.id,req.validated.id,req.validated.input)));
+exports.withdraw=async(req,res)=>res.json(response.success(await service.withdraw(req.user.id,req.validated.id,req.validated.input)));
+exports.material=async(req,res)=>res.json(response.success(await service.material(req.user.id,req.validated.id,req.validated.input)));
+exports.submit=async(req,res)=>res.json(response.success(await service.submit(req.user.id,req.validated.id,req.validated.input)));
+exports.progress=async(req,res)=>res.json(response.success(await service.progress(req.user.id,req.validated.id,req.validated.input)));

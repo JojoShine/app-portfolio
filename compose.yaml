@@ -20,7 +20,7 @@ services:
       retries: 10
 
   minio:
-    image: minio/minio:latest
+    image: minio/minio:RELEASE.2025-04-22T22-12-26Z
     container_name: app-portfolio-minio
     restart: unless-stopped
     command: server /data --console-address ":9001"
@@ -29,13 +29,13 @@ services:
       MINIO_ROOT_PASSWORD: app_portfolio_minio_local
       TZ: Asia/Shanghai
     ports:
-      - "9000:9000"
-      - "9001:9001"
+      - "9100:9000"
+      - "9101:9001"
     volumes:
       - app_portfolio_minio_data:/data
 
   minio-init:
-    image: minio/mc:latest
+    image: minio/mc:RELEASE.2025-04-16T18-13-26Z
     depends_on:
       - minio
     restart: "no"

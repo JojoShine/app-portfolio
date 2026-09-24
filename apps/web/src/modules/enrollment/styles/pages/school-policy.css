@@ -1,0 +1,82 @@
+.policy-page > .gov-hero { border-radius: 0; }
+.policy-article { padding: 18px; background: var(--enroll-surface); border: 1px solid var(--enroll-line); border-radius: var(--enroll-radius-14); box-shadow: 0 6px 20px rgba(26, 44, 82, .05); }
+.policy-article header { padding-bottom: 16px; text-align: center; border-bottom: 1px solid var(--enroll-line); }
+.policy-article header h1 { margin: 0 0 10px; font-size: 20px; line-height: 29px; }
+.policy-article header p { margin: 0; color: var(--enroll-muted); font-size: 13px; }
+.policy-article header p span { display: inline-block; height: 14px; margin: 0 14px; border-left: 1px solid var(--enroll-line); }
+.policy-article section { margin-top: 22px; }
+.policy-article h2 { margin: 0 0 10px; color: var(--enroll-primary); font-size: 18px; }
+.policy-article section p,
+.policy-article li { color: #38445a; font-size: 15px; line-height: 27px; }
+.policy-article ol { margin: 0; padding-left: 23px; }
+.policy-read-end { display: flex; margin-top: 20px; padding-top: 15px; align-items: center; justify-content: center; gap: 7px; color: var(--enroll-primary); font-size: 13px; border-top: 1px dashed var(--enroll-line); }
+.policy-confirm { width: 100%; }
+.policy-confirm .adm-checkbox { display: flex; min-height: 32px; align-items: center; margin: 4px 2px 12px; font-size: 14px; white-space: nowrap; }
+.policy-confirm .adm-button { border-radius: var(--enroll-radius-10); }
+
+.gov-hero--policy { isolation: isolate; }
+.gov-hero--policy .gov-hero__illustration { display: none; }
+
+.gov-hero--policy {
+  min-height: 156px;
+  margin: 0;
+  padding: 31px 24px;
+  background: #1269e7 url('../../assets/reference/hero-policy-art.png') right center / auto 100% no-repeat;
+  border-radius: 0;
+}
+.gov-hero--policy .gov-hero__copy { width: 54%; }
+.gov-hero--policy h1 { margin-bottom: 9px; font-size: 25px; }
+.gov-hero--policy p { color: rgba(255,255,255,.95); font-size: 13px; letter-spacing: 0; white-space: nowrap; }
+
+.policy-page .enrollment-content { margin-top: 0; padding-top: 12px; }
+.policy-article { padding: 19px 16px 16px; border-radius: var(--enroll-radius-10); }
+.policy-article header h1 { font-size: 20px; }
+.policy-article section { margin-top: 20px; }
+.policy-article h2 { position: relative; padding-left: 14px; font-size: 18px; }
+.policy-article h2::before { position: absolute; top: 2px; bottom: 2px; left: 0; width: 4px; background: var(--enroll-primary); border-radius: 2px; content: ''; }
+.policy-confirm { padding: 0; background: transparent; border: 0; border-radius: 0; }
+
+.policy-article { padding: 20px 18px; border-radius: var(--enroll-radius-12); box-shadow: 0 4px 15px rgba(31,65,110,.05); }
+.policy-article header h1 { font-size: 19px; }
+.policy-article section p,
+.policy-article li { font-size: 14px; line-height: 26px; }
+
+.policy-page > .gov-hero--policy {
+  background: linear-gradient(110deg, #1269e7 0%, #1c82ed 62%, #57b4f4 100%);
+}
+.policy-page > .gov-hero--policy::after {
+  position: absolute;
+  inset: 0 0 0 48%;
+  z-index: 1;
+  display: block;
+  width: auto;
+  height: auto;
+  background: url('../../assets/reference/hero-policy-art.png') right center / auto 100% no-repeat;
+  border: 0;
+  border-radius: 0;
+  content: '';
+  transform: none;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,.45) 15%, #000 32%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,.45) 15%, #000 32%);
+}
+.policy-page > .gov-hero--policy .gov-hero__copy { position: relative; z-index: 2; }
+.policy-confirm .adm-checkbox { --icon-size: 18px; }
+.policy-confirm .adm-checkbox-content { font-size: 13px !important; line-height: 20px; }
+
+.policy-page > .gov-hero--policy {
+  min-height: 156px;
+  margin: 0;
+  padding: 31px 24px;
+  background: #1269e7 url('../../assets/reference/hero-policy-art.png') right center / auto 100% no-repeat;
+  border-radius: 0;
+}
+.policy-page > .gov-hero--policy .gov-hero__copy { width: 54%; }
+.policy-page > .gov-hero--policy h1 { margin-bottom: 9px; font-size: 25px; }
+.policy-page > .gov-hero--policy p { color: rgba(255,255,255,.95); font-size: 13px; letter-spacing: 0; white-space: nowrap; }
+
+.gov-hero--policy .gov-hero__illustration { display: none; }
+.fixed-action-bar .policy-confirm .adm-button { width: 100%; min-height: 48px; font-size: 17px; }
+
+.policy-page > .gov-hero--policy {
+  background: linear-gradient(110deg, #1269e7 0%, #1c82ed 62%, #57b4f4 100%);
+}

@@ -1,40 +1,3 @@
-export const CURRENT_YEAR = 2026;
-
-export const STAGES = [
-  {
-    id: 'kindergarten',
-    name: '幼儿园入学报名',
-    shortName: '幼儿园入学',
-    description: '适龄幼儿入园报名',
-  },
-  {
-    id: 'primary',
-    name: '幼升小报名',
-    shortName: '幼升小',
-    description: '小学一年级入学报名',
-  },
-  {
-    id: 'middle',
-    name: '小升初报名',
-    shortName: '小升初',
-    description: '初中一年级入学报名',
-  },
-];
-
-export const CATEGORIES = [
-  { id: 'urban', name: '城区', description: '城区公办学校报名', tone: 'blue' },
-  { id: 'non_urban', name: '非城区', description: '乡镇及其他非城区公办学校报名', tone: 'green' },
-  { id: 'private', name: '民办', description: '民办学校报名', tone: 'orange' },
-];
-
-export const SERVICE_ENTRIES = [
-  { id: 'schedule', title: '报名时间', description: '查看各学段报名安排' },
-  { id: 'policies', title: '招生政策', description: '了解最新招生政策' },
-  { id: 'faq', title: '常见问答', description: '解答报名常见问题' },
-  { id: 'district', title: '查学区', description: '查询学区范围和对口学校' },
-  { id: 'property-degree', title: '房产学位查询', description: '查询房产学位占用情况' },
-  { id: 'guide', title: '操作指南', description: '了解报名操作流程' },
-];
 
 const EMPTY_DRAFT = {
   student: {
@@ -169,3 +132,15 @@ export const DEFAULT_FLOW = {
 
 export const getStage = (id) => STAGES.find((item) => item.id === id) || STAGES[1];
 export const getCategory = (id) => CATEGORIES.find((item) => item.id === id) || CATEGORIES[0];
+
+export const STAGES = [
+  { id: 'kindergarten', name: '幼儿园入学报名', shortName: '幼儿园入学', description: '适龄幼儿入园报名' },
+  { id: 'primary', name: '幼升小报名', shortName: '幼升小', description: '小学一年级入学报名' },
+  { id: 'middle', name: '小升初报名', shortName: '小升初', description: '初中一年级入学报名' },
+];
+
+export const CATEGORIES = [
+  { id: 'urban', name: '城区', description: '城区公办学校报名', tone: 'blue' },
+  { id: 'non_urban', name: '非城区', description: '乡镇及其他非城区公办学校报名', tone: 'green' },
+  { id: 'private', name: '民办', description: '民办学校报名', tone: 'orange' },
+];

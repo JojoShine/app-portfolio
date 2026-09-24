@@ -16,9 +16,16 @@ const useEnrollmentStore = create((set, get) => ({
   draft: createEmptyDraft(),
   originalDraft: createEmptyDraft(),
   application: null,
+  serverMaterials: [],
   serverApplicationId: null,
   serverVersion: 1,
-  savedAt: '14:32',
+  savedAt: '',
+  seasonYear: null,
+  portalServices: [],
+  setPortalData: (portal) => set({
+    seasonYear: portal?.season?.year || null,
+    portalServices: Array.isArray(portal?.services) ? portal.services : [],
+  }),
 
   selectStage: (stageId) => set((state) => ({
     selectedSchool: null,
@@ -75,20 +82,30 @@ const useEnrollmentStore = create((set, get) => ({
       property: { ...empty.property, ...(serverData.property || {}) },
       materials: { ...empty.materials, ...(serverData.materials || {}) },
     };
-    const household = results.find((item) => item.type === 'household')?.data;
-    if (household?.householdHead) {
-      draft.student.householdLocation = household.householdHead.address || '';
-      draft.student.residenceAddress = household.householdHead.address || '';
-      draft.family.householdHeadName = household.householdHead.name || '';
-      draft.family.householdHeadDocument = household.householdHead.documentNumber || '';
-      draft.family.householdAddress = household.householdHead.address || '';
-    }
-    if (household?.guardian) {
-      draft.family.guardianName = household.guardian.name || '';
-      draft.family.guardianDocument = household.guardian.documentNumber || '';
-      draft.family.guardianPhone = household.guardian.phone || '';
-    }
-    const propertyRecords = results.find((item) => item.type === 'property')?.data?.records || [];
+    const verifiedData = (type) => {
+      const result = results.find((item) => item.type === type && item.status === 'success');
+      return result?.data || result?.declaredData || result?.originalData;
+    };
+    const applyDepartmentFields = (cluster, values) => {
+      Object.entries(values).forEach(([field, value]) => {
+        if (value === undefined || value === null || value === '') return;
+        if (!Object.hasOwn(serverData[cluster] || {}, field)) draft[cluster][field] = String(value);
+        if (!draft[cluster]._departmentFields.includes(field)) draft[cluster]._departmentFields.push(field);
+      });
+    };
+    const household = verifiedData('household');
+    applyDepartmentFields('student', {
+      householdLocation: household?.student?.householdLocation,
+      residenceAddress: household?.student?.currentAddress,
+    });
+    applyDepartmentFields('family', {
+      guardianName: household?.guardian?.name, guardianDocument: household?.guardian?.documentNumber,
+      guardianPhone: household?.guardian?.phone, guardianRelation: household?.guardian?.relation,
+      householdHeadName: household?.householdHead?.name, householdHeadDocument: household?.householdHead?.documentNumber,
+      householdHeadPhone: household?.householdHead?.phone, householdHeadRelation: household?.householdHead?.relation,
+      householdAddress: household?.householdHead?.address,
+    });
+    const propertyRecords = verifiedData('property')?.records || [];
     if (propertyRecords.length) {
       draft.property.propertyMode = 'family';
       draft.property.records = propertyRecords.map((property, index) => ({
@@ -98,7 +115,7 @@ const useEnrollmentStore = create((set, get) => ({
         relation: property.relation || '',
         certificateNumber: property.certificateNumber || '',
         address: property.address || '',
-        usage: property.usage || '住宅',
+        usage: property.usage || '',
         area: property.buildingArea ? String(property.buildingArea) : String(property.area || ''),
       }));
       const property = draft.property.records[0];
@@ -110,7 +127,43 @@ const useEnrollmentStore = create((set, get) => ({
       draft.property.address = property.address;
       draft.property.usage = property.usage;
       draft.property.area = property.area;
+      applyDepartmentFields('property', Object.fromEntries(Object.entries(property).filter(([key]) => key !== 'id')));
     }
+    const social = verifiedData('social_security')?.records?.[0];
+    if (social) {
+      draft.materials.socialEnabled = serverData.materials?.socialEnabled ?? true;
+      applyDepartmentFields('materials', {
+        socialPerson: social.insuredPerson, socialDocument: social.documentNumber,
+        socialRegion: social.region, socialStatus: social.status,
+        socialFirstDate: social.firstInsuredAt, socialMonths: social.continuousMonths,
+      });
+    }
+    const business = verifiedData('business_license')?.records?.[0];
+    if (business) {
+      draft.materials.businessEnabled = serverData.materials?.businessEnabled ?? true;
+      applyDepartmentFields('materials', {
+        businessOwnerRelation: business.relation, businessCreditCode: business.creditCode,
+        businessName: business.entityName, businessOperator: business.operator,
+        businessType: business.type, businessAddress: business.address,
+        businessEstablishedDate: business.establishedAt, businessStatus: business.status,
+      });
+    }
+    const noProperty = verifiedData('parents_no_property');
+    if (noProperty) {
+      draft.materials.noPropertyEnabled = serverData.materials?.noPropertyEnabled ?? true;
+      applyDepartmentFields('materials', {
+        noPropertyRegion: noProperty.father?.region || noProperty.mother?.region,
+        fatherNoPropertyName: noProperty.father?.name, fatherNoPropertyDocument: noProperty.father?.documentNumber,
+        fatherNoPropertyResult: noProperty.father?.result,
+        motherNoPropertyName: noProperty.mother?.name, motherNoPropertyDocument: noProperty.mother?.documentNumber,
+        motherNoPropertyResult: noProperty.mother?.result,
+      });
+    }
+    // Saved declarations take precedence over the original departmental response.
+    Object.keys(draft).forEach((cluster) => {
+      const fields = draft[cluster]._departmentFields;
+      draft[cluster] = { ...draft[cluster], ...serverData[cluster], _departmentFields: fields };
+    });
     const verificationReasons = Object.fromEntries(results
       .filter((item) => item?.type && item?.modificationReason)
       .map((item) => [item.type, item.modificationReason]));
@@ -140,6 +193,7 @@ const useEnrollmentStore = create((set, get) => ({
     }
     return {
       draft,
+      serverMaterials: application?.materials || [],
       originalDraft: JSON.parse(JSON.stringify(draft)),
       selectedSchool: application?.school || state.selectedSchool,
       flow: application ? {
@@ -161,6 +215,11 @@ const useEnrollmentStore = create((set, get) => ({
     savedAt: new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', hour12: false }),
   })),
 
+  addServerMaterial: (material) => set((state) => ({ serverMaterials: [...state.serverMaterials, material] })),
+  removeServerMaterial: (materialId) => set((state) => ({
+    serverMaterials: state.serverMaterials.filter((material) => material.id !== materialId),
+  })),
+
   submitApplication: (serverApplication) => {
     const { flow, draft } = get();
     const stage = getStage(flow.stageId);
@@ -173,8 +232,8 @@ const useEnrollmentStore = create((set, get) => ({
         studentName: serverApplication.studentName || draft.student.name,
         maskedStudentName: `${draft.student.name.slice(0, 1)}*${draft.student.name.slice(-1)}`,
         schoolName: serverApplication.school?.name || school?.name || '',
-        stageName: stage.name,
-        categoryName: category.name,
+        stageName: serverApplication.stageLabel || stage.name,
+        categoryName: serverApplication.categoryLabel || category.name,
         status: serverApplication.statusLabel || '审核中',
         updatedAt: serverApplication.updatedAt || new Date().toLocaleString('zh-CN', { hour12: false }),
         hasUpdate: false,
@@ -193,9 +252,10 @@ const useEnrollmentStore = create((set, get) => ({
     draft: createEmptyDraft(),
     originalDraft: createEmptyDraft(),
     application: null,
+    serverMaterials: [],
     serverApplicationId: null,
     serverVersion: 1,
-    savedAt: '14:32',
+    savedAt: '',
   }),
 }));
 

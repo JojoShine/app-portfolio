@@ -1,0 +1,370 @@
+.enrollment-home__content {
+  padding: 8px 16px 28px;
+}
+
+.stage-entry-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.stage-entry {
+  position: relative;
+  display: flex;
+  min-height: 130px;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+  padding: 18px 14px;
+  text-align: left;
+  background: var(--enroll-surface);
+  border: 1px solid var(--enroll-line);
+  border-radius: var(--enroll-radius-14);
+  box-shadow: 0 6px 20px rgba(26, 44, 82, .05);
+}
+
+.stage-entry--featured {
+  grid-column: 1 / -1;
+  min-height: 106px;
+}
+
+.stage-entry__icon {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  flex: 0 0 auto;
+  color: var(--enroll-surface);
+  font-size: 28px;
+  background: var(--enroll-primary);
+  border-radius: 50%;
+  place-items: center;
+}
+
+.stage-entry__copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.stage-entry strong,
+.stage-entry small {
+  display: block;
+}
+
+.stage-entry strong {
+  font-size: 18px;
+  line-height: 25px;
+}
+
+.stage-entry small {
+  margin-top: 5px;
+  color: var(--enroll-muted);
+  font-size: 13px;
+  line-height: 19px;
+}
+
+.stage-entry > svg {
+  flex: 0 0 auto;
+  color: currentColor;
+  font-size: 19px;
+}
+
+.stage-entry--blue { color: var(--enroll-primary) !important; background: #f7faff; border-color: #b9d1ff; }
+.stage-entry--green { color: #259267 !important; background: #f4fbf7; border-color: #c7e8d7; }
+.stage-entry--orange { color: #e87919 !important; background: #fff9f3; border-color: #f1d4b5; }
+.stage-entry--green .stage-entry__icon { background: #31ac79; }
+.stage-entry--orange .stage-entry__icon { background: #f08a2b; }
+.stage-entry strong { color: var(--enroll-text); }
+
+.application-summary {
+  border: 1px solid var(--enroll-line);
+  border-radius: var(--enroll-radius-14);
+  box-shadow: 0 6px 20px rgba(26, 44, 82, .05);
+}
+
+.application-summary__top,
+.application-summary__action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.application-summary__top strong {
+  font-size: 16px;
+}
+
+.application-summary__top strong span {
+  color: #a4adbc;
+}
+
+.application-summary p,
+.application-summary__action {
+  margin: 10px 0 0;
+  color: var(--enroll-muted);
+  font-size: 14px;
+}
+
+.update-dot {
+  color: var(--enroll-primary);
+  font-size: 13px;
+}
+
+.update-dot::after {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-left: 6px;
+  background: var(--enroll-primary);
+  border-radius: 50%;
+  content: "";
+}
+
+.service-entry-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.service-entry-grid button {
+  display: flex;
+  min-height: 120px;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 8px 10px;
+  background: var(--enroll-surface);
+  border: 1px solid var(--enroll-line);
+  border-radius: 13px;
+}
+
+.service-entry-grid svg {
+  margin-bottom: 10px;
+  color: var(--enroll-primary);
+  font-size: 26px;
+}
+
+.service-entry-grid strong {
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.service-entry-grid span {
+  margin-top: 5px;
+  color: var(--enroll-muted);
+  font-size: 11px;
+  line-height: 16px;
+}
+
+@media (max-width: 380px) {
+  .service-entry-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 380px) {
+  .stage-entry { min-height: 118px; }
+}
+
+@media (max-width: 380px) {
+  .stage-entry__icon { width: 48px; height: 48px; }
+}
+
+@media (max-width: 380px) {
+  .stage-entry strong { font-size: 16px; }
+}
+
+.stage-entry__icon {
+  display: block;
+  padding: 0;
+  object-fit: cover;
+  background: transparent !important;
+  box-shadow: none;
+}
+.stage-entry__icon { width: 56px; height: 56px; border-radius: 50%; }
+
+.enrollment-home__content { padding: 9px 17px 28px; }
+.enrollment-home .enrollment-section-title { margin-top: 24px; }
+.stage-entry { border-radius: 9px; }
+.stage-entry--featured { min-height: 99px; }
+.stage-entry:not(.stage-entry--featured) {
+  min-height: 136px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.stage-entry:not(.stage-entry--featured) .stage-entry__copy { flex-basis: calc(100% - 20px); }
+.stage-entry:not(.stage-entry--featured) > svg { position: absolute; top: 36px; right: 13px; }
+.stage-entry strong { color: #071431; font-size: 17px; line-height: 24px; }
+.stage-entry small { color: #64718b; font-size: 13px; line-height: 19px; }
+.service-entry-grid button { border-color: #dfe6f0; box-shadow: 0 4px 14px rgba(33,70,120,.04); }
+.service-entry-grid svg { color: #1769e9; font-size: 28px; }
+.service-entry-grid strong { color: #071431; }
+.enrollment-home__content { padding: 10px 18px 32px; }
+
+.stage-entry-grid { gap: 12px; }
+.stage-entry {
+  min-height: 124px;
+  padding: 18px 15px;
+  border-radius: var(--enroll-radius-12);
+  box-shadow: 0 5px 16px rgba(37, 76, 129, .06);
+}
+.stage-entry--featured { min-height: 102px; }
+.stage-entry__icon { width: 52px; height: 52px; font-size: 25px; }
+.stage-entry strong { font-size: 17px; }
+.stage-entry small { font-size: 12px; line-height: 18px; }
+.stage-entry--blue { background: #f1f7ff; border-color: #c9ddff; }
+.stage-entry--green { background: #f1faf6; border-color: #cce9d9; }
+.stage-entry--orange { background: #fff7ef; border-color: #f4d8ba; }
+
+.application-summary {
+  border-radius: var(--enroll-radius-12);
+  box-shadow: 0 4px 15px rgba(31, 65, 110, .05);
+}
+.application-summary .adm-card-body { padding: 17px; }
+
+.service-entry-grid { gap: 7px; }
+.service-entry-grid button {
+  min-height: 120px;
+  padding: 14px 5px 11px;
+  border-radius: var(--enroll-radius-10);
+}
+.service-entry-grid svg { margin-bottom: 8px; font-size: 24px; }
+.service-entry-grid strong { font-size: 13px; }
+.service-entry-grid span {
+  display: block;
+  margin-top: 7px;
+  color: #76839a;
+  font-size: 11px;
+  line-height: 16px;
+}
+.enrollment-home { position: relative; }
+.enrollment-home__return { position: absolute; top: calc(8px + env(safe-area-inset-top)); left: 18px; z-index: 4; display: inline-flex; align-items: center; justify-content: center; gap: 4px; min-height: 28px; padding: 3px 10px 3px 7px; color: var(--enroll-surface); background: rgba(255, 255, 255, .14); border: 1px solid rgba(255, 255, 255, .38); border-radius: var(--enroll-radius-18); font-size: 12px; text-decoration: none; }
+.enrollment-home__return > svg { font-size: 14px; }
+.enrollment-home__return:active { background: rgba(255, 255, 255, .25); }
+.enrollment-home__return:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.enrollment-home__content { padding: 2px 16px 18px; }
+.enrollment-home .enrollment-section-title { min-height: 27px; margin: 14px 0 9px; }
+.enrollment-home .enrollment-section-title:first-child { margin-top: 11px; }
+.enrollment-home .enrollment-section-title h2 { font-size: 18px; font-weight: 800; line-height: 24px; }
+.enrollment-home .stage-entry-grid { gap: 9px; }
+.enrollment-home .stage-entry {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 132px;
+  padding: 14px;
+  box-shadow: none;
+}
+.enrollment-home .stage-entry::after {
+  position: absolute;
+  bottom: 0;
+  z-index: -1;
+  content: '';
+  pointer-events: none;
+  background-image: url('../../assets/reference/stage-decoration.png');
+  background-repeat: no-repeat;
+  background-size: 307.2px 204.8px;
+  opacity: .13;
+  mix-blend-mode: multiply;
+}
+.enrollment-home .stage-entry--blue::after {
+  width: 104px;
+  height: 85px;
+  right: 38px;
+  background-position: -9px -89px;
+}
+.enrollment-home .stage-entry--green::after {
+  width: 70px;
+  height: 94px;
+  right: 6px;
+  background-position: -130px -85px;
+}
+.enrollment-home .stage-entry--orange::after {
+  width: 83px;
+  height: 94px;
+  right: 3px;
+  background-position: -216px -80px;
+}
+.enrollment-home .stage-entry--featured { min-height: 98px; }
+.enrollment-home .stage-entry__icon { width: 48px; height: 48px; }
+.enrollment-home .stage-entry strong { font-size: 16px; font-weight: 800; line-height: 22px; }
+.enrollment-home .stage-entry small { margin-top: 5px; font-size: 12px; line-height: 18px; }
+.enrollment-home .stage-entry:not(.stage-entry--featured) {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
+}
+.enrollment-home .stage-entry:not(.stage-entry--featured) .stage-entry__copy { flex-basis: auto; }
+.enrollment-home .stage-entry > svg { position: absolute; top: 30px; right: 13px; }
+.enrollment-home .stage-entry--featured > svg { top: 39px; }
+.enrollment-home .application-summary { border-radius: 9px; box-shadow: 0 2px 8px rgba(33, 70, 120, .035); }
+.enrollment-home .application-summary .adm-card-body { padding: 12px 13px; }
+.enrollment-home .application-summary__top strong { min-width: 0; overflow: hidden; font-size: 15px; line-height: 21px; text-overflow: ellipsis; white-space: nowrap; }
+.enrollment-home .application-summary__top .adm-tag { flex: 0 0 auto; }
+.enrollment-home .application-summary p,
+.enrollment-home .application-summary__action { margin-top: 5px; font-size: 13px; line-height: 19px; }
+.home-section-action {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 0 3px 8px;
+  color: var(--enroll-primary);
+  font-size: 13px;
+  line-height: 18px;
+  background: transparent;
+  border: 0;
+}
+.home-section-action span { margin-right: 3px; color: #e97818; }
+.home-section-action svg { font-size: 13px; }
+.enrollment-home .service-entry-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.enrollment-home .service-entry-grid button {
+  min-height: 74px;
+  flex: 0 0 calc((100% - 16px) / 3);
+  padding: 9px 5px 8px;
+  border-radius: 9px;
+  box-shadow: 0 2px 8px rgba(33, 70, 120, .035);
+}
+.enrollment-home .service-entry-grid svg { margin-bottom: 5px; font-size: 22px; }
+.enrollment-home .service-entry-grid strong { font-size: 13px; line-height: 18px; }
+.enrollment-home .service-entry-grid span { margin-top: 2px; font-size: 11px; line-height: 15px; }
+.enrollment-home .stage-entry:active,
+.enrollment-home .service-entry-grid button:active,
+.enrollment-home .application-summary:active { transform: scale(.985); }
+.enrollment-page:not(.enrollment-home):not(.category-page):not(.public-query-page) {
+  padding-top: env(safe-area-inset-top);
+}
+
+@media (max-width: 380px) {
+  .service-entry-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 5px; }
+}
+
+@media (max-width: 380px) {
+  .service-entry-grid button { min-height: 116px; padding-inline: 3px; }
+}
+
+@media (max-width: 380px) {
+  .service-entry-grid strong { font-size: 12px; }
+}
+
+@media (max-width: 380px) {
+  .service-entry-grid span { font-size: 10px; line-height: 15px; }
+}
+
+@media (max-width: 380px) {
+  .enrollment-home .service-entry-grid button { min-height: 70px; padding: 8px 3px; }
+}
+
+@media (max-width: 380px) {
+  .enrollment-home .service-entry-grid strong { font-size: 12px; }
+}
+
+@media (max-width: 380px) {
+  .enrollment-home .service-entry-grid span { font-size: 10px; line-height: 14px; }
+}
+.enrollment-home > .gov-hero--home {
+  min-height: 0;
+  height: auto;
+  aspect-ratio: 853 / 500;
+  background-position: center top;
+}

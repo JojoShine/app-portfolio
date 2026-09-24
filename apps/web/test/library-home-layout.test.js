@@ -2,9 +2,17 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
-const css = readFileSync(new URL('../src/modules/library/library.css', import.meta.url), 'utf8');
+const css = ['shell.css', 'pages/foundation.css', 'pages/home.css', 'responsive.css']
+  .map((file) => readFileSync(new URL(`../src/modules/library/styles/${file}`, import.meta.url), 'utf8')).join('\n');
 const home = readFileSync(new URL('../src/modules/library/pages/HomePage.jsx', import.meta.url), 'utf8');
 const assets = readFileSync(new URL('../src/modules/library/components/AssetImage.jsx', import.meta.url), 'utf8');
+const layout = readFileSync(new URL('../src/modules/library/components/LibraryLayout.jsx', import.meta.url), 'utf8');
+
+test('底部导航首页使用房屋轮廓图标', () => {
+  assert.match(layout, /function HomeIcon\(\)/);
+  assert.match(layout, /\['首页', '\/library', HomeIcon\]/);
+  assert.doesNotMatch(layout, /AppOutline/);
+});
 
 test('首页借阅码使用深墨色并与其余朱砂图标区分', () => {
   assert.match(css, /\.lib-quick button:first-child svg\s*\{[^}]*color:\s*var\(--lib-ink\)/s);
@@ -14,9 +22,9 @@ test('首页提醒条与快捷区留出纸面间距并保持票据比例', () =>
   assert.match(css, /\.lib-home \.lib-reminder\s*\{[^}]*margin-top:\s*8px/s);
   assert.match(css, /\.lib-home \.lib-reminder\s*\{[^}]*width:\s*calc\(100% \+ 16px\)/s);
   assert.match(css, /\.lib-home \.lib-reminder\s*\{[^}]*padding:\s*9px 0/s);
-  assert.match(css, /\.lib-home \.lib-reminder\s*\{[^}]*grid-template-columns:\s*34px 58px minmax\(0,1fr\) 18px 78px/s);
-  assert.match(css, /\.lib-reminder-callno\s*\{[^}]*border-right:\s*1px solid/s);
-  assert.match(css, /\.lib-home \.lib-reminder img\s*\{[^}]*width:\s*50px/s);
+  assert.match(css, /\.lib-home \.lib-reminder\s*\{[^}]*grid-template-columns:\s*max-content minmax\(0,1fr\) 14px 82px/s);
+  assert.match(css, /\.lib-reminder-callno\s*\{[^}]*white-space:\s*nowrap/s);
+  assert.match(css, /\.lib-home \.lib-reminder img\s*\{[^}]*width:\s*44px/s);
   assert.match(css, /\.lib-home \.lib-reminder\s*\{[^}]*background-color:\s*rgba\(255,253,248,\.46\)/s);
 });
 
@@ -51,6 +59,14 @@ test('首页箭头按用途区分且通知铃铛按设计稿收窄', () => {
   assert.match(css, /\.lib-page \.lib-chevron\s*\{[^}]*width:\s*12px[^}]*height:\s*12px[^}]*flex:\s*0 0 12px/s);
   assert.doesNotMatch(home, /lib-community-arrow/);
   assert.doesNotMatch(css, /\.lib-page \.lib-community-arrow/);
+  assert.match(css, /\.lib-search-entry \.lib-long-arrow\s*\{[^}]*height:\s*27px[^}]*align-self:\s*center[^}]*transform:\s*none/s);
+});
+
+test('各页面返回箭头使用统一尺寸和点击区域', () => {
+  assert.match(layout, /className="lib-back-button"/);
+  assert.match(css, /\.lib-page-header > \.lib-back-button\s*\{[^}]*width:\s*var\(--lib-touch-target\)[^}]*height:\s*var\(--lib-touch-target\)[^}]*min-height:\s*var\(--lib-touch-target\)/s);
+  assert.match(css, /\.lib-page-header > \.lib-back-button svg\s*\{[^}]*width:\s*20px[^}]*height:\s*20px[^}]*flex:\s*0 0 20px/s);
+  assert.match(css, /\.lib-home-return a svg\s*\{[^}]*width:\s*20px[^}]*height:\s*20px/s);
 });
 
 test('所有主页面使用同一固定高度的底部导航', () => {

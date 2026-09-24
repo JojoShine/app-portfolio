@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
+import homeLifestyleBanner from '../assets/home-lifestyle-banner.jpg';
+import homePointsCard from '../assets/home-points-card.jpg';
 import { Checkbox } from 'antd-mobile';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Art, ProductArt, Arrow, Header, Icon, ProductCard, ProductFilters, Tabs, Empty, Rules, Rows } from '../components/UI';
 import { useMallContext, shortDate } from '../components/MallContext';
 import { checkInSummary, redemptionIssue } from '../utils/rules';
 import { toggleFavorite, recordView } from '../services/collection.service';
-import homeLifestyleBanner from '../assets/home-lifestyle-banner.jpg';
-const categories = ['全部', '生活好物', '电子权益', '餐饮美食', '影音会员', '出行休闲', '文创周边'];
 export function HomePage() {
   const {
     data
@@ -26,7 +26,7 @@ export function HomePage() {
 <input name="q" placeholder="搜索好物与权益" aria-label="搜索好物与权益" />
 <button>搜索</button>
 </form>
-<section className="gp-balance gp-home-balance">
+<section className="gp-balance gp-home-balance" style={{ '--gp-points-card': `url(${homePointsCard})` }}>
 <div><span>我的可用积分</span><strong>{data.balance.toLocaleString()}<small> 积分</small></strong></div>
 <nav className="gp-balance-actions" aria-label="积分与券包"><Link to="/green-points/points"><Icon name="record" /><span>收支明细</span><Arrow /></Link><Link to="/green-points/coupons?tab=wallet"><Icon name="tag" /><span>我的券包</span><b>{data.wallet.filter(c => !c.usedBy && c.expiresAt > Date.now()).length} 张</b><Arrow /></Link></nav>
 </section>
@@ -53,7 +53,7 @@ export function HomePage() {
 <h2>为你精选</h2>
 <Checkbox className="gp-redeem-filter" checked={only} onChange={setOnly}>只看可兑换</Checkbox>
 </div>
-<Tabs items={categories} value={category} onChange={setCategory} />
+<Tabs items={data.categories} value={category} onChange={setCategory} />
 <div className="gp-grid">{visibleProducts.map(p => <ProductCard key={p.id} product={p} />)}</div>{!visibleProducts.length && <Empty text="暂时没有可兑换的商品" />}
 <p className="gp-footnote">青禾好物 · 让每一分都有好去处<br />演示商城，商品与权益仅用于功能体验</p></div>
 </>;
@@ -76,7 +76,7 @@ export function ProductsPage() {
 <Icon name="search" />
 <input placeholder="搜索商品" aria-label="搜索商品" value={search.get('q') || ''} onChange={e => setSearch(previous => { const next = new URLSearchParams(previous); next.set('q', e.target.value); return next; }, { replace: true })} />
 </div>
-<Tabs items={categories} value={category} onChange={setCategory} />
+<Tabs items={data.categories} value={category} onChange={setCategory} />
 <ProductFilters type={type} sort={sort} only={only} onTypeChange={setType} onSortChange={setSort} onOnlyChange={setOnly} />
 <div className="gp-section-heading"><span className="gp-muted">共 {products.length} 件好物{search.get('max') ? ` · ${search.get('max')}积分以内` : ''}</span><button onClick={() => {setSearch({});setType('全部类型');setOnly(false);setSort('default');}}>重置筛选</button></div><div className="gp-grid">{products.map(p => <ProductCard key={p.id} product={p} />)}</div>{!products.length && <Empty text="没有符合条件的商品">
 <button onClick={() => {

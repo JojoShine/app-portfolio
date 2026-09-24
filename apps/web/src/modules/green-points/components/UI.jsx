@@ -2,42 +2,20 @@ import { useState } from 'react';
 import { Button, Checkbox, Popup, Radio } from 'antd-mobile';
 import PropTypes from 'prop-types';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import cup from '../assets/cup.png';
-import bag from '../assets/bag.png';
-import ticket from '../assets/ticket.png';
-import book from '../assets/book.png';
-import park from '../assets/park.png';
-import voucher from '../assets/voucher.png';
-const pictures = {
-  voucher,
-  cup,
-  bag,
-  ticket,
-  book,
-  park
-};
+import { appConfig } from '../../../app/config/env';
+const assetUrl = name => `${appConfig.apiBaseUrl}/green-points/assets/${encodeURIComponent(name)}`;
 export function Art({
   name,
   className = ''
 }) {
-  return <img className={className} src={pictures[name] || cup} alt="" />;
+  return <img className={className} src={assetUrl(name || 'cup')} alt="" />;
 }
 Art.propTypes = {
   name: PropTypes.string,
   className: PropTypes.string
 };
 export function ProductArt({ product, className = '' }) {
-  const artwork = {
-    coffee: ['COFFEE BREAK', '午后咖啡', 'cup', 'coffee'],
-    tea: ['TEA MOMENT', '一杯清欢', 'leaf', 'tea'],
-    bakery: ['FRESHLY BAKED', '街角烘焙', 'gift', 'bakery'],
-    music: ['MUSIC EVERYDAY', '随心畅听', 'music', 'music'],
-    reading: ['READ & RELAX', '好书相伴', 'record', 'reading'],
-    museum: ['CITY EXHIBITION', '城市特展', 'building', 'museum'],
-    garden: ['A DAY IN GREEN', '漫游植物园', 'leaf', 'garden']
-  }[product.id];
-  if (!artwork) return <Art name={product.image} className={className} />;
-  return <div className={`gp-product-art gp-product-art--${artwork[3]} ${className}`} role="img" aria-label={product.name}><span>{artwork[0]}</span><Icon name={artwork[2]} /><b>{artwork[1]}</b><small>青禾 · 精选权益</small></div>;
+  return <img className={className} src={product.imageUrl || assetUrl(product.image)} alt={product.name} />;
 }
 ProductArt.propTypes = { product: PropTypes.object.isRequired, className: PropTypes.string };
 export function Icon({

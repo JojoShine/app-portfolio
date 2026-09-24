@@ -1,0 +1,50 @@
+.faq-categories button { min-width: max-content; padding: 8px 13px; color: var(--enroll-muted); background: var(--enroll-surface); border: 1px solid var(--enroll-line); border-radius: var(--enroll-radius-8); }
+.faq-categories button.is-active { color: var(--enroll-primary); background: var(--enroll-pale); border-color: #9bbaf1; }
+.faq-categories { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 14px; }
+.faq-search .adm-search-bar { --background: #fff; --border-radius: 11px; }
+.faq-search .adm-search-bar-input-box {
+  height: 45px;
+  padding: 0 13px;
+  background: var(--enroll-surface);
+  border: 1px solid #cbd6e3;
+  border-radius: 11px;
+  box-shadow: none;
+}
+.faq-search .adm-search-bar-input-box:focus-within { border-color: var(--enroll-primary); }
+.faq-search .adm-search-bar-input-box-icon { color: #58708f; font-size: 19px; }
+.faq-search .adm-input-element { color: #26344b; font-size: 15px; caret-color: var(--enroll-primary); }
+.faq-search .adm-input-element::placeholder { color: #7a899e; opacity: 1; }
+.faq-list { display: grid; gap: 12px; }
+.faq-item {
+  padding: 15px;
+  background: var(--enroll-surface);
+  border: 1px solid #e0e7f0;
+  border-radius: 11px;
+  box-shadow: 0 3px 12px rgba(38,65,104,.04);
+}
+.faq-item header { display: flex; align-items: flex-start; gap: 10px; }
+.faq-item header > span,
+.faq-answer > span {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  flex: none;
+  color: var(--enroll-surface);
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--enroll-primary);
+  border-radius: 7px;
+  place-items: center;
+}
+.faq-item h2 { margin: 1px 0 0; color: #233149; font-size: 15px; line-height: 22px; }
+.faq-answer {
+  display: flex;
+  margin-top: 12px;
+  padding-top: 12px;
+  align-items: flex-start;
+  gap: 10px;
+  border-top: 1px solid #edf0f4;
+}
+.faq-answer > span { color: #238a68; background: #e9f7f1; }
+.faq-answer p { margin: 1px 0 0; color: var(--enroll-muted); font-size: 14px; line-height: 23px; }
+.faq-list.service-card-list { gap: 12px; }

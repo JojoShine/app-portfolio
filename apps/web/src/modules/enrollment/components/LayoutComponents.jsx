@@ -1,7 +1,35 @@
+import { useLayoutEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { NavBar } from 'antd-mobile';
 import { ContentOutline, LeftOutline, RightOutline } from 'antd-mobile-icons';
 import enrollmentSchoolHero from '../assets/enrollment-school-hero.png';
+
+export const EnrollmentLayout = ({ children }) => {
+  const containerRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const container = containerRef.current;
+    const syncBounds = () => {
+      const { left, width } = container.getBoundingClientRect();
+      container.style.setProperty('--enroll-container-left', `${left}px`);
+      container.style.setProperty('--enroll-container-width', `${width}px`);
+    };
+    syncBounds();
+    const observer = new ResizeObserver(syncBounds);
+    observer.observe(container);
+    window.addEventListener('resize', syncBounds);
+    window.addEventListener('scroll', syncBounds, true);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', syncBounds);
+      window.removeEventListener('scroll', syncBounds, true);
+    };
+  }, []);
+
+  return <div className="enrollment-app" ref={containerRef}>{children}</div>;
+};
+
+EnrollmentLayout.propTypes = { children: PropTypes.node.isRequired };
 
 export const PageHeader = ({ title, onBack = null, right = null }) => (
   <NavBar

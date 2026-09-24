@@ -57,6 +57,10 @@ app.use('/api/app', system.app.routes);
 app.use('/api/enrollment', enrollment.routes);
 app.use('/api/coupon', coupon.routes);
 app.use('/api/library', library.routes);
+app.use('/api/policy-match', require('./modules/policy-match').routes);
+app.use('/api/green-points', require('./modules/green-points').routes);
+app.use('/api/snap-report', require('./modules/snap-report').routes);
+app.use('/api/quiz', require('./modules/quiz').routes);
 
 // 404 处理
 app.use((req, res) => {

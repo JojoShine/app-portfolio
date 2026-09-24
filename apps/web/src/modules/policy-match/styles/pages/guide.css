@@ -1,0 +1,23 @@
+.pm-app .pm-page-guide { --pm-page-gutter: 12px; padding: 0 var(--pm-page-gutter) calc(24px + env(safe-area-inset-bottom)); }
+.pm-page-guide .pm-guide-hero { margin: 2px 0 12px; padding: 22px 16px; min-height: 174px; border-radius: var(--pm-radius-card); background-color: var(--pm-green); background-size: cover; background-position: center; color: var(--pm-surface); }
+.pm-page-guide .pm-guide-hero h1 { font-size: 25px; line-height: 1.4; font-weight: var(--pm-weight-bold); }
+.pm-page-guide .pm-guide-hero p { max-width: 62%; margin-top: 10px; font-size: 12px; line-height: 1.8; color: #e1ece5; }
+.pm-page-guide .pm-guide-hero>span { display: inline-block; margin-top: 12px; padding: 3px 9px; border: 1px solid #c5dbca88; border-radius: 20px; font-size: 11px; line-height: 18px; }
+.pm-page-guide .pm-guide-notice { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; margin-bottom: 12px; border-radius: var(--pm-radius-md); background: #edf5fc; color: #48627a; }
+.pm-page-guide .pm-guide-notice>svg { flex-shrink: 0; font-size: 20px; margin-top: 2px; color: #437fbc; }
+.pm-page-guide .pm-guide-notice p { font-size: 13px; line-height: 1.8; }
+.pm-page-guide .pm-guide-questions { display: flex; flex-direction: column; gap: 12px; }
+.pm-page-guide .pm-guide-card { padding: 18px 16px; border-radius: var(--pm-radius-card); background: var(--pm-surface); }
+.pm-page-guide .pm-guide-card h2 { font-size: 17px; line-height: 26px; font-weight: var(--pm-weight-semibold); margin-bottom: 10px; }
+.pm-page-guide .pm-guide-card p { font-size: 14px; line-height: 1.85; color: var(--pm-muted); }
+.pm-page-guide .pm-guide-tips { margin-top: 12px; padding: 16px; background: var(--pm-surface); border-radius: var(--pm-radius-card); }
+.pm-page-guide .pm-guide-tips h2 { margin-bottom: 10px; font-size: 15px; line-height: 24px; font-weight: var(--pm-weight-semibold); }
+.pm-page-guide .pm-guide-tips>div { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: var(--pm-radius-sm); background: var(--pm-background); }
+.pm-page-guide .pm-guide-tips svg { flex-shrink: 0; font-size: 28px; color: var(--pm-green); }
+.pm-page-guide .pm-guide-tips p { font-size: 12px; line-height: 1.8; color: var(--pm-muted); }
+.pm-page-guide .pm-guide-links { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin-top: 16px; }
+.pm-page-guide .pm-guide-links>a { min-height: 44px; gap: 8px; padding: 10px; font-size: 14px; font-weight: var(--pm-weight-medium); }
+@media(max-width:359px) {
+  .pm-page-guide .pm-guide-hero h1 { font-size: 22px; }
+  .pm-page-guide .pm-guide-card { padding: 16px 14px; }
+}

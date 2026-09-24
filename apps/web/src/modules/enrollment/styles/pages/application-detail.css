@@ -1,0 +1,220 @@
+.detail-status { position: relative; display: flex; min-height: 142px; align-items: center; gap: 18px; overflow: hidden; padding: 22px; color: var(--enroll-success); background: #edf9f3; border: 1px solid #bce1cf; border-radius: var(--enroll-radius-14); }
+.detail-status > svg { flex: 0 0 auto; font-size: 54px; }
+.detail-status h1 { margin: 0; font-size: 24px; }
+.detail-status p { margin: 6px 0; color: #536b61; }
+.detail-status strong { color: #ef7a1c; font-size: 14px; }
+.detail-status > span { position: absolute; top: 14px; right: 14px; font-size: 12px; }
+.detail-status--warning { color: var(--enroll-warning); background: #fff8ea; border-color: #efd7aa; }
+.detail-status--danger { color: var(--enroll-danger); background: #fff3f3; border-color: #efc8c8; }
+.detail-status--draft,
+.detail-status--reviewing { color: #3474c9; background: #f1f6fc; border-color: #cfdded; }
+.application-detail-page .detail-status.detail-status--draft h1 {
+  font-size: 16px;
+  line-height: 22px;
+}
+.application-detail-page .detail-status--draft p { color: #62728a; }
+.detail-link-list { overflow: hidden; background: var(--enroll-surface); border: 1px solid var(--enroll-line); border-radius: 13px; }
+.detail-link-list button { display: flex; width: 100%; min-height: 52px; align-items: center; gap: 10px; padding: 0 14px; background: none; border: 0; border-bottom: 1px solid var(--enroll-line); }
+.detail-link-list button:last-child { border-bottom: 0; }
+.detail-link-list button > svg { color: var(--enroll-primary); }
+.detail-link-list button span { display: flex; margin-left: auto; align-items: center; color: var(--enroll-primary); }
+.review-record-list { display: grid; gap: 8px; padding: 8px; background: var(--enroll-surface); border: 1px solid var(--enroll-line); border-radius: 13px; }
+.review-record { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 12px; background: #f8f9fc; border-radius: 9px; }
+.review-record strong,
+.review-record small { display: block; }
+.review-record small { margin-top: 4px; color: var(--enroll-muted); }
+.review-record time { color: var(--enroll-muted); font-size: 12px; white-space: nowrap; }
+.review-record--warning strong { color: var(--enroll-warning); }
+.review-record--primary strong { color: var(--enroll-primary); }
+.review-record--success strong { color: var(--enroll-success); }
+
+.application-detail-page .enrollment-content { padding: 15px 16px 27px; }
+.detail-status { min-height: 121px; padding: 17px 16px; border-radius: 9px; }
+.detail-status h1 { font-size: 23px; }
+.detail-link-list button { min-height: 50px; }
+
+.application-detail-page .detail-status::after {
+  position: absolute;
+  inset: 0 0 0 57%;
+  z-index: 0;
+  background: url('../../assets/reference/hero-summary-art.png') right center / cover no-repeat;
+  content: '';
+  opacity: .24;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 42%);
+  mask-image: linear-gradient(to right, transparent, #000 42%);
+}
+.application-detail-page .detail-status > * { position: relative; z-index: 1; }
+.application-detail-page .detail-status {
+  min-height: 94px;
+  padding: 13px 15px;
+  gap: 12px;
+}
+.application-detail-page .detail-status > svg { font-size: 42px; }
+.application-detail-page .detail-status__stamp {
+  position: relative;
+  display: grid;
+  width: 62px;
+  height: 62px;
+  flex: 0 0 62px;
+  align-content: center;
+  justify-items: center;
+  color: currentColor;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  opacity: .9;
+  transform: rotate(-8deg);
+}
+.application-detail-page .detail-status__stamp::before {
+  position: absolute;
+  inset: 4px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  content: '';
+  opacity: .75;
+}
+.application-detail-page .detail-status__stamp b {
+  position: relative;
+  z-index: 1;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 20px;
+  letter-spacing: 1px;
+}
+.application-detail-page .detail-status__stamp i {
+  position: relative;
+  z-index: 1;
+  margin-top: 1px;
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.application-detail-page .detail-status h1 {
+  font-size: 21px;
+  line-height: 28px;
+}
+.application-detail-page .detail-status p {
+  margin-top: 3px;
+  font-size: 13px;
+  line-height: 19px;
+}
+.application-detail-page .detail-status strong {
+  display: block;
+  margin-top: 2px;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.application-detail-page .enrollment-content {
+  padding: 16px 16px calc(36px + env(safe-area-inset-bottom));
+}
+.application-detail-page .detail-status h1 {
+  font-size: 23px;
+  line-height: 31px;
+}
+.application-detail-page .detail-status p {
+  margin: 6px 0 0;
+  font-size: 14px;
+  line-height: 21px;
+}
+.application-detail-page .student-application-card {
+  min-height: 122px;
+  margin-top: 12px;
+  border-radius: var(--enroll-radius-12);
+}
+.application-detail-page .student-application-card .adm-card-body {
+  width: 100%;
+  padding: 15px 16px;
+}
+.application-detail-page .student-application-card h2 {
+  margin: 0 0 5px;
+  color: #0d1931;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 27px;
+}
+.application-detail-page .student-application-card p {
+  margin: 2px 0;
+  color: #586983;
+  font-size: 14px;
+  line-height: 20px;
+}
+.application-detail-page .student-application-card small {
+  display: block;
+  margin-top: 5px;
+  overflow: hidden;
+  color: #65748d;
+  font-size: 12px;
+  line-height: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.application-detail-page .enrollment-section-title { margin: 23px 0 13px; }
+.application-detail-page .enrollment-section-title h2 { font-size: 18px; }
+.application-detail-page .detail-link-list button {
+  min-height: 52px;
+  padding: 0 15px;
+  font-size: 15px;
+}
+.application-detail-page .detail-link-list button span { font-size: 13px; }
+.application-detail-page .review-summary-card { min-height: 62px; }
+.application-detail-page .review-summary-card .adm-card-body {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 9px;
+  padding: 15px;
+}
+.application-detail-page .review-summary-card strong { font-size: 15px; }
+.application-detail-page .review-summary-card span {
+  min-width: 0;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: right;
+}
+.application-detail-page .review-summary-card + .compact-notice { margin-top: 14px; }
+.application-detail-actions {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+.application-detail-actions .adm-button {
+  min-height: 48px;
+  font-size: 16px;
+  border-radius: 9px;
+}
+.application-detail-actions .delete-application-btn {
+  color: #e03e3e;
+  border-color: #e03e3e;
+}
+.application-detail-actions .back-to-list-btn {
+  color: var(--enroll-muted);
+  border-color: var(--enroll-line);
+}
+
+.application-detail-page .detail-status::after {
+  position: absolute;
+  inset: 0 0 0 57%;
+  z-index: 0;
+  background: url('../../assets/reference/hero-summary-art.png') right center / cover no-repeat;
+  content: '';
+  opacity: .24;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 42%);
+  mask-image: linear-gradient(to right, transparent, #000 42%);
+}
+.application-detail-page .detail-status > * { position: relative; z-index: 1; }
+
+.detail-status { min-height: 138px; padding: 20px; border-radius: var(--enroll-radius-12); }
+.detail-link-list,
+.review-record-list { border-radius: 11px; }
+.application-detail-page .detail-status::after {
+  position: absolute;
+  inset: 0 0 0 57%;
+  z-index: 0;
+  background: url('../../assets/reference/hero-summary-art.png') right center / cover no-repeat;
+  content: '';
+  opacity: .24;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 42%);
+  mask-image: linear-gradient(to right, transparent, #000 42%);
+}
+.application-detail-page .detail-status > * { position: relative; z-index: 1; }

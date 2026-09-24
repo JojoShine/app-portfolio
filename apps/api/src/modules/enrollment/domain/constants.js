@@ -9,6 +9,7 @@ const APPLICATION_STATUSES = Object.freeze([
   'initial_approved',
   'initial_rejected',
   'admitted',
+  'discarded',
 ]);
 const ACTIVE_APPLICATION_STATUSES = Object.freeze([
   'draft',
@@ -33,6 +34,7 @@ const STATUS_LABELS = Object.freeze({
   initial_approved: '初审通过',
   initial_rejected: '初审不通过',
   admitted: '已录取',
+  discarded: '已删除',
 });
 
 module.exports = {

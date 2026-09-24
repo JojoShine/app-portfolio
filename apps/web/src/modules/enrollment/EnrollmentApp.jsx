@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { identityCapability } from '../../shared/capabilities/identity';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import {
   CategoryPage,
@@ -24,10 +25,28 @@ import {
   PublicQueryPage,
   SchedulePage,
 } from './pages/PortalPages';
-import './enrollment.css';
+import { EnrollmentLayout } from './components/LayoutComponents';
+import { portalService } from './services/portal.service';
+import useEnrollmentStore from './store/enrollmentStore';
+import './styles/index.css';
 
 const EnrollmentApp = () => {
   const { pathname } = useLocation();
+  const [sessionReady, setSessionReady] = useState(false);
+  const [sessionError, setSessionError] = useState('');
+
+  useEffect(() => {
+    let active = true;
+    identityCapability.ensureLocalSession()
+      .then(() => portalService.getPortal())
+      .then((portal) => {
+        if (!active) return;
+        if (!portal?.season) throw new Error('招生信息尚未配置');
+        useEnrollmentStore.getState().setPortalData(portal);
+        setSessionReady(true);
+      }).catch((error) => { if (active) setSessionError(error.message); });
+    return () => { active = false; };
+  }, []);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
@@ -40,7 +59,9 @@ const EnrollmentApp = () => {
       ?.setAttribute('content', immersiveBlue ? 'black-translucent' : 'default');
   }, [pathname]);
 
-  return <Routes>
+  if (!sessionReady) return <EnrollmentLayout><div className="enrollment-page"><p role="status">{sessionError || '正在加载招生服务…'}</p></div></EnrollmentLayout>;
+
+  return <EnrollmentLayout><Routes>
     <Route index element={<EnrollmentHomePage />} />
     <Route path="apply/:stageId" element={<CategoryPage />} />
     <Route path="schools" element={<SchoolListPage />} />
@@ -60,7 +81,7 @@ const EnrollmentApp = () => {
     <Route path="guide" element={<GuidePage />} />
     <Route path="public/:type" element={<PublicQueryPage />} />
     <Route path="*" element={<Navigate to="/enrollment" replace />} />
-  </Routes>;
+  </Routes></EnrollmentLayout>;
 };
 
 export default EnrollmentApp;

@@ -1,0 +1,17 @@
+.pm-page-external {
+  padding: 0 var(--pm-page-gutter) var(--pm-space-6);
+}
+
+:where(.pm-page-external) .pm-checklist>label {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  padding: 17px 0;
+  border-bottom: 1px solid #edf2ee;
+}
+
+:where(.pm-page-external) .pm-checklist small {
+  display: block;
+  color: #7c8d81;
+  margin-top: 5px;
+}

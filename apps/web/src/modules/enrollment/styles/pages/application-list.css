@@ -1,0 +1,223 @@
+.application-list-card,
+.student-application-card {
+  border: 1px solid var(--enroll-line);
+  border-radius: var(--enroll-radius-14);
+  box-shadow: 0 6px 20px rgba(26, 44, 82, .05);
+}
+
+.application-filters { display: flex; gap: 8px; overflow-x: auto; }
+.application-filter-selectors { display: grid; gap: 8px; margin: 10px 0 4px; }
+.application-filters button { min-width: max-content; padding: 8px 13px; color: var(--enroll-muted); background: var(--enroll-surface); border: 1px solid var(--enroll-line); border-radius: var(--enroll-radius-8); }
+.application-filters button.is-active { color: var(--enroll-primary); background: var(--enroll-pale); border-color: #9bbaf1; }
+.application-list-card__head { display: flex; align-items: center; gap: 11px; }
+.application-list-card__head > span { display: grid; width: 48px; height: 48px; color: var(--enroll-surface); font-size: 26px; background: var(--enroll-primary); border-radius: 50%; place-items: center; }
+.application-list-card__head > div { flex: 1; }
+.application-list-card__head strong,
+.application-list-card__head small { display: block; }
+.application-list-card__head small { margin-top: 3px; color: var(--enroll-muted); }
+.application-list-card > button { display: flex; width: 100%; margin-top: 8px; padding: 12px 0 0; align-items: center; justify-content: flex-end; gap: 4px; color: var(--enroll-primary); background: none; border: 0; border-top: 1px solid var(--enroll-line); }
+.student-application-card { display: flex; margin-top: 16px; align-items: center; gap: 18px; }
+.student-application-card > svg { color: var(--enroll-primary); font-size: 56px; }
+.student-application-card h2 { margin: 0 0 6px; }
+.student-application-card p,
+.student-application-card small { margin: 4px 0; color: var(--enroll-muted); }
+.student-application-card { min-height: 114px; margin-top: 10px; }
+
+.application-list-card,
+.student-application-card {
+  border-radius: var(--enroll-radius-12);
+  box-shadow: 0 4px 15px rgba(31, 65, 110, .05);
+}
+.application-list-page {
+  padding: 15px 16px calc(34px + env(safe-area-inset-bottom));
+  background: #f6f8fc;
+}
+.application-filter-panel {
+  margin-bottom: 14px;
+  padding: 12px;
+  background: #eef5ff;
+  border: 1px solid #dce9fb;
+  border-radius: var(--enroll-radius-12);
+}
+.application-filter-panel > strong {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--enroll-primary);
+  font-size: 16px;
+  line-height: 23px;
+}
+.application-filter-panel > strong svg { font-size: 19px; }
+.application-filter-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 11px;
+}
+.application-filter-trigger {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #34445f;
+  font-size: 14px !important;
+  background: var(--enroll-surface);
+  border: 1px solid #d9e5f7;
+  border-radius: var(--enroll-radius-8);
+}
+.application-filter-trigger svg {
+  flex: none;
+  color: #8290a5;
+  font-size: 13px;
+}
+.application-filter-panel > p {
+  margin: 8px 1px 0;
+  color: #76849a;
+  font-size: 12px;
+  line-height: 18px;
+}
+.application-list { display: grid; gap: 13px; }
+.application-list-page .application-list-card {
+  margin: 0;
+  overflow: hidden;
+  background: var(--enroll-surface);
+  border: 1px solid #e1e7f0;
+  border-radius: var(--enroll-radius-12);
+  box-shadow: 0 5px 16px rgba(32, 62, 105, .06);
+}
+.application-list-page .application-list-card .adm-card-body { padding: 14px 14px 0; }
+.application-list-page .application-list-card__head {
+  min-height: 48px;
+  align-items: center;
+  gap: 12px;
+}
+.application-list-page .application-list-card__head > span {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 auto;
+  color: var(--enroll-surface);
+  font-size: 27px;
+  background: linear-gradient(145deg, #3488ff, #2468ec);
+  box-shadow: 0 6px 14px rgba(39, 111, 237, .17);
+}
+.application-list-page .application-list-card__head > div:nth-child(2) { min-width: 0; }
+.application-list-page .application-list-card__head strong {
+  overflow: hidden;
+  color: #0c1830;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 27px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.application-list-page .application-list-card__head small {
+  margin-top: 3px;
+  overflow: hidden;
+  color: #60708a;
+  font-size: 14px;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.application-list-card__status {
+  display: flex;
+  flex: 0 0 auto !important;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+.application-list-card__status .adm-tag {
+  padding: 4px 8px;
+  font-size: 13px;
+  line-height: 18px;
+  border: 0;
+  border-radius: 999px;
+}
+.application-list-card--draft .application-list-card__status .adm-tag { color: #53677f; background: #edf2f8; }
+.application-list-card--reviewing .application-list-card__status .adm-tag { color: var(--enroll-primary); background: #eaf2ff; }
+.application-list-card--returned .application-list-card__status .adm-tag { color: #d97214; background: #fff1e3; }
+.application-list-card--approved .application-list-card__status .adm-tag,
+.application-list-card--admitted .application-list-card__status .adm-tag { color: #159560; background: #e8f8f0; }
+.application-list-card--rejected .application-list-card__status .adm-tag { color: #d94f4f; background: #fff0f0; }
+.application-list-card__status em {
+  color: var(--enroll-primary);
+  font-size: 11px;
+  font-style: normal;
+}
+.application-list-card__meta {
+  margin-top: 11px;
+  padding: 3px 0;
+  border-top: 1px solid #edf1f6;
+}
+.application-list-card__meta p {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 12px;
+  margin: 0;
+  padding: 6px 0;
+  align-items: start;
+}
+.application-list-card__meta span {
+  color: #8290a5;
+  font-size: 14px;
+  line-height: 21px;
+}
+.application-list-card__meta strong {
+  min-width: 0;
+  overflow: hidden;
+  color: #25324a;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.application-list-card__meta i { margin: 0 4px; color: #a0aabd; font-style: normal; }
+.application-list-card__actions {
+  display: flex;
+  width: calc(100% + 28px);
+  min-height: 43px;
+  margin: 3px -14px 0;
+  align-items: center;
+  border-top: 1px solid #e8edf5;
+}
+.application-list-card__actions > button {
+  min-width: 0;
+  min-height: 43px;
+  flex: 1;
+  padding: 0 15px;
+  color: var(--enroll-primary);
+  font-size: 15px;
+  font-weight: 500;
+  background: transparent;
+  border: 0;
+}
+.application-list-card__actions > button + button { border-left: 1px solid #e8edf5; }
+.application-list-card__actions > .application-list-card__delete { color: var(--enroll-danger); }
+.application-list-card__actions > button:disabled { color: var(--enroll-weak); }
+.application-list-page > .compact-notice:last-child {
+  margin: 18px 0 0;
+  font-size: 12px;
+  line-height: 19px;
+}
+.student-application-card__inner {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+}
+.student-application-card__avatar {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  color: var(--enroll-surface);
+  font-size: 34px;
+  background: linear-gradient(145deg, #3488ff, #2468ec);
+  border-radius: 50%;
+  place-items: center;
+  box-shadow: 0 6px 14px rgba(39, 111, 237, .18);
+}
+.student-application-card__copy { min-width: 0; }

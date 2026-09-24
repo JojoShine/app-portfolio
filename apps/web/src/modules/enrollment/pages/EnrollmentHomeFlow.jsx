@@ -22,15 +22,12 @@ import {
 } from 'antd-mobile-icons';
 import {
   CATEGORIES,
-  CURRENT_YEAR,
-  SERVICE_ENTRIES,
   STAGES,
   getCategory,
   getStage,
 } from '../domain/constants';
 import useEnrollmentStore from '../store/enrollmentStore';
 import enrollmentService from '../services';
-import useSessionStore from '../../../shared/auth/sessionStore';
 import {
   CompactNotice,
   ContactEntry,
@@ -59,14 +56,14 @@ const categoryArtwork = { urban: categoryCity, non_urban: categoryRural, private
 
 export const EnrollmentHomePage = () => {
   const navigate = useNavigate();
-  const [portalYear, setPortalYear] = useState(CURRENT_YEAR);
+  const portalYear = useEnrollmentStore((state) => state.seasonYear);
+  const portalServices = useEnrollmentStore((state) => state.portalServices);
   const application = useEnrollmentStore((state) => state.application);
   const [latestApplication, setLatestApplication] = useState(null);
   const [applicationLoadError, setApplicationLoadError] = useState('');
   const selectStage = useEnrollmentStore((state) => state.selectStage);
 
   useEffect(() => {
-    enrollmentService.getPortal().then((portal) => setPortalYear(portal?.season?.year || CURRENT_YEAR));
     enrollmentService.listApplications()
       .then((items) => setLatestApplication(items[0] || null))
       .catch((error) => setApplicationLoadError(error.message || '报名记录加载失败'));
@@ -138,11 +135,11 @@ export const EnrollmentHomePage = () => {
 
         <SectionTitle>招生服务</SectionTitle>
         <div className="service-entry-grid">
-          {SERVICE_ENTRIES.map((entry) => {
+          {portalServices.map((entry) => {
             const Icon = serviceIcons[entry.id];
             return (
               <button key={entry.id} type="button" onClick={() => navigate(`/enrollment/${entry.id}`)}>
-                <Icon />
+                {Icon && <Icon />}
                 <strong>{entry.title}</strong>
                 <span>{entry.description}</span>
               </button>
@@ -160,6 +157,7 @@ export const CategoryPage = () => {
   const flow = useEnrollmentStore((state) => state.flow);
   const selectStage = useEnrollmentStore((state) => state.selectStage);
   const selectCategory = useEnrollmentStore((state) => state.selectCategory);
+  const year = useEnrollmentStore((state) => state.seasonYear);
   const [selected, setSelected] = useState(flow.categoryId || CATEGORIES[0].id);
 
   useEffect(() => {
@@ -176,7 +174,7 @@ export const CategoryPage = () => {
   return (
     <div className="enrollment-page enrollment-page--with-actions category-page">
       <div className="stage-switcher-wrap">
-        <strong>{CURRENT_YEAR}年招生</strong>
+        <strong>{year}年招生</strong>
         <div className="stage-switcher" role="tablist" aria-label="报名学段">
           {STAGES.map((stage) => (
             <button
@@ -224,6 +222,7 @@ export const SchoolListPage = () => {
   const navigate = useNavigate();
   const flow = useEnrollmentStore((state) => state.flow);
   const selectSchool = useEnrollmentStore((state) => state.selectSchool);
+  const year = useEnrollmentStore((state) => state.seasonYear);
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState(flow.schoolId || '');
   const [schoolSource, setSchoolSource] = useState([]);
@@ -268,7 +267,7 @@ export const SchoolListPage = () => {
   return (
     <div className="enrollment-page enrollment-page--with-actions">
       <div className="school-filter-bar">
-        <p><CalendarOutline /> {CURRENT_YEAR}年 <span>·</span> {stage.name} <span>·</span> {category.name}</p>
+        <p><CalendarOutline /> {year}年 <span>·</span> {stage.name} <span>·</span> {category.name}</p>
         <SearchBar value={query} onChange={setQuery} placeholder="搜索学校名称" />
       </div>
       <main className="enrollment-content school-list-content">
@@ -320,6 +319,7 @@ export const SchoolPolicyPage = () => {
   const storedSchool = useEnrollmentStore((state) => state.selectedSchool);
   const selectSchool = useEnrollmentStore((state) => state.selectSchool);
   const acceptPolicy = useEnrollmentStore((state) => state.acceptPolicy);
+  const year = useEnrollmentStore((state) => state.seasonYear);
   const [school, setSchool] = useState(
     storedSchool?.id === (schoolId || flow.schoolId)
       ? storedSchool
@@ -358,13 +358,13 @@ export const SchoolPolicyPage = () => {
 
   return (
     <div className="enrollment-page enrollment-page--with-actions policy-page">
-      <GovHero title={school.name} subtitle={`${CURRENT_YEAR}年 · ${stage.name} · ${category.name}`} compact visual="policy" />
+      <GovHero title={school.name} subtitle={`${year}年 · ${stage.name} · ${category.name}`} compact visual="policy" />
       <main className="enrollment-content">
         {loadError && <CompactNotice type="warning">{loadError}</CompactNotice>}
         <article className="policy-article">
           <header>
-            <h1>{school.policyTitle || `${school.name}${CURRENT_YEAR}年招生报名须知`}</h1>
-            <p>适用年度：{CURRENT_YEAR}年 <span /> 政策版本：{school.policyVersion}</p>
+            <h1>{school.policyTitle || `${school.name}${year}年招生报名须知`}</h1>
+            <p>适用年度：{year}年 <span /> 政策版本：{school.policyVersion}</p>
           </header>
           {(school.policyContent?.sections || []).map((section, index) => (
             <section key={`${section.title}-${index}`}>
@@ -391,16 +391,25 @@ export const SchoolPolicyPage = () => {
 
 export const PreprocessPage = () => {
   const navigate = useNavigate();
-  const testStudent = useSessionStore((state) => state.user?.testProfile?.student);
   const flow = useEnrollmentStore((state) => state.flow);
   const selectedSchool = useEnrollmentStore((state) => state.selectedSchool);
   const completePreprocess = useEnrollmentStore((state) => state.completePreprocess);
   const syncServerApplication = useEnrollmentStore((state) => state.syncServerApplication);
   const hydrateDraftFromServer = useEnrollmentStore((state) => state.hydrateDraftFromServer);
+  const year = useEnrollmentStore((state) => state.seasonYear);
   const [authorized, setAuthorized] = useState(flow.dataAuthorized);
   const [querying, setQuerying] = useState(false);
-  const [queryName, setQueryName] = useState(testStudent?.name || '');
-  const [queryDocument, setQueryDocument] = useState(testStudent?.documentNumber || '');
+  const [queryName, setQueryName] = useState('');
+  const [queryDocument, setQueryDocument] = useState('');
+  useEffect(() => {
+    let active = true;
+    enrollmentService.getProfile().then((profile) => {
+      if (!active) return;
+      setQueryName((name) => name || profile?.student?.name || '');
+      setQueryDocument((document) => document || profile?.student?.documentNumber || '');
+    }).catch((error) => Toast.show({ content: error.message || '学生信息加载失败，请手动填写' }));
+    return () => { active = false; };
+  }, []);
   const stage = getStage(flow.stageId);
   const category = getCategory(flow.categoryId);
   const school = selectedSchool;
@@ -435,6 +444,7 @@ export const PreprocessPage = () => {
       completePreprocess();
       const resultCount = (verificationResult.results || []).filter((result) => result.status === 'success').length;
       await Dialog.alert({
+        getContainer: () => document.querySelector('.enrollment-app'),
         bodyClassName: 'verification-dialog',
         maskClassName: 'verification-dialog-mask',
         title: (
@@ -472,7 +482,7 @@ export const PreprocessPage = () => {
   return (
     <div className="enrollment-page preprocess-page">
       <main className="enrollment-content">
-        <div className="flow-context"><AppOutline /> {school.name} <span>·</span> {CURRENT_YEAR}年{stage.name} <span>·</span> <LocationOutline /> {category.name}</div>
+        <div className="flow-context"><AppOutline /> {school.name} <span>·</span> {year}年{stage.name} <span>·</span> <LocationOutline /> {category.name}</div>
         <GovHero title="先查询共享数据，填写更省心" subtitle="补充少量查询信息，结果将在进入报名表时自动带入" compact visual="preprocess" />
 
         <SectionTitle>填写查询信息</SectionTitle>

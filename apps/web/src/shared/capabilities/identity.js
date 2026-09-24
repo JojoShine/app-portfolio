@@ -26,6 +26,27 @@ const withDevelopmentProfile = (user) => (
 );
 
 export const identityCapability = {
+  async ensureLocalSession() {
+    const store = useSessionStore.getState();
+    if (store.accessToken && !store.accessToken.startsWith('mock-')) {
+      try {
+        const user = await apiClient.get('/auth/me', { networkOnly: true });
+        store.setUser(user);
+        return user;
+      } catch (error) {
+        if (error.status !== 401) throw error;
+      }
+    }
+    if (!import.meta.env.DEV) throw new Error('请通过外层应用登录后再进入');
+    // 与图书馆共用预置身份；服务端仍检查开发环境与回环地址。
+    const session = await apiClient.post('/auth/development-token', {
+      userId: DEVELOPMENT_TEST_USER.userId, displayName: '王芳', roles: ['reader', 'parent', 'citizen'],
+    }, { networkOnly: true });
+    store.setAccessToken(session.accessToken);
+    const user = await apiClient.get('/auth/me', { networkOnly: true });
+    store.setUser(user);
+    return user;
+  },
   provideAccessToken(accessToken) {
     useSessionStore.getState().setAccessToken(accessToken);
   },

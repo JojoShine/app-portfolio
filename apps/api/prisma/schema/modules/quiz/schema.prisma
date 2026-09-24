@@ -1,0 +1,99 @@
+/// 答题应用 MinIO 资源索引
+model QuizAsset {
+  id        String   @id @db.VarChar(60)
+  objectKey String   @unique @map("object_key") @db.VarChar(500)
+  mimeType  String   @map("mime_type") @db.VarChar(100)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("quiz_assets")
+}
+
+/// 可参与的答题活动
+model QuizActivity {
+  id               String                 @id @db.VarChar(50)
+  title            String                 @db.VarChar(120)
+  description      String                 @db.Text
+  type             String                 @db.VarChar(30)
+  minutes          Int
+  startsAt         DateTime               @map("starts_at") @db.Timestamptz(6)
+  endsAt           DateTime               @map("ends_at") @db.Timestamptz(6)
+  imageAssetId     String                 @map("image_asset_id") @db.VarChar(60)
+  thumbnailAssetId String                 @map("thumbnail_asset_id") @db.VarChar(60)
+  active           Boolean                @default(true)
+  sort             Int                    @default(0)
+  questions        QuizQuestion[]
+  attempts         QuizAttempt[]
+  rankingEntries   QuizRankingEntry[]
+  createdAt        DateTime               @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime               @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@index([active, sort])
+  @@map("quiz_activities")
+}
+
+/// 活动题目、选项、标准答案及解析
+model QuizQuestion {
+  id          String        @id @db.VarChar(80)
+  activityId  String        @map("activity_id") @db.VarChar(50)
+  activity    QuizActivity  @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  position    Int
+  type        String        @db.VarChar(20)
+  title       String        @db.Text
+  options     Json          @db.JsonB
+  correct     Int[]
+  explanation String        @db.Text
+  answers     QuizAnswer[]
+
+  @@unique([activityId, position])
+  @@map("quiz_questions")
+}
+
+/// 用户对单个活动的一次答题过程
+model QuizAttempt {
+  id           String       @id @default(uuid()) @db.Uuid
+  userId       String       @map("user_id") @db.VarChar(255)
+  activityId   String       @map("activity_id") @db.VarChar(50)
+  activity     QuizActivity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  status       String       @default("active") @db.VarChar(20)
+  startedAt    DateTime     @default(now()) @map("started_at") @db.Timestamptz(6)
+  deadline     DateTime     @db.Timestamptz(6)
+  finishedAt   DateTime?    @map("finished_at") @db.Timestamptz(6)
+  reason       String?      @db.VarChar(20)
+  currentIndex Int          @default(0) @map("current_index")
+  answers      QuizAnswer[]
+
+  @@unique([userId, activityId])
+  @@index([activityId, status])
+  @@map("quiz_attempts")
+}
+
+/// 用户对单道题的作答记录
+model QuizAnswer {
+  id         String       @id @default(uuid()) @db.Uuid
+  attemptId  String       @map("attempt_id") @db.Uuid
+  attempt    QuizAttempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  questionId String       @map("question_id") @db.VarChar(80)
+  question   QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Restrict)
+  position   Int
+  choices    Int[]
+  correct    Boolean
+  answeredAt DateTime     @default(now()) @map("answered_at") @db.Timestamptz(6)
+
+  @@unique([attemptId, position])
+  @@map("quiz_answers")
+}
+
+/// 活动排行榜初始化展示记录
+model QuizRankingEntry {
+  id          String       @id @db.VarChar(80)
+  activityId  String       @map("activity_id") @db.VarChar(50)
+  activity    QuizActivity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  displayName String       @map("display_name") @db.VarChar(80)
+  score       Int
+  seconds     Int
+  avatarIndex Int          @default(0) @map("avatar_index")
+
+  @@index([activityId, score, seconds])
+  @@map("quiz_ranking_entries")
+}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import reviewOverview from '../assets/review-overview.png';
 import PropTypes from 'prop-types';
-import reviewOverviewArt from '../assets/review-overview.png';
 import { Link, useParams } from 'react-router-dom';
 import { useQuiz } from '../components/QuizContext';
 import { Header, Icon, Art, Empty, Filters, CelebrationArt } from '../components/UI';
@@ -22,7 +22,7 @@ export function RankingPage() {
   const e = data.events.find(e => e.id === id);
   if (!e) return <><Header title="排行榜" /><Empty text="活动不存在" /></>;
   const rows = e.ranking, me = rows.find(r => r.id === 'me');
-  return <><Header title="排行榜" back={`/quiz/activities/${id}`} /><main className="q-content"><div className="q-ranking-title"><CelebrationArt /><h2>{e.title}</h2><span className="q-badge">{eventStatus(e)}</span><p>按得分排序，同分用时更短者在前</p></div><section className="q-panel q-podium">{[rows[1], rows[0], rows[2]].map(r => <div key={r.id} className={r.rank === 1 ? 'first' : ''}><b className="q-medal">{r.rank}</b><RankingAvatar id={r.id} /><h3>{r.name}</h3><strong>{r.score}<small>分</small></strong><p>{duration(r.seconds)}</p></div>)}</section><div className="q-personal-rank"><RankingAvatar id="me" /><div>我的排名<strong>{me ? `第${me.rank}名` : '等待你的挑战'}</strong></div><span>{me ? `${me.score}分 · ${duration(me.seconds)}` : e.attempt ? '完成后进入排行' : '参与后记录成绩'}</span></div><section className="q-panel"><h2>全部排名</h2><div className="q-rank-head"><span>排名 / 参与者</span><span>得分 · 用时</span></div>{rows.slice(3, limit).map(r => <div key={r.id} className={`q-rank-row ${r.id === 'me' ? 'is-me' : ''}`}><span>{r.rank}</span><RankingAvatar id={r.id} /><span>{r.name}</span><div><strong>{r.score}分</strong><small>{duration(r.seconds)}</small></div></div>)}</section>{limit < rows.length && <button className="q-button q-outline" onClick={() => setLimit(n => n + 8)}>查看更多</button>}<p className="q-footnote">活动结束后，排名将最终确定<br />当前为本地演示排行</p></main></>;
+  return <><Header title="排行榜" back={`/quiz/activities/${id}`} /><main className="q-content"><div className="q-ranking-title"><CelebrationArt /><h2>{e.title}</h2><span className="q-badge">{eventStatus(e)}</span><p>按得分排序，同分用时更短者在前</p></div><section className="q-panel q-podium">{[rows[1], rows[0], rows[2]].map(r => <div key={r.id} className={r.rank === 1 ? 'first' : ''}><b className="q-medal">{r.rank}</b><RankingAvatar id={r.id} /><h3>{r.name}</h3><strong>{r.score}<small>分</small></strong><p>{duration(r.seconds)}</p></div>)}</section><div className="q-personal-rank"><RankingAvatar id="me" /><div>我的排名<strong>{me ? `第${me.rank}名` : '等待你的挑战'}</strong></div><span>{me ? `${me.score}分 · ${duration(me.seconds)}` : e.attempt ? '完成后进入排行' : '参与后记录成绩'}</span></div><section className="q-panel"><h2>全部排名</h2><div className="q-rank-head"><span>排名 / 参与者</span><span>得分 · 用时</span></div>{rows.slice(3, limit).map(r => <div key={r.id} className={`q-rank-row ${r.id === 'me' ? 'is-me' : ''}`}><span>{r.rank}</span><RankingAvatar id={r.id} /><span>{r.name}</span><div><strong>{r.score}分</strong><small>{duration(r.seconds)}</small></div></div>)}</section>{limit < rows.length && <button className="q-button q-outline" onClick={() => setLimit(n => n + 8)}>查看更多</button>}<p className="q-footnote">活动结束后，排名将最终确定<br />排行榜由服务端实时更新</p></main></>;
 }
 export function MinePage() {
   const { data } = useQuiz();
@@ -36,7 +36,7 @@ export function MinePage() {
       const a = e.attempt, done = a.status === 'completed';
       const day = new Date(done ? a.finishedAt : a.startedAt).toLocaleDateString('zh-CN', { timeZone: 'Asia/Shanghai', month: 'numeric', day: 'numeric' }).replace('/', '月') + '日';
       return <section className={`q-panel q-mine-record ${done ? 'is-completed' : 'is-active'}`} key={e.id}>
-        <Art type={e.type} />
+        <Art type={e.type} source={e.thumbnailUrl} />
         <div className="q-mine-record-body">
           <div className="q-mine-record-heading"><h2>{e.title}</h2><span className={`q-badge ${done ? 'q-muted-badge' : ''}`}>{done ? '已完成' : '答题中'}</span></div>
           <p className="q-mine-date">{day}{done ? '完成' : '参与'}</p>
@@ -59,7 +59,7 @@ export function ReviewPage() {
   return <div className="q-review-shell"><Header title="答案回顾" back={`/quiz/activities/${id}/result`} />
     <main className="q-content q-review">
       <section className="q-review-overview">
-        <img className="q-review-overview-art" src={reviewOverviewArt} alt="" aria-hidden="true" />
+        <img className="q-review-overview-art" src={reviewOverview} alt="" aria-hidden="true" />
         <div className="q-review-overview-heading"><h2>{e.title}</h2><span className="q-badge q-muted-badge">已完成</span></div>
         <div className="q-review-overview-stats"><div><strong>{a.score}<small>分</small></strong><span>本次得分</span></div><div><strong>{a.correctCount}<small> / {e.count}</small></strong><span>答对题数</span></div></div>
       </section>

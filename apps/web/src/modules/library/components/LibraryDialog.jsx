@@ -2,7 +2,7 @@ import { useEffect, useId, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { CloseOutline } from 'antd-mobile-icons';
 
-export default function LibraryDialog({ open, title, children, confirmText = '我知道了', cancelText, busy = false, onConfirm, onClose }) {
+export default function LibraryDialog({ open, title, children, variant, confirmText = '我知道了', cancelText, busy = false, onConfirm, onClose }) {
   const ref = useRef(null);
   const titleId = useId();
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function LibraryDialog({ open, title, children, confirmText = '�
     };
   }, [open]);
 
-  return <dialog ref={ref} className="lib-dialog" aria-labelledby={titleId} aria-busy={busy} onCancel={(event) => { event.preventDefault(); if (!busy) onClose(); }}>
+  return <dialog ref={ref} className={`lib-dialog${variant ? ` lib-dialog-${variant}` : ''}`} aria-labelledby={titleId} aria-busy={busy} onCancel={(event) => { event.preventDefault(); if (!busy) onClose(); }}>
     <div className="lib-dialog-paper">
       <header><span className="lib-dialog-eyebrow">书香海安 · 读者服务</span><button type="button" className="lib-dialog-close" aria-label="关闭弹窗" disabled={busy} onClick={onClose}><CloseOutline /></button></header>
       <h2 id={titleId}>{title}</h2>
@@ -33,6 +33,7 @@ LibraryDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   title: PropTypes.string,
   children: PropTypes.node,
+  variant: PropTypes.oneOf(['reader-code', 'event-registration']),
   confirmText: PropTypes.string,
   cancelText: PropTypes.string,
   busy: PropTypes.bool,

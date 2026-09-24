@@ -21,6 +21,7 @@ exports.seatAvailability = wrap(async (req, res) => res.json(response.success(aw
 exports.seatReservations = wrap(async (req, res) => res.json(response.success(await service.seatReservations(req.user.id))));
 exports.reserveSeat = wrap(async (req, res) => res.status(201).json(response.success(await service.reserveSeat(validation.required(req.body, ['seatId', 'startsAt', 'endsAt']), req.user.id), '座位预约成功')));
 exports.cancelSeatReservation = wrap(async (req, res) => res.json(response.success(await service.cancelSeatReservation(req.params.id, req.user.id), '座位预约已取消')));
+exports.eventRegistrations = wrap(async (req, res) => res.json(response.success(await service.eventRegistrations(req.user.id))));
 exports.registerEvent = wrap(async (req, res) => res.status(201).json(response.success(await service.registerEvent(req.params.id, req.user.id), '活动报名成功')));
 exports.readingSummary = wrap(async (req, res) => res.json(response.success(await service.readingSummary(req.user.id))));
 exports.addReadingCheckIn = wrap(async (req, res) => res.status(201).json(response.success(await service.addReadingCheckIn(validation.required(req.body, ['minutes', 'note']), req.user.id), '打卡成功')));

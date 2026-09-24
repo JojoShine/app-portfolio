@@ -22,6 +22,7 @@ router.delete('/book-reservations/:id', controller.cancelBookReservation);
 router.get('/seat-reservations', controller.seatReservations);
 router.post('/seat-reservations', controller.reserveSeat);
 router.delete('/seat-reservations/:id', controller.cancelSeatReservation);
+router.get('/event-registrations', controller.eventRegistrations);
 router.post('/events/:id/registrations', controller.registerEvent);
 router.get('/reading/summary', controller.readingSummary);
 router.post('/reading/check-ins', controller.addReadingCheckIn);

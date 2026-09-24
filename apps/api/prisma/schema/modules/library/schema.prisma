@@ -1,3 +1,4 @@
+/// 图书馆总馆及分馆信息
 model LibraryBranch {
   id           String   @id @default(uuid()) @db.Uuid
   name         String
@@ -18,6 +19,7 @@ model LibraryBranch {
   @@map("library_branches")
 }
 
+/// 图书馆书目基础信息
 model LibraryBook {
   id             String   @id @default(uuid()) @db.Uuid
   title          String
@@ -43,6 +45,7 @@ model LibraryBook {
   @@map("library_books")
 }
 
+/// 图书在各馆的馆藏与可借库存
 model LibraryHolding {
   id              String @id @default(uuid()) @db.Uuid
   bookId          String @map("book_id") @db.Uuid
@@ -61,6 +64,7 @@ model LibraryHolding {
   @@map("library_holdings")
 }
 
+/// 登录用户对应的读者档案
 model LibraryReader {
   id         String   @id @default(uuid()) @db.Uuid
   userId     String   @unique @map("user_id")
@@ -82,6 +86,7 @@ model LibraryReader {
   @@map("library_readers")
 }
 
+/// 读者借阅及续借记录
 model LibraryLoan {
   id           String   @id @default(uuid()) @db.Uuid
   readerId     String   @map("reader_id") @db.Uuid
@@ -98,6 +103,7 @@ model LibraryLoan {
   @@map("library_loans")
 }
 
+/// 图书预约及排队记录
 model LibraryBookReservation {
   id             String   @id @default(uuid()) @db.Uuid
   readerId       String   @map("reader_id") @db.Uuid
@@ -117,6 +123,7 @@ model LibraryBookReservation {
   @@map("library_book_reservations")
 }
 
+/// 分馆可预约座位
 model LibrarySeat {
   id       String @id @default(uuid()) @db.Uuid
   branchId String @map("branch_id") @db.Uuid
@@ -132,6 +139,7 @@ model LibrarySeat {
   @@map("library_seats")
 }
 
+/// 读者座位预约记录
 model LibrarySeatReservation {
   id          String   @id @default(uuid()) @db.Uuid
   readerId    String   @map("reader_id") @db.Uuid
@@ -151,6 +159,7 @@ model LibrarySeatReservation {
   @@map("library_seat_reservations")
 }
 
+/// 图书馆阅读活动
 model LibraryEvent {
   id                   String   @id @default(uuid()) @db.Uuid
   branchId             String   @map("branch_id") @db.Uuid
@@ -174,6 +183,7 @@ model LibraryEvent {
   @@map("library_events")
 }
 
+/// 阅读活动报名记录
 model LibraryEventRegistration {
   id          String   @id @default(uuid()) @db.Uuid
   eventId     String   @map("event_id") @db.Uuid
@@ -189,6 +199,7 @@ model LibraryEventRegistration {
   @@map("library_event_registrations")
 }
 
+/// 读者收藏或在读书架条目
 model LibraryShelfItem {
   id        String   @id @default(uuid()) @db.Uuid
   readerId  String   @map("reader_id") @db.Uuid
@@ -203,6 +214,7 @@ model LibraryShelfItem {
   @@map("library_shelf_items")
 }
 
+/// 读者每日阅读打卡记录
 model LibraryReadingCheckIn {
   id          String   @id @default(uuid()) @db.Uuid
   readerId    String   @map("reader_id") @db.Uuid
@@ -218,6 +230,7 @@ model LibraryReadingCheckIn {
   @@map("library_reading_check_ins")
 }
 
+/// 图书馆业务通知消息
 model LibraryMessage {
   id         String   @id @default(uuid()) @db.Uuid
   readerId   String   @map("reader_id") @db.Uuid

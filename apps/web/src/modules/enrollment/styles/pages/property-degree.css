@@ -1,0 +1,18 @@
+.property-degree-result { margin-bottom: 16px; }
+.property-degree-result .enrollment-section-title { margin-top: 0; }
+.property-degree-result .adm-card { border: 1px solid #e0e7f0; border-radius: var(--enroll-radius-12); }
+.property-degree-result__status { display: flex; padding-bottom: 13px; align-items: center; gap: 9px; color: #238a68; border-bottom: 1px solid #edf0f4; }
+.property-degree-result__status svg { font-size: 23px; }
+.property-degree-result__status > div { display: grid; gap: 2px; }
+.property-degree-result__status span { color: #77869a; font-size: 12px; font-weight: 400; }
+.property-degree-status--occupied .property-degree-result__status { color: #d97625; }
+.property-degree-result p { display: grid; grid-template-columns: 74px 1fr; gap: 8px; margin: 11px 0 0; color: #596a82; font-size: 13px; line-height: 21px; }
+.property-degree-result p span { color: #8490a2; }
+.property-degree-result h3 { margin: 0 0 12px; color: #24334b; font-size: 15px; line-height: 22px; }
+.property-degree-property-card .adm-card-body,
+.property-degree-district-card .adm-card-body,
+.property-degree-school-card .adm-card-body { padding: 15px; }
+.property-degree-district-card { background: #f3f7fd; }
+.property-degree-district-card p { display: block; margin: 0; color: #607089; line-height: 22px; }
+.property-degree-school-card h3 { display: flex; align-items: center; gap: 8px; }
+.property-degree-school-card h3 svg { color: var(--enroll-primary); font-size: 20px; }

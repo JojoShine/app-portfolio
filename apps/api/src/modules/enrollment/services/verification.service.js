@@ -1,5 +1,6 @@
 const { VERIFICATION_TYPES } = require('../domain/constants');
-const { encrypt, decrypt, maskIdNumber } = require('../utils/crypto');
+const { encrypt, decrypt } = require('../utils/crypto');
+const department = require('./department.service');
 const {
   ValidationError,
   NotFoundError,
@@ -16,27 +17,6 @@ const {
   saveVersion,
   serializeApplication,
 } = require('./enrollment.shared');
-
-const mockVerificationData = (type, application) => {
-  const studentIdNumber = decrypt(application.studentIdEncrypted, '');
-  const maskedId = maskIdNumber(studentIdNumber);
-  const values = {
-    household: {
-      householdHead: { name: '李伟', documentNumber: maskedId, address: '示例市朝阳路 88 号' },
-      guardian: { name: '王芳', documentNumber: '', phone: '138****5678', address: '示例市朝阳路 88 号' },
-    },
-    property: {
-      records: [{ owner: '李伟', certificateNumber: '***', address: '示例市朝阳路 88 号', usage: '住宅', buildingArea: null }],
-    },
-    social_security: { records: [], note: '暂未查到参保记录，可手工补充' },
-    business_license: { records: [], note: '暂未查到营业执照，可手工补充' },
-    parents_no_property: {
-      father: { result: 'not_found', checkedAt: new Date().toISOString() },
-      mother: { result: 'not_found', checkedAt: new Date().toISOString() },
-    },
-  };
-  return values[type] || {};
-};
 
 const runVerifications = async (id, userId, input, context = {}) => withSerializableTransaction(async (transaction) => {
   const application = await getOwnedApplication(id, userId, { transaction });
@@ -76,18 +56,18 @@ const runVerifications = async (id, userId, input, context = {}) => withSerializ
       });
       continue;
     }
-    const failed = input.mockFailures.includes(type);
-    const originalData = failed ? null : mockVerificationData(type, application);
+    const lookup = await department.lookup(transaction, application, type);
+    const originalData = lookup.data;
     const values = {
-      source: `mock.${type}`,
-      adapterVersion: 'mock-v1',
+      source: lookup.source,
+      adapterVersion: 'database-v1',
       queriedAt: new Date(),
-      status: failed ? 'failed' : 'success',
+      status: lookup.status,
       originalEncrypted: encrypt(originalData),
       declaredEncrypted: encrypt(originalData),
       manuallyModified: false,
       modificationReason: null,
-      failureReason: failed ? '共享数据服务暂时不可用，请手工填写' : null,
+      failureReason: lookup.failureReason,
     };
     const record = await transaction.enrollmentVerification.upsert({
       where: { applicationId_type: { applicationId: id, type } },
@@ -123,7 +103,7 @@ const runVerifications = async (id, userId, input, context = {}) => withSerializ
     applicationId: id,
     requestId: context.requestId,
     transaction,
-    details: { types: requestedTypes, failedTypes: input.mockFailures },
+    details: { types: requestedTypes, failedTypes: results.filter((item) => item.status === 'failed').map((item) => item.type) },
   });
   return { application: serializeApplication(application), results };
 }, { isolationLevel: 'Serializable' });

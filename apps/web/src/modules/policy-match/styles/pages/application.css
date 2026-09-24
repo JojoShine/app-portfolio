@@ -1,0 +1,51 @@
+.pm-app .pm-page-application { --pm-page-gutter: 12px; padding: 0 var(--pm-page-gutter) calc(106px + env(safe-area-inset-bottom)); }
+.pm-app .pm-application-demo { font-size: 12px; color: var(--pm-muted); }
+.pm-page-application .pm-application-steps { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); list-style: none; padding: 15px 0 20px; margin: 0; }
+.pm-page-application .pm-application-steps li { position: relative; text-align: center; color: var(--pm-muted); }
+.pm-page-application .pm-application-steps li:not(:last-child)::after { content: ''; position: absolute; top: 15px; left: calc(50% + 18px); width: calc(100% - 36px); height: 3px; background: var(--pm-border); }
+.pm-page-application .pm-application-steps li.is-complete::after { background: #9bcbbc; }
+.pm-page-application .pm-application-steps li>span { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border: 3px solid #edf1ef; border-radius: 50%; font-size: 14px; background: var(--pm-surface); }
+.pm-page-application .pm-application-steps .is-complete>span,.pm-page-application .pm-application-steps .is-current>span { color: white; background: var(--pm-green); border-color: #deeee7; }
+.pm-page-application .pm-application-steps strong { display: block; margin-top: 7px; font-size: 13px; font-weight: 400; }
+.pm-page-application .pm-application-steps .is-current strong { color: var(--pm-green); font-weight: var(--pm-weight-semibold); }
+.pm-page-application .pm-application-banner { display: flex; align-items: center; gap: 14px; min-height: 110px; padding: 20px 16px; margin-bottom: 22px; border: 1px solid var(--pm-selected-border); border-radius: var(--pm-radius-card); background: var(--pm-selected); }
+.pm-page-application .pm-application-policy-icon { display: flex; align-items: center; justify-content: center; width: 54px; height: 58px; flex-shrink: 0; border-radius: var(--pm-radius-md); background: var(--pm-green); color: var(--pm-surface); font-size: 32px; }
+.pm-page-application .pm-application-banner>div { min-width: 0; }
+.pm-page-application .pm-application-banner h2 { font-size: 19px; line-height: 1.5; font-weight: var(--pm-weight-bold); color: var(--pm-ink); }
+.pm-page-application .pm-application-banner p { margin-top: 7px; font-size: 13px; color: var(--pm-green); font-weight: var(--pm-weight-medium); }
+.pm-page-application .pm-big-title { font-size: 22px; margin-bottom: 8px; font-weight: var(--pm-weight-semibold); }
+.pm-page-application .pm-big-title+p { font-size: 13px; line-height: 1.8; margin-bottom: 15px; }
+.pm-page-application .pm-card { padding: 16px 14px; margin: 12px 0; border: 1px solid var(--pm-border); box-shadow: 0 3px 14px #17251f04; }
+.pm-page-application .pm-form>h2,.pm-page-application .pm-review>h2 { font-size: 18px; margin-bottom: 20px; font-weight: var(--pm-weight-semibold); }
+.pm-page-application .pm-field>span { font-size: 14px; font-weight: var(--pm-weight-medium); margin-bottom: 10px; }
+.pm-page-application .pm-field>input,.pm-page-application .pm-field>textarea { font-size: 15px; line-height: 1.7; min-height: 48px; }
+.pm-page-application .pm-field>textarea { min-height: 120px; }
+.pm-page-application .pm-material-card { display: flex; flex-direction: column; gap: 16px; padding: 18px 14px; margin: 12px 0; }
+.pm-page-application .pm-image-upload-add { width: 88px; height: 88px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; border: 1px dashed var(--pm-border); border-radius: var(--pm-radius-md); color: var(--pm-muted); background: var(--pm-background); }
+.pm-page-application .pm-image-upload-add svg { font-size: 26px; }
+.pm-page-application .pm-image-upload-add span { font-size: 12px; }
+.pm-page-application .pm-upload-error { color: #c65b44; font-size: 12px; line-height: 1.7; }
+.pm-page-application .pm-upload-error button { padding: 4px; border: 0; background: transparent; color: var(--pm-green); text-decoration: underline; }
+.pm-page-application .pm-material-card-copy h3 { font-size: 16px; line-height: 1.5; font-weight: var(--pm-weight-semibold); }
+.pm-page-application .pm-required { display: inline-block; margin-left: 8px; padding: 1px 5px; border-radius: 5px; background: #fff0ed; color: #c65b44; font-size: 10px; font-weight: 400; }
+.pm-page-application .pm-material-card-copy p { margin-top: 6px; font-size: 12px; line-height: 1.7; }
+.pm-page-application .pm-application-privacy { display: flex; gap: 12px; padding: 16px 14px; margin-top: 16px; border-radius: var(--pm-radius-card); background: #eaf5f0; }
+.pm-page-application .pm-application-privacy>svg { margin-top: 2px; font-size: 24px; color: #258568; }
+.pm-page-application .pm-application-privacy h3 { font-size: 15px; color: var(--pm-green); font-weight: var(--pm-weight-semibold); }
+.pm-page-application .pm-application-privacy p { margin-top: 6px; font-size: 12px; line-height: 1.8; color: var(--pm-muted); }
+.pm-page-application .pm-application-save { display: flex; align-items: center; gap: 7px; padding: 16px 0; margin-top: 14px; border-top: 1px solid var(--pm-border); font-size: 12px; color: var(--pm-muted); }
+.pm-page-application .pm-application-save>svg { font-size: 19px; color: var(--pm-green); }
+.pm-page-application .pm-application-save small { margin-left: auto; font-size: 11px; }
+.pm-page-application .pm-review p { align-items: flex-start; padding: 14px 0; font-size: 14px; line-height: 1.7; }
+.pm-page-application .pm-review b { font-weight: var(--pm-weight-medium); overflow-wrap: anywhere; }
+.pm-page-application .pm-consent { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.8; margin: 20px 0; }
+.pm-page-application .pm-actionbar { position: fixed; left: 50%; transform: translateX(-50%); bottom: 0; width: min(100%,760px); margin: 0; padding: 12px 12px calc(12px + env(safe-area-inset-bottom)); gap: 12px; }
+.pm-page-application .pm-actionbar>button { flex: 1 1 0; min-width: 0; min-height: 48px; font-size: 16px; font-weight: var(--pm-weight-medium); }
+.pm-page-application .pm-actionbar>.pm-primary:disabled { opacity: 1; background: #cbd2d3; color: white; box-shadow: none; }
+@media(max-width:359px) {
+  .pm-page-application .pm-application-banner { gap: 12px; padding: 18px 12px; }
+  .pm-page-application .pm-application-banner h2 { font-size: 18px; }
+  .pm-page-application .pm-application-steps strong { font-size: 12px; }
+  .pm-page-application .pm-application-save { flex-wrap: wrap; }
+  .pm-page-application .pm-application-save small { font-size: 10px; }
+}

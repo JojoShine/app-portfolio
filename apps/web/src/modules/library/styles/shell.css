@@ -1,0 +1,32 @@
+.library-app * { box-sizing: border-box; }
+.library-app button, .library-app input { font: inherit; }
+.library-app button { color: inherit; cursor: pointer; }
+.library-app h1, .library-app h2, .library-app h3 { font-family: var(--lib-font-serif); }
+.library-app code, .library-app time { font-family: var(--lib-font-mono); }
+
+.lib-page { position: relative; width: 100%; min-height: 100dvh; padding: calc(18px + env(safe-area-inset-top)) var(--lib-page-gutter) calc(92px + env(safe-area-inset-bottom)); overflow-x: clip; background: var(--lib-paper); }
+.lib-page button { min-height: var(--lib-touch-target); background: transparent; border: 0; }
+.lib-page svg { width: 22px; height: 22px; flex: 0 0 22px; }
+
+.lib-tabbar { position: fixed; z-index: 20; right: 0; bottom: 0; left: 0; display: grid; width: 100%; grid-template-columns: repeat(5, minmax(0, 1fr)); padding: 8px 10px calc(8px + env(safe-area-inset-bottom)); background: rgba(255,253,248,.97); border-top: 1px solid var(--lib-edge); }
+.lib-tabbar a { position: relative; display: grid; min-width: 0; min-height: 50px; color: var(--lib-muted); font-size: 12px; text-decoration: none; place-items: center; align-content: center; gap: 3px; }
+.lib-tabbar a svg { width: 23px; height: 23px; }
+.lib-tabbar a.is-active { color: var(--lib-red); font-weight: 600; }
+.lib-tabbar a.is-active::after { position: absolute; bottom: -2px; width: 22px; height: 3px; background: var(--lib-red); border-radius: 3px; content: ""; }
+
+.lib-page-header { display: grid; min-height: 52px; grid-template-columns: var(--lib-touch-target) minmax(0, 1fr) 72px; align-items: center; }
+.lib-page-header > button { display: grid; width: var(--lib-touch-target); padding: 0; place-items: center; }
+.lib-page-header > .lib-back-button { width: var(--lib-touch-target); height: var(--lib-touch-target); min-height: var(--lib-touch-target); padding: 0; justify-content: center; place-items: center; color: var(--lib-ink); }
+.lib-page-header > .lib-back-button svg { width: 20px; height: 20px; flex: 0 0 20px; }
+.lib-page-header > .lib-back-button:active { opacity: .58; }
+.lib-page-header > .lib-back-button:focus-visible { border-radius: 50%; outline: 2px solid var(--lib-red); outline-offset: -5px; }
+.lib-page-header h1 { margin: 0; font-size: 23px; text-align: center; letter-spacing: .03em; }
+.lib-page-header > div { display: flex; min-width: 0; justify-content: flex-end; color: var(--lib-red); }
+.lib-page-header > div > button { padding: 0; color: var(--lib-red); font-size: 14px; white-space: nowrap; }
+
+.lib-skeleton { display: grid; gap: 14px; padding: 30px 0; }
+.lib-skeleton i { display: block; height: 76px; background: linear-gradient(90deg, #e8e1d6, #f9f5ed, #e8e1d6); background-size: 200% 100%; border-radius: 10px; animation: lib-shimmer 1.6s ease-in-out infinite; }
+@keyframes lib-shimmer { to { background-position: -200% 0; } }
+.lib-error { padding: 36px 20px; text-align: center; }
+.lib-error p { color: #923d34; }
+.lib-error button { padding: 0 20px; color: var(--lib-red); border: 1px solid var(--lib-red); border-radius: 10px; }

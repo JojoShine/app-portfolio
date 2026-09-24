@@ -1,0 +1,109 @@
+
+@media(max-width:360px){.cv-home-hero h1{font-size:30px}.cv-home-top>a{width:140px}.cv-home-top{gap:6px}.cv-activity-content{padding-left:11px;padding-right:9px}.cv-activity-content h2{font-size:15px}.cv-activity-offer .cv-value strong{font-size:34px}.cv-activity-info{font-size:9px;gap:3px}.cv-shortcuts{gap:6px}.cv-shortcuts a{padding-left:8px;padding-right:8px;gap:5px}.cv-shortcuts a:first-child{padding-left:7px;gap:5px}.cv-shortcuts a:first-child>img{width:42px}.cv-shortcuts strong{font-size:14px}.cv-shortcuts a:first-child strong{font-size:16px}.cv-ticket-body{padding-left:11px}.cv-ticket-body h3{font-size:16px}.cv-ticket .cv-value strong{font-size:37px}.cv-ticket .cv-stamp{right:22px;width:49px;height:49px}.cv-ticket-meta{font-size:9px}.cv-merchant-card{gap:7px}.cv-merchant-card>img{width:62px;height:70px}.cv-merchant-card h3{font-size:13px}.cv-merchant-card p{font-size:9px}.cv-confirm-warning{padding:14px 11px;gap:9px}.cv-confirm-warning>div{padding-left:10px}.cv-confirm-warning h3{font-size:14px}.cv-confirm-warning p{font-size:11px}.cv-confirm-fields dt{width:98px}.cv-confirm-fields dd{font-size:12px}.cv-detail-ticket{padding-left:16px;padding-right:16px}.cv-detail-ticket>h2{font-size:19px}.cv-detail-ticket>.cv-stamp{width:50px;height:50px;font-size:14px}.cv-detail-meta p{font-size:11px}.cv-credential-privacy p{font-size:9px}.cv-map-filters button{padding-left:15px;padding-right:15px}.cv-manual-ticket>h2{font-size:14px}.cv-claim-ticket .cv-value strong{font-size:36px}}
+@media(prefers-reduced-motion:no-preference){.cv-sheet{animation:cv-sheet-in .22s ease-out}@keyframes cv-sheet-in{from{transform:translateY(12%);opacity:.6}to{transform:translateY(0);opacity:1}}}
+@container coupon-home-shell (min-width: 700px) {
+  .cv-home { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); grid-template-rows: auto 1fr auto; column-gap: 24px; padding-inline: 24px; }
+  .cv-home-top { grid-column: 1 / -1; padding-inline: 0; height: 72px; }
+  .cv-home-hero { height: auto; min-height: 390px; padding: 24px 0; }
+  .cv-home-hero h1 { font-size: clamp(30px, 3.5cqw, 40px); }
+  .cv-home-region strong { font-size: 22px; }
+  .cv-home-landscape { top: auto; bottom: 0; width: 78%; max-width: 340px; max-height: 78%; }
+  .cv-home-motto { left: 0; bottom: 24px; width: 190px; }
+  .cv-home-main { align-self: center; padding: 0; background: transparent; }
+  .cv-home .cv-category-tabs { height: 60px; }
+  .cv-home .cv-category-tabs button { font-size: 16px; gap: 7px; }
+  .cv-home .cv-activity-card { min-height: 238px; }
+  .cv-home .cv-activity-content { padding: 16px 12px; }
+  .cv-home .cv-activity-content h2 { font-size: 18px; }
+  .cv-home .cv-activity-content > p { font-size: 11px; }
+  .cv-home .cv-activity-offer { margin-right: 14px; }
+  .cv-home .cv-activity-offer .cv-value { font-size: 18px; }
+  .cv-home .cv-activity-offer .cv-value strong { font-size: 38px; }
+  .cv-home .cv-activity-info { font-size: 10px; }
+  .cv-home .cv-shortcuts strong { font-size: 15px; }
+  .cv-home .cv-shortcuts a:first-child strong { font-size: 17px; }
+  .cv-home .cv-shortcuts span { font-size: 10px; }
+  .cv-home .cv-shortcuts a:first-child > img { width: 45px; }
+  .cv-home-footer { grid-column: 1 / -1; align-self: end; margin-top: 24px; }
+}
+@container coupon-home-shell (min-width: 700px) {
+  .cv-home .cv-activity-offer.is-wide .cv-value { font-size: 16px; }
+  .cv-home .cv-activity-offer.is-wide .cv-value strong { font-size: 30px; }
+}
+@container coupon-home-shell (min-width: 700px) {
+  .cv-home-hero { align-self: center; height: 440px; }
+}
+@container coupon-home-shell (max-width: 359px) {
+  .cv-home .cv-shortcuts a:first-child > svg { display: none; }
+}
+@container coupon-home-shell (min-width: 700px) {
+  .cv-home .cv-activity-card { height: auto; min-height: 0; }
+}
+@container coupon-home-shell (max-width: 359px) {
+  .cv-home .cv-activity-content { padding: 12px 9px 12px 11px; }
+  .cv-home .cv-activity-content > p { font-size: 10px; }
+  .cv-home .cv-activity-offer { padding-inline: 3px; }
+  .cv-home .cv-activity-info { font-size: 11px; gap: 4px 5px; }
+}
+@container coupon-home-shell (min-width: 700px) {
+  .cv-home .cv-activity-content { padding: 20px 16px 18px 20px; }
+  .cv-home .cv-activity-content h2 { font-size: clamp(18px, 2.05cqw, 23px); }
+  .cv-home .cv-activity-content > p { font-size: 12px; margin-bottom: 14px; }
+  .cv-home .cv-activity-offer { height: 64px; padding: 9px 7px; margin-right: 30px; }
+  .cv-home .cv-activity-info { margin: 12px 0 12px; font-size: 14px; line-height: 20px; }
+  .cv-home .cv-activity-decoration { width: 46px; }
+  .cv-home .cv-activity-content .cv-primary { min-height: 42px; font-size: 17px; }
+}
+@container (max-width: 359px) {
+  .cv-activity-page .cv-activity-dates { display: grid; grid-template-columns: 17px max-content 1fr; }
+  .cv-activity-dates time:last-child { grid-column: 2; }
+}
+@container (max-width: 359px) {
+  .cv-detail .cv-detail-ticket { padding-inline: 17px; }
+  .cv-detail .cv-detail-ticket > h2 { font-size: 18px; letter-spacing: 1px; }
+  .cv-detail .cv-detail-ticket > .cv-value strong { font-size: 46px; }
+  .cv-detail .cv-detail-ticket > .cv-detail-stamp-art { width: 62px; height: 60px; right: 2px; }
+  .cv-detail .cv-detail-meta p { font-size: 11px; }
+}
+@container (max-width: 359px) {
+  .cv-merchant-card { gap: 6px; padding: 6px; }
+  .cv-merchant-card > img { width: 54px; height: 66px; }
+  .cv-merchant-card aside { width: 51px; }
+  .cv-merchant-card h3 { font-size: 12px; white-space: normal; }
+  .cv-merchant-card p, .cv-merchant-card small { font-size: 10px; }
+}
+@container coupon-home-shell (max-width: 359px) {
+  .cv-home-top { padding-inline: 14px 10px; }
+  .cv-home-brand { width: 134px; }
+  .cv-home-hero { height: 182px; padding: 6px 14px; }
+  .cv-home-hero h1 { width: 59.5cqw; }
+  .cv-home-region strong { font-size: 16px; }
+  .cv-home-motto { width: 134px; bottom: 21px; }
+  .cv-home .cv-activity-content { padding: 10px 9px 10px 11px; }
+  .cv-home .cv-activity-info { font-size: 10px; gap: 4px 5px; }
+  .cv-home .cv-shortcuts a:first-child { padding-inline: 7px; gap: 5px; }
+  .cv-home .cv-shortcuts a:first-child > img { width: 42px; }
+  .cv-home .cv-shortcuts a:first-child strong { font-size: 16px; }
+}
+@container coupon-home-shell (max-width: 359px) {
+  .cv-home-top { height: 38px; }
+  .cv-home-hero { height: auto; padding: 0; }
+  .cv-home-hero h1 { width: 59.5%; }
+}
+@container (max-width: 359px) {
+  .cv-activity-description { padding-right: 70px; gap: 10px; }
+  .cv-activity-description > aside { width: 60px; padding-left: 10px; font-size: 9px; bottom: -52px; }
+  .cv-activity-page .cv-activity-dates { row-gap: 1px; }
+  .cv-activity-page .cv-batch { gap: 6px; padding-right: 10px; padding-left: 12px; }
+  .cv-activity-page .cv-batch:not(:last-child)::after { left: 15px; }
+  .cv-activity-page .cv-link-rows small { font-size: 9px; }
+  .cv-activity-page .cv-ticket-choices button .cv-value strong { font-size: 29px; }
+}
+@container (max-width: 359px) {
+  .cv-activity-hero h1 { font-size: 7.9cqw; }
+  .cv-activity-hero > p { font-size: 8px; letter-spacing: .8px; }
+  .cv-activity-hero-badges { gap: 5px; }
+  .cv-activity-hero-badges > span { min-height: 22px; padding: 2px 8px; font-size: 10px; }
+}
+@container (max-width: 360px) { .cv-select .cv-select-heading { font-size: 3.7cqw !important; } }
+@media (hover: hover) { .cv-pending > .cv-pending-wallet-button:hover { background: #f8eee3; border-color: #ae522e; } }

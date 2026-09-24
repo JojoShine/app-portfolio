@@ -1,0 +1,15 @@
+@import './pages/home.css';
+@import './pages/activity.css';
+@import './pages/wallet.css';
+@import './pages/coupon-detail.css';
+@import './pages/merchants.css';
+@import './pages/merchant.css';
+@import './pages/rules.css';
+@import './pages/manual-code.css';
+@import './pages/verification-confirm.css';
+@import './pages/verification-result.css';
+@import './pages/select-coupon.css';
+@import './pages/pending.css';
+@import './pages/pending-list.css';
+@import './pages/records.css';
+@import './pages/scan.css';

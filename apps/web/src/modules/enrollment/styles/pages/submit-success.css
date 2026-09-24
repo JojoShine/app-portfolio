@@ -1,0 +1,7 @@
+.success-page { text-align: center; }
+.success-mark { display: grid; width: 86px; height: 86px; margin: 45px auto 18px; color: var(--enroll-success); font-size: 58px; background: #e9f8f1; border-radius: 50%; place-items: center; }
+.success-page h1 { margin: 0 0 10px; font-size: 25px; }
+.success-page main > p { color: var(--enroll-muted); line-height: 24px; }
+.success-receipt { margin: 24px 0; padding: 10px 16px; text-align: left; background: var(--enroll-surface); border: 1px solid var(--enroll-line); border-radius: 13px; }
+.success-page .adm-button + .adm-button { margin-top: 12px; }
+.success-page main > .adm-button { margin-top: 20px; }

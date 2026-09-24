@@ -19,6 +19,7 @@ export const getSeatReservations = () => api.get('/library/seat-reservations');
 export const createSeatReservation = (data) => api.post('/library/seat-reservations', data);
 export const cancelSeatReservation = (id) => api.delete(`/library/seat-reservations/${id}`);
 export const registerEvent = (id) => api.post(`/library/events/${id}/registrations`);
+export const getEventRegistrations = () => api.get('/library/event-registrations');
 export const getReadingSummary = () => api.get('/library/reading/summary');
 export const addReadingCheckIn = (data) => api.post('/library/reading/check-ins', data);
 export const getMessages = () => api.get('/library/messages');

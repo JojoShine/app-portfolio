@@ -1,0 +1,44 @@
+/// 市民问题上报，首版状态固定为已提交
+model SnapReport {
+  /// 上报编号
+  id String @id @default(uuid()) @db.Uuid
+  /// 由认证中间件获得的用户标识
+  userId String @map("user_id") @db.VarChar(255)
+  /// 同次提交幂等标识
+  requestId String @map("request_id") @db.Uuid
+  /// 最终确认内容，含对象、类别、程度、描述及位置
+  content Json
+  /// 服务端识别任务标识
+  analysisId String? @map("analysis_id") @db.Uuid
+  /// 提交时间
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  photos SnapReportPhoto[]
+  @@unique([userId, requestId])
+  @@index([userId, createdAt])
+  @@map("snap_reports")
+}
+
+/// 上报照片关系，禁止删除已关联文件
+model SnapReportPhoto {
+  reportId String @map("report_id") @db.Uuid
+  fileId String @map("file_id") @db.Uuid
+  /// 照片展示顺序
+  position Int
+  report SnapReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  file File @relation(fields: [fileId], references: [id], onDelete: Restrict)
+  @@id([reportId, fileId])
+  @@map("snap_report_photos")
+}
+
+/// AI 原始建议，与市民最终确认内容分开保存
+model SnapAnalysis {
+  id String @id @default(uuid()) @db.Uuid
+  userId String @map("user_id") @db.VarChar(255)
+  /// 本次识别的照片标识
+  fileIds String[] @map("file_ids") @db.Uuid
+  /// 校验后的模型建议
+  result Json
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  @@index([userId, createdAt])
+  @@map("snap_analyses")
+}

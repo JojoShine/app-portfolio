@@ -22,13 +22,14 @@ export function Header({ title, back = '/quiz', home = false }) {
   return <header className="q-header"><Link to={home ? '/' : back} aria-label={home ? '返回主页' : '返回'}><Icon name="back" /></Link><h1>{title}</h1>{home ? <Link className="q-my" to="/quiz/mine">我的参与</Link> : <span />}</header>;
 }
 Header.propTypes = { title: PropTypes.string.isRequired, back: PropTypes.string, home: PropTypes.bool };
-export function Art({ type = 'city', hero = false }) {
-  if (hero) return <div className={`q-banner-art q-banner-${type}`} aria-hidden="true" />;
-  return <div className={type === 'city' ? 'q-thumbnail q-city-thumb' : `q-thumbnail q-art-${type}`} aria-hidden="true" />;
+export function Art({ type = 'city', hero = false, source }) {
+  const style = { backgroundImage: source ? `url("${source}")` : 'none' };
+  if (hero) return <div className={`q-banner-art q-banner-${type}`} style={style} aria-hidden="true" />;
+  return <div className={type === 'city' ? 'q-thumbnail q-city-thumb' : `q-thumbnail q-art-${type}`} style={style} aria-hidden="true" />;
 }
-Art.propTypes = { type: PropTypes.string, hero: PropTypes.bool };
+Art.propTypes = { type: PropTypes.string, hero: PropTypes.bool, source: PropTypes.string };
 export function Hero({ event, recommended = false }) {
-  return <section className={`q-hero ${recommended ? 'q-hero-featured' : ''}`}><Art type={event.type} hero /><div className="q-hero-copy">{recommended && <span className="q-recommend">本周推荐</span>}<h2>{event.title === '城市知识挑战' ? <>城市知识<br />挑战</> : event.title === '生活科学知多少' ? <>生活科学<br />知多少</> : event.title === '传统文化趣味答题' ? <>传统文化<br />趣味答题</> : event.title === '安全知识小挑战' ? <>安全知识<br />小挑战</> : event.title}</h2><p>{event.description}</p><span className="q-badge">{eventStatus(event)}</span></div></section>;
+  return <section className={`q-hero ${recommended ? 'q-hero-featured' : ''}`}><Art type={event.type} hero source={event.imageUrl} /><div className="q-hero-copy">{recommended && <span className="q-recommend">本周推荐</span>}<h2>{event.title === '城市知识挑战' ? <>城市知识<br />挑战</> : event.title === '生活科学知多少' ? <>生活科学<br />知多少</> : event.title === '传统文化趣味答题' ? <>传统文化<br />趣味答题</> : event.title === '安全知识小挑战' ? <>安全知识<br />小挑战</> : event.title}</h2><p>{event.description}</p><span className="q-badge">{eventStatus(event)}</span></div></section>;
 }
 Hero.propTypes = { event: PropTypes.object.isRequired, recommended: PropTypes.bool };
 export function CelebrationArt() {
@@ -46,7 +47,7 @@ export function ActivityCard({ event }) {
   const status = eventStatus(event);
   const shortDate = value => new Date(value).toLocaleDateString('zh-CN', { timeZone: 'Asia/Shanghai', month: 'numeric', day: 'numeric' }).replace('/', '月') + '日';
   return <Link className="q-activity-card" to={`/quiz/activities/${event.id}`}>
-    <Art type={event.type} />
+    <Art type={event.type} source={event.thumbnailUrl} />
     <div className="q-activity-copy">
       <div className="q-activity-heading"><h3>{event.title}</h3><span className={`q-badge ${status === '已结束' ? 'q-muted-badge' : ''}`}>{status}</span></div>
       <p>{event.count}道题 · 限时{event.minutes}分钟</p>

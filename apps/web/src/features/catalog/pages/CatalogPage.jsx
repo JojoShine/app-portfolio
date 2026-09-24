@@ -6,7 +6,12 @@ import {
   ContentOutline, CouponOutline, EnvironmentOutline, FileOutline, FillinOutline, MoreOutline,
   PayCircleOutline, RightOutline, SendOutline, ShopbagOutline, TeamOutline, UnorderedListOutline,
 } from 'antd-mobile-icons';
-import { registeredApplicationPaths } from '../../../app/registry/applications';
+import { appConfig } from '../../../app/config/env';
+import {
+  applicationByPath,
+  registeredApplicationPaths,
+  resolveApplicationAddress,
+} from '../../../app/registry/applications';
 import PageState from '../../../shared/components/PageState';
 import workshopIllustration from '../assets/app-market-workshop-pixel.png';
 import { appService, categoryService } from '../services';
@@ -55,14 +60,20 @@ const CatalogPage = () => {
   }), [activeCategory, catalog.applications, query]);
 
   const openApplication = (application) => {
-    if (isAvailable(application)) navigate(application.path);
+    if (isAvailable(application)) navigate(applicationByPath.get(application.path).overviewPath);
     else Toast.show({ content: '应用正在建设中' });
   };
 
   const shareApplication = async (event, application) => {
     event.stopPropagation();
-    const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
-    const url = `${window.location.origin}${basePath}${application.path}`;
+    const targetPath = isAvailable(application)
+      ? applicationByPath.get(application.path).overviewPath
+      : application.path;
+    const { copyUrl: url } = resolveApplicationAddress(targetPath, {
+      publicSiteUrl: appConfig.publicSiteUrl,
+      currentOrigin: window.location.origin,
+      basePath: appConfig.routerBaseName,
+    });
     try {
       if (navigator.share) await navigator.share({ title: application.name, text: application.description || `体验 ${application.name}`, url });
       else {

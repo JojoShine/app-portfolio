@@ -1,0 +1,533 @@
+.enrollment-page {
+  min-height: 100vh;
+  padding-bottom: max(28px, env(safe-area-inset-bottom));
+  color: var(--enroll-text);
+  background: #f4f6fa;
+}
+
+.enrollment-page button {
+  color: inherit;
+}
+
+.enrollment-page--with-actions {
+  padding-bottom: calc(92px + env(safe-area-inset-bottom));
+}
+
+.enrollment-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  height: calc(54px + env(safe-area-inset-top));
+  padding-top: env(safe-area-inset-top);
+  color: var(--enroll-text);
+  font-size: 19px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, .97);
+  border-bottom: 1px solid var(--enroll-line);
+  backdrop-filter: blur(14px);
+}
+
+.enrollment-navbar .adm-nav-bar-back-arrow {
+  font-size: 22px;
+}
+
+.nav-text-button,
+.text-link,
+.view-all-link {
+  padding: 0;
+  color: var(--enroll-primary) !important;
+  font-size: 14px;
+  background: none;
+  border: 0;
+}
+
+.enrollment-content {
+  padding: 18px 16px 28px;
+}
+
+.enrollment-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 24px 0 12px;
+}
+
+.enrollment-section-title:first-child {
+  margin-top: 0;
+}
+
+.enrollment-section-title h2 {
+  position: relative;
+  margin: 0;
+  padding-left: 14px;
+  font-size: 18px;
+  line-height: 26px;
+}
+
+.enrollment-section-title h2::before {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 0;
+  width: 4px;
+  background: var(--enroll-primary);
+  border-radius: 3px;
+  content: "";
+}
+
+.section-description {
+  margin: -4px 0 16px;
+  color: var(--enroll-muted);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.gov-hero {
+  position: relative;
+  min-height: 222px;
+  overflow: hidden;
+  padding: calc(38px + env(safe-area-inset-top)) 28px 28px;
+  color: var(--enroll-surface);
+  background: linear-gradient(135deg, #173fa8 0%, #1e65dc 58%, #47a4f1 100%);
+}
+
+.gov-hero::before,
+.gov-hero::after {
+  position: absolute;
+  right: -12%;
+  bottom: -42%;
+  width: 84%;
+  height: 80%;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 50%;
+  content: "";
+  transform: rotate(-8deg);
+}
+
+.gov-hero::after {
+  right: 16%;
+  bottom: -59%;
+  width: 110%;
+  background: rgba(255, 255, 255, .08);
+}
+
+.gov-hero__copy {
+  position: relative;
+  z-index: 2;
+  width: 62%;
+}
+
+.gov-hero__copy > span {
+  display: block;
+  margin-bottom: 6px;
+  color: rgba(255, 255, 255, .75);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .14em;
+}
+
+.gov-hero h1 {
+  margin: 0 0 12px;
+  font-size: clamp(25px, 7vw, 36px);
+  line-height: 1.18;
+  letter-spacing: -.02em;
+}
+
+.gov-hero p {
+  margin: 0;
+  color: rgba(255, 255, 255, .9);
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.gov-hero__school {
+  position: absolute;
+  right: 20px;
+  bottom: 28px;
+  z-index: 2;
+  width: 118px;
+  height: 88px;
+  color: var(--enroll-surface);
+}
+
+.gov-hero__building {
+  position: absolute;
+  right: 0;
+  bottom: 8px;
+  display: grid;
+  width: 102px;
+  height: 58px;
+  font-size: 34px;
+  background: rgba(255, 255, 255, .27);
+  border: 2px solid rgba(255, 255, 255, .58);
+  border-radius: 6px 6px 2px 2px;
+  place-items: center;
+  box-shadow: -22px 12px 0 -8px rgba(255, 255, 255, .16);
+}
+
+.gov-hero__flag {
+  position: absolute;
+  top: 8px;
+  right: 50px;
+  width: 2px;
+  height: 26px;
+  background: rgba(255, 255, 255, .8);
+}
+
+.gov-hero__flag::after {
+  position: absolute;
+  top: 0;
+  left: 2px;
+  width: 16px;
+  height: 10px;
+  background: #ffcf55;
+  content: "";
+  clip-path: polygon(0 0, 100% 20%, 80% 100%, 0 80%);
+}
+
+.gov-hero__book {
+  position: absolute;
+  right: -4px;
+  bottom: 0;
+  width: 58px;
+  height: 16px;
+  background: var(--enroll-surface);
+  border-radius: 50% 50% 20% 20%;
+  box-shadow: -27px 0 0 -2px rgba(255, 255, 255, .88);
+}
+
+.gov-hero--compact {
+  min-height: 142px;
+  margin: 0;
+  padding: 25px 22px;
+  border-radius: var(--enroll-radius-14);
+}
+
+.gov-hero--compact .gov-hero__copy {
+  width: 68%;
+}
+
+.gov-hero--compact h1 {
+  font-size: 22px;
+}
+
+.gov-hero--compact p {
+  font-size: 14px;
+}
+
+.gov-hero--compact .gov-hero__school {
+  right: 14px;
+  bottom: 16px;
+  transform: scale(.74);
+  transform-origin: right bottom;
+}
+
+.view-all-link {
+  display: flex;
+  margin: 10px 2px 0 auto;
+  align-items: center;
+  gap: 4px;
+}
+
+.enrollment-page .contact-entry { display: inline-flex; align-items: center; justify-content: flex-end; flex: none; gap: 5px; min-height: 44px; margin: -8px 0; padding: 8px 0 8px 12px; color: var(--enroll-primary); background: transparent; border: 0; border-radius: 4px; font-size: 14px; font-weight: 500; }
+.contact-entry > svg { flex: none; font-size: 16px; }
+.contact-entry:active { opacity: .65; }
+.contact-entry:focus-visible { outline: 2px solid #3984f6; outline-offset: 2px; }
+.enrollment-contact-popup { left: var(--enroll-container-left, 0px); right: auto; width: var(--enroll-container-width, 100%); border-radius: 18px 18px 0 0; }
+.contact-panel { padding: 24px 20px max(20px, env(safe-area-inset-bottom)); color: var(--enroll-text); }
+.contact-panel h2 { margin: 0 30px 7px 0; font-size: 20px; line-height: 28px; }
+.contact-panel > p { margin: 0 0 18px; color: var(--enroll-muted); font-size: 12px; line-height: 18px; }
+.contact-panel__list { display: grid; gap: 8px; }
+.contact-panel__list a { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 66px; padding: 10px 14px; color: var(--enroll-muted); background: var(--enroll-surface); border-radius: var(--enroll-radius-10); text-decoration: none; }
+.contact-panel__list a:first-child { background: #f0f6ff; }
+.contact-panel__list a > span { font-size: 13px; line-height: 20px; }
+.contact-panel__list strong { display: block; margin-top: 3px; color: var(--enroll-primary); font-size: 19px; line-height: 25px; }
+.contact-panel__list small { margin-left: 8px; color: var(--enroll-primary); font-size: 10px; }
+.contact-panel__list svg { color: var(--enroll-primary); font-size: 21px; }
+.contact-panel__list a:active { background: #d7e6fb; }
+
+.fixed-action-bar {
+  position: fixed;
+  left: var(--enroll-container-left, 0px);
+  right: auto;
+  bottom: 0;
+  z-index: 30;
+  display: flex;
+  width: 100%;
+  min-height: 78px;
+  gap: 10px;
+  padding: 12px 16px max(12px, env(safe-area-inset-bottom));
+  background: rgba(255, 255, 255, .98);
+  border-top: 1px solid var(--enroll-line);
+  transform: none;
+  box-shadow: 0 -6px 24px rgba(24, 41, 75, .05);
+}
+
+.fixed-action-bar > .adm-button {
+  flex: 1;
+  border-radius: var(--enroll-radius-10);
+}
+
+.flow-context,
+.application-context {
+  display: flex;
+  min-height: 42px;
+  margin-bottom: 14px;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 12px;
+  color: #455675;
+  font-size: 13px;
+  background: var(--enroll-pale);
+  border-radius: var(--enroll-radius-10);
+}
+.flow-context svg { color: var(--enroll-primary); }
+.text-link { display: flex; margin: 10px 0; align-items: center; gap: 3px; }
+
+.compact-notice { display: flex; margin: 14px 0; align-items: flex-start; gap: 9px; padding: 13px 14px; color: #3d5b91; font-size: 14px; line-height: 21px; background: #eaf2ff; border-radius: 11px; }
+.compact-notice svg { flex: 0 0 auto; margin-top: 2px; color: var(--enroll-primary); }
+.compact-notice--success { color: #25684c; background: #edf9f3; }
+.compact-notice--success svg { color: var(--enroll-success); }
+.compact-notice--warning { color: #895612; background: #fff7e8; }
+.compact-notice--warning svg { color: var(--enroll-warning); }
+.timeline-cluster { position: relative; display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 8px; padding-bottom: 20px; }
+.timeline-cluster__rail::after { position: absolute; top: 35px; bottom: -1px; left: 17px; width: 2px; background: #cad8ef; content: ""; }
+.timeline-cluster:last-child .timeline-cluster__rail::after { display: none; }
+.timeline-cluster__rail span { position: relative; z-index: 2; display: grid; width: 34px; height: 34px; color: var(--enroll-surface); font-weight: 700; background: var(--enroll-primary); border: 3px solid #f4f6fa; border-radius: 50%; place-items: center; box-shadow: 0 0 0 1px #d2e0f8; }
+.timeline-cluster__head { display: flex; min-height: 38px; align-items: center; gap: 8px; }
+.timeline-cluster__title { display: flex; min-width: 0; flex: 1; align-items: center; gap: 8px; padding: 0; background: none; border: 0; }
+.timeline-cluster__title strong { font-size: 17px; }
+.timeline-cluster__edit { padding: 8px 2px; color: var(--enroll-primary) !important; background: none; border: 0; }
+.icon-button { display: grid; width: 34px; height: 34px; color: var(--enroll-muted) !important; background: none; border: 0; place-items: center; }
+.timeline-cluster__body { margin-top: 7px; padding: 13px; background: var(--enroll-surface); border: 1px solid var(--enroll-line); border-radius: var(--enroll-radius-12); }
+.timeline-cluster__summary { margin: 0; color: var(--enroll-muted); font-size: 14px; line-height: 22px; }
+.timeline-photo-row { display: flex; min-height: 66px; align-items: center; justify-content: space-between; color: var(--enroll-muted); border-bottom: 1px solid var(--enroll-line); }
+.timeline-photo-row svg { color: var(--enroll-primary); font-size: 45px; }
+.summary-row { display: flex; min-height: 47px; align-items: center; justify-content: space-between; gap: 18px; padding: 8px 0; border-bottom: 1px solid var(--enroll-line); }
+.summary-row:last-child { border-bottom: 0; }
+.summary-row span { flex: 0 0 38%; color: var(--enroll-muted); font-size: 14px; }
+.summary-row strong { min-width: 0; color: var(--enroll-text); font-size: 14px; font-weight: 500; line-height: 21px; text-align: right; overflow-wrap: anywhere; }
+.source-tags { display: flex; gap: 7px; margin-top: 10px; }
+.source-tag { border: 0; }
+.source-tag--department { color: #2262c4; background: #eaf2ff; }
+.source-tag--manual { color: #4d668c; background: #eef2f7; }
+.source-tag--modified { color: #158058; background: #e9f8f1; }
+.source-tag--fallback { color: #a45d0b; background: #fff3e5; }
+
+.content-page .gov-hero { margin-bottom: 18px; }
+.service-page > .gov-hero--service {
+  isolation: isolate;
+  background: linear-gradient(125deg, #125dcc 0%, #176fd8 58%, #3292e5 100%);
+}
+.service-page > .gov-hero--service::before {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: block;
+  width: auto;
+  height: auto;
+  background: linear-gradient(90deg, rgba(18,79,174,.58) 0%, rgba(18,93,204,.18) 58%, transparent 82%);
+  border: 0;
+  border-radius: 0;
+  content: '';
+  transform: none;
+}
+.service-page > .gov-hero--service::after {
+  display: none;
+}
+.service-page > .gov-hero--service .gov-hero__copy { position: relative; z-index: 4; }
+.service-page > .gov-hero--service .gov-hero__illustration {
+  right: -14%;
+  bottom: -20%;
+  display: block;
+  width: 76%;
+  opacity: .96;
+  mix-blend-mode: normal;
+  filter: none;
+}
+
+@media (max-width: 380px) {
+  .gov-hero__school { right: 8px; transform: scale(.82); transform-origin: right bottom; }
+}
+
+@media (max-width: 380px) {
+  .fixed-action-bar { padding-inline: 12px; }
+}
+.enrollment-page {
+  background: #f7f9fc;
+}
+
+.enrollment-navbar {
+  height: 58px;
+  padding-inline: 16px;
+  color: #071431;
+  font-size: 18px;
+  line-height: 58px;
+  border-bottom: 1px solid #e8edf4;
+}
+.enrollment-navbar .adm-nav-bar-back-arrow { color: #071431; font-size: 24px; }
+.enrollment-content { padding: 18px 17px 30px; }
+.application-context { margin-bottom: 11px; }
+.timeline-cluster { grid-template-columns: 31px minmax(0,1fr); gap: 9px; }
+.timeline-cluster__rail span { width: 30px; height: 30px; }
+.timeline-cluster__rail::after { top: 30px; left: 14px; }
+.timeline-cluster__head { min-height: 34px; }
+.timeline-cluster__title strong { color: #071431; font-size: 17px; }
+.timeline-cluster__body { padding: 13px; border-radius: var(--enroll-radius-8); }
+.timeline-photo-row img { width: 61px; height: 76px; object-fit: cover; border-radius: 5px; }
+
+.fixed-action-bar { min-height: 68px; padding: 8px 14px max(8px, env(safe-area-inset-bottom)); }
+.fixed-action-bar .adm-button { min-height: 48px; font-size: 17px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .enrollment-page * { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
+.enrollment-page {
+  width: 100%;
+  margin: 0 auto;
+  background: var(--enroll-background);
+}
+
+.enrollment-navbar {
+  height: calc(56px + env(safe-area-inset-top));
+  font-size: 18px;
+  background: var(--enroll-surface);
+  border-bottom-color: #e9edf4;
+  backdrop-filter: none;
+}
+
+.enrollment-content { padding: 18px 18px 30px; }
+
+.enrollment-section-title { margin: 24px 0 14px; }
+.enrollment-section-title h2 { padding-left: 12px; font-size: 18px; font-weight: 700; line-height: 24px; }
+.enrollment-section-title h2::before { top: 2px; bottom: 2px; width: 4px; border-radius: 1px; }
+
+.gov-hero {
+  min-height: 236px;
+  padding: calc(43px + env(safe-area-inset-top)) 24px 28px;
+  background: linear-gradient(130deg, #1264df 0%, #1582ef 52%, #69bdff 100%);
+}
+.gov-hero::before {
+  right: -18%;
+  bottom: -54%;
+  width: 112%;
+  height: 82%;
+  background: rgba(255,255,255,.13);
+  border: 0;
+  border-radius: 50% 50% 0 0;
+  transform: rotate(-5deg);
+}
+.gov-hero::after { display: none; }
+.gov-hero__copy { z-index: 3; width: 54%; }
+.gov-hero__copy > span { margin-bottom: 7px; color: rgba(255,255,255,.82); font-size: 13px; letter-spacing: .18em; }
+.gov-hero h1 { margin-bottom: 10px; font-size: clamp(27px, 7vw, 34px); line-height: 1.22; }
+.gov-hero p { font-size: 15px; letter-spacing: .06em; }
+.gov-hero__illustration {
+  position: absolute;
+  right: -33%;
+  bottom: -7%;
+  z-index: 2;
+  width: 104%;
+  max-width: none;
+  pointer-events: none;
+  opacity: .82;
+  mix-blend-mode: lighten;
+}
+.gov-hero--home {
+  min-height: 252px;
+  padding: 0;
+  background: #1264df url('../assets/enrollment-home-hero.png') center top / 100% auto no-repeat;
+}
+.gov-hero--home::before,
+.gov-hero--home .gov-hero__copy,
+.gov-hero--home .gov-hero__illustration { display: none; }
+.gov-hero--compact {
+  min-height: 150px;
+  padding: 28px 20px;
+  background: linear-gradient(130deg, #1768e8 0%, #3c9bf2 100%);
+  border-radius: var(--enroll-radius-12);
+}
+.gov-hero--compact .gov-hero__copy { width: 60%; }
+.gov-hero--compact h1 { font-size: 21px; line-height: 1.35; }
+.gov-hero--compact p { font-size: 13px; line-height: 20px; }
+.gov-hero--compact .gov-hero__illustration { right: -23%; bottom: -14%; width: 76%; }
+
+.flow-context,
+.application-context { min-height: 44px; padding: 10px 13px; background: #eaf3ff; border-radius: var(--enroll-radius-8); }
+
+.fixed-action-bar {
+  width: 100%;
+  min-height: 76px;
+  padding: 11px 18px max(11px, env(safe-area-inset-bottom));
+  background: var(--enroll-surface);
+  box-shadow: 0 -4px 18px rgba(31,65,110,.06);
+}
+.fixed-action-bar > .adm-button,
+.fixed-action-bar .adm-button { --border-radius: 8px; min-width: 0; width: auto; font-weight: 600; }
+.fixed-action-bar > .adm-button:first-child:not(:last-child) { flex: 0 1 44%; }
+.fixed-action-bar > .adm-button:last-child:not(:first-child) { flex: 0 1 56%; }
+
+.enrollment-page .adm-button-primary:not(.adm-button-fill-outline):not(.adm-button-fill-none) {
+  color: var(--enroll-surface) !important;
+}
+.enrollment-page { min-height: 100dvh; }
+.enrollment-page.service-page { padding-top: 0; background: #f4f7fb; }
+.service-page > .gov-hero--service {
+  min-height: 154px;
+  margin: 0;
+  padding: calc(27px + env(safe-area-inset-top)) 20px 26px;
+  border-radius: 0;
+}
+.service-page > .gov-hero--service .gov-hero__copy { width: 56%; }
+.service-page > .gov-hero--service h1 { margin-bottom: 8px; color: var(--enroll-surface); font-size: 24px; line-height: 32px; }
+.service-page > .gov-hero--service p { color: rgba(255,255,255,.9); font-size: 13px; line-height: 20px; letter-spacing: 0; }
+.service-page > .gov-hero--service .gov-hero__illustration { right: -8%; bottom: -20%; width: 66%; }
+.service-page .enrollment-content { padding-top: 18px; }
+.service-tabs { margin-bottom: 16px; }
+.service-tabs .adm-tabs-header {
+  margin: 0;
+  background: var(--enroll-surface);
+  border: 1px solid #e0e7f0;
+  border-radius: var(--enroll-radius-10);
+}
+.service-tabs .adm-tabs-tab {
+  min-height: 46px;
+  padding: 12px 8px;
+  color: #66758c;
+  font-size: 14px;
+  line-height: 20px;
+}
+.service-tabs .adm-tabs-tab-active { color: var(--enroll-primary); font-weight: 600; }
+.service-tabs .adm-tabs-tab-line { height: 3px; background: var(--enroll-primary); border-radius: 3px; }
+.service-tabs .adm-tabs-content { padding: 0; }
+.service-card-list { display: grid; gap: 12px; }
+.service-query-card { margin-bottom: 16px; border: 1px solid #e0e7f0; border-radius: var(--enroll-radius-12); }
+.service-query-card .adm-card-body { display: grid; gap: 13px; padding: 15px; }
+.service-query-card label { color: #53637a; font-size: 14px; font-weight: 600; }
+.service-query-card .adm-card-body > div { position: relative; display: flex; align-items: center; }
+.service-query-card .adm-card-body > div > svg { position: absolute; left: 13px; z-index: 2; color: var(--enroll-primary); font-size: 20px; }
+.service-query-card .adm-input { min-height: 49px; padding: 0 12px 0 42px; background: #f9fbfd; border: 1px solid #cfd9e5; border-radius: 9px; }
+.enrollment-page { min-height: 100dvh; }
+
+.compact-notice { padding: 12px 13px; border-radius: var(--enroll-radius-8); }
+.timeline-cluster { grid-template-columns: 34px minmax(0, 1fr); gap: 10px; padding-bottom: 18px; }
+.timeline-cluster__rail span { width: 32px; height: 32px; border-width: 3px; }
+.timeline-cluster__rail::after { top: 32px; left: 15px; background: #b9cff0; }
+.timeline-cluster__title strong { font-size: 16px; }
+.timeline-cluster__body { margin-top: 6px; padding: 14px; border-radius: var(--enroll-radius-10); box-shadow: 0 3px 12px rgba(31,65,110,.04); }
+.timeline-cluster__summary { color: #5e6f88; line-height: 21px; }
+.summary-row { min-height: 45px; }
+
+@media (min-width: 560px) {
+  .gov-hero__illustration { right: -12%; width: 75%; }
+}
+
+@media (min-width: 560px) {
+  .gov-hero--compact .gov-hero__illustration { right: -8%; width: 52%; }
+}
+
+.fixed-action-bar { width: var(--enroll-container-width, 100%); min-height: 68px; padding: 8px 14px max(8px, env(safe-area-inset-bottom)); }
+.fixed-action-bar > .adm-button { min-width: 0; min-height: 48px; width: auto; font-size: 17px; }
+.fixed-action-bar > .adm-button:first-child:not(:last-child) { flex: 0 1 44%; }
+.fixed-action-bar > .adm-button:last-child:not(:first-child) { flex: 0 1 56%; }
+.enrollment-page { min-height: 100dvh; }

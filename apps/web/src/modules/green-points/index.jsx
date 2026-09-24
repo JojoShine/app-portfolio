@@ -8,6 +8,7 @@ import { CheckInPage, PointsPage, MePage, HelpPage } from './pages/AccountPages'
 import { CheckoutPage, ResultPage, OrdersPage, OrderPage } from './pages/OrderPages';
 import { CouponsPage, CollectionPage, AddressesPage, SupportPage } from './pages/MemberPages';
 import { BottomNav } from './components/UI';
+import pageLandscape from './assets/page-landscape.png';
 import './green-points.css';
 export default function GreenPointsApp() {
   const mall = useMall();
@@ -16,7 +17,7 @@ export default function GreenPointsApp() {
     window.scrollTo(0, 0);
     document.title = '绿色积分商城';
   }, [location.pathname]);
-  return <div className="gp-app">
+  return <div className="gp-app" style={{ '--gp-park-art': `url(${pageLandscape})` }}>
 <MallContext.Provider value={mall}>{mall.error ? <>
 <Header title="绿色积分商城" />
 <Empty text={mall.error}>

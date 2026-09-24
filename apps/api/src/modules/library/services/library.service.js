@@ -2,7 +2,7 @@ const crypto = require('crypto');
 const db = require('../db');
 const storage = require('../../../config/minio');
 const { NotFoundError, ConflictError, ForbiddenError } = require('../../../common/utils/error');
-const { getRenewedDueAt, hasTimeConflict } = require('../domain/rules');
+const { getRenewalBlockReason, getRenewedDueAt, hasTimeConflict } = require('../domain/rules');
 
 const bookInclude = { holdings: { include: { branch: true } } };
 const mediaUrl = (path) => path ? `/library/media/${path}` : null;
@@ -42,9 +42,15 @@ exports.home = async () => {
 exports.categories = async () => (await db.libraryBook.findMany({ distinct: ['category'], select: { category: true }, orderBy: { category: 'asc' } })).map((item) => item.category);
 
 exports.books = async ({ q, page, pageSize, availability, branchId, category, sort }) => {
+  const categoryGroups = {
+    '文学': ['中国现代文学', '中国文学', '历史小说'],
+    '少儿阅读': ['少儿阅读', '儿童文学'],
+    '地方文献': ['地方文献'],
+  };
+  const selectedCategories = categoryGroups[category] || (category ? [category] : []);
   const where = {
     ...(q ? { OR: [{ title: { contains: q, mode: 'insensitive' } }, { author: { contains: q, mode: 'insensitive' } }, { isbn: { contains: q } }] } : {}),
-    ...(category ? { category } : {}),
+    ...(selectedCategories.length ? { category: { in: selectedCategories } } : {}),
     ...(branchId || availability ? { holdings: { some: { ...(branchId ? { branchId } : {}), ...(availability === 'available' ? { availableCopies: { gt: 0 } } : availability === 'unavailable' ? { availableCopies: 0 } : {}) } } } : {}),
   };
   const orderBy = sort === 'newest' ? { publishedYear: 'desc' } : { popularity: 'desc' };
@@ -98,7 +104,10 @@ exports.loans = async (userId) => {
   const reader = await getReader(userId);
   const rows = await db.libraryLoan.findMany({ where: { readerId: reader.id }, include: { holding: { include: { book: true, branch: true } } }, orderBy: { dueAt: 'asc' } });
   const queuedBooks = new Set((await db.libraryBookReservation.findMany({ where: { status: { in: ['queued', 'ready'] } }, select: { bookId: true } })).map((item) => item.bookId));
-  return rows.map((loan) => ({ ...loan, book: mapBook({ ...loan.holding.book, holdings: [] }), branchName: loan.holding.branch.name, callNumber: loan.holding.callNumber, canRenew: loan.status === 'borrowed' && loan.renewalCount < 1 && !queuedBooks.has(loan.holding.bookId), renewalReason: queuedBooks.has(loan.holding.bookId) ? '他人已预约 · 不可续借' : null }));
+  return rows.map((loan) => {
+    const renewalReason = getRenewalBlockReason({ ...loan, readerStatus: reader.status, hasQueue: queuedBooks.has(loan.holding.bookId) });
+    return { ...loan, book: mapBook({ ...loan.holding.book, holdings: [] }), branchName: loan.holding.branch.name, callNumber: loan.holding.callNumber, canRenew: !renewalReason, renewalReason };
+  });
 };
 
 exports.renew = async (id, userId) => db.$transaction(async (tx) => {
@@ -163,6 +172,16 @@ exports.cancelSeatReservation = async (id, userId) => {
   const reader = await getReader(userId); const item = await db.librarySeatReservation.findFirst({ where: { id, readerId: reader.id } });
   if (!item) throw new NotFoundError('座位预约不存在');
   return db.librarySeatReservation.update({ where: { id }, data: { status: 'cancelled' } });
+};
+
+exports.eventRegistrations = async (userId) => {
+  const reader = await getReader(userId);
+  const items = await db.libraryEventRegistration.findMany({
+    where: { readerId: reader.id },
+    include: { event: { include: { branch: true } } },
+    orderBy: { event: { startsAt: 'desc' } },
+  });
+  return items.map((item) => ({ ...item, event: mapEvent(item.event) }));
 };
 
 exports.registerEvent = async (eventId, userId) => db.$transaction(async (tx) => {

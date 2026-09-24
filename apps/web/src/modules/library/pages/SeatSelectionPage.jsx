@@ -1,12 +1,14 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Popup, Radio, Toast } from 'antd-mobile';
 import { CalendarOutline, ClockCircleOutline, RightOutline } from 'antd-mobile-icons';
-import useLibraryQuery from '../hooks/useLibraryQuery';
-import { createSeatReservation, getBranches, getSeatAvailability } from '../services/library.service';
+import { useLibraryBranches } from '../hooks/useCatalogData';
+import useSeatAvailability from '../hooks/useSeatData';
+import { createSeatReservation } from '../services/library.service';
 import { PageHeader, PageState } from '../components/LibraryLayout';
 import { SeatDatePicker, SeatTimePicker } from '../components/SeatDateTimePicker';
 import seatLandscape from '../assets/seat-header.png';
 import seatBook from '../assets/seat-book-panel.png';
+import seatBrandLockup from '../assets/seat-brand-lockup.png';
 
 function DeviceIcon() {
   return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="13" rx="1" /><path d="M12 16v5m-5 0h10" /></svg>;
@@ -26,7 +28,7 @@ function Plant() {
 
 const haianDate = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
 export default function SeatSelectionPage() {
-  const branches = useLibraryQuery(getBranches, []);
+  const branches = useLibraryBranches();
   const [chosenBranch, setChosenBranch] = useState('');
   const branch = branches.data?.find((item) => item.id === chosenBranch) || branches.data?.[0];
   const branchId = branch?.id;
@@ -37,26 +39,14 @@ export default function SeatSelectionPage() {
   const [selection, setSelection] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [revision, setRevision] = useState(0);
-  const [result, setResult] = useState(null);
   const startsAt = `${date}T${times[0]}:00+08:00`;
   const endsAt = `${date}T${times[1]}:00+08:00`;
-  const requestKey = `${branchId}|${startsAt}|${endsAt}|${revision}`;
   const reloadSeats = () => setRevision((value) => value + 1);
-  useEffect(() => {
-    if (!branchId) return;
-    let active = true;
-    getSeatAvailability({ branchId, startsAt, endsAt }).then((data) => {
-      if (active) setResult({ key: requestKey, data, error: '' });
-    }).catch((error) => {
-      if (active) setResult({ key: requestKey, data: [], error: error.message || '座位加载失败' });
-    });
-    return () => { active = false; };
-  }, [branchId, startsAt, endsAt, requestKey]);
-  const loading = Boolean(branchId) && result?.key !== requestKey;
-  const currentResult = result?.key === requestKey ? result : null;
-  const areas = useMemo(() => [...new Set((currentResult?.data || []).map((seat) => `${seat.floor}${seat.area}`))], [currentResult]);
+  const seats = useSeatAvailability({ branchId, startsAt, endsAt, revision });
+  const { requestKey, loading } = seats;
+  const areas = useMemo(() => [...new Set(seats.data.map((seat) => `${seat.floor}${seat.area}`))], [seats.data]);
   const currentArea = areas.includes(area) ? area : areas[0] || '';
-  const rows = useMemo(() => (currentResult?.data || []).filter((seat) => `${seat.floor}${seat.area}` === currentArea).sort((a, b) => a.label.localeCompare(b.label, 'zh-CN', { numeric: true })), [currentResult, currentArea]);
+  const rows = useMemo(() => seats.data.filter((seat) => `${seat.floor}${seat.area}` === currentArea).sort((a, b) => a.label.localeCompare(b.label, 'zh-CN', { numeric: true })), [seats.data, currentArea]);
   const seatRows = useMemo(() => [...new Set(rows.map((seat) => seat.label.split('-')[0]))].map((name) => ({ name, seats: rows.filter((seat) => seat.label.split('-')[0] === name) })), [rows]);
   const selected = selection?.key === requestKey ? rows.find((seat) => seat.id === selection.id && seat.available) : null;
   const timeLabel = times.join('–');
@@ -71,13 +61,13 @@ export default function SeatSelectionPage() {
     finally { setSubmitting(false); }
   };
   return <main className="lib-page lib-seat-page" style={{ '--seat-landscape': `url("${seatLandscape}")`, '--seat-book': `url("${seatBook}")` }}>
-    <PageHeader title="座位预约" action={<span className="lib-vertical-brand">书香<br />海安<small>SHUXIANG<br />HAIAN</small><i>海安</i></span>} />
+    <PageHeader title="座位预约" action={<span className="lib-vertical-brand"><img src={seatBrandLockup} alt="书香海安" /></span>} />
     <header className="lib-seat-masthead"><h1>在书香里<br />遇见更好的自己</h1><p>阅读，让海安更温暖</p><i /><span>江海书卷<br />阅见未来</span></header>
     <section className="lib-seat-controls"><button aria-label="选择分馆" disabled={submitting} onClick={() => setPicker('branch')}><BranchIcon /><span>{branch?.name || '选择分馆'}</span><RightOutline /></button><div><button aria-label="选择日期" disabled={submitting} onClick={() => setPicker('date')}><CalendarOutline /><span>{dateLabel}</span><RightOutline /></button><button aria-label="选择时段" disabled={submitting} onClick={() => setPicker('time')}><ClockCircleOutline /><span>{timeLabel}</span><RightOutline /></button><button aria-label="选择阅览区" disabled={submitting || loading} onClick={() => setPicker('area')}><FloorIcon /><span>{currentArea || '选择阅览区'}</span><RightOutline /></button></div></section>
     <div className="lib-seat-title"><h2>{currentArea || '阅览区'}</h2><span>静心阅读 · 遇见更大的世界</span></div>
     <PageState {...branches} onRetry={branches.reload} />
-    <PageState loading={loading} error={currentResult?.error} onRetry={reloadSeats} />
-    {!loading && !branches.loading && !currentResult?.error && !branches.error && rows.length === 0 && <p className="lib-seat-empty">该分馆暂无可预约座位，请选择其他分馆。</p>}
+    <PageState loading={loading} error={seats.error} onRetry={reloadSeats} />
+    {!loading && !branches.loading && !seats.error && !branches.error && rows.length === 0 && <p className="lib-seat-empty">该分馆暂无可预约座位，请选择其他分馆。</p>}
     {rows.length > 0 && <section className="lib-seat-map" aria-label="座位图">
       <div className="lib-seat-left-wall" aria-hidden="true" />
       <div className="lib-seat-window-row"><Plant /><div className="lib-window">窗边阅读区</div><Plant /></div>

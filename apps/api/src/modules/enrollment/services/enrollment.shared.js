@@ -58,7 +58,7 @@ const getOwnedApplication = async (id, userId, options = {}) => {
     where: { id },
     include: { school: true },
   });
-  if (!application) throw new NotFoundError('报名记录不存在');
+  if (!application || application.status === 'discarded') throw new NotFoundError('报名记录不存在');
   if (application.ownerUserId !== userId) throw new ForbiddenError('无权访问该报名记录');
   return application;
 };
@@ -183,7 +183,9 @@ const serializeApplication = (application, extras = {}) => ({
   schoolId: application.schoolId,
   school: serializeSchool(application.school),
   stage: application.stage,
+  stageLabel: ({ kindergarten: '幼儿园入学', primary: '幼升小', middle: '小升初' })[application.stage] || application.stage,
   category: application.category,
+  categoryLabel: ({ urban: '城区', non_urban: '非城区', private: '民办' })[application.category] || application.category,
   status: application.status,
   statusLabel: STATUS_LABELS[application.status],
   studentName: decrypt(application.studentNameEncrypted, ''),
@@ -225,4 +227,3 @@ module.exports = {
   serializeSchool,
   serializeApplication,
 };
-

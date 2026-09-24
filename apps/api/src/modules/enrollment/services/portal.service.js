@@ -37,7 +37,9 @@ const getPortal = async () => {
     banners: (grouped.banner || []).slice(0, 3),
     notices: grouped.notice || [],
     windows,
-    services: ['registration_time', 'policy', 'faq', 'district', 'guide'],
+    services: (grouped.service || []).map((item) => ({
+      id: item.target, title: item.title, description: item.summary || '',
+    })),
   };
 };
 

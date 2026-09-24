@@ -1,0 +1,69 @@
+.guide-steps { display: grid; gap: 0; }
+.guide-steps section { position: relative; display: grid; grid-template-columns: 42px 1fr; gap: 12px; padding-bottom: 22px; }
+.guide-steps section::after { position: absolute; top: 36px; bottom: 2px; left: 17px; width: 2px; background: #cedbf1; content: ""; }
+.guide-steps section:last-child::after { display: none; }
+.guide-steps section > span { position: relative; z-index: 2; display: grid; width: 36px; height: 36px; color: var(--enroll-surface); font-weight: 700; background: var(--enroll-primary); border-radius: 50%; place-items: center; }
+.guide-steps h2 { margin: 3px 0 5px; font-size: 17px; }
+.guide-steps p { margin: 0; color: var(--enroll-muted); font-size: 14px; line-height: 22px; }
+.guide-steps.service-card-list { gap: 12px; }
+.guide-page .guide-steps { margin: 0 0 16px; }
+.guide-page .guide-steps section {
+  grid-template-columns: 96px minmax(0, 1fr);
+  min-height: 154px;
+  padding: 12px;
+  align-items: stretch;
+  background: var(--enroll-surface);
+  border: 1px solid #e0e7f0;
+  border-radius: var(--enroll-radius-12);
+}
+.guide-page .guide-steps section::after { display: none; }
+.guide-step-card__visual {
+  position: relative;
+  display: grid;
+  min-height: 128px;
+  overflow: hidden;
+  align-content: center;
+  justify-items: center;
+  color: var(--enroll-primary);
+  background: linear-gradient(145deg, #e8f2ff, #d8e9ff);
+  border-radius: 9px;
+}
+.guide-step-card--2 .guide-step-card__visual { color: #238a68; background: linear-gradient(145deg, #e9f8f1, #d7f0e4); }
+.guide-step-card--3 .guide-step-card__visual { color: #cf742a; background: linear-gradient(145deg, #fff4e9, #fbe3cc); }
+.guide-step-card__visual > span {
+  position: absolute;
+  top: 8px;
+  left: 9px;
+  color: currentColor;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+.guide-step-card__visual > svg { position: relative; z-index: 2; font-size: 36px; }
+.guide-step-card__visual > i {
+  position: absolute;
+  right: -14px;
+  bottom: -18px;
+  width: 68px;
+  height: 68px;
+  background: rgba(255,255,255,.42);
+  border-radius: 50%;
+}
+.guide-step-card__visual > i:last-child { top: 35px; right: auto; bottom: auto; left: -23px; width: 48px; height: 48px; background: rgba(255,255,255,.28); }
+.guide-step-card__content { display: flex; min-width: 0; flex-direction: column; padding: 2px 2px 1px; }
+.guide-step-card__content > em { color: var(--enroll-primary); font-size: 11px; font-style: normal; font-weight: 600; line-height: 17px; }
+.guide-step-card--2 .guide-step-card__content > em { color: #238a68; }
+.guide-step-card--3 .guide-step-card__content > em { color: #cf742a; }
+.guide-page .guide-steps h2 { margin: 3px 0 6px; color: #24334b; font-size: 15px; line-height: 22px; }
+.guide-page .guide-steps p { margin: 0; color: #5e6e84; font-size: 13px; line-height: 21px; }
+.guide-step-card__content > small {
+  display: block;
+  margin-top: auto;
+  padding-top: 8px;
+  color: #8793a4;
+  font-size: 11px;
+  line-height: 17px;
+}
+@media (max-width: 360px) {
+  .guide-page .guide-steps section { grid-template-columns: 82px minmax(0, 1fr); }
+}

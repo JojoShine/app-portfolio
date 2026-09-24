@@ -1,7 +1,4 @@
-import { CATEGORIES, CURRENT_YEAR, STAGES } from '../domain/constants';
-
-const stageLabel = Object.fromEntries(STAGES.map((stage) => [stage.id, stage.name]));
-const categoryLabel = Object.fromEntries(CATEGORIES.map((category) => [category.id, category.name]));
+import { CATEGORIES, STAGES } from '../domain/constants';
 
 const formatDate = (value) => {
   if (!value) return '';
@@ -13,7 +10,7 @@ const formatDate = (value) => {
 const getLegacyApplicationNumber = (application) => {
   const createdAt = new Date(application.createdAt || application.updatedAt || Date.now());
   const datePart = Number.isNaN(createdAt.getTime())
-    ? String(CURRENT_YEAR)
+    ? String(application.year || new Date().getFullYear())
     : `${createdAt.getFullYear()}${String(createdAt.getMonth() + 1).padStart(2, '0')}${String(createdAt.getDate()).padStart(2, '0')}`;
   const idPart = String(application.id || '')
     .replace(/[^a-f\d]/gi, '')
@@ -42,8 +39,8 @@ export const normalizeApplication = (application) => ({
   studentName: application.studentName || '',
   maskedStudentName: application.maskedStudentName || (application.studentName ? `${application.studentName.slice(0, 1)}*${application.studentName.slice(-1)}` : ''),
   schoolName: application.schoolName || application.school?.name || '',
-  stageName: application.stageName || stageLabel[application.stage] || application.stage,
-  categoryName: application.categoryName || categoryLabel[application.category] || application.category,
+  stageName: application.stageName || application.stageLabel || stageLabel[application.stage] || application.stage,
+  categoryName: application.categoryName || application.categoryLabel || categoryLabel[application.category] || application.category,
   status: application.statusLabel || ({
     draft: '待提交',
     reviewing: '审核中',
@@ -54,3 +51,5 @@ export const normalizeApplication = (application) => ({
   }[application.status]) || application.status,
   updatedAt: application.updatedAt || '',
 });
+const stageLabel = Object.fromEntries(STAGES.map((stage) => [stage.id, stage.name]));
+const categoryLabel = Object.fromEntries(CATEGORIES.map((category) => [category.id, category.name]));

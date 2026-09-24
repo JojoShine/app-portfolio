@@ -16,7 +16,7 @@ import PendingPage from './pages/PendingPage';
 import PendingListPage from './pages/PendingListPage';
 import RecordsPage from './pages/RecordsPage';
 import ScanPage from './pages/ScanPage';
-import './coupon.css';
+import './styles/index.css';
 export default function CouponApp() {
   const { pathname } = useLocation();
   useEffect(() => { window.scrollTo(0, 0); }, [pathname]);

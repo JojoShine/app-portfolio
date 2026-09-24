@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Toast } from 'antd-mobile';
 import { AudioFill, ClockCircleOutline, ContentOutline, RightOutline } from 'antd-mobile-icons';
-import useLibraryQuery from '../hooks/useLibraryQuery';
-import { getMessages, readAllMessages, readMessage } from '../services/library.service';
-import { PageHeader, PageState } from '../components/LibraryLayout';
+import { useLibraryMessages } from '../hooks/useReaderData';
+import { readAllMessages, readMessage } from '../services/library.service';
+import { PersonalPageHeader, PageState } from '../components/LibraryLayout';
 import LibraryDialog from '../components/LibraryDialog';
 import { formatLibraryMessageTime } from '../utils/format';
 import seatIcon from '../assets/service-seat-icon.png';
@@ -16,7 +16,7 @@ const categories = [{ label: '全部', types: null }, { label: '借阅', types: 
 const priority = { reservation: 0, loan: 1, seat: 2, event: 3 };
 
 export default function MessagesPage() {
-  const query = useLibraryQuery(getMessages, []);
+  const query = useLibraryMessages();
   const [category, setCategory] = useState('全部');
   const [selected, setSelected] = useState(null);
   const [busy, setBusy] = useState(false);
@@ -42,8 +42,8 @@ export default function MessagesPage() {
       finally { setOpening(null); }
     }
   };
-  return <main className="lib-page lib-messages" style={messageArtwork}>
-    <PageHeader title="消息中心" action={<button disabled={busy || !unread} onClick={readAll}>{busy ? '处理中…' : '全部已读'}</button>} />
+  return <main className="lib-page lib-personal-subpage lib-messages" style={messageArtwork}>
+    <PersonalPageHeader title="消息中心" action={<button disabled={busy || !unread} onClick={readAll}>{busy ? '处理中…' : '全部已读'}</button>} />
     <nav className="lib-message-tabs" aria-label="消息分类">{categories.map((item) => <button key={item.label} aria-pressed={category === item.label} className={category === item.label ? 'is-active' : ''} onClick={() => setCategory(item.label)}>{item.label}</button>)}</nav>
     <PageState {...query} onRetry={query.reload} />
     <section className="lib-message-list" aria-label={category + '消息'}>{filtered.map((item) => {

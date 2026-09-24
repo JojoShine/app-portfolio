@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CalendarOutline, ContentOutline, DownOutline, LocationFill, TeamOutline } from 'antd-mobile-icons';
-import useLibraryQuery from '../hooks/useLibraryQuery';
-import { getEvents } from '../services/library.service';
+import useSessionStore from '../../../shared/auth/sessionStore';
+import { useLibraryEventRegistrations, useLibraryEvents } from '../hooks/useEventData';
 import AssetImage from '../components/AssetImage';
 import LibraryDialog from '../components/LibraryDialog';
 import { BottomNav, PageState } from '../components/LibraryLayout';
@@ -13,14 +13,18 @@ const periods = [{ value: 'recent', label: '近期', description: '未来 30 天
 
 export default function EventsPage() {
   const navigate = useNavigate();
-  const query = useLibraryQuery(getEvents, []);
+  const token = useSessionStore((state) => state.accessToken);
+  const hasReaderSession = token && token !== 'mock-parent-access-token';
+  const query = useLibraryEvents();
+  const registrationsQuery = useLibraryEventRegistrations(hasReaderSession);
   const [category, setCategory] = useState('全部活动');
   const [period, setPeriod] = useState('recent');
   const [draftPeriod, setDraftPeriod] = useState('recent');
   const [periodOpen, setPeriodOpen] = useState(false);
   const events = filterLibraryEvents(query.data, category, period);
+  const registrations = useMemo(() => new Map((registrationsQuery.data || []).map((item) => [item.eventId, item])), [registrationsQuery.data]);
   return <main className="lib-page lib-events"><header className="lib-events-head">
-    <div className="lib-events-brand"><div><ContentOutline /><span><b>书香海安</b><small>海安市图书馆服务应用</small></span></div><button onClick={() => navigate('/library/profile')}><CalendarOutline />我的活动</button></div>
+    <div className="lib-events-brand"><div><ContentOutline /><span><b>书香海安</b><small>海安市图书馆服务应用</small></span></div><button onClick={() => navigate('/library/my-events')}><CalendarOutline />我的活动</button></div>
     <div className="lib-events-title"><h1>阅读活动</h1><i /><p>在文字里<br />遇见更大的海安</p></div>
     <AssetImage className="lib-events-hero-image" fallback="readingEventsHero" alt="读者围桌交流" />
     <aside className="lib-events-motto"><i />阅读<br />让一座城市<br />更温暖<i /></aside>
@@ -32,13 +36,14 @@ export default function EventsPage() {
     <section className="lib-event-list">{events?.map((event) => {
       const date = formatLibraryEventDate(event.startsAt);
       const isFeatured = event.category === '读书会';
-      const isRegistered = event.category === '亲子阅读';
-      const visual = isRegistered ? 'eventFamilyList' : event.category === '地方文献' ? 'eventLocalList' : 'ditanEvent';
+      const isFamily = event.category === '亲子阅读';
+      const registration = registrations.get(event.id);
+      const registrationLabel = registration?.status === 'registered' ? '已报名' : registration?.status === 'waitlisted' ? '候补中' : '';
       return <button className={isFeatured ? 'is-featured' : ''} key={event.id} onClick={() => navigate(`/library/events/${event.id}`)}>
-        {!isFeatured && <AssetImage fallback={visual} alt={event.title} />}
+        {!isFeatured && <AssetImage remote={event.coverUrl} alt={event.title} />}
         <time><small className={!isFeatured ? 'is-date-mark' : ''}>{isFeatured ? date.year : ''}</small><b><span>{date.month}</span><i aria-hidden="true">/</i><span>{date.day}</span></b><em>{date.weekday} {date.time}</em></time>
-        <span className="lib-event-copy"><em>{isFeatured ? '重点活动' : ''}</em><h2>{event.title}</h2><p>{event.summary}</p><small><LocationFill /><span>{event.branchName}{isFeatured ? ' · 三楼阅读空间' : isRegistered ? ' · 少儿阅读区' : ' · 四楼多功能厅'}</span></small><strong className={isRegistered ? 'is-registered' : ''}>{isFeatured && <TeamOutline />}{isRegistered ? '已报名' : `剩余 ${event.remaining} 席`}</strong></span>
-        {isFeatured && <span className="lib-event-book"><AssetImage className="lib-event-book-photo" fallback="eventBookPhoto" alt="树影中的我与地坛立体书" /></span>}</button>;
+        <span className="lib-event-copy"><em>{isFeatured ? '重点活动' : ''}</em><h2>{event.title}</h2><p>{event.summary}</p><small><LocationFill /><span>{event.branchName}{isFeatured ? ' · 三楼阅读空间' : isFamily ? ' · 少儿阅读区' : ' · 四楼多功能厅'}</span></small><strong className={registrationLabel ? 'is-registered' : ''}>{isFeatured && <TeamOutline />}{registrationLabel || `剩余 ${event.remaining} 席`}</strong></span>
+        {isFeatured && <span className="lib-event-book"><AssetImage className="lib-event-book-photo" remote={event.coverUrl} alt={event.title} /></span>}</button>;
     })}</section>
     <footer className="lib-events-footer"><span>读一座城 · 从书开始</span><span>HAIAN LIBRARY | NO.2026-09</span></footer>
     <BottomNav />
