@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { eventStatus } from '../utils/format';
+import { resolveApiResourceUrl } from '../../../app/config/env';
 export function Icon({ name = 'flag' }) {
   const paths = {
     back: 'm15 5-7 7 7 7', chevron: 'm9 5 7 7-7 7', flag: 'M5 22V3m0 0c5-4 9 4 15 0v10c-6 4-10-4-15 0',
@@ -23,7 +24,7 @@ export function Header({ title, back = '/quiz', home = false }) {
 }
 Header.propTypes = { title: PropTypes.string.isRequired, back: PropTypes.string, home: PropTypes.bool };
 export function Art({ type = 'city', hero = false, source }) {
-  const style = { backgroundImage: source ? `url("${source}")` : 'none' };
+  const style = { backgroundImage: source ? `url("${resolveApiResourceUrl(source)}")` : 'none' };
   if (hero) return <div className={`q-banner-art q-banner-${type}`} style={style} aria-hidden="true" />;
   return <div className={type === 'city' ? 'q-thumbnail q-city-thumb' : `q-thumbnail q-art-${type}`} style={style} aria-hidden="true" />;
 }

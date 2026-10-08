@@ -36,7 +36,7 @@ app-portfolio/
 │   ├── web/          # 前端 H5 应用（React + Vite + antd-mobile）
 │   └── api/          # 后端 API 服务（Express + Prisma + PostgreSQL）
 ├── packages/         # 跨应用复用的共享包（预留）
-├── compose.yaml      # 本地开发基础设施（PostgreSQL + MinIO）
+├── compose.yaml      # API 部署及可选的本地 PostgreSQL
 └── apps/api/Dockerfile  # API 服务 Docker 镜像
 ```
 
@@ -58,15 +58,47 @@ app-portfolio/
 - `src/common`：授权、错误、响应和日志等通用能力
 - `prisma`：Schema、Migration 和 Seed
 
-## 本地开发
+## 仅后端：新设备 Docker 运行
+
+提交并推送后，新设备克隆仓库，将 `.env.production.example` 复制为 `.env.production` 并填写数据库、密钥及 OSS 配置。已有配置文件不要覆盖。不需要安装 Node.js、pnpm 或 Prisma，也不需要迁移旧业务数据。
+
+```bash
+# 构建后端镜像（不连接数据库）
+docker compose --env-file .env.production -f docker-compose.yml build api
+# 本地运行已构建镜像，自动生成客户端、部署表结构并初始化数据
+docker compose --env-file .env.production -f docker-compose.yml up -d --no-build
+```
+
+后端地址 `http://localhost:8000/api/`，就绪检查 `http://localhost:8000/ready`；容器内端口为 3000。此入口不启动前端、数据库或 Redis。数据库本身需在宿主机预先创建并允许容器连接；表和初始化数据由脚本创建。完整初始化还需要 OSS 凭据，已有对象不覆盖。密钥至少 32 字符，新的空数据库可以使用新密钥。
+
+仓库同时保留开发用 `compose.yaml`，因此上述命令必须显式指定 `-f docker-compose.yml`。初始化失败不会启动 API，重复运行保留已有记录。只初始化结构可运行 `docker compose --env-file .env.production -f docker-compose.yml run --rm api pnpm db:migrate`。
+
+## GitHub Actions 发布与服务器部署
+
+推送 `main` 后，`.github/workflows/publish.yml` 在隔离 PostgreSQL 上执行迁移、初始化和前后端检查；通过后发布 `ghcr.io/jojoshine/app-portfolio-api:<完整提交SHA>`（amd64/arm64），并上传 `app-portfolio-web-<SHA>` 前端构建产物。PR 只检查，不发布镜像，CI 不使用真实数据库或 OSS 凭据。
+
+服务器准备 `docker-compose.prod.yml` 和私有的 `.env.production`，填写 `API_IMAGE` 为本次提交标签以及外部数据库、JWT、数据加密密钥、OSS 参数，然后运行：
+
+```bash
+# 私有 GHCR 镜像需先通过密码标准输入登录，令牌需有 read:packages 权限。
+docker compose --env-file .env.production -f docker-compose.prod.yml pull
+docker compose --env-file .env.production -f docker-compose.prod.yml up -d --no-build --wait --wait-timeout 300
+```
+
+- 服务器不构建镜像，也不启动数据库、Redis 或 MinIO。API 仅监听宿主机 `127.0.0.1:8000`，容器端口 3000。
+- API 启动依次执行 Prisma 生成、表结构迁移、数据/资源初始化，失败则不启动；已有业务记录及 OSS 对象不覆盖。数据库本身须预先创建。
+- 外部 PostgreSQL 地址通过 `DATABASE_URL` 指定；若在宿主机则使用 `host.docker.internal`，并允许 Docker 网桥访问。已有加密数据必须沿用 `ENROLLMENT_DATA_KEY`。
+- 前端在 `apps/web` 执行 `npm run build`，或下载本次 CI 构建产物，将 dist 内容发布到 `/var/www/app-portfolio`。宿主机 Nginx 示例为 `apps/web/deploy/nginx.host.conf`，监听 3200，访问前缀为 `/app-portfolio/`，API 前缀为 `/app-portfolio/api/`。已有站点应合并 location，不覆盖其他站点。
+- `.env.production` 不提交 Git、不进入镜像；`apps/web/.env.production` 只含公开参数，正式环境关闭 Mock 和开发令牌，身份由载体提供。
+- 发布前备份现有数据库与前端版本；应用可切换回上一提交镜像，数据库迁移不能靠切换镜像自动回滚。
 
 ### 1. 启动基础设施
 
 ```bash
-docker compose up -d
+API_ENV_FILE=./apps/api/.env.example docker compose --profile local-db up -d postgres
 ```
 
-这会启动 PostgreSQL（端口 5433）和 MinIO（端口 9000/9001）。
+这只启动 PostgreSQL（端口 5433）。对象存储使用阿里云 OSS，不再部署 MinIO；完整初始化前请在 `apps/api/.env` 配置私有 Bucket 和凭证，详见 [后端部署说明](apps/api/README.md)。
 
 ### 2. 安装依赖
 
@@ -77,7 +109,7 @@ pnpm install
 ### 3. 初始化数据库
 
 ```bash
-pnpm db:migrate:dev
+pnpm --filter @app-portfolio/api db:init
 ```
 
 ### 4. 启动服务
@@ -140,7 +172,7 @@ pnpm --filter @app-portfolio/api test
 - Express 5
 - Prisma ORM
 - PostgreSQL 16
-- MinIO（对象存储）
+- 阿里云 OSS（私有对象存储）
 - JWT 认证
 
 **基础设施**

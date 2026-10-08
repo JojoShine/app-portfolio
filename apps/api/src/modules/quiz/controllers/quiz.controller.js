@@ -1,4 +1,5 @@
 const response = require('../../../common/response');
+const pipeFile = require('../../../common/utils/pipeFile');
 const service = require('../services/quiz.service');
 
 const wrap = (handler) => async (req, res, next) => {
@@ -14,6 +15,6 @@ exports.asset = async (req, res, next) => {
     const file = await service.asset(req.params.id);
     res.setHeader('Content-Type', file.mimeType);
     res.setHeader('Cache-Control', 'public, max-age=86400');
-    file.stream.pipe(res);
+    await pipeFile(file.stream, res);
   } catch (error) { next(error); }
 };

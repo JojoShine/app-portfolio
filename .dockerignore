@@ -4,14 +4,15 @@
 *.md
 docs
 
-# Frontend (not needed for API image)
-apps/web
+# Design references are not runtime assets
+apps/web/references
 
 # Non-production files
 **/node_modules
 **/dist
 **/logs
 **/.env*
+!apps/web/.env.production
 **/tmp
 **/temp
 

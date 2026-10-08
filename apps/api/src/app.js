@@ -5,6 +5,8 @@ const database = require('./config/database');
 const env = require('./config/env');
 const errorHandler = require('./common/middleware/errorHandler');
 const requestContext = require('./common/middleware/requestContext');
+const response = require('./common/response');
+const {NotFoundError} = require('./common/utils/error');
 
 const system = require('./system');
 const enrollment = require('./modules/enrollment');
@@ -31,19 +33,19 @@ app.use(cors({
     return callback(null, false);
   },
 }));
+app.use(requestContext);
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ limit: '1mb', extended: true }));
-app.use(requestContext);
 
 // 健康检查端点
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  res.json(response.success({ status: 'ok', timestamp: new Date().toISOString() }));
 });
 
 app.get('/ready', async (req, res, next) => {
   try {
     await database.$queryRaw`SELECT 1`;
-    res.json({ status: 'ready', timestamp: new Date().toISOString() });
+    res.json(response.success({ status: 'ready', timestamp: new Date().toISOString() }));
   } catch (error) {
     next(error);
   }
@@ -63,13 +65,7 @@ app.use('/api/snap-report', require('./modules/snap-report').routes);
 app.use('/api/quiz', require('./modules/quiz').routes);
 
 // 404 处理
-app.use((req, res) => {
-  res.status(404).json({
-    code: 1002,
-    message: 'Not Found',
-    data: null,
-  });
-});
+app.use((req, res, next) => next(new NotFoundError()));
 
 // 错误处理中间件（必须放在最后）
 app.use(errorHandler);

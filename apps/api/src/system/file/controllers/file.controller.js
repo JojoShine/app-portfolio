@@ -1,4 +1,5 @@
 const response = require('../../../common/response');
+const pipeFile = require('../../../common/utils/pipeFile');
 const { validateUploadFile, validateGetFileStream } = require('../validations/file.validation');
 const fileService = require('../services/file.service');
 const { parsePagination } = require('../../../common/utils/pagination');
@@ -21,7 +22,7 @@ const getFileStream = async (req, res, next) => {
 
     res.setHeader('Content-Type', fileData.mimeType);
     res.setHeader('Content-Disposition', `inline; filename="${encodeURIComponent(fileData.filename)}"`);
-    fileData.stream.pipe(res);
+    await pipeFile(fileData.stream, res);
   } catch (error) {
     next(error);
   }

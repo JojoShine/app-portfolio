@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Checkbox, Popup, Radio } from 'antd-mobile';
 import PropTypes from 'prop-types';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { appConfig } from '../../../app/config/env';
+import { appConfig, resolveApiResourceUrl } from '../../../app/config/env';
 const assetUrl = name => `${appConfig.apiBaseUrl}/green-points/assets/${encodeURIComponent(name)}`;
 export function Art({
   name,
@@ -15,7 +15,7 @@ Art.propTypes = {
   className: PropTypes.string
 };
 export function ProductArt({ product, className = '' }) {
-  return <img className={className} src={product.imageUrl || assetUrl(product.image)} alt={product.name} />;
+  return <img className={className} src={resolveApiResourceUrl(product.imageUrl) || assetUrl(product.image)} alt={product.name} />;
 }
 ProductArt.propTypes = { product: PropTypes.object.isRequired, className: PropTypes.string };
 export function Icon({

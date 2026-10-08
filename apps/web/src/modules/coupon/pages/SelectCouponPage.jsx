@@ -6,7 +6,7 @@ import { listCoupons } from '../services/wallet.service';
 import { createPendingRequest } from '../services/verification.service';
 import { useCouponData } from '../hooks/useCouponData';
 import Artwork from '../components/Artwork';
-import selectReference from '../../../../../../docs/coupon/ui/07-select-coupon.png';
+import selectReference from '../assets/07-select-coupon.png';
 import CouponCard from '../components/CouponCard';
 import Sheet from '../components/Sheet';
 import DataState from '../components/DataState';

@@ -1,4 +1,5 @@
 const response = require('../../../common/response');
+const pipeFile = require('../../../common/utils/pipeFile');
 const service = require('../services/green-points.service');
 const wrap = (handler) => async (req, res, next) => { try { res.json(response.success(await handler(req))); } catch (error) { next(error); } };
 
@@ -13,4 +14,4 @@ exports.support = wrap((req) => service.support(req.user.id, req.body));
 exports.redeem = wrap((req) => service.redeem(req.user.id, req.body));
 exports.cancel = wrap((req) => service.cancel(req.user.id, req.body.id));
 exports.complete = wrap((req) => service.complete(req.user.id, req.body.id));
-exports.asset = async (req, res, next) => { try { const file = await service.asset(req.params.id); res.setHeader('Content-Type', file.mimeType); res.setHeader('Cache-Control', 'public, max-age=86400'); file.stream.pipe(res); } catch (error) { next(error); } };
+exports.asset = async (req, res, next) => { try { const file = await service.asset(req.params.id); res.setHeader('Content-Type', file.mimeType); res.setHeader('Cache-Control', 'public, max-age=86400'); await pipeFile(file.stream, res); } catch (error) { next(error); } };

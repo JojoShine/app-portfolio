@@ -8,7 +8,7 @@ import Sheet from '../components/Sheet';
 import CouponValue from '../components/CouponValue';
 import RecordRows from '../components/RecordRows';
 import DataState from '../components/DataState';
-import recordsReference from '../../../../../../docs/coupon/ui/16-verification-records.png';
+import recordsReference from '../assets/16-verification-records.png';
 export default function RecordsPage() {
   const bannerFilter = useId();
   const storeId = sessionStorage.getItem('coupon-store') || 'store-1';

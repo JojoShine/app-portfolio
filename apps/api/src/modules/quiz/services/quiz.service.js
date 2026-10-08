@@ -1,5 +1,5 @@
 const db = require('../../../config/database');
-const storage = require('../../../config/minio');
+const storage = require('../../../config/oss');
 const { ValidationError, NotFoundError, ConflictError } = require('../../../common/utils/error');
 
 const assetUrl = (id) => `/api/quiz/assets/${encodeURIComponent(id)}`;
@@ -177,5 +177,5 @@ exports.asset = async (id) => {
   const asset = await db.quizAsset.findUnique({ where: { id } });
   if (!asset) throw new NotFoundError('答题资源不存在');
   await storage.ensurePrivateBucket();
-  return { stream: await storage.getMinioClient().getObject(storage.bucket, asset.objectKey), mimeType: asset.mimeType };
+  return { stream: await storage.getObject(asset.objectKey), mimeType: asset.mimeType };
 };

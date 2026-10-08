@@ -10,6 +10,7 @@
     "prisma:validate": "prisma validate",
     "prisma:generate": "prisma generate",
     "db:migrate": "prisma migrate deploy",
+    "db:init": "node scripts/initialize.js",
     "db:migrate:dev": "prisma migrate dev",
     "db:seed": "prisma db seed",
     "db:seed:system": "node prisma/seed.js system",
@@ -27,12 +28,12 @@
   "description": "",
   "dependencies": {
     "@prisma/client": "^6.19.1",
+    "ali-oss": "^6.23.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "helmet": "^8.2.0",
     "jsonwebtoken": "^9.0.3",
-    "minio": "^8.0.7",
     "multer": "^2.1.1",
     "sharp": "^0.35.3",
     "winston": "^3.19.0"

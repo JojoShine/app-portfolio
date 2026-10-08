@@ -5,7 +5,7 @@ import { listMerchants } from '../services/merchant.service';
 import { listVerifications, listPendingRequests } from '../services/verification.service';
 import { useCouponData } from '../hooks/useCouponData';
 import Artwork from '../components/Artwork';
-import merchantReference from '../../../../../../docs/coupon/ui/10-merchant-home.png';
+import merchantReference from '../assets/10-merchant-home.png';
 import MerchantIdentity from '../components/MerchantIdentity';
 import RecordRows from '../components/RecordRows';
 import Sheet from '../components/Sheet';

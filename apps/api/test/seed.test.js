@@ -41,6 +41,13 @@ function isolatedAssetStore() {
   };
 }
 
+test('资源初始化失败时不写业务记录，避免产生缺图数据',async()=>{
+  let writes=0;
+  const database={$transaction:async()=>{writes++;}};
+  await assert.rejects(runSeeds(database,['library'],{assetStore:{uploadFile:async()=>{throw new Error('OSS unavailable');}}}),/OSS unavailable/);
+  assert.equal(writes,0);
+});
+
 test('种子入口严格校验模块并去重，默认包含所有已建后端模块', () => {
   assert.deepEqual(selectModules(), ['policy-match', 'system', 'enrollment', 'library', 'coupon', 'snap-report', 'green-points', 'quiz']);
   assert.deepEqual(selectModules(['coupon', 'coupon']), ['coupon']);

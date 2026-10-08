@@ -5,7 +5,7 @@ import { getPendingRequest } from '../services/verification.service';
 import { useCouponData } from '../hooks/useCouponData';
 import { useCountdown } from '../hooks/useCountdown';
 import Artwork from '../components/Artwork';
-import pendingReference from '../../../../../../docs/coupon/ui/08-pending-confirmation.png';
+import pendingReference from '../assets/08-pending-confirmation.png';
 import CouponValue from '../components/CouponValue';
 import DataState from '../components/DataState';
 export default function PendingPage() {

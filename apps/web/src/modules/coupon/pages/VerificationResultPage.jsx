@@ -6,7 +6,7 @@ import PageHeader from '../components/PageHeader';
 import Artwork from '../components/Artwork';
 import VerificationReceipt from '../components/VerificationReceipt';
 import DataState from '../components/DataState';
-import resultReference from '../../../../../../docs/coupon/ui/15-merchant-result.png';
+import resultReference from '../assets/15-merchant-result.png';
 export default function VerificationResultPage() {
   const artFilter = useId();
   const { id } = useParams();

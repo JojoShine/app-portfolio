@@ -7,3 +7,8 @@ export const appConfig = Object.freeze({
   requestTimeoutMs: Number(import.meta.env.VITE_REQUEST_TIMEOUT_MS || 10000),
   useMockApi: import.meta.env.VITE_USE_MOCK_API !== 'false',
 });
+
+// 后端返回的根路径资源地址也必须遵循正式环境的 API 前缀。
+export const resolveApiResourceUrl = (url) => url?.startsWith('/api/')
+  ? `${appConfig.apiBaseUrl}${url.slice(4)}`
+  : url;

@@ -5,7 +5,8 @@ const sharp=require('sharp');
 const app=require('../src/app');
 const db=require('../src/config/database');
 const {issueAccessToken}=require('../src/system/auth').service;
-test('政策真实接口：画像隔离、快照、材料权限、并发提交和外部进度',async()=>{
+test('政策真实接口：画像隔离、快照、材料权限、并发提交和外部进度',async(t)=>{
+  require('../test-support/storage')(t);
   const userId='policy-test-'+randomUUID(),other='policy-test-'+randomUUID();
   const server=app.listen(0,'127.0.0.1');await new Promise(r=>server.once('listening',r));
   const base='http://127.0.0.1:'+server.address().port+'/api/policy-match';

@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const db = require('../../../config/database');
-const storage = require('../../../config/minio');
+const storage = require('../../../config/oss');
 const { ValidationError, NotFoundError, ConflictError } = require('../../../common/utils/error');
 
 const DAY = 86400000;
@@ -178,5 +178,5 @@ exports.asset = async (id) => {
   const asset = await db.greenPointsAsset.findUnique({ where: { id } });
   if (!asset) throw new NotFoundError('商城资源不存在');
   await storage.ensurePrivateBucket();
-  return { stream: await storage.getMinioClient().getObject(storage.bucket, asset.objectKey), mimeType: asset.mimeType };
+  return { stream: await storage.getObject(asset.objectKey), mimeType: asset.mimeType };
 };

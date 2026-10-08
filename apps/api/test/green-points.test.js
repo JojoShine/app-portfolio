@@ -5,7 +5,9 @@ const app = require('../src/app');
 const db = require('../src/config/database');
 const { issueAccessToken } = require('../src/system/auth').service;
 
-test('积分商城目录与用户交互均通过数据库接口持久化', async () => {
+test('积分商城目录与用户交互均通过数据库接口持久化', async (t) => {
+  const assetStore = require('../test-support/storage')(t);
+  await require('../prisma/seed/green-points').seedAssets(assetStore);
   const server = app.listen(0, '127.0.0.1');
   await new Promise((resolve) => server.once('listening', resolve));
   const userId = `green-points-test-${randomUUID()}`;

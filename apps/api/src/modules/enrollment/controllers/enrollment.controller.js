@@ -1,4 +1,5 @@
 const response = require('../../../common/response');
+const pipeFile = require('../../../common/utils/pipeFile');
 const { ApiError, ValidationError, NotFoundError } = require('../../../common/utils/error');
 const service = require('../services');
 const captcha = require('../utils/captcha');
@@ -199,7 +200,7 @@ exports.getReviewMaterialFile = wrap(async (req, res) => {
   res.setHeader('Content-Type', file.mimeType);
   res.setHeader('Cache-Control', 'private, no-store');
   res.setHeader('Content-Disposition', `inline; filename="${encodeURIComponent(file.filename)}"`);
-  file.stream.pipe(res);
+  await pipeFile(file.stream, res);
 });
 
 exports.admitApplication = wrap(async (req, res) => {

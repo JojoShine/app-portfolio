@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const database = require('../../../config/database');
-const fileStorage = require('../../../config/minio');
+const fileStorage = require('../../../config/oss');
 const { app: logger } = require('../../../common/utils/logger');
 const {
   ApiError,
@@ -40,7 +40,6 @@ const canAccessFile = (fileRecord, requester) => (
 );
 
 const uploadFile = async (file, uploadedBy = null) => {
-  const minioClient = fileStorage.getMinioClient();
   let filePath;
   let persisted = false;
 
@@ -53,9 +52,7 @@ const uploadFile = async (file, uploadedBy = null) => {
     const filename = `${timestamp}-${fileId}.${extension}`;
     filePath = `${fileType}/${filename}`;
 
-    await minioClient.putObject(fileStorage.bucket, filePath, file.buffer, file.size, {
-      'Content-Type': file.mimetype,
-    });
+    await fileStorage.putObject(filePath, file.buffer, file.mimetype);
 
     const fileRecord = await database.file.create({
       data: {
@@ -80,7 +77,7 @@ const uploadFile = async (file, uploadedBy = null) => {
     return fileRecord;
   } catch (error) {
     if (filePath && !persisted) {
-      await minioClient.removeObject(fileStorage.bucket, filePath).catch(() => null);
+      await fileStorage.deleteObject(filePath).catch(() => null);
     }
     if (error instanceof ApiError) throw error;
     logger.error('File upload failed', {
@@ -93,7 +90,6 @@ const uploadFile = async (file, uploadedBy = null) => {
 
 const getFileStream = async (fileIdOrPath, requester) => {
   try {
-    const minioClient = fileStorage.getMinioClient();
     await fileStorage.ensurePrivateBucket();
     const fileRecord = UUID_PATTERN.test(fileIdOrPath)
       ? await database.file.findUnique({ where: { id: fileIdOrPath }, select: FILE_SELECT })
@@ -102,7 +98,7 @@ const getFileStream = async (fileIdOrPath, requester) => {
     if (!fileRecord) throw new NotFoundError('File not found');
     if (!canAccessFile(fileRecord, requester)) throw new ForbiddenError('File access denied');
 
-    const stream = await minioClient.getObject(fileStorage.bucket, fileRecord.path);
+    const stream = await fileStorage.getObject(fileRecord.path);
     logger.info('File stream retrieved', { filePath: fileRecord.path });
 
     return {
@@ -120,7 +116,6 @@ const getFileStream = async (fileIdOrPath, requester) => {
 
 const deleteFile = async (fileId, requester) => {
   try {
-    const minioClient = fileStorage.getMinioClient();
     await fileStorage.ensurePrivateBucket();
 
     const fileRecord = await database.$transaction(async (transaction) => {
@@ -135,7 +130,7 @@ const deleteFile = async (fileId, requester) => {
       return record;
     });
 
-    await minioClient.removeObject(fileStorage.bucket, fileRecord.path).catch((error) => {
+    await fileStorage.deleteObject(fileRecord.path).catch((error) => {
       logger.warn('File metadata deleted but object cleanup failed', {
         fileId,
         filePath: fileRecord.path,

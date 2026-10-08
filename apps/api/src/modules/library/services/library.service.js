@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const db = require('../db');
-const storage = require('../../../config/minio');
+const storage = require('../../../config/oss');
 const { NotFoundError, ConflictError, ForbiddenError } = require('../../../common/utils/error');
 const { getRenewalBlockReason, getRenewedDueAt, hasTimeConflict } = require('../domain/rules');
 
@@ -224,6 +224,6 @@ exports.readAllMessages = async (userId) => {
 exports.media = async (path) => {
   if (!path.startsWith('library/')) throw new ForbiddenError('文件路径不可访问');
   await storage.ensurePrivateBucket();
-  const stream = await storage.getMinioClient().getObject(storage.bucket, path);
+  const stream = await storage.getObject(path);
   return { stream, contentType: path.endsWith('.png') ? 'image/png' : 'image/jpeg' };
 };

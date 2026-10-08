@@ -1,4 +1,5 @@
 const response = require('../../../common/response');
+const pipeFile = require('../../../common/utils/pipeFile');
 const service = require('../services/library.service');
 const validation = require('../validations/library.validation');
 
@@ -28,4 +29,4 @@ exports.addReadingCheckIn = wrap(async (req, res) => res.status(201).json(respon
 exports.messages = wrap(async (req, res) => res.json(response.success(await service.messages(req.user.id))));
 exports.readMessage = wrap(async (req, res) => res.json(response.success(await service.readMessage(req.params.id, req.user.id))));
 exports.readAllMessages = wrap(async (req, res) => res.json(response.success(await service.readAllMessages(req.user.id))));
-exports.media = wrap(async (req, res) => { const file = await service.media(req.params.path.join('/')); res.setHeader('Content-Type', file.contentType); file.stream.pipe(res); });
+exports.media = wrap(async (req, res) => { const file = await service.media(req.params.path.join('/')); res.setHeader('Content-Type', file.contentType); await pipeFile(file.stream, res); });

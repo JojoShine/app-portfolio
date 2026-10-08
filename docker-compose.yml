@@ -1,0 +1,22 @@
+# 仅运行后端；宿主机 PostgreSQL 和远程 OSS 通过环境变量连接。
+# 显式使用 -f docker-compose.yml，避免读取本地开发用的 compose.yaml。
+services:
+  api:
+    image: app-portfolio-api:local
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    restart: unless-stopped
+    env_file: .env.production
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      ENABLE_DEV_AUTH: "false"
+      DATABASE_URL: ${DATABASE_URL:?请配置宿主机 PostgreSQL 连接}
+      JWT_SECRET: ${JWT_SECRET:?请配置 JWT_SECRET}
+      ENROLLMENT_DATA_KEY: ${ENROLLMENT_DATA_KEY:?请配置数据加密密钥}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "127.0.0.1:${API_PORT:-8000}:3000"
+    stop_grace_period: 30s

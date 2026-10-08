@@ -21,7 +21,8 @@ test('随手拍允许不含城市名的手填地址，拒绝空地址、重复�
   assert.equal(validation.analysisResult({ severity: '不知道', category: '未知' }).severity, '');
 });
 
-test('真实上传、识别适配、幂等提交、跨用户隔离及记录刷新', async () => {
+test('真实上传、识别适配、幂等提交、跨用户隔离及记录刷新', async (t) => {
+  require('../test-support/storage')(t);
   const server = app.listen(0, '127.0.0.1');
   await new Promise((resolve) => server.once('listening', resolve));
   const base = `http://127.0.0.1:${server.address().port}/api`;

@@ -22,41 +22,29 @@ function selectModules(args = []) {
 async function runSeeds(prisma, names, { assetStore } = {}) {
   for (const name of selectModules(names)) {
     const moduleSeed = modules[name]();
-    await prisma.$transaction((tx) => moduleSeed.seedData(tx), { timeout: 60000 });
     if (moduleSeed.seedAssets) {
       if (!assetStore) throw new Error(`${name} 初始化需要资源存储配置`);
       await moduleSeed.seedAssets(assetStore);
     }
+    await prisma.$transaction((tx) => moduleSeed.seedData(tx), { timeout: 60000 });
     console.log(`已初始化 ${name}（保留已有记录）`);
   }
 }
 
-function createMinioAssetStore() {
-  const fs = require('node:fs');
-  const storage = require('../src/config/minio');
-  let ready;
-  return { uploadFile: async ({ objectKey, sourcePath, mimeType }) => {
-    ready ||= storage.ensurePrivateBucket();
-    await ready;
-    const stat = await fs.promises.stat(sourcePath);
-    return storage.getMinioClient().putObject(
-      storage.bucket,
-      objectKey,
-      fs.createReadStream(sourcePath),
-      stat.size,
-      { 'Content-Type': mimeType },
-    );
-  } };
+function createOssAssetStore() {
+  const storage = require('../src/config/oss');
+  return { uploadFile: ({ objectKey, sourcePath, mimeType }) =>
+    storage.putFileIfMissing(objectKey, sourcePath, mimeType) };
 }
 
 async function main() {
   const names = selectModules(process.argv.slice(2));
-  require('dotenv').config({ path: ['.env', '.env.example'], quiet: true });
-  const { PrismaClient } = require('@prisma/client');
-  const prisma = new PrismaClient();
-  try { await runSeeds(prisma, names, { assetStore: createMinioAssetStore() }); } finally { await prisma.$disconnect(); }
+  const env = require('../src/config/env');
+  env.validate();
+  const prisma = require('../src/config/database');
+  try { await runSeeds(prisma, names, { assetStore: createOssAssetStore() }); } finally { await prisma.$disconnect(); }
 }
 
 if (require.main === module) main().catch((error) => { console.error(error.message); process.exitCode = 1; });
 
-module.exports = { selectModules, runSeeds, createMinioAssetStore };
+module.exports = { selectModules, runSeeds, createOssAssetStore };

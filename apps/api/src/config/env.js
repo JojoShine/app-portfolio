@@ -2,7 +2,7 @@ const path = require('path');
 require('dotenv').config({
   path: [
     path.resolve(__dirname, '../../.env'),
-    path.resolve(__dirname, '../../.env.example'),
+    ...(process.env.NODE_ENV === 'production' ? [] : [path.resolve(__dirname, '../../.env.example')]),
   ],
   quiet: true,
 });
@@ -39,12 +39,12 @@ const env = {
   DEV_AUTH_SECRET: process.env.DEV_AUTH_SECRET,
 
   FILE_STORAGE_ENABLED: toBoolean(process.env.FILE_STORAGE_ENABLED),
-  MINIO_ENDPOINT: process.env.MINIO_ENDPOINT,
-  MINIO_PORT: toNumber(process.env.MINIO_PORT, 9100),
-  MINIO_USE_SSL: toBoolean(process.env.MINIO_USE_SSL),
-  MINIO_ACCESS_KEY: process.env.MINIO_ACCESS_KEY,
-  MINIO_SECRET_KEY: process.env.MINIO_SECRET_KEY,
-  MINIO_BUCKET: process.env.MINIO_BUCKET || 'app-portfolio',
+  OSS_REGION: process.env.OSS_REGION,
+  OSS_ENDPOINT: process.env.OSS_ENDPOINT || '',
+  OSS_ACCESS_KEY_ID: process.env.OSS_ACCESS_KEY_ID,
+  OSS_ACCESS_KEY_SECRET: process.env.OSS_ACCESS_KEY_SECRET,
+  OSS_STS_TOKEN: process.env.OSS_STS_TOKEN || '',
+  OSS_BUCKET: process.env.OSS_BUCKET,
 
   ENROLLMENT_DATA_KEY: process.env.ENROLLMENT_DATA_KEY,
   SNAP_AI_URL: process.env.SNAP_AI_URL || '',
@@ -82,9 +82,10 @@ env.validate = () => {
     errors.push('ENROLLMENT_DATA_KEY must contain at least 32 characters in production');
   }
   if (env.FILE_STORAGE_ENABLED) {
-    for (const key of ['MINIO_ENDPOINT', 'MINIO_ACCESS_KEY', 'MINIO_SECRET_KEY']) {
+    for (const key of ['OSS_REGION', 'OSS_ACCESS_KEY_ID', 'OSS_ACCESS_KEY_SECRET', 'OSS_BUCKET']) {
       if (!env[key]) errors.push(`${key} is required when file storage is enabled`);
     }
+    if (env.OSS_ENDPOINT && !/^https:\/\//.test(env.OSS_ENDPOINT)) errors.push('OSS_ENDPOINT must use HTTPS');
   }
 
   if (errors.length > 0) {

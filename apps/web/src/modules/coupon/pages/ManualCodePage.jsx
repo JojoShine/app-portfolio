@@ -4,7 +4,7 @@ import { TextDeletionOutline } from 'antd-mobile-icons';
 import { previewVerification } from '../services/verification.service';
 import PageHeader from '../components/PageHeader';
 import Artwork from '../components/Artwork';
-import manualReference from '../../../../../../docs/coupon/ui/12-manual-code.png';
+import manualReference from '../assets/12-manual-code.png';
 export default function ManualCodePage() {
   const artFilterId = useId();
   const [code, setCode] = useState('');
