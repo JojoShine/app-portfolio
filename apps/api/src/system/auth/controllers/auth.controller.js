@@ -39,4 +39,12 @@ const getCurrentUser = (req, res) => {
   res.json(response.success(req.user));
 };
 
-module.exports = { createDevelopmentToken, getCurrentUser };
+const createPublicDemoToken = (req, res, next) => {
+  try {
+    const accessToken = authService.issuePublicDemoToken();
+    res.set('Cache-Control', 'no-store');
+    res.json(response.success({accessToken,tokenType:'Bearer',expiresIn:'1h'}));
+  } catch (error) { next(error); }
+};
+
+module.exports = { createDevelopmentToken, createPublicDemoToken, getCurrentUser };

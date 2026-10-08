@@ -94,6 +94,12 @@ docker compose --env-file .env.production -f docker-compose.prod.yml up -d --no-
 - `.env.production` 不提交 Git、不进入镜像；`apps/web/.env.production` 只含公开参数，正式环境关闭 Mock 和开发令牌，身份由载体提供。
 - 发布前备份现有数据库与前端版本；应用可切换回上一提交镜像，数据库迁移不能靠切换镜像自动回滚。
 
+### 公共演示登录
+
+公共演示站可在服务器 `.env.production` 显式设置 `ENABLE_PUBLIC_DEMO=true`，配合前端 `VITE_PUBLIC_DEMO=true` 自动获取测试用户 Token。固定账号 `test-parent-001` 只有 reader/parent/citizen 角色，不能指定身份或获得管理员权限；有效期 1 小时，前端过期后自动重新获取。演示数据由访客共享，不得输入真实个人信息或上传敏感材料。关闭服务端开关后已签发的演示 Token 同时失效；正式部署应关闭前后端两个开关。开发令牌仍不允许在生产开启。
+
+## 本地开发步骤
+
 ### 1. 启动基础设施
 
 ```bash

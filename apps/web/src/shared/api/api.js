@@ -39,8 +39,16 @@ api.interceptors.response.use(
     }
     return payload.data;
   },
-  (error) => {
-    if (error.response?.status === 401) useSessionStore.getState().clearSession();
+  async (error) => {
+    if (error.response?.status === 401) {
+      useSessionStore.getState().clearSession();
+      const config = error.config;
+      if (appConfig.publicDemo && config && !config.demoRetried && !config.url?.startsWith('/auth/')) {
+        config.demoRetried = true;
+        await ensurePublicDemoSession();
+        return api(config);
+      }
+    }
     const payload = error.response?.data;
     return Promise.reject(new ApiClientError(
       payload?.message || error.message || '请求失败',
@@ -61,3 +69,15 @@ export const configureApiAdapter = (adapter) => {
 };
 
 export default api;
+
+let demoSessionRequest;
+export const ensurePublicDemoSession = async () => {
+  if (!appConfig.publicDemo) return;
+  if (useSessionStore.getState().accessToken) return;
+  if (!demoSessionRequest) {
+    demoSessionRequest = api.post('/auth/demo-token', {}, {networkOnly:true})
+      .then(session => useSessionStore.getState().setAccessToken(session.accessToken))
+      .finally(() => { demoSessionRequest = null; });
+  }
+  return demoSessionRequest;
+};

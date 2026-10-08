@@ -35,7 +35,7 @@ const verifyAccessToken = (token) => {
       audience: env.JWT_AUDIENCE,
     });
 
-    if (claims.type !== 'access' || !claims.sub) {
+    if (claims.type !== 'access' || !claims.sub || (claims.demo && !env.ENABLE_PUBLIC_DEMO)) {
       throw new UnauthorizedError('Invalid access token');
     }
 
@@ -51,4 +51,12 @@ const verifyAccessToken = (token) => {
   }
 };
 
-module.exports = { issueDevelopmentToken, issueAccessToken: issueDevelopmentToken, verifyAccessToken };
+const issuePublicDemoToken = () => {
+  const { NotFoundError } = require('../../../common/utils/error');
+  if (!env.ENABLE_PUBLIC_DEMO) throw new NotFoundError();
+  return jwt.sign({type:'access',demo:true,name:'演示用户',roles:['reader','parent','citizen'],schoolIds:[]}, env.JWT_SECRET, {
+    subject:'test-parent-001',expiresIn:'1h',issuer:env.JWT_ISSUER,audience:env.JWT_AUDIENCE,
+  });
+};
+
+module.exports = { issueDevelopmentToken, issueAccessToken: issueDevelopmentToken, issuePublicDemoToken, verifyAccessToken };

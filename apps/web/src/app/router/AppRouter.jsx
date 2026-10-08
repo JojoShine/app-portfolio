@@ -30,20 +30,23 @@ const ScrollToTop = () => {
 };
 
 const AppRouter = () => {
-  const [sessionReady, setSessionReady] = useState(!appConfig.useMockApi);
+  const [sessionReady, setSessionReady] = useState(!appConfig.useMockApi && !appConfig.publicDemo);
+  const [sessionError, setSessionError] = useState('');
 
   useEffect(() => {
-    if (!appConfig.useMockApi) return;
-    identityCapability.ensureDevelopmentUser()
-      .catch(() => null)
+    if (!appConfig.useMockApi && !appConfig.publicDemo) return;
+    const session = appConfig.publicDemo ? identityCapability.ensureLocalSession() : identityCapability.ensureDevelopmentUser();
+    session.catch(error => { if (appConfig.publicDemo) setSessionError(error.message); })
       .finally(() => setSessionReady(true));
   }, []);
 
   if (!sessionReady) return <ApplicationShell><RouteLoading /></ApplicationShell>;
+  if (sessionError) return <ApplicationShell><ErrorBlock title="演示登录暂不可用" description={sessionError} /><button type="button" onClick={() => window.location.reload()}>重新尝试</button></ApplicationShell>;
 
   return <BrowserRouter basename={appConfig.routerBaseName}>
     <ScrollToTop />
     <ApplicationShell>
+      {appConfig.publicDemo && <div className="public-demo-notice" role="note">公共演示 · 测试账号数据共享，请勿提交真实信息或敏感材料</div>}
       <Suspense fallback={<RouteLoading />}>
         <Routes>
           <Route path="/" element={<CatalogPage />} />

@@ -1,4 +1,4 @@
-import apiClient from '../api/api';
+import apiClient, { ensurePublicDemoSession } from '../api/api';
 import useSessionStore from '../auth/sessionStore';
 import { appConfig } from '../../app/config/env';
 
@@ -36,6 +36,13 @@ export const identityCapability = {
       } catch (error) {
         if (error.status !== 401) throw error;
       }
+    }
+    if (appConfig.publicDemo) {
+      store.clearSession();
+      await ensurePublicDemoSession();
+      const user = await apiClient.get('/auth/me', { networkOnly: true });
+      store.setUser(user);
+      return user;
     }
     if (!import.meta.env.DEV) throw new Error('请通过外层应用登录后再进入');
     // 与图书馆共用预置身份；服务端仍检查开发环境与回环地址。

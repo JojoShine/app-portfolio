@@ -36,6 +36,7 @@ const env = {
   JWT_AUDIENCE: process.env.JWT_AUDIENCE || 'app-portfolio-api',
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || '1h',
   ENABLE_DEV_AUTH: toBoolean(process.env.ENABLE_DEV_AUTH),
+  ENABLE_PUBLIC_DEMO: toBoolean(process.env.ENABLE_PUBLIC_DEMO),
   DEV_AUTH_SECRET: process.env.DEV_AUTH_SECRET,
 
   FILE_STORAGE_ENABLED: toBoolean(process.env.FILE_STORAGE_ENABLED),
