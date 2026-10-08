@@ -75,7 +75,7 @@ docker compose --env-file .env.production -f docker-compose.yml up -d --no-build
 
 ## GitHub Actions 发布与服务器部署
 
-推送 `main` 后，`.github/workflows/publish.yml` 在隔离 PostgreSQL 上执行迁移、初始化和前后端检查；通过后发布 `ghcr.io/jojoshine/app-portfolio-api:<完整提交SHA>`（amd64/arm64），并上传 `app-portfolio-web-<SHA>` 前端构建产物。PR 只检查，不发布镜像，CI 不使用真实数据库或 OSS 凭据。
+推送 `main` 后，`.github/workflows/publish.yml` 在隔离 PostgreSQL 上执行迁移、初始化和前后端检查；通过后构建 `ghcr.io/jojoshine/app-portfolio-api:<完整提交SHA>`（当前服务器为 amd64），并上传 `app-portfolio-web-<SHA>` 前端构建产物及 `app-portfolio-api-<SHA>` 离线镜像包。PR 只检查，不发布镜像，CI 不使用真实数据库或 OSS 凭据。
 
 服务器准备 `docker-compose.prod.yml` 和私有的 `.env.production`，填写 `API_IMAGE` 为本次提交标签以及外部数据库、JWT、数据加密密钥、OSS 参数，然后运行：
 
@@ -84,6 +84,8 @@ docker compose --env-file .env.production -f docker-compose.yml up -d --no-build
 docker compose --env-file .env.production -f docker-compose.prod.yml pull
 docker compose --env-file .env.production -f docker-compose.prod.yml up -d --no-build --wait --wait-timeout 300
 ```
+
+若服务器无法拉取 GHCR：在可访问 GitHub 的设备下载同一提交的镜像 Artifact，经 SSH 上传服务器，执行 `sha256sum -c app-portfolio-api.tar.gz.sha256`、`docker load -i app-portfolio-api.tar.gz`，再执行上述 `up` 命令并增加 `--pull never`。离线包保留 CI 镜像的相同标签；不需要服务器访问 Docker Hub。CI 的仓库推送失败不影响离线包产出，需检查 image job 的发布步骤，不能仅凭工作流绿色认定 GHCR 推送成功。
 
 - 服务器不构建镜像，也不启动数据库、Redis 或 MinIO。API 仅监听宿主机 `127.0.0.1:8000`，容器端口 3000。
 - API 启动依次执行 Prisma 生成、表结构迁移、数据/资源初始化，失败则不启动；已有业务记录及 OSS 对象不覆盖。数据库本身须预先创建。
